@@ -13,8 +13,8 @@
    - **Phase 4A (accepted ADR):** construction inputs, outputs, hard and soft
      constraints, object lifetimes, compromise reporting, and deterministic
      boundaries.
-   - **Phase 4B (planned):** transparent greedy construction over fresh
-     `CandidateSelector` rankings.
+   - **Phase 4B (complete):** transparent track-count construction over fresh
+     state-relative `CandidateSelector` rankings.
    - **Later:** evaluated optimization only after the greedy baseline is
      understood.
 5. **Local UI/API:** FastAPI calibration and playlist workflows, feedback entry.

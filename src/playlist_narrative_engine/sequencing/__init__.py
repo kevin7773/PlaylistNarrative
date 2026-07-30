@@ -1,5 +1,17 @@
 """Explainable candidate scoring for future playlist sequencing."""
 
+from playlist_narrative_engine.sequencing.constructor import (
+    CandidateRejection,
+    ConstructionIssue,
+    ConstructionIssueSeverity,
+    ConstructionPolicy,
+    ConstructionResult,
+    ConstructionState,
+    ConstructionStatus,
+    ConstructionSummary,
+    PlacedTrack,
+    SequentialPlaylistConstructor,
+)
 from playlist_narrative_engine.sequencing.scorer import ScoringWeights, TrackScorer
 from playlist_narrative_engine.sequencing.selector import (
     CandidateSelector,
@@ -14,8 +26,17 @@ from playlist_narrative_engine.sequencing.schemas import (
 )
 
 __all__ = [
+    "CandidateRejection",
     "CandidateSelector",
+    "ConstructionIssue",
+    "ConstructionIssueSeverity",
+    "ConstructionPolicy",
+    "ConstructionResult",
+    "ConstructionState",
+    "ConstructionStatus",
+    "ConstructionSummary",
     "DiscoveryBudgetPolicy",
+    "PlacedTrack",
     "RankedCandidate",
     "ScoreBreakdown",
     "ScoringWeights",
@@ -23,4 +44,5 @@ __all__ = [
     "TrackRole",
     "TrackScorer",
     "TransitionProfile",
+    "SequentialPlaylistConstructor",
 ]

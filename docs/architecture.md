@@ -11,7 +11,7 @@ repository interfaces rather than UI or AI-provider behavior.
 - `taste`: rating vocabulary, preference policy, repositories, and services.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
-  construction contracts.
+  sequential construction.
 - API/UI (Phase 5): thin adapters over application services.
 - `providers` (Phase 6): optional AI assistance behind a small interface.
 
