@@ -18,9 +18,9 @@
    - **Later:** evaluated optimization only after the greedy baseline is
      understood.
 5. **Playlist journey evaluation:**
-   - **Phase 5A (design proposed):** pure-observer contract, metric inventory,
+   - **Phase 5A (complete):** pure-observer contract, metric inventory,
      precision limits, immutable outputs, and evaluation issue taxonomy.
-   - **Phase 5B (planned):** deterministic evaluation of complete and partial
+   - **Phase 5B (complete):** deterministic evaluation of complete and partial
      construction results using existing evidence only.
 6. **Local UI/API:** FastAPI calibration and playlist workflows, feedback entry.
 7. **Optional AI:** provider interface, deterministic fallback, reviewed natural

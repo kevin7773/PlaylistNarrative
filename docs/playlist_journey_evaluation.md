@@ -1,6 +1,6 @@
 # Phase 5: Playlist Journey Evaluation
 
-- **Status:** Proposed design note
+- **Status:** Accepted design contract
 - **Scope:** Deterministic observation of construction results
 - **Depends on:** Accepted Phase 4A ADR and Phase 4B construction artifacts
 
@@ -252,10 +252,10 @@ accepted threshold policy.
 ## Proposed delivery sequence
 
 1. **Phase 5A — Evaluation contract**
-   - review and accept the metric inventory, precision limits, output shape, and
-     issue taxonomy;
+   - accepted metric inventory, precision limits, output shape, and issue
+     taxonomy;
 2. **Phase 5B — Deterministic observer**
-   - implement only the metrics supported by accepted Phase 5A evidence;
+   - implemented only the metrics supported by accepted Phase 5A evidence;
 3. **Later optimization**
    - consume evaluation reports only after the pure observer is stable and
      tested.
