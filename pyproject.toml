@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "playlist-narrative-engine"
+version = "0.1.0"
+description = "A local-first engine for intentional, personalized playlist journeys."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic>=2.10,<3",
+  "sqlalchemy>=2.0,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3,<10"]
+
+[project.scripts]
+pne = "playlist_narrative_engine.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/playlist_narrative_engine"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
