@@ -12,8 +12,10 @@ repository interfaces rather than UI or AI-provider behavior.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction.
-- API/UI (Phase 5): thin adapters over application services.
-- `providers` (Phase 6): optional AI assistance behind a small interface.
+- `evaluation` (Phase 5): immutable observation of journey-level construction
+  outcomes without sequence modification.
+- API/UI (Phase 6): thin adapters over application services.
+- `providers` (Phase 7): optional AI assistance behind a small interface.
 
 Hard rules such as `Forbidden`, `Pencil`, and default `No Thanks` exclusion are
 code-level policy. A future AI provider may propose candidates but cannot bypass
