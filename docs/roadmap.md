@@ -15,15 +15,20 @@
      boundaries.
    - **Phase 4B (complete):** transparent track-count construction over fresh
      state-relative `CandidateSelector` rankings.
-   - **Later:** evaluated optimization only after the greedy baseline is
-     understood.
+   - **Later refinement remains external:** Phase 6 consumes construction and
+     evaluation artifacts without changing construction behavior.
 5. **Playlist journey evaluation:**
    - **Phase 5A (complete):** pure-observer contract, metric inventory,
      precision limits, immutable outputs, and evaluation issue taxonomy.
    - **Phase 5B (complete):** deterministic evaluation of complete and partial
      construction results using existing evidence only.
-6. **Local UI/API:** FastAPI calibration and playlist workflows, feedback entry.
-7. **Optional AI:** provider interface, deterministic fallback, reviewed natural
+6. **Deterministic journey refinement:**
+   - **Phase 6A (design proposed):** evidence-grounded bounded operations,
+     correspondence validation, change records, and explicit no-change outcomes.
+   - **Phase 6B (planned):** deterministic partial-tail completion and only
+     specifically approved final-position repairs.
+7. **Local UI/API:** FastAPI calibration and playlist workflows, feedback entry.
+8. **Optional AI:** provider interface, deterministic fallback, reviewed natural
    language interpretation.
 
 Future contexts begin only after the Coding / Cloud Operations vertical slice is

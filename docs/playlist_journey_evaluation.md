@@ -50,6 +50,44 @@ These are component outcomes, not interchangeable proxies. A complete playlist
 with weak transitions and a coherent partial playlist with unmet count are both
 diagnosable, but neither should hide one dimension inside a single average.
 
+### Multidimensional recommendation quality
+
+Recommendation quality is multidimensional. Narrative continuity, objective
+attainment, discovery value, familiarity, and attention demand are related but
+independent characteristics. The architecture must allow these dimensions to
+evolve without conflating them into a single notion of playlist quality.
+
+This is why Phase 5 exposes component evidence and objective comparisons rather
+than a composite quality score. Preserving the dimensions independently allows
+future metadata, thresholds, and policies to become more precise without
+silently changing the meaning of an older aggregate.
+
+### Normative terminology
+
+The following terms are normative for Phase 5 and for consumers of Phase 5
+artifacts:
+
+- **`measured`** means the evaluator has supported current evidence and an
+  applicable sample for a metric. The metric has a numeric observed value and
+  identifies its evidence source, sample count, and denominator or target when
+  meaningful. It does not imply externally verified truth or a causal effect.
+- **`not_applicable`** means the metric is supported in principle, but the
+  evaluated artifact contains no applicable sample or context. It is not a
+  failure, a zero, or missing evidence. Observed value, numerator, and
+  denominator remain null.
+- **`unavailable`** means the current domain model or artifact lacks sufficient
+  evidence or provenance to support the measurement. It uses the `unsupported`
+  evidence source and null observed values. It must not be converted into a
+  proxy or used as decision evidence.
+- **improvement** means a strictly better result for one explicitly named,
+  measured objective metric, or the disappearance of one exact documented
+  issue, subject to stated non-regression rules. It is local to that metric or
+  issue and does not imply general playlist improvement.
+- **quality** is a multidimensional descriptive concept, not a scalar, grade,
+  composite score, or acceptance criterion. Any quality claim must name the
+  relevant dimension. The unqualified claim “playlist quality improved” is not
+  supported by this contract.
+
 ### Which outcomes can existing construction data measure?
 
 The current artifacts support the following deterministic measurements:
@@ -183,7 +221,7 @@ rewritten.
 Complete and partial results use the same evaluator. The report separates:
 
 1. **objective attainment**, measured against the full request; and
-2. **conditional observed quality**, measured only over tracks and transitions
+2. **conditional observed evidence**, measured only over tracks and transitions
    that actually exist.
 
 A partial playlist must never be scaled up as though missing placements had

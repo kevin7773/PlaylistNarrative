@@ -43,11 +43,18 @@ schema. Unknown fields are rejected.
 
 Metric applicability has enforced semantics:
 
-- `measured` requires a numeric value and supported evidence;
+- `measured` requires a numeric value, supported current evidence, and an
+  applicable sample;
 - `not_applicable` means the metric is valid in principle but has no applicable
-  sample, so value, numerator, and denominator are null;
+  sample or context; it is not a failure, zero, or evidence gap, and value,
+  numerator, and denominator are null;
 - `unavailable` means current evidence cannot support the measurement and must
-  use the `unsupported` evidence source with null observed values.
+  use the `unsupported` evidence source with null observed values; it cannot be
+  converted into a proxy or used as decision evidence.
+
+These meanings, along with the normative definitions of `improvement` and
+`quality`, are inherited from the Phase 5A contract. In particular, `quality`
+is multidimensional and is not a scalar output or acceptance criterion.
 
 Changing field order, enum values, applicability semantics, or required fields
 requires a schema-version decision rather than an incidental refactor.
@@ -91,7 +98,7 @@ Identical inputs produce equal reports and identical serialized JSON bytes.
 Metrics, phases, roles, positions, and issues use stable ordering. Tests verify:
 
 - complete, partial, infeasible, empty, and resumed construction results;
-- objective and conditional-quality separation;
+- objective and conditional-evidence separation;
 - transition denominator handling;
 - unavailable metrics;
 - no rescoring;

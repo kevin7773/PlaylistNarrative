@@ -14,8 +14,10 @@ repository interfaces rather than UI or AI-provider behavior.
   sequential construction.
 - `evaluation` (Phase 5): immutable observation of journey-level construction
   outcomes without sequence modification.
-- API/UI (Phase 6): thin adapters over application services.
-- `providers` (Phase 7): optional AI assistance behind a small interface.
+- `refinement` (Phase 6): bounded evidence-driven revision that consumes
+  construction and evaluation without redefining either.
+- API/UI (Phase 7): thin adapters over application services.
+- `providers` (Phase 8): optional AI assistance behind a small interface.
 
 Hard rules such as `Forbidden`, `Pencil`, and default `No Thanks` exclusion are
 code-level policy. A future AI provider may propose candidates but cannot bypass
