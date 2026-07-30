@@ -27,6 +27,9 @@
      correspondence validation, change records, and explicit no-change outcomes.
    - **Phase 6B (planned):** deterministic partial-tail completion and only
      specifically approved final-position repairs.
+   - **Isolated elicitation prerequisite (implemented):** deterministic,
+     closed-world artist questionnaire seeds for manual rating. This is not a
+     refinement or recommendation artifact.
 7. **Local UI/API:** FastAPI calibration and playlist workflows, feedback entry.
 8. **Optional AI:** provider interface, deterministic fallback, reviewed natural
    language interpretation.
