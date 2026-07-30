@@ -9,10 +9,16 @@
      scoring, transition profiles, contrast-aware penalties.
    - **Phase 3B (complete):** deterministic next-track candidate ranking with
      phase-relative discovery-budget modifiers.
-   - **Next:** local track catalog, automatic construction, duration and artist
-     limits, exports.
-4. **Local UI/API:** FastAPI calibration and playlist workflows, feedback entry.
-5. **Optional AI:** provider interface, deterministic fallback, reviewed natural
+4. **Playlist construction:**
+   - **Phase 4A (accepted ADR):** construction inputs, outputs, hard and soft
+     constraints, object lifetimes, compromise reporting, and deterministic
+     boundaries.
+   - **Phase 4B (planned):** transparent greedy construction over fresh
+     `CandidateSelector` rankings.
+   - **Later:** evaluated optimization only after the greedy baseline is
+     understood.
+5. **Local UI/API:** FastAPI calibration and playlist workflows, feedback entry.
+6. **Optional AI:** provider interface, deterministic fallback, reviewed natural
    language interpretation.
 
 Future contexts begin only after the Coding / Cloud Operations vertical slice is
