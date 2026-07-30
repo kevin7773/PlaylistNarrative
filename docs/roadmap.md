@@ -7,6 +7,8 @@
 3. **Sequencing:**
    - **Phase 3A (complete):** validated track candidates, explainable component
      scoring, transition profiles, contrast-aware penalties.
+   - **Phase 3B (complete):** deterministic next-track candidate ranking with
+     phase-relative discovery-budget modifiers.
    - **Next:** local track catalog, automatic construction, duration and artist
      limits, exports.
 4. **Local UI/API:** FastAPI calibration and playlist workflows, feedback entry.
