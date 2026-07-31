@@ -11,6 +11,9 @@ repository interfaces rather than UI or AI-provider behavior.
 - `taste`: rating vocabulary, preference policy, repositories, and services.
 - `elicitation`: immutable, closed-world questionnaire seed artifacts derived
   only from explicit supplied evidence and approved fixed local rules.
+- `objective_assessment`: immutable, pure observation of whether validated
+  objective evidence covers the fixed construction-readiness dimensions;
+  missing dimensions map only to documented clarification prompts.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction.

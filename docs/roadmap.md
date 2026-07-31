@@ -4,6 +4,10 @@
    exclusion policy, tests.
 2. **Journey planning (complete):** Active Focus request and journey schemas,
    deterministic phases, discovery allocation.
+   - **Objective assessment (implemented):** pure, deterministic readiness
+     assessment over five explicitly validated evidence dimensions, with
+     clarification only for missing dimensions. This is not artist elicitation,
+     recommendation, or playlist construction.
 3. **Sequencing:**
    - **Phase 3A (complete):** validated track candidates, explainable component
      scoring, transition profiles, contrast-aware penalties.
