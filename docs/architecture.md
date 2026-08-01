@@ -14,6 +14,11 @@ repository interfaces rather than UI or AI-provider behavior.
 - `objective_assessment`: immutable, pure observation of whether validated
   objective evidence covers the fixed construction-readiness dimensions;
   missing dimensions map only to documented clarification prompts.
+- Evidence acquisition (external boundary): future source-specific adapters end
+  at an immutable, source-neutral `EvidenceSnapshot`; no adapter belongs to the
+  deterministic core.
+- `track_evidence`: deterministic validation and complete partitioning of an
+  evidence snapshot without provider access, Candidate Formation, or sequencing.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction.

@@ -8,6 +8,13 @@
      assessment over five explicitly validated evidence dimensions, with
      clarification only for missing dimensions. This is not artist elicitation,
      recommendation, or playlist construction.
+   - **Evidence Snapshot boundary (contract established):** source-specific
+     acquisition terminates at an immutable serialized snapshot; acquisition
+     adapters remain unimplemented and outside the deterministic core.
+   - **Track Evidence Validation (implemented):** deterministic schema 1.0
+     partitioning of every identifiable snapshot record into validated or
+     losslessly rejected evidence. Candidate Formation remains a separate future
+     contract.
 3. **Sequencing:**
    - **Phase 3A (complete):** validated track candidates, explainable component
      scoring, transition profiles, contrast-aware penalties.
