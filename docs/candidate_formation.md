@@ -1,7 +1,7 @@
 # Candidate Formation Contract
 
-- **Status:** Phase CF-0 contract accepted; CF-1 source-evidence schemas
-  implemented; formation remains unimplemented
+- **Status:** CF-0 contract accepted; CF-1 source-evidence schemas and CF-2
+  deterministic formation implemented; CF-3 integration remains unimplemented
 - **Purpose:** Deterministically join validated track evidence with independently
   validated local evidence and approved rules to form the stable candidate pool
 - **Artifact type:** Evidence-grounded formation and withholding, not scoring,
@@ -68,10 +68,10 @@ The future immutable request must contain:
   that policy.
 
 CF-1 defines the local Taste Evidence, Familiarity Evidence, Track Feature
-Evidence, and Objective Context Evidence schemas. The accepted Objective Safety
-artifact, Journey Plan correspondence, Candidate Formation request, formation
-policy schema, derivation-rule schema, and output artifact remain future
-boundaries.
+Evidence, and Objective Context Evidence schemas. The Objective Safety and
+Journey Plan artifact prerequisites, Candidate Formation request, initial
+formation policy, preference derivation rule, output artifact, and deterministic
+formation service are implemented for CF-2.
 
 ## Source-artifact correspondence
 
@@ -229,6 +229,12 @@ validated_track_count = formed_count + withheld_count
 The partitions are disjoint, and their union equals the exact validated-track
 set. Input ordering has no effect on either partition.
 
+CF-2 validates request-level correspondence before partitioning. The accepted
+objective, Journey Plan, track validation, objective-context evidence, track
+snapshot identities, journey identity, and profile identities must correspond
+exactly. Evidence scoped to an unvalidated track invalidates the request rather
+than being silently ignored.
+
 ### Formed entry
 
 A formed entry contains:
@@ -298,6 +304,23 @@ network access, mutable database reads, unrecorded provider behavior, learned
 affinity, or model-generated judgment. A rule that changes requires a new
 version; it must not silently reinterpret an existing artifact.
 
+### Initial CF-2 policy
+
+CF-2 supports direct copying of measured familiarity, track-feature, and
+objective-context evidence. Its only numeric derivation is categorical artist
+taste to `preference`, and the request must supply an explicit named, versioned
+mapping for exactly `Love`, `Like`, and `Meh`. Penny supplies no production
+default values.
+
+`Unknown` has no mapping and is withheld. `No Thanks`, `Pencil`, and `Forbidden`
+are hard exclusions in fixed order; they are never translated into low scores or
+penalties. Non-measured states retain their distinct withholding reasons.
+
+Every formed field records its source artifact, source record, evidence IDs,
+exact serialized inputs, exact result, formation basis, explanation, and—when
+derived—the rule name and version. Artifact validation rejects any candidate
+field that differs from its recorded result.
+
 ## Explicit non-claims
 
 A formed `TrackCandidate` means only that the track is structurally complete,
@@ -322,5 +345,7 @@ providers, modify taste, resolve aliases, infer missing values, score or rank
 candidates, construct a soundtrack, evaluate a journey, refine a result, learn
 from outcomes, or persist mutable state.
 
-CF-0 and CF-1 authorize the contract and immutable source-evidence schemas only.
-CF-2 formation code and CF-3 downstream integration require separate approval.
+CF-0 through CF-2 authorize the contract, source-evidence schemas, prerequisite
+artifacts, and isolated deterministic formation service. CF-3 downstream
+integration requires separate approval. Construction and scoring continue to
+accept caller-supplied candidate pools and are not wired to CF-2 automatically.

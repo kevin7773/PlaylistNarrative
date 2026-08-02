@@ -8,11 +8,12 @@
      assessment over five explicitly validated evidence dimensions, with
      clarification only for missing dimensions. This is not artist elicitation,
      recommendation, or playlist construction.
-   - **Objective Safety Boundary (design contract):** deterministic evaluation
-     of whether a sufficiently specified objective may proceed to Journey
-     Planning. Accepted objectives continue; declined objectives terminate in a
-     safe response with versioned reason codes. Implementation remains future
-     work.
+   - **Objective Safety Boundary (artifact schemas implemented):** immutable
+     accepted and declined schema `1.0` artifacts, fixed reason codes, and
+     canonical serialization. Intent evaluation and policy execution remain
+     future work.
+   - **Journey Plan artifact (implemented):** immutable schema `1.0` wrapper with
+     exact journey, objective, and accepted-safety-artifact identity.
    - **Evidence Snapshot boundary (contract established):** source-specific
      acquisition terminates at an immutable serialized snapshot; acquisition
      adapters remain unimplemented and outside the deterministic core.
@@ -25,8 +26,12 @@
      withheld with fixed reasons.
    - **Candidate Formation CF-1 (complete):** frozen schema `1.0` source-evidence
      artifacts, explicit evidence-state semantics, exact identity and ordering
-     rules, and canonical serialization. CF-2 formation and CF-3 integration
-     remain unapproved future work.
+     rules, and canonical serialization.
+   - **Candidate Formation CF-2 (complete):** exact source correspondence,
+     explicit versioned preference mapping, hard eligibility, deterministic
+     formed/withheld partitions, fixed multi-reason withholding, field-level
+     provenance, and canonical serialization. CF-3 integration remains future
+     work.
 3. **Sequencing:**
    - **Phase 3A (complete):** validated track candidates, explainable component
      scoring, transition profiles, contrast-aware penalties.

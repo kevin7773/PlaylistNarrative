@@ -37,21 +37,23 @@ The deterministic core currently includes:
 - objective-readiness assessment with fixed clarification prompts for missing
   evidence dimensions
 - an Objective Safety Boundary design contract that evaluates intent before
-  Journey Planning and defines deterministic accepted and declined paths
+  Journey Planning, plus immutable accepted and declined artifact schemas
 - source-neutral track-evidence validation with deterministic, lossless
   validated/rejected partitioning
 - a Candidate Formation CF-0 contract plus CF-1 immutable source-evidence
-  schemas for reproducibly joining validated track, taste, familiarity, feature,
-  and objective-context evidence in a future formed/withheld partition
+  schemas and a CF-2 deterministic service for reproducibly joining validated
+  track, taste, familiarity, feature, and objective-context evidence into a
+  complete formed/withheld partition
 - automated tests across persistence, policy, planning, sequencing, evaluation,
   elicitation, objective assessment, evidence validation, and Candidate
   Formation source-evidence contracts
 
-Candidate Formation execution and integration, bounded journey refinement,
-evidence-acquisition adapters, exports, and the local UI/API remain future work.
-Questionnaire presence, objective sufficiency, validated track evidence, and
-CF-1 source evidence do not assert a recommendation, candidate, or
-playlist-membership claim.
+Candidate Formation integration, Objective Safety policy execution, bounded
+journey refinement, evidence-acquisition adapters, exports, and the local UI/API
+remain future work. Questionnaire presence, objective sufficiency, validated
+track evidence, and CF-1 source evidence do not assert a recommendation,
+candidate, or playlist-membership claim. A CF-2 formed candidate asserts only
+reproducible evidence completeness and hard eligibility for downstream scoring.
 
 ### Example seed policy
 

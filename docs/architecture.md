@@ -14,20 +14,18 @@ repository interfaces rather than UI or AI-provider behavior.
 - `objective_assessment`: immutable, pure observation of whether validated
   objective evidence covers the fixed construction-readiness dimensions;
   missing dimensions map only to documented clarification prompts.
-- Objective Safety Boundary (design contract): deterministic, provider-neutral
-  evaluation of whether a sufficiently specified objective may proceed; emits an
-  accepted artifact for Journey Planning or a declined artifact with fixed
-  reason codes for a safe response.
+- Objective Safety Boundary: schema `1.0` defines immutable accepted and declined
+  artifacts with fixed reasons and canonical serialization. The provider-neutral
+  safety evaluator and policy execution remain unimplemented.
 - Evidence acquisition (external boundary): future source-specific adapters end
   at an immutable, source-neutral `EvidenceSnapshot`; no adapter belongs to the
   deterministic core.
 - `track_evidence`: deterministic validation and complete partitioning of an
   evidence snapshot without provider access, Candidate Formation, or sequencing.
-- Candidate Formation: CF-0 defines deterministic joining of validated catalog
-  evidence with immutable taste, familiarity, feature, and objective-context
-  evidence. CF-1 implements only those source-evidence schemas and canonical
-  serialization. Formation, partitioning, and downstream integration remain
-  unimplemented.
+- Candidate Formation: CF-0 defines the join, CF-1 supplies immutable source
+  evidence, and CF-2 performs exact correspondence, hard eligibility, versioned
+  preference derivation, and complete formed/withheld partitioning. CF-3
+  downstream integration remains unimplemented.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction.

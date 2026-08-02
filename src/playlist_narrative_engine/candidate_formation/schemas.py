@@ -68,7 +68,7 @@ def _validate_observations(
             raise ValueError("measured evidence requires a value and observations")
         return
     if has_resolved_value:
-        raise ValueError("non-available evidence cannot contain a resolved value")
+        raise ValueError("non-measured evidence cannot contain a resolved value")
     if state is EvidenceState.UNAVAILABLE and observations:
         raise ValueError("unavailable evidence cannot contain observations")
     if state is EvidenceState.CONFLICTING and len(observations) < 2:

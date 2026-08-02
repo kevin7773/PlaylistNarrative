@@ -407,14 +407,26 @@ def test_every_source_artifact_is_explicitly_versioned() -> None:
     assert all(artifact.candidate_formation_performed is False for artifact in artifacts)
 
 
-def test_cf2_request_partition_and_service_types_are_absent() -> None:
-    import playlist_narrative_engine.candidate_formation as package
+def test_cf1_source_artifacts_remain_free_of_cf2_fields() -> None:
+    source_artifacts = (
+        LocalTasteEvidenceArtifact,
+        FamiliarityEvidenceArtifact,
+        TrackFeatureEvidenceArtifact,
+        ObjectiveContextEvidenceArtifact,
+    )
+    forbidden_fields = {
+        "policy",
+        "formed",
+        "withheld",
+        "candidate",
+        "field_evidence",
+        "withholding_reasons",
+    }
 
-    assert not hasattr(package, "CandidateFormationRequest")
-    assert not hasattr(package, "CandidateFormationArtifact")
-    assert not hasattr(package, "FormedCandidate")
-    assert not hasattr(package, "WithheldCandidate")
-    assert not hasattr(package, "CandidateFormationService")
+    assert all(
+        forbidden_fields.isdisjoint(artifact_type.model_fields)
+        for artifact_type in source_artifacts
+    )
 
 
 def test_canonical_serialization_is_stable_utf8_and_schema_ordered() -> None:

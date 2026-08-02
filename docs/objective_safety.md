@@ -1,6 +1,7 @@
 # Objective Safety Boundary
 
-- **Status:** Design contract; not implemented
+- **Status:** Schema `1.0` artifacts implemented; safety evaluator and policy
+  execution remain unimplemented
 - **Purpose:** Determine whether a sufficiently specified objective may proceed
   to Journey Planning
 - **Artifact type:** Deterministic operational safety decision, not musical
@@ -48,6 +49,12 @@ default to acceptance.
 
 Every valid evaluation produces exactly one immutable artifact.
 
+Schema `1.0` now defines immutable request, accepted-artifact, declined-artifact,
+metadata, fixed reason-code, and canonical serialization contracts. These types
+make an accepted objective available to downstream boundaries without pretending
+that the safety evaluator itself exists. No code currently interprets intent or
+produces a safety decision from a request.
+
 ### Accepted objective artifact
 
 An accepted artifact records:
@@ -73,10 +80,9 @@ A declined artifact records:
 - fixed explanations associated with those codes.
 
 The exact reason-code catalog belongs to the versioned safety policy and must be
-defined before implementation. Codes and explanations must not be generated ad
-hoc. At minimum, the catalog must distinguish an objective that policy does not
-permit from a decision that fails closed because required context is missing or
-intent cannot be determined.
+versioned and fixed. Schema `1.0` distinguishes an objective that policy does not
+permit, required context that is missing, and intent that cannot be determined.
+Codes and explanations are never generated ad hoc.
 
 A declined artifact terminates the soundtrack-construction path and may be
 rendered as a safe response. It must never be converted into a modified objective
