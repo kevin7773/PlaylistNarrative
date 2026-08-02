@@ -8,13 +8,22 @@
      assessment over five explicitly validated evidence dimensions, with
      clarification only for missing dimensions. This is not artist elicitation,
      recommendation, or playlist construction.
+   - **Objective Safety Boundary (design contract):** deterministic evaluation
+     of whether a sufficiently specified objective may proceed to Journey
+     Planning. Accepted objectives continue; declined objectives terminate in a
+     safe response with versioned reason codes. Implementation remains future
+     work.
    - **Evidence Snapshot boundary (contract established):** source-specific
      acquisition terminates at an immutable serialized snapshot; acquisition
      adapters remain unimplemented and outside the deterministic core.
    - **Track Evidence Validation (implemented):** deterministic schema 1.0
      partitioning of every identifiable snapshot record into validated or
-     losslessly rejected evidence. Candidate Formation remains a separate future
-     contract.
+     losslessly rejected evidence.
+   - **Candidate Formation CF-0 (contract established):** deterministic joining
+     of validated catalog evidence with immutable taste, familiarity, feature,
+     and objective-context evidence. Every validated track is formed or withheld
+     with fixed reasons. CF-1 schemas, CF-2 implementation, and CF-3 integration
+     remain unapproved future work.
 3. **Sequencing:**
    - **Phase 3A (complete):** validated track candidates, explainable component
      scoring, transition profiles, contrast-aware penalties.

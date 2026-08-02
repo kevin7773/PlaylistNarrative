@@ -36,15 +36,20 @@ The deterministic core currently includes:
 - closed-world artist questionnaire seeds derived only from serialized evidence
 - objective-readiness assessment with fixed clarification prompts for missing
   evidence dimensions
+- an Objective Safety Boundary design contract that evaluates intent before
+  Journey Planning and defines deterministic accepted and declined paths
 - source-neutral track-evidence validation with deterministic, lossless
   validated/rejected partitioning
+- a Candidate Formation CF-0 contract for reproducibly joining validated track,
+  taste, familiarity, feature, and objective-context evidence into a formed or
+  withheld partition
 - automated tests across persistence, policy, planning, sequencing, evaluation,
   elicitation, objective assessment, and evidence validation
 
-Candidate Formation, bounded journey refinement, evidence-acquisition adapters,
-exports, and the local UI/API remain future work. Questionnaire presence,
-objective sufficiency, and validated track evidence do not assert a
-recommendation, candidate, or playlist-membership claim.
+Candidate Formation schemas and implementation, bounded journey refinement,
+evidence-acquisition adapters, exports, and the local UI/API remain future work.
+Questionnaire presence, objective sufficiency, and validated track evidence do
+not assert a recommendation, candidate, or playlist-membership claim.
 
 ### Example seed policy
 
@@ -96,11 +101,12 @@ The modular monolith has independently testable internal layers:
 
 1. **Taste Model** — artist/track preferences, context feedback, hard exclusions,
    and familiarity.
-2. **Elicitation and Evidence Boundaries** — creates closed-world artist
-   questionnaire seeds, assesses objective completeness, and validates immutable
-   track-evidence snapshots without inference or provider access.
-3. **Journey Planner** — translates a request into phases, energy trajectory, and
-   familiarity allocations.
+2. **Objective and Evidence Boundaries** — assesses objective completeness,
+   evaluates whether an objective may safely proceed, creates closed-world artist
+   questionnaire seeds, validates immutable track-evidence snapshots, and defines
+   reproducible Candidate Formation without provider-dependent reasoning.
+3. **Journey Planner** — translates an accepted objective into phases, energy
+   trajectory, and familiarity allocations.
 4. **Track Sequencer** — scores, selects, and orders validated candidates while
    enforcing exclusions, repeat limits, discovery budgets, and transition
    quality.
@@ -111,5 +117,7 @@ See [docs/architecture.md](docs/architecture.md) and
 [docs/roadmap.md](docs/roadmap.md). The latest evidence-boundary contracts are
 documented in
 [docs/artist_questionnaire_seed.md](docs/artist_questionnaire_seed.md),
-[docs/objective_assessment.md](docs/objective_assessment.md), and
-[docs/track_evidence_validation.md](docs/track_evidence_validation.md).
+[docs/objective_assessment.md](docs/objective_assessment.md),
+[docs/objective_safety.md](docs/objective_safety.md),
+[docs/track_evidence_validation.md](docs/track_evidence_validation.md), and
+[docs/candidate_formation.md](docs/candidate_formation.md).

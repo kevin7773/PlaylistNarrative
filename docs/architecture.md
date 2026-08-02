@@ -14,11 +14,19 @@ repository interfaces rather than UI or AI-provider behavior.
 - `objective_assessment`: immutable, pure observation of whether validated
   objective evidence covers the fixed construction-readiness dimensions;
   missing dimensions map only to documented clarification prompts.
+- Objective Safety Boundary (design contract): deterministic, provider-neutral
+  evaluation of whether a sufficiently specified objective may proceed; emits an
+  accepted artifact for Journey Planning or a declined artifact with fixed
+  reason codes for a safe response.
 - Evidence acquisition (external boundary): future source-specific adapters end
   at an immutable, source-neutral `EvidenceSnapshot`; no adapter belongs to the
   deterministic core.
 - `track_evidence`: deterministic validation and complete partitioning of an
   evidence snapshot without provider access, Candidate Formation, or sequencing.
+- Candidate Formation (CF-0 design contract): deterministic joining of validated
+  catalog evidence with immutable taste, familiarity, feature, and objective
+  context evidence. It emits a stable formed-candidate pool and losslessly
+  withheld tracks without scoring, ranking, or recommendation claims.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction.
@@ -32,6 +40,32 @@ repository interfaces rather than UI or AI-provider behavior.
 Hard rules such as `Forbidden`, `Pencil`, and default `No Thanks` exclusion are
 code-level policy. A future AI provider may propose candidates but cannot bypass
 policy.
+
+## Reasoning flow
+
+```mermaid
+flowchart TD
+    A["Objective request"] --> B["Objective Assessment"]
+    B -->|"Clarification required"| C["Clarification path"]
+    B -->|"Sufficient"| D["Objective Safety Boundary"]
+    D -->|"Accepted objective artifact"| E["Journey Planning"]
+    D -->|"Declined objective artifact"| F["Safe response"]
+    E --> G["Evidence Acquisition and Validation"]
+    G --> J["Candidate Formation"]
+    J --> H["Scoring, Selection, and Sequencing"]
+    H --> I["Journey Evaluation"]
+```
+
+Objective Safety evaluates intent before musical work begins. The accepted path
+alone reaches Journey Planning. The declined path is terminal for soundtrack
+construction and does not access evidence providers or musical layers. See
+[Objective Safety Boundary](objective_safety.md) for the design contract.
+
+Candidate Formation is the only boundary authorized to construct a
+`TrackCandidate` from validated source artifacts. Every formed field must trace
+to immutable evidence or a named versioned derivation rule with recorded inputs.
+Hard exclusions produce withheld entries and never become scoring penalties. See
+[Candidate Formation Contract](candidate_formation.md).
 
 ## Extensibility decisions
 
