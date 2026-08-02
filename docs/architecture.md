@@ -25,8 +25,8 @@ repository interfaces rather than UI or AI-provider behavior.
 - Candidate Formation: CF-0 defines the join, CF-1 supplies immutable source
   evidence, and CF-2 performs exact correspondence, hard eligibility, versioned
   preference derivation, and complete formed/withheld partitioning. The accepted
-  CF-3 contract defines an authenticated formed-only integration view;
-  implementation remains future work.
+  CF-3 integrates that artifact through an authenticated formed-only view and
+  traced ranking envelope with no raw-candidate production path.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction.

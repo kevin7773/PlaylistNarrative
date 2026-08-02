@@ -44,13 +44,13 @@ The deterministic core currently includes:
   schemas and a CF-2 deterministic service for reproducibly joining validated
   track, taste, familiarity, feature, and objective-context evidence into a
   complete formed/withheld partition
-- an accepted CF-3 integration contract defining a provenance-preserving,
-  formed-only authenticated pool view for future selector and constructor wiring
+- CF-3 formed-only selector and constructor integration through an immutable,
+  provenance-preserving authenticated pool view and traced ranking envelope
 - automated tests across persistence, policy, planning, sequencing, evaluation,
   elicitation, objective assessment, evidence validation, and Candidate
   Formation source-evidence contracts
 
-Candidate Formation integration implementation, Objective Safety policy execution, bounded
+Objective Safety policy execution, bounded
 journey refinement, evidence-acquisition adapters, exports, and the local UI/API
 remain future work. Questionnaire presence, objective sufficiency, validated
 track evidence, and CF-1 source evidence do not assert a recommendation,

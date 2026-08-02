@@ -1,6 +1,6 @@
 # Candidate Formation Integration Contract
 
-- **Status:** CF-3 documentation contract accepted; implementation not started
+- **Status:** CF-3 implemented
 - **Decision scope:** Authenticated integration from Candidate Formation into
   scoring, selection, and construction
 - **Applies to:** Production selector and constructor entry points
@@ -135,9 +135,9 @@ on its result and must not detach ranked entries into a durable standing queue.
 
 CF-3 intentionally removes raw-candidate production inputs:
 
-- `CandidateSelector.select` will accept the authenticated formed-pool view and
+- `CandidateSelector.select` accepts the authenticated formed-pool view and
   remaining exact track IDs, not `Iterable[TrackCandidate]`;
-- `SequentialPlaylistConstructor.construct` will accept the authenticated
+- `SequentialPlaylistConstructor.construct` accepts the authenticated
   formed-pool view, not a raw candidate pool; and
 - neither API may provide a transitional production overload, optional
   `candidates` argument, adapter, union type, or fallback that accepts arbitrary
@@ -193,8 +193,10 @@ CF-3 must not:
   boundaries; or
 - change evaluation or refinement.
 
-## Documentation-phase acceptance
+## Implementation conformance
 
-This contract authorizes documentation only. Integration schemas, derivation
-services, selector changes, constructor changes, migrations, and production
-tests require a separately approved implementation phase.
+CF-3 implements the versioned formed-pool projection, canonical parent digest,
+traced ranking-result envelope, exact journey and resumed-state correspondence,
+and intentional raw-input API removal. Repository structural tests prove that
+selector and constructor expose no legacy raw-candidate parameters and do not
+construct candidates, inspect withheld entries, or reconstruct Formation.

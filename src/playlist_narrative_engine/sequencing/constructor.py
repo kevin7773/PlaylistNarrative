@@ -3,9 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import StrEnum
 from math import floor
-from typing import Iterable
+from typing import TYPE_CHECKING
 
-from playlist_narrative_engine.journey.schemas import JourneyPlan
+from playlist_narrative_engine.journey.schemas import (
+    JourneyPlan,
+    JourneyPlanArtifact,
+)
 from playlist_narrative_engine.sequencing.schemas import (
     ScoreBreakdown,
     TrackCandidate,
@@ -15,6 +18,12 @@ from playlist_narrative_engine.sequencing.selector import (
     CandidateSelector,
     RankedCandidate,
 )
+
+if TYPE_CHECKING:
+    from playlist_narrative_engine.candidate_formation.integration_schemas import (
+        CandidateFormationTrace,
+        FormedCandidatePoolView,
+    )
 
 
 class ConstructionStatus(StrEnum):
@@ -80,6 +89,8 @@ class ConstructionState:
     artist_counts: dict[str, int] = field(default_factory=dict)
     discovery_count: int = 0
     rejections: list[CandidateRejection] = field(default_factory=list)
+    formation_trace: CandidateFormationTrace | None = None
+    journey_plan_artifact: JourneyPlanArtifact | None = None
 
 
 @dataclass(frozen=True)
@@ -107,6 +118,7 @@ class ConstructionSummary:
 
 @dataclass(frozen=True)
 class ConstructionResult:
+    formation_trace: CandidateFormationTrace
     tracks: tuple[PlacedTrack, ...]
     summary: ConstructionSummary
     issues: tuple[ConstructionIssue, ...]
@@ -126,31 +138,34 @@ class SequentialPlaylistConstructor:
     def construct(
         self,
         *,
-        journey_plan: JourneyPlan,
-        candidate_pool: Iterable[TrackCandidate],
+        journey_plan: JourneyPlanArtifact,
+        formed_pool: FormedCandidatePoolView,
         state: ConstructionState,
         requested_track_count: int,
     ) -> ConstructionResult:
-        stable_pool = tuple(candidate_pool)
         self._validate_request(
             journey_plan,
-            stable_pool,
+            formed_pool,
             state,
             requested_track_count,
         )
-        remaining = tuple(
-            candidate
-            for candidate in stable_pool
+        if state.formation_trace is None:
+            state.formation_trace = formed_pool.trace
+            state.journey_plan_artifact = journey_plan
+        plan = journey_plan.plan
+        remaining_ids = tuple(
+            candidate.track_id
+            for candidate in formed_pool.candidates
             if candidate.track_id not in state.used_track_ids
         )
         issues: list[ConstructionIssue] = []
 
         while (
-            len(state.placed_tracks) < requested_track_count and remaining
+            len(state.placed_tracks) < requested_track_count and remaining_ids
         ):
             position = len(state.placed_tracks)
             phase_index = self._phase_index_for_position(
-                journey_plan,
+                plan,
                 position,
                 requested_track_count,
             )
@@ -161,20 +176,25 @@ class SequentialPlaylistConstructor:
                 requested_track_count,
             )
             target_discovery_ratio = self._remaining_discovery_ratio(
-                journey_plan,
+                plan,
                 state,
                 requested_track_count,
             )
             ranking = self.selector.select(
-                context=journey_plan.context,
+                context=plan.context,
                 previous_track=state.previous_track,
-                phase=journey_plan.phases[phase_index],
+                phase=plan.phases[phase_index],
                 role=role,
                 target_discovery_ratio=target_discovery_ratio,
-                candidates=remaining,
-                top_n=len(remaining),
+                formed_pool=formed_pool,
+                remaining_track_ids=remaining_ids,
+                top_n=len(remaining_ids),
             )
-            selected, rejected = self._first_eligible(ranking, state)
+            if ranking.formation_trace != formed_pool.trace:
+                raise ValueError("ranking envelope formation trace must match pool")
+            selected, rejected = self._first_eligible(
+                ranking.ranked_candidates, state
+            )
             state.rejections.extend(rejected)
             if selected is None:
                 issues.append(
@@ -194,7 +214,7 @@ class SequentialPlaylistConstructor:
                 position=position + 1,
                 candidate=selected.candidate,
                 phase_index=phase_index,
-                phase_name=journey_plan.phases[phase_index].name,
+                phase_name=plan.phases[phase_index].name,
                 role=role,
                 selector_rank=selected.rank,
                 selection_score=selected.score,
@@ -202,15 +222,15 @@ class SequentialPlaylistConstructor:
                 reasons=selected.reasons
                 + (
                     f"Selected as {role.value} for "
-                    f"{journey_plan.phases[phase_index].name}",
+                    f"{plan.phases[phase_index].name}",
                 ),
                 rejected_candidates=rejected,
             )
             self._place(state, placement)
-            remaining = tuple(
-                candidate
-                for candidate in remaining
-                if candidate.track_id != selected.candidate.track_id
+            remaining_ids = tuple(
+                track_id
+                for track_id in remaining_ids
+                if track_id != selected.candidate.track_id
             )
 
         if len(state.placed_tracks) < requested_track_count and not issues:
@@ -227,8 +247,8 @@ class SequentialPlaylistConstructor:
 
     def _validate_request(
         self,
-        journey_plan: JourneyPlan,
-        candidate_pool: Iterable[TrackCandidate],
+        journey_plan: JourneyPlanArtifact,
+        formed_pool: FormedCandidatePoolView,
         state: ConstructionState,
         requested_track_count: int,
     ) -> None:
@@ -242,30 +262,66 @@ class SequentialPlaylistConstructor:
             raise ValueError(
                 "initial state already exceeds requested track count"
             )
-        if not journey_plan.phases:
+        if not journey_plan.plan.phases:
             raise ValueError("journey plan must contain at least one phase")
-        self._validate_state(journey_plan, state)
-        pool = tuple(candidate_pool)
-        track_ids = [candidate.track_id for candidate in pool]
-        if len(track_ids) != len(set(track_ids)):
-            raise ValueError("candidate pool contains duplicate track IDs")
+        trace = formed_pool.trace
+        if (
+            journey_plan.journey_id != trace.journey_id
+            or journey_plan.objective.objective_id != trace.objective_id
+            or journey_plan.objective.statement != trace.objective_statement
+            or journey_plan.objective_safety_artifact_id
+            != trace.accepted_objective_artifact_id
+        ):
+            raise ValueError(
+                "journey artifact must exactly correspond to formation trace"
+            )
+        self._validate_state(journey_plan, formed_pool, state)
 
     def _validate_state(
         self,
-        journey_plan: JourneyPlan,
+        journey_plan: JourneyPlanArtifact,
+        formed_pool: FormedCandidatePoolView,
         state: ConstructionState,
     ) -> None:
-        if not 0 <= state.current_phase_index < len(journey_plan.phases):
+        plan = journey_plan.plan
+        if not 0 <= state.current_phase_index < len(plan.phases):
             raise ValueError("construction state has an invalid phase index")
+        if (state.formation_trace is None) != (state.journey_plan_artifact is None):
+            raise ValueError("construction state lineage must be complete")
+        if state.formation_trace is None and (
+            state.placed_tracks
+            or state.previous_track is not None
+            or state.elapsed_seconds
+            or state.used_track_ids
+            or state.artist_counts
+            or state.discovery_count
+            or state.rejections
+        ):
+            raise ValueError(
+                "resumed construction state requires immutable formation lineage"
+            )
+        if state.formation_trace is not None:
+            if state.formation_trace != formed_pool.trace:
+                raise ValueError("construction state formation identity does not match")
+            if state.journey_plan_artifact != journey_plan:
+                raise ValueError("construction state journey identity does not match")
         placed_ids = [
             placement.candidate.track_id for placement in state.placed_tracks
         ]
         if len(placed_ids) != len(set(placed_ids)):
             raise ValueError("construction state contains duplicate tracks")
-        if not set(placed_ids).issubset(state.used_track_ids):
+        if set(placed_ids) != state.used_track_ids:
             raise ValueError(
-                "construction state used track IDs do not include placements"
+                "construction state used track IDs must exactly match placements"
             )
+        formed_by_id = {
+            candidate.track_id: candidate for candidate in formed_pool.candidates
+        }
+        for placement in state.placed_tracks:
+            if formed_by_id.get(placement.candidate.track_id) != placement.candidate:
+                raise ValueError(
+                    "construction state candidate must exactly equal formed candidate"
+                )
         expected_positions = list(range(1, len(state.placed_tracks) + 1))
         if [placement.position for placement in state.placed_tracks] != (
             expected_positions
@@ -276,7 +332,7 @@ class SequentialPlaylistConstructor:
         if state.placed_tracks:
             if (
                 state.previous_track is None
-                or state.previous_track.track_id != placed_ids[-1]
+                or state.previous_track != state.placed_tracks[-1].candidate
             ):
                 raise ValueError(
                     "construction state previous track is not the last placement"
@@ -288,6 +344,10 @@ class SequentialPlaylistConstructor:
                 raise ValueError(
                     "construction state phase does not match last placement"
                 )
+        elif state.previous_track is not None:
+            raise ValueError(
+                "construction state without placements cannot have previous track"
+            )
         expected_duration = sum(
             placement.candidate.duration_seconds
             for placement in state.placed_tracks
@@ -441,7 +501,10 @@ class SequentialPlaylistConstructor:
             ),
             rejection_counts=tuple(sorted(rejection_counts.items())),
         )
+        if state.formation_trace is None:
+            raise AssertionError("construction result requires formation trace")
         return ConstructionResult(
+            formation_trace=state.formation_trace,
             tracks=tuple(state.placed_tracks),
             summary=summary,
             issues=tuple(issues),
@@ -449,4 +512,4 @@ class SequentialPlaylistConstructor:
 
     @staticmethod
     def _artist_key(artist_name: str) -> str:
-        return artist_name.casefold()
+        return artist_name

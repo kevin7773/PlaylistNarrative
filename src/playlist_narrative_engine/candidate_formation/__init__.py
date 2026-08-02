@@ -39,6 +39,15 @@ from playlist_narrative_engine.candidate_formation.former import (
     CandidateFormer,
     serialize_candidate_formation,
 )
+from playlist_narrative_engine.candidate_formation.integration import (
+    derive_formed_candidate_pool,
+    serialize_formed_candidate_pool,
+)
+from playlist_narrative_engine.candidate_formation.integration_schemas import (
+    FORMED_CANDIDATE_POOL_SCHEMA_VERSION,
+    CandidateFormationTrace,
+    FormedCandidatePoolView,
+)
 from playlist_narrative_engine.candidate_formation.serialization import (
     serialize_candidate_source_evidence,
 )
@@ -55,6 +64,7 @@ __all__ = [
     "CandidateFormationPolicy",
     "CandidateFormationRequest",
     "CandidateFormationSummary",
+    "CandidateFormationTrace",
     "CandidateFormer",
     "CandidateSourceEvidenceArtifact",
     "ContextInputEvidence",
@@ -63,7 +73,9 @@ __all__ = [
     "FamiliarityEvidenceArtifact",
     "FamiliarityEvidenceRecord",
     "FormationBasis",
+    "FORMED_CANDIDATE_POOL_SCHEMA_VERSION",
     "FormedCandidateEntry",
+    "FormedCandidatePoolView",
     "LocalTasteEvidenceArtifact",
     "ObjectiveContextEvidenceArtifact",
     "ObjectiveContextEvidenceRecord",
@@ -76,6 +88,8 @@ __all__ = [
     "WithheldCandidateEntry",
     "WithholdingReason",
     "WithholdingReasonCode",
+    "derive_formed_candidate_pool",
     "serialize_candidate_formation",
     "serialize_candidate_source_evidence",
+    "serialize_formed_candidate_pool",
 ]

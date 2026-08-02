@@ -3,7 +3,7 @@
 ## Purpose
 
 Candidate selection answers one immediate question: “What are the best next
-tracks?” In production it will rank candidates authenticated by a
+tracks?” In production it ranks candidates authenticated by a
 `FormedCandidatePoolView` for the current journey phase and role. It does not
 choose subsequent tracks or claim that the first result belongs in a complete
 playlist.
@@ -33,7 +33,7 @@ has authenticated production meaning only within its envelope.
 ## Authenticated production input
 
 The accepted CF-3 contract intentionally replaces raw production candidate
-iterables. `CandidateSelector.select` will accept exactly one authenticated
+iterables. `CandidateSelector.select` accepts exactly one authenticated
 `FormedCandidatePoolView` plus `remaining_track_ids`. No production overload,
 union, compatibility adapter, or optional argument may accept arbitrary
 `TrackCandidate` tuples alongside or instead of the view.

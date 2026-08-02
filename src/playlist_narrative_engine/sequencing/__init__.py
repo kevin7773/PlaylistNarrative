@@ -17,6 +17,8 @@ from playlist_narrative_engine.sequencing.selector import (
     CandidateSelector,
     DiscoveryBudgetPolicy,
     RankedCandidate,
+    RankingResultEnvelope,
+    serialize_ranking_result,
 )
 from playlist_narrative_engine.sequencing.schemas import (
     ScoreBreakdown,
@@ -38,6 +40,8 @@ __all__ = [
     "DiscoveryBudgetPolicy",
     "PlacedTrack",
     "RankedCandidate",
+    "RankingResultEnvelope",
+    "serialize_ranking_result",
     "ScoreBreakdown",
     "ScoringWeights",
     "TrackCandidate",

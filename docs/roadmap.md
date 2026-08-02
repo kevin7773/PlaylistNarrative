@@ -31,7 +31,7 @@
      explicit versioned preference mapping, hard eligibility, deterministic
      formed/withheld partitions, fixed multi-reason withholding, field-level
      provenance, and canonical serialization.
-   - **Candidate Formation CF-3 (contract accepted; implementation pending):**
+   - **Candidate Formation CF-3 (complete):**
      authenticated formed-only pool projection, canonical parent-artifact digest,
      exact downstream correspondence, raw-pool API removal, and traced ranking
      and construction boundaries.

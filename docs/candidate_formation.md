@@ -1,8 +1,8 @@
 # Candidate Formation Contract
 
-- **Status:** CF-0 contract accepted; CF-1 source-evidence schemas and CF-2
-  deterministic formation implemented; CF-3 integration contract accepted but
-  not implemented
+- **Status:** CF-0 contract accepted; CF-1 source-evidence schemas, CF-2
+  deterministic formation, and CF-3 authenticated downstream integration
+  implemented
 - **Purpose:** Deterministically join validated track evidence with independently
   validated local evidence and approved rules to form the stable candidate pool
 - **Artifact type:** Evidence-grounded formation and withholding, not scoring,
@@ -354,7 +354,8 @@ entries and their provenance, exposes no withheld entries, preserves exact CF-2
 order and identity, and binds to the exact complete parent through the SHA-256
 digest of canonical Candidate Formation bytes.
 
-CF-3 integration remains unimplemented. Until that separately approved work is
-delivered, existing raw-candidate selector and constructor parameters are legacy
-unintegrated APIs, not an authenticated Candidate Formation path. See the
+CF-3 removes the legacy raw-candidate selector and constructor production
+parameters. Selection and construction now consume only the authenticated
+formed-pool view; isolated `TrackScorer` tests remain free to use synthetic
+candidate values. See the
 [Candidate Formation Integration Contract](candidate_formation_integration.md).

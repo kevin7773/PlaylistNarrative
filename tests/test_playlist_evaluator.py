@@ -5,6 +5,8 @@ import json
 import pytest
 from pydantic import ValidationError
 
+from cf3_test_helpers import formed_pool, journey_artifact
+
 from playlist_narrative_engine.evaluation import (
     EVALUATION_SCHEMA_VERSION,
     EvaluationDisposition,
@@ -60,8 +62,8 @@ def policy():
 
 def construct(journey_plan, policy, pool, requested_count):
     return SequentialPlaylistConstructor(policy=policy).construct(
-        journey_plan=journey_plan,
-        candidate_pool=pool,
+        journey_plan=journey_artifact(journey_plan),
+        formed_pool=formed_pool(pool),
         state=ConstructionState(),
         requested_track_count=requested_count,
     )
@@ -150,6 +152,7 @@ def test_empty_complete_claim_is_observed_without_being_trusted(
     policy,
 ) -> None:
     empty = ConstructionResult(
+        formation_trace=formed_pool(()).trace,
         tracks=(),
         summary=ConstructionSummary(
             status=ConstructionStatus.COMPLETE,
@@ -188,15 +191,17 @@ def test_resumed_construction_result_is_evaluated_as_complete(
     pool = tuple(candidate(f"track-{index}") for index in range(5))
     state = ConstructionState()
     constructor = SequentialPlaylistConstructor(policy=policy)
+    authenticated_pool = formed_pool(pool)
+    authenticated_journey = journey_artifact(journey_plan)
     constructor.construct(
-        journey_plan=journey_plan,
-        candidate_pool=pool,
+        journey_plan=authenticated_journey,
+        formed_pool=authenticated_pool,
         state=state,
         requested_track_count=2,
     )
     resumed = constructor.construct(
-        journey_plan=journey_plan,
-        candidate_pool=pool,
+        journey_plan=authenticated_journey,
+        formed_pool=authenticated_pool,
         state=state,
         requested_track_count=4,
     )

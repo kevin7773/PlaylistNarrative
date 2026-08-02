@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import pytest
 
+from cf3_test_helpers import formed_pool
+
 from playlist_narrative_engine.journey import (
     ActiveFocusRequest,
     JourneyPlanner,
@@ -45,15 +47,19 @@ def select(
     target_discovery_ratio: float = 0.20,
     top_n: int = 10,
 ):
+    pool = formed_pool(tuple(candidates))
     return CandidateSelector().select(
         context=JourneyContext.ACTIVE_FOCUS,
         previous_track=None,
         phase=phase,
         role=TrackRole.JOURNEY,
         target_discovery_ratio=target_discovery_ratio,
-        candidates=candidates,
+        formed_pool=pool,
+        remaining_track_ids=tuple(
+            candidate.track_id for candidate in reversed(pool.candidates)
+        ),
         top_n=top_n,
-    )
+    ).ranked_candidates
 
 
 def test_candidates_are_ranked_by_adjusted_score(phase) -> None:
@@ -197,6 +203,7 @@ def test_previous_track_is_used_for_transition_scoring(phase) -> None:
         phase=phase,
         role=TrackRole.JOURNEY,
         target_discovery_ratio=0.20,
-        candidates=[next_track],
-    )[0]
+        formed_pool=formed_pool((previous, next_track)),
+        remaining_track_ids=(next_track.track_id,),
+    ).ranked_candidates[0]
     assert "Smooth groove and energy transition" in result.reasons

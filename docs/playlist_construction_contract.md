@@ -25,7 +25,7 @@ This contract defines the boundary. It does not implement construction.
 ## Architectural boundary
 
 `TrackScorer` evaluates one candidate in context. `CandidateSelector` answers
-“What are the best next tracks right now?” The future constructor owns the
+“What are the best next tracks right now?” The constructor owns the
 state that changes after each placement: elapsed time, current phase, previous
 track, used track IDs, artist counts, discovery usage, roles, and soft-constraint
 progress.
