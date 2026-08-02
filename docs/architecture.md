@@ -24,8 +24,9 @@ repository interfaces rather than UI or AI-provider behavior.
   evidence snapshot without provider access, Candidate Formation, or sequencing.
 - Candidate Formation: CF-0 defines the join, CF-1 supplies immutable source
   evidence, and CF-2 performs exact correspondence, hard eligibility, versioned
-  preference derivation, and complete formed/withheld partitioning. CF-3
-  downstream integration remains unimplemented.
+  preference derivation, and complete formed/withheld partitioning. The accepted
+  CF-3 contract defines an authenticated formed-only integration view;
+  implementation remains future work.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction.
@@ -51,7 +52,8 @@ flowchart TD
     D -->|"Declined objective artifact"| F["Safe response"]
     E --> G["Evidence Acquisition and Validation"]
     G --> J["Candidate Formation"]
-    J --> H["Scoring, Selection, and Sequencing"]
+    J --> K["Authenticated FormedCandidatePoolView"]
+    K --> H["Scoring, Selection, and Sequencing"]
     H --> I["Journey Evaluation"]
 ```
 
@@ -65,6 +67,14 @@ Candidate Formation is the only boundary authorized to construct a
 to immutable evidence or a named versioned derivation rule with recorded inputs.
 Hard exclusions produce withheld entries and never become scoring penalties. See
 [Candidate Formation Contract](candidate_formation.md).
+
+CF-3 makes `FormedCandidatePoolView` the sole production boundary from Candidate
+Formation into selection and construction. It is derived only from a validated
+`CandidateFormationArtifact`, projects only formed entries, retains their
+provenance, and identifies the exact complete parent through the SHA-256 digest
+of its canonical bytes. Selector and constructor integration may not accept raw
+candidate pools. See the
+[Candidate Formation Integration Contract](candidate_formation_integration.md).
 
 ## Extensibility decisions
 

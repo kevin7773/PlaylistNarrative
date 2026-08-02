@@ -13,8 +13,9 @@ them.
 
 ## Objective
 
-Given a validated journey plan and a candidate pool, construct an ordered,
-explainable playlist that satisfies global constraints over time.
+Given an exactly corresponding Journey Plan artifact and authenticated formed
+candidate pool, construct an ordered, explainable playlist that satisfies global
+constraints over time.
 
 > The constructor may sacrifice the highest-ranked immediate candidate when
 > necessary to preserve the quality of the full sequence.
@@ -40,6 +41,7 @@ constraints.
 The construction boundary has two non-negotiable invariants:
 
 1. **The stable input is the candidate pool, not a precomputed ranking.**
+   `FormedCandidatePoolView` is the stable authenticated input.
    `RankedCandidate` is an explainable decision-time result. It must not be
    stored as durable construction input or consumed as a standing queue.
 2. **Every placement decision is based on a ranking produced from the current
@@ -79,10 +81,12 @@ the constructor must not secretly rescore or add hidden weights.
 
 The construction request must contain:
 
-- `journey_plan`: a validated `JourneyPlan` whose phases define duration,
-  familiarity allocation, and energy contour;
-- `candidate_pool`: a finite collection of validated, eligible
-  `TrackCandidate` objects;
+- `journey_plan`: a validated `JourneyPlanArtifact` whose phases define duration,
+  familiarity allocation, and energy contour and whose journey, objective, and
+  accepted-safety identities exactly correspond to Candidate Formation;
+- `formed_pool`: the sole authenticated `FormedCandidatePoolView`, derived from
+  a validated `CandidateFormationArtifact` and containing every and only formed
+  entry;
 - `target`: exactly one of:
   - a duration target with inclusive minimum and maximum seconds; or
   - a positive target track count;
@@ -92,8 +96,11 @@ The construction request must contain:
 - deterministic construction policy values such as selector result limit and
   the centralized familiarity threshold used to classify discovery tracks.
 
-The initial candidate-pool order must not affect the result. `track_id` is the
-identity used for duplicate prevention and deterministic tie resolution.
+The constructor accepts no raw-candidate production input and no transitional
+overload. The view's canonical formed order is stable. Remaining track IDs are
+resolved against that order, so their supplied order must not affect the result.
+`track_id` is the exact identity used for duplicate prevention and deterministic
+tie resolution.
 
 For this contract, a discovery track is a candidate whose familiarity is at or
 below the scorer's established controlled-discovery threshold of `0.35`.
@@ -125,6 +132,11 @@ Each placed-track record includes:
 - placement rationale;
 - any higher-ranked candidates rejected at that decision and their rejection
   reasons.
+
+The construction result carries the formation trace once, including the exact
+parent canonical-artifact digest, request, objective, journey, formation-policy,
+and preference-rule identities. Ranking trace is likewise carried once on each
+ranking-result envelope rather than repeated on individual ranked candidates.
 
 Placement rationale must distinguish:
 
@@ -179,14 +191,22 @@ Phase 4B may use an in-memory state object containing only:
 This state exists for one construction call. It is not persisted and contains no
 learning or cross-playlist history.
 
+A resumed state must carry the same formation trace and journey identity as the
+current request. Every placed candidate and previous track must exist in the
+formed view and equal its candidate in every typed field. Track-ID equality
+alone is insufficient. Used IDs must correspond exactly to placed tracks.
+Withheld, unknown, duplicate, normalized, or caller-created candidates invalidate
+the state; construction must not repair them.
+
 ## Hard constraints
 
 Every returned playlist track must satisfy all applicable hard constraints:
 
 1. **Candidate validity**
-   - The candidate passes `TrackCandidate` validation.
-   - The candidate is eligible under the Taste Model before entering or while
-     validating the pool.
+   - The candidate belongs to the authenticated formed view and exactly equals
+     its provenance-bearing formed entry.
+   - Eligibility was established by Candidate Formation and is not reevaluated
+     or converted into a construction penalty.
    - Candidate identity is non-empty and unambiguous.
 2. **No duplicate tracks**
    - A `track_id` may appear at most once.
@@ -238,7 +258,7 @@ For identical validated inputs and policy:
 - rejection order and reasons are identical;
 - summaries and issue ordering are identical.
 
-Pool iteration order must not change the result. Stable identifiers break any
+Remaining-ID input order must not change the result. Stable identifiers break any
 remaining ties. No randomness, current time, external state, or provider calls
 may influence construction.
 
@@ -275,6 +295,13 @@ Phase 4 construction does not include:
   baseline;
 - automatic changes to Taste Model ratings, `TrackScorer`, or
   `CandidateSelector`.
+- access to withheld Candidate Formation entries;
+- source-evidence rejoins, preference remapping, or identity normalization; or
+- raw `TrackCandidate` production pools or compatibility overloads that accept
+  them.
+
+The CF-3 integration decisions supplement this ADR. See the
+[Candidate Formation Integration Contract](candidate_formation_integration.md).
 
 ## Phase 4A acceptance criteria
 
