@@ -1,5 +1,9 @@
 # Roadmap
 
+The foundational architecture phase is complete. The deterministic reasoning
+engine is now the platform on which Penny's experience vocabulary can grow. See
+[Foundation Complete](foundation_complete.md).
+
 1. **Taste foundation (complete):** persistent artist catalog, ratings, seed data,
    exclusion policy, tests.
 2. **Journey planning (complete):** Active Focus request and journey schemas,

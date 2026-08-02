@@ -57,6 +57,10 @@ track evidence, and CF-1 source evidence do not assert a recommendation,
 candidate, or playlist-membership claim. A CF-2 formed candidate asserts only
 reproducible evidence completeness and hard eligibility for downstream scoring.
 
+The foundational architecture phase is complete. The next phase builds Penny's
+vocabulary for the particular shape of people's moments. See
+[Foundation Complete](docs/foundation_complete.md).
+
 ### Example seed policy
 
 The initial repository seeds one artist (Radiohead) with a `Forbidden` rating
@@ -129,3 +133,5 @@ documented in
 [docs/candidate_formation.md](docs/candidate_formation.md). The downstream CF-3
 boundary is specified in
 [docs/candidate_formation_integration.md](docs/candidate_formation_integration.md).
+The closing reflection for the foundational architecture phase is
+[docs/foundation_complete.md](docs/foundation_complete.md).
