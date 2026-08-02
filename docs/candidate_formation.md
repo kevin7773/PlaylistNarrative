@@ -270,4 +270,3 @@ from outcomes, or persist mutable state.
 
 CF-0 authorizes this contract only. CF-1 evidence schemas, CF-2 formation code,
 and CF-3 downstream integration require separate approval.
-
