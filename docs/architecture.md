@@ -39,3 +39,11 @@ policy.
 track and context feedback concepts so a later context score will not rewrite an
 artist preference. SQLite initialization currently uses `create_all` plus
 idempotent seeds; a migration tool will be added before schema evolution ships.
+
+## Product and deployment boundary
+
+Penny's local-first architecture supports one deterministic reasoning engine
+across its deployment models. Optional connected services may add convenience,
+continuity, and collaboration, but must not provide better reasoning or better
+soundtrack quality. See [Product Strategy](product_strategy.md) for the governing
+product principles and deployment-model distinction.
