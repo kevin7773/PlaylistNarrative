@@ -23,10 +23,11 @@ repository interfaces rather than UI or AI-provider behavior.
   deterministic core.
 - `track_evidence`: deterministic validation and complete partitioning of an
   evidence snapshot without provider access, Candidate Formation, or sequencing.
-- Candidate Formation (CF-0 design contract): deterministic joining of validated
-  catalog evidence with immutable taste, familiarity, feature, and objective
-  context evidence. It emits a stable formed-candidate pool and losslessly
-  withheld tracks without scoring, ranking, or recommendation claims.
+- Candidate Formation: CF-0 defines deterministic joining of validated catalog
+  evidence with immutable taste, familiarity, feature, and objective-context
+  evidence. CF-1 implements only those source-evidence schemas and canonical
+  serialization. Formation, partitioning, and downstream integration remain
+  unimplemented.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction.

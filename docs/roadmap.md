@@ -21,8 +21,11 @@
      losslessly rejected evidence.
    - **Candidate Formation CF-0 (contract established):** deterministic joining
      of validated catalog evidence with immutable taste, familiarity, feature,
-     and objective-context evidence. Every validated track is formed or withheld
-     with fixed reasons. CF-1 schemas, CF-2 implementation, and CF-3 integration
+     and objective-context evidence. Every validated track will be formed or
+     withheld with fixed reasons.
+   - **Candidate Formation CF-1 (complete):** frozen schema `1.0` source-evidence
+     artifacts, explicit evidence-state semantics, exact identity and ordering
+     rules, and canonical serialization. CF-2 formation and CF-3 integration
      remain unapproved future work.
 3. **Sequencing:**
    - **Phase 3A (complete):** validated track candidates, explainable component

@@ -40,16 +40,18 @@ The deterministic core currently includes:
   Journey Planning and defines deterministic accepted and declined paths
 - source-neutral track-evidence validation with deterministic, lossless
   validated/rejected partitioning
-- a Candidate Formation CF-0 contract for reproducibly joining validated track,
-  taste, familiarity, feature, and objective-context evidence into a formed or
-  withheld partition
+- a Candidate Formation CF-0 contract plus CF-1 immutable source-evidence
+  schemas for reproducibly joining validated track, taste, familiarity, feature,
+  and objective-context evidence in a future formed/withheld partition
 - automated tests across persistence, policy, planning, sequencing, evaluation,
-  elicitation, objective assessment, and evidence validation
+  elicitation, objective assessment, evidence validation, and Candidate
+  Formation source-evidence contracts
 
-Candidate Formation schemas and implementation, bounded journey refinement,
+Candidate Formation execution and integration, bounded journey refinement,
 evidence-acquisition adapters, exports, and the local UI/API remain future work.
-Questionnaire presence, objective sufficiency, and validated track evidence do
-not assert a recommendation, candidate, or playlist-membership claim.
+Questionnaire presence, objective sufficiency, validated track evidence, and
+CF-1 source evidence do not assert a recommendation, candidate, or
+playlist-membership claim.
 
 ### Example seed policy
 

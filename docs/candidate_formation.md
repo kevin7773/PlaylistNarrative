@@ -1,6 +1,7 @@
 # Candidate Formation Contract
 
-- **Status:** Phase CF-0 design contract; not implemented
+- **Status:** Phase CF-0 contract accepted; CF-1 source-evidence schemas
+  implemented; formation remains unimplemented
 - **Purpose:** Deterministically join validated track evidence with independently
   validated local evidence and approved rules to form the stable candidate pool
 - **Artifact type:** Evidence-grounded formation and withholding, not scoring,
@@ -66,8 +67,11 @@ The future immutable request must contain:
 - the complete set of approved derivation-rule identifiers and versions used by
   that policy.
 
-This contract defines the required roles of those artifacts but does not define
-their CF-1 schemas.
+CF-1 defines the local Taste Evidence, Familiarity Evidence, Track Feature
+Evidence, and Objective Context Evidence schemas. The accepted Objective Safety
+artifact, Journey Plan correspondence, Candidate Formation request, formation
+policy schema, derivation-rule schema, and output artifact remain future
+boundaries.
 
 ## Source-artifact correspondence
 
@@ -122,7 +126,7 @@ field opportunistically from whichever artifact happens to contain a value.
 | `instrumentalness` | Track Feature Evidence | Copy or derive only under its named versioned rule |
 | `lyrical_distraction` | Track Feature Evidence | Copy or derive only under its named versioned rule |
 | `groove` | Track Feature Evidence | Copy or derive only under its named versioned rule |
-| `context_fit` | Objective-scoped Context Evidence | Derive only from recorded inputs under a named versioned rule |
+| `context_fit` | Objective-scoped Context Evidence | Copy measured evidence, or derive only from recorded inputs under a named versioned rule |
 
 Artist inspection scope does not establish preference. Unknown or unrated status
 does not imply positive, neutral, or negative preference. A future policy may
@@ -162,6 +166,56 @@ Every required field must preserve why usable evidence was not available:
 
 These states are distinct. They must not be collapsed into `0`, `0.5`, another
 neutral value, a generic missing-evidence reason, or one another.
+
+CF-1 represents these meanings with the fixed states `measured`, `unavailable`,
+`conflicting`, `unsupported`, and `explicitly_inapplicable`. Only `measured`
+evidence may carry a resolved value. Other states preserve their source
+observations without a resolved substitute.
+
+## CF-1 source-evidence schemas
+
+The isolated `candidate_formation` package defines four immutable artifact
+types:
+
+- `LocalTasteEvidenceArtifact` preserves exact artist identity and categorical
+  `Rating` evidence. It explicitly establishes neither hard eligibility nor a
+  numeric preference value. `Unknown` remains an observed category, not an
+  inferred score.
+- `FamiliarityEvidenceArtifact` records exact track and artist identity,
+  track-scoped unit-interval familiarity evidence, and the exact track snapshot
+  identity it describes.
+- `TrackFeatureEvidenceArtifact` records exact track and artist identity plus
+  track-scoped unit-interval evidence for energy, instrumentalness, lyrical
+  distraction, and groove.
+- `ObjectiveContextEvidenceArtifact` records exact objective, journey, context,
+  track-snapshot, track, and artist identities. It may preserve a measured
+  provenance-backed `context_fit` value and named serialized context inputs, but
+  does not infer fit from objective text or a Journey Plan.
+
+Every artifact uses schema version `1.0`, frozen models, forbidden extra fields,
+exact nonblank identities, UTF-8 byte ordering, and explicit false eligibility,
+scoring, ranking, formation, and recommendation claims. Observations retain an
+evidence ID, descriptive source type, source reference, and exact serialized
+payload. Canonical serialization uses schema field order, compact JSON
+separators, and UTF-8.
+
+Collection input order is not meaningful. Records, named context inputs, and
+provenance observations are canonicalized by their documented exact identity in
+UTF-8 byte order. Equivalent collections therefore produce equal objects and
+byte-identical serialization. Exact serialized evidence payload bytes remain
+meaningful and are never normalized. Canonicalization constructs new immutable
+tuples inside the deterministic schema boundary; it never sorts or otherwise
+mutates caller-owned collections in place.
+
+CF-1 values remain source evidence, not direct `TrackCandidate` values. Even a
+measured unit-interval value must pass future CF-2 correspondence, eligibility,
+field-ownership, and derivation-policy checks before it could populate a
+candidate. Categorical Taste Evidence has no numeric preference mapping in
+CF-1, and `Unknown` remains `Unknown`.
+
+CF-1 validates evidence-artifact structure only. It does not establish
+cross-artifact correspondence, apply eligibility policy, approve derivation
+rules, form candidates, or produce withheld reasons.
 
 ## Formed and withheld partitions
 
@@ -268,5 +322,5 @@ providers, modify taste, resolve aliases, infer missing values, score or rank
 candidates, construct a soundtrack, evaluate a journey, refine a result, learn
 from outcomes, or persist mutable state.
 
-CF-0 authorizes this contract only. CF-1 evidence schemas, CF-2 formation code,
-and CF-3 downstream integration require separate approval.
+CF-0 and CF-1 authorize the contract and immutable source-evidence schemas only.
+CF-2 formation code and CF-3 downstream integration require separate approval.
