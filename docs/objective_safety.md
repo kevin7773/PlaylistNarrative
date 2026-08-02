@@ -133,4 +133,3 @@ Objective Safety does not:
 - score, select, or sequence tracks;
 - plan a journey; or
 - modify, soften, or rewrite an objective to bypass a safety decision.
-
