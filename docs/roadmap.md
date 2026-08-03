@@ -16,6 +16,11 @@ engine is now the platform on which Penny's experience vocabulary can grow. See
      accepted and declined schema `1.0` artifacts, fixed reason codes, and
      canonical serialization. Intent evaluation and policy execution remain
      future work.
+   - **Crossing Understanding CU-1 (implemented):** immutable schema `1.0`
+     representation of lived evidence, transition candidates, recurring human
+     conditions, and user-stated or user-confirmed person-specific need;
+     deterministic clarification preserves ambiguity before accompaniment or
+     music begins.
    - **Journey Plan artifact (implemented):** immutable schema `1.0` wrapper with
      exact journey, objective, and accepted-safety-artifact identity.
    - **Evidence Snapshot boundary (contract established):** source-specific

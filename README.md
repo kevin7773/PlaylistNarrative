@@ -38,6 +38,9 @@ The deterministic core currently includes:
   evidence dimensions
 - an Objective Safety Boundary design contract that evaluates intent before
   Journey Planning, plus immutable accepted and declined artifact schemas
+- a CU-1 Crossing Understanding boundary that preserves lived evidence,
+  possible crossings, recurring-condition candidates, person-specific need,
+  uncertainty, and exact lineage before accompaniment or music begins
 - source-neutral track-evidence validation with deterministic, lossless
   validated/rejected partitioning
 - a Candidate Formation CF-0 contract plus CF-1 immutable source-evidence
@@ -50,7 +53,8 @@ The deterministic core currently includes:
   elicitation, objective assessment, evidence validation, and Candidate
   Formation source-evidence contracts
 
-Objective Safety policy execution, bounded
+Objective Safety policy execution, Crossing Understanding integration with a
+future accompaniment boundary, bounded
 journey refinement, evidence-acquisition adapters, exports, and the local UI/API
 remain future work. Questionnaire presence, objective sufficiency, validated
 track evidence, and CF-1 source evidence do not assert a recommendation,
@@ -111,10 +115,12 @@ The modular monolith has independently testable internal layers:
 
 1. **Taste Model** — artist/track preferences, context feedback, hard exclusions,
    and familiarity.
-2. **Objective and Evidence Boundaries** — assesses objective completeness,
-   evaluates whether an objective may safely proceed, creates closed-world artist
-   questionnaire seeds, validates immutable track-evidence snapshots, and defines
-   reproducible Candidate Formation without provider-dependent reasoning.
+2. **Objective, Crossing, and Evidence Boundaries** — assesses objective
+   completeness, evaluates whether an objective may safely proceed, represents
+   the supported crossing and person-specific need without beginning music,
+   creates closed-world artist questionnaire seeds, validates immutable
+   track-evidence snapshots, and defines reproducible Candidate Formation
+   without provider-dependent reasoning.
 3. **Journey Planner** — translates an accepted objective into phases, energy
    trajectory, and familiarity allocations.
 4. **Track Sequencer** — scores, selects, and orders validated candidates while
@@ -129,6 +135,8 @@ documented in
 [docs/artist_questionnaire_seed.md](docs/artist_questionnaire_seed.md),
 [docs/objective_assessment.md](docs/objective_assessment.md),
 [docs/objective_safety.md](docs/objective_safety.md),
+[docs/curriculum/crossing_model.md](docs/curriculum/crossing_model.md),
+[docs/curriculum/crossing_understanding.md](docs/curriculum/crossing_understanding.md),
 [docs/track_evidence_validation.md](docs/track_evidence_validation.md), and
 [docs/candidate_formation.md](docs/candidate_formation.md). The downstream CF-3
 boundary is specified in

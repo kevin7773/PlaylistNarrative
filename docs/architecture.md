@@ -17,6 +17,10 @@ repository interfaces rather than UI or AI-provider behavior.
 - Objective Safety Boundary: schema `1.0` defines immutable accepted and declined
   artifacts with fixed reasons and canonical serialization. The provider-neutral
   safety evaluator and policy execution remain unimplemented.
+- `crossing_understanding` (CU-1): immutable representation of lived evidence,
+  possible transitions, recurring-condition candidates, and a user-stated or
+  user-confirmed person-specific need. It preserves ambiguity and clarification
+  without classifying people or beginning musical reasoning.
 - Evidence acquisition (external boundary): future source-specific adapters end
   at an immutable, source-neutral `EvidenceSnapshot`; no adapter belongs to the
   deterministic core.
@@ -48,8 +52,10 @@ flowchart TD
     A["Objective request"] --> B["Objective Assessment"]
     B -->|"Clarification required"| C["Clarification path"]
     B -->|"Sufficient"| D["Objective Safety Boundary"]
-    D -->|"Accepted objective artifact"| E["Journey Planning"]
+    D -->|"Accepted objective artifact"| CU["Crossing Understanding"]
     D -->|"Declined objective artifact"| F["Safe response"]
+    CU -->|"Understood crossing"| E["Journey Planning"]
+    CU -->|"Clarification required"| C
     E --> G["Evidence Acquisition and Validation"]
     G --> J["Candidate Formation"]
     J --> K["Authenticated FormedCandidatePoolView"]
@@ -58,9 +64,15 @@ flowchart TD
 ```
 
 Objective Safety evaluates intent before musical work begins. The accepted path
-alone reaches Journey Planning. The declined path is terminal for soundtrack
+alone reaches Crossing Understanding and later Journey Planning. The declined path is terminal for soundtrack
 construction and does not access evidence providers or musical layers. See
 [Objective Safety Boundary](objective_safety.md) for the design contract.
+
+Crossing Understanding implements the first four steps of Penny's listening
+sequence without selecting accompaniment or music. Events and metaphors are
+evidence, not classifier labels; recurring conditions orient understanding but
+do not define the person. See the [Crossing Model](curriculum/crossing_model.md)
+and [CU-1 contract](curriculum/crossing_understanding.md).
 
 Candidate Formation is the only boundary authorized to construct a
 `TrackCandidate` from validated source artifacts. Every formed field must trace
