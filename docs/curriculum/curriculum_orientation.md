@@ -2,11 +2,12 @@
 
 ## Status
 
-This document defines the proposed CU-2 contract and its architectural test
-plan. CU-2 is not implemented.
+CU-2 is implemented as an additive deterministic boundary with schema `1.0`,
+the three approved initial rules, immutable artifact production, canonical
+serialization, and architectural conformance tests.
 
-The contract stops at authority, inputs, rule governance, artifact semantics,
-outcomes, invariants, and conformance. It does not authorize production code.
+CU-3 and integration with accompaniment, Journey Planning, or music remain
+unimplemented.
 
 ## Purpose
 
@@ -40,8 +41,8 @@ And:
 
 ## Authority boundary
 
-Only a complete, validated `CrossingUnderstandingArtifact` with outcome
-`understood` authorizes CU-2. Its exact embedded `AcceptedObjectiveArtifact`
+Only a complete, validated revised `CrossingUnderstandingArtifact` authorizes
+CU-2. Its exact embedded `AcceptedObjectiveArtifact`
 must correspond to the separately supplied accepted objective without
 normalization or reconstruction.
 
@@ -64,6 +65,7 @@ creating a competing history. CU-2 candidates must originate from CU-2 rules.
 - the SHA-256 digest of the parent's canonical bytes;
 - the exact curriculum identity and version;
 - the exact orientation-policy identity and version.
+- the complete canonical orientation rule set and its SHA-256 digest.
 
 No additional event record, context record, evidence collection, provider
 response, user profile, need hypothesis, or music artifact may authorize
@@ -87,10 +89,11 @@ and semantic repair are forbidden.
 CU-2 may:
 
 - examine the exact resolved transition retained by CU-1;
-- examine only the ending and beginning claims belonging to that transition;
+- examine only the authenticated ending and beginning characteristics belonging
+  to that transition;
 - apply approved, named, versioned orientation rules;
 - produce orientation-only `RecurringConditionCandidate` values;
-- preserve exact rule and source-evidence lineage;
+- preserve exact rule, characteristic, EA-1, and CU-1 lineage;
 - preserve uncertainty and the absence of a supported orientation.
 
 CU-2 shall not:
@@ -107,16 +110,18 @@ CU-2 shall not:
 
 ## Structured crossing characteristics
 
-Orientation rules operate only on structured crossing characteristics expressed
-by the resolved transition's exact ending and beginning values. They do not
+Orientation rules operate only on authenticated structured characteristics
+preserved by the resolved transition. Each predicate includes the exact role,
+governed characteristic identity, value-schema identity/version, and canonical
+typed JSON value. Rules do not
 operate on event labels, objective wording, metaphor text, or source-reference
 keywords.
 
 Permitted:
 
 ```text
-ending.value   = "established role"
-beginning.value = "unproven role"
+ending.characteristic_id = "role.established"
+beginning.characteristic_id = "role.unproven"
         ↓
 uncertainty before competence
 ```
@@ -129,10 +134,9 @@ event.value = "starting school"
 uncertainty before competence
 ```
 
-CU-2 performs no semantic interpretation of free text. A rule predicate uses
-exact values declared by its versioned policy. Semantically similar wording does
-not match. If CU-1 contains free text outside the approved structured vocabulary,
-CU-2 preserves it but does not normalize or reinterpret it to force a match.
+CU-2 performs no semantic interpretation of free text. Values resolve internally
+from the complete CU-1 artifact and its exact EA-1 lineage; the request cannot
+restate them. Semantically similar wording cannot enter rule execution.
 
 The visible event is only the doorway.
 
@@ -144,18 +148,24 @@ Every approved rule defines:
 - an exact curriculum identity and version;
 - an exact orientation-policy identity and version;
 - a predicate over resolved-transition ending and beginning characteristics;
-- an exact recurring-condition candidate identity and pattern;
-- the deterministic source-evidence projection used as candidate observations;
+- an exact candidate identity, condition identity, and pattern;
+- exact ending and beginning authenticated-characteristic predicates;
 - explicit non-claims inherited by the candidate.
 
 Rules are pure and closed-world. They may inspect only fields named by the
 contract. They may not consult mutable state, external providers, event labels,
 the particular need, CU-1 condition candidates, or another rule set.
 
-Every matching rule produces one `RecurringConditionCandidate` with:
+The complete registry is a frozen `OrientationRuleSet`. Its schema enforces
+unique rule IDs, candidate IDs, condition IDs, and exact predicate pairs. Rules
+are canonically ordered by UTF-8 rule identity. The complete canonical bytes are
+identified by SHA-256 in both request and artifact. Any registry-content change
+under the same identity/version is rejected; a rule-set change requires a new
+identity/version and lineage.
 
-- `orientation_basis = versioned_rule`;
-- exact `RecurringConditionRuleProvenance`;
+Every matching rule produces one `CurriculumOrientationCandidate` with:
+
+- exact rule identity/version and input authenticated-characteristic identities;
 - `outcome = unresolved_orientation`;
 - `applicability_to_person_established = false`;
 - `person_membership_claimed = false`;
@@ -179,8 +189,8 @@ These exact predicates intentionally recognize only a narrow structured
 vocabulary. They do not authorize synonym matching or inference from visible
 events. The purpose is architectural validation, not curriculum completeness.
 
-Changing a predicate, candidate, rule version, curriculum version, or policy
-version creates a new artifact lineage.
+Changing a predicate, candidate, condition, rule, or registry requires a new
+rule-set identity/version and creates a new artifact lineage.
 
 ## Artifact
 
@@ -188,20 +198,21 @@ CU-2 produces an immutable `CurriculumOrientationArtifact` containing:
 
 - schema version and artifact kind;
 - exact artifact and request identities;
-- complete parent CU-1 identity and canonical SHA-256 digest;
+- the complete parent CU-1 artifact and canonical SHA-256 digest;
 - exact accepted-objective identity and canonical correspondence;
 - exact curriculum identity and version;
 - exact orientation-policy identity and version;
 - exact resolved-transition identity;
-- an immutable projection of the ending and beginning evidence used;
-- canonically ordered `RecurringConditionCandidate` values;
+- the complete canonical orientation rule set and SHA-256 digest;
+- an immutable projection of the exact authenticated ending and beginning used;
+- canonically ordered `CurriculumOrientationCandidate` values;
 - complete rule lineage for every candidate;
 - deterministic outcome and reasons;
 - explicit non-claims.
 
 The artifact never mutates CU-1 and never replaces CU-1 evidence with a
 curriculum interpretation. Every candidate must be reproducible solely from the
-recorded parent evidence and the named versioned rule.
+recorded parent authenticated-characteristic lineage and the embedded rule set.
 
 Canonical serialization uses schema-order compact JSON encoded as UTF-8.
 Caller-owned inputs are copied into new immutable tuples and are never mutated.
@@ -225,30 +236,19 @@ This is an honest closed-world result, not a failure and not permission to guess
 
 ### `clarification_required`
 
-The parent crossing is valid, but the resolved transition does not contain the
-structured characteristic support required to determine whether an approved
-rule applies. All applicable clarification reasons are retained in fixed order.
+The parent CU-1 artifact does not contain exactly one resolved crossing.
+This is a non-failure outcome and records `PARENT_CROSSING_UNRESOLVED`.
 
-Examples include an explicitly inapplicable required direction or materially
-ambiguous characteristic evidence preserved by a future compatible CU-1 schema.
-Free text that simply does not equal an approved predicate produces
-`no_orientation_supported`, not semantic clarification.
-
-Malformed artifacts, digest mismatches, non-`understood` CU-1 outcomes, missing
-resolved-transition correspondence, and unsupported schema or policy versions
-fail request validation. They do not become artifact outcomes.
+Malformed artifacts, digest mismatches, lineage mismatches, incomplete rule
+sets, and unsupported schema or policy versions fail request validation. They do
+not become artifact outcomes.
 
 ## Deterministic reasons
 
 Reason precedence is fixed:
 
-1. `ORIENTATION_ENDING_CHARACTERISTIC_UNAVAILABLE`;
-2. `ORIENTATION_BEGINNING_CHARACTERISTIC_UNAVAILABLE`;
-3. `ORIENTATION_CHARACTERISTIC_UNSUPPORTED`;
-4. `ORIENTATION_CHARACTERISTIC_CONFLICTING`;
-5. `ORIENTATION_CHARACTERISTIC_EXPLICITLY_INAPPLICABLE`;
-6. `MATERIAL_ORIENTATION_AMBIGUITY`;
-7. `NO_APPROVED_ORIENTATION_RULE_MATCHED`.
+1. `PARENT_CROSSING_UNRESOLVED`;
+2. `NO_APPROVED_ORIENTATION_RULE_MATCHED`.
 
 Clarification artifacts retain every applicable clarification reason. A
 `no_orientation_supported` artifact contains only the no-match reason.
@@ -257,9 +257,10 @@ Clarification artifacts retain every applicable clarification reason. A
 ## Core invariants
 
 - Only CU-1 authorizes CU-2.
-- Only an `understood` CU-1 artifact with one exact resolved transition may enter.
+- A resolved CU-1 artifact may orient; an unresolved one produces clarification.
 - Rules reason from the resolved crossing, never from events.
 - Every candidate identifies exactly one originating rule.
+- Every candidate identifies exact authenticated-characteristic inputs.
 - Every candidate remains `unresolved_orientation`.
 - No candidate establishes applicability, membership, diagnosis, or authority
   over the particular need.
@@ -269,7 +270,7 @@ Clarification artifacts retain every applicable clarification reason. A
 - No rule may read or infer the particular need.
 - Unknown crossings remain unknown.
 - No matching rule is an honest result.
-- New curriculum or policy versions create new artifacts.
+- New curriculum, policy, or rule-set versions create new artifacts.
 - Equivalent input permutations yield equal artifacts and byte-identical
   canonical serialization.
 - Every output field is reproducible solely from immutable parent evidence and
@@ -312,8 +313,7 @@ CU-3 is not defined or implemented by this contract.
 
 ### Authority and correspondence
 
-- Reject a CU-1 artifact whose outcome is not `understood`.
-- Reject a missing or non-corresponding resolved transition.
+- Preserve a non-resolved CU-1 artifact as `clarification_required`.
 - Reject parent CU-1 canonical-digest mismatch.
 - Reject accepted-objective identity, typed-value, or digest mismatch.
 - Reject unsupported curriculum, orientation-policy, or schema versions.
@@ -327,7 +327,7 @@ CU-3 is not defined or implemented by this contract.
   keywords cannot trigger a rule.
 - Prove CU-1 recurring-condition candidates cannot trigger or seed CU-2 output.
 - Prove exact approved characteristics trigger only their documented rules.
-- Prove semantically similar but nonidentical values do not match.
+- Prove caller-supplied values and semantically similar text cannot enter.
 - Prove no hidden normalization or synonym expansion occurs.
 
 ### Orientation-only semantics
@@ -352,8 +352,8 @@ CU-3 is not defined or implemented by this contract.
 ### Lineage and reproducibility
 
 - Every candidate identifies exactly one approved rule and version.
-- Candidate observations correspond exactly to the parent evidence projection.
-- Artifact transition evidence reproduces the exact parent typed values.
+- Candidate inputs identify exact authenticated parent characteristics.
+- Artifact transition evidence reproduces exact typed EA-1 projections.
 - Parent CU-1 identity and canonical digest are preserved exactly.
 - Curriculum and orientation-policy versions are preserved exactly.
 - A changed rule, curriculum, policy, or parent produces a distinct lineage.
@@ -364,7 +364,7 @@ CU-3 is not defined or implemented by this contract.
 - Equivalent inputs serialize to byte-identical canonical UTF-8 JSON.
 - Candidate order uses the documented canonical key and carries no rank meaning.
 - Construction does not mutate caller-owned collections or parent artifacts.
-- Duplicate candidate, rule, and evidence identities fail closed.
+- Duplicate candidate, condition, rule, and predicate identities fail closed.
 
 ### Isolation
 
@@ -375,9 +375,8 @@ CU-3 is not defined or implemented by this contract.
 - Repository-wide structural searches prove CU-2 has no alternate production
   authority path.
 
-## Stop point
+## Implementation boundary
 
-This contract defines CU-2 authority, scope, invariants, artifact semantics,
-outcomes, and its supporting architectural test plan only.
-
-Do not implement CU-2 until this contract is approved.
+The implementation stops at CU-2 authority, rule execution, artifact semantics,
+outcomes, canonical serialization, and conformance. It does not implement CU-3
+or authorize accompaniment or musical reasoning.

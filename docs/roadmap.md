@@ -21,6 +21,10 @@ engine is now the platform on which Penny's experience vocabulary can grow. See
      conditions, and user-stated or user-confirmed person-specific need;
      deterministic clarification preserves ambiguity before accompaniment or
      music begins.
+   - **Curriculum Orientation CU-2 (implemented):** exact schema `1.0`
+     orientation from exact EA-1 lineage through a canonical digest-bound
+     registry of three approved rules, with honest no-match outcomes and no
+     person-level classification or need authority. CU-3 remains planned.
    - **Journey Plan artifact (implemented):** immutable schema `1.0` wrapper with
      exact journey, objective, and accepted-safety-artifact identity.
    - **Evidence Snapshot boundary (contract established):** source-specific

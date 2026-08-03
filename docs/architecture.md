@@ -17,10 +17,13 @@ repository interfaces rather than UI or AI-provider behavior.
 - Objective Safety Boundary: schema `1.0` defines immutable accepted and declined
   artifacts with fixed reasons and canonical serialization. The provider-neutral
   safety evaluator and policy execution remain unimplemented.
-- `crossing_understanding` (CU-1): immutable representation of lived evidence,
-  possible transitions, recurring-condition candidates, and a user-stated or
-  user-confirmed person-specific need. It preserves ambiguity and clarification
-  without classifying people or beginning musical reasoning.
+- `crossing_understanding` (CU-1): derives one directional crossing exclusively
+  from exact EA-1 authenticated characteristics. Other lived evidence and need
+  lineage are preserved without participating in directional reasoning.
+- `curriculum_orientation` (CU-2): exact, closed-world orientation from one
+  resolved CU-1 transition through a canonical digest-bound registry of three
+  approved rules. Output conditions remain unresolved orientation candidates
+  and cannot establish person applicability, diagnosis, membership, or need.
 - Evidence acquisition (external boundary): future source-specific adapters end
   at an immutable, source-neutral `EvidenceSnapshot`; no adapter belongs to the
   deterministic core.
@@ -54,8 +57,10 @@ flowchart TD
     B -->|"Sufficient"| D["Objective Safety Boundary"]
     D -->|"Accepted objective artifact"| CU["Crossing Understanding"]
     D -->|"Declined objective artifact"| F["Safe response"]
-    CU -->|"Understood crossing"| E["Journey Planning"]
+    CU -->|"Understood crossing"| O["Curriculum Orientation"]
     CU -->|"Clarification required"| C
+    O -->|"Orientation artifact"| N["Need Clarification - planned"]
+    N -.->|"Future integration"| E["Journey Planning"]
     E --> G["Evidence Acquisition and Validation"]
     G --> J["Candidate Formation"]
     J --> K["Authenticated FormedCandidatePoolView"]
@@ -73,6 +78,14 @@ sequence without selecting accompaniment or music. Events and metaphors are
 evidence, not classifier labels; recurring conditions orient understanding but
 do not define the person. See the [Crossing Model](curriculum/crossing_model.md)
 and [CU-1 contract](curriculum/crossing_understanding.md).
+
+Curriculum Orientation applies only exact authenticated-characteristic
+predicates to the resolved crossing. It never reads observation payloads, event
+labels, metaphors, needs, or prior orientation candidates. No matching rule is
+an honest closed-world result. CU-2 is
+implemented additively; its CU-3 successor and downstream Journey Planning
+integration remain unimplemented. See the
+[CU-2 contract](curriculum/curriculum_orientation.md).
 
 Candidate Formation is the only boundary authorized to construct a
 `TrackCandidate` from validated source artifacts. Every formed field must trace

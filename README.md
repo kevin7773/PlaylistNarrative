@@ -38,9 +38,12 @@ The deterministic core currently includes:
   evidence dimensions
 - an Objective Safety Boundary design contract that evaluates intent before
   Journey Planning, plus immutable accepted and declined artifact schemas
-- a CU-1 Crossing Understanding boundary that preserves lived evidence,
-  possible crossings, recurring-condition candidates, person-specific need,
-  uncertainty, and exact lineage before accompaniment or music begins
+- a CU-1 Crossing Understanding boundary that derives a directional crossing
+  exclusively from exact EA-1 authenticated characteristics while preserving
+  nonparticipating lived evidence and need lineage
+- a CU-2 Curriculum Orientation boundary that applies three exact versioned
+  rules from a canonical digest-bound registry without reading event labels,
+  observation payloads, needs, prior candidates, or free text
 - source-neutral track-evidence validation with deterministic, lossless
   validated/rejected partitioning
 - a Candidate Formation CF-0 contract plus CF-1 immutable source-evidence
@@ -53,8 +56,8 @@ The deterministic core currently includes:
   elicitation, objective assessment, evidence validation, and Candidate
   Formation source-evidence contracts
 
-Objective Safety policy execution, Crossing Understanding integration with a
-future accompaniment boundary, bounded
+Objective Safety policy execution, CU-3 Need Clarification, cognitive-boundary
+integration with a future accompaniment boundary, bounded
 journey refinement, evidence-acquisition adapters, exports, and the local UI/API
 remain future work. Questionnaire presence, objective sufficiency, validated
 track evidence, and CF-1 source evidence do not assert a recommendation,
@@ -137,6 +140,7 @@ documented in
 [docs/objective_safety.md](docs/objective_safety.md),
 [docs/curriculum/crossing_model.md](docs/curriculum/crossing_model.md),
 [docs/curriculum/crossing_understanding.md](docs/curriculum/crossing_understanding.md),
+[docs/curriculum/curriculum_orientation.md](docs/curriculum/curriculum_orientation.md),
 [docs/track_evidence_validation.md](docs/track_evidence_validation.md), and
 [docs/candidate_formation.md](docs/candidate_formation.md). The downstream CF-3
 boundary is specified in
