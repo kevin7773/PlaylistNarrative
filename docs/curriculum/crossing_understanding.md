@@ -2,7 +2,11 @@
 
 ## Status
 
-CU-1 is implemented as an additive, deterministic boundary. It represents the
+CU-1 schema `2.0` is implemented as an intentionally breaking, deterministic
+boundary. Schema `1.0` accepted arbitrary ending and beginning claim text as
+authoritative. The EA-1 adversarial review exposed that as an unearned
+assumption, and schema `2.0` removes that production path without a compatibility
+adapter. CU-1 represents the
 first four steps of Penny's listening sequence:
 
 ```text
@@ -20,25 +24,32 @@ authority for this boundary is the [Crossing Model](crossing_model.md).
 
 ## Purpose
 
-Crossing Understanding records what Penny can presently support about a
-person's crossing, which recurring conditions may orient further listening, and
-which person-specific need the user has stated or confirmed. It preserves
+Crossing Understanding derives the directional crossing supported by exact
+authenticated characteristics. It also preserves lived evidence, unresolved
+orientation candidates, and any person-specific need supplied by the caller,
+but does not consume those preserved fields when deriving or resolving the
+crossing. It preserves
 ambiguity and missing support rather than converting a visible event into an
 objective or soundtrack.
 
-An `AcceptedObjectiveArtifact` is the sole existing artifact authorized to
-enter this boundary. The complete accepted artifact is embedded in the request
-and output, and its exact canonical bytes are identified by SHA-256 digest.
+An `AcceptedObjectiveArtifact` authorizes the overall request. An exact
+`AuthenticatedStructuredCharacteristicArtifact` produced by EA-1 is the sole
+authority for every ending and beginning characteristic used by directional
+crossing derivation. Both parent artifacts are embedded, digest-identified, and
+required to carry exactly corresponding objective lineage.
 
 ## Inputs
 
-`CrossingUnderstandingRequest` schema `1.0` contains:
+`CrossingUnderstandingRequest` schema `2.0` contains:
 
 - an exact request identity;
 - the complete accepted Objective Safety artifact and canonical SHA-256 digest;
 - an exact crossing-policy identity and version;
+- the complete EA-1 artifact and SHA-256 digest of its canonical wrapper bytes;
 - one or more lived-evidence claims using the visible-event or metaphor role;
-- zero or more transition candidates;
+- zero or more directional-transition requests containing only a candidate ID,
+  an authenticated ending-characteristic ID, and an authenticated
+  beginning-characteristic ID;
 - zero or more recurring-condition candidates;
 - an optional person-specific need.
 
@@ -64,15 +75,18 @@ Unknown evidence never becomes neutral, typical, or presumed.
 
 ## Transition representation
 
-A transition is represented by exact claims about what is ending or changing
-and what is beginning or emerging. CU-1 does not classify an event against the
-curriculum.
+A transition is represented by exact immutable projections of an authenticated
+ending characteristic and an authenticated beginning characteristic. CU-1 does
+not accept free-text directional claims and does not classify an event against
+the curriculum.
 
-A transition may be directly stated, confirmed, or derived by the fixed
-`crossing.directional_transition` rule version `1.0`. That derivation does not
-interpret an event. It records the crossing already established by the exact
-ending and beginning claims, and retains those two claim identities as its
-complete inputs.
+CU-1 derives a transition only through fixed rule
+`crossing.directional_transition` version `1.0`. The request identifies two
+characteristics already minted by EA-1; CU-1 resolves them against the embedded
+authenticated partition, verifies their exact roles and values, and reproduces
+them without normalization or reinterpretation. The derivation records the two
+authenticated-characteristic identities as its complete inputs. Withheld EA-1
+attempts and generic supported text cannot enter this path.
 
 Multiple plausible transition candidates remain separate and canonically
 ordered by UTF-8 candidate identity. Their order carries no ranking or
@@ -96,21 +110,22 @@ about a condition remain source observations, not authenticated classifications.
 The wording is preserved as evidence under an explicitly hypothetical structure,
 not validated as person-level truth.
 
-## Person-specific need
+## Preserved evidence outside directional authority
 
-CU-1 resolves a need only when it is directly stated or explicitly confirmed by
-the user. The package contains no derivation from event, transition, curriculum,
-or recurring condition to need.
+Lived-event evidence, metaphors, recurring-condition candidates, and a supplied
+person-specific need are carried for lineage and later boundaries. Presence is
+not participation: CU-1 does not read their payloads or values for matching,
+branching, comparison, directional derivation, or crossing resolution.
 
-An otherwise complete crossing with an unavailable, unsupported, or conflicting
-need remains on the clarification path.
+Their schemas continue to preserve evidence states and provenance without
+granting them directional authority. A later boundary must determine whether a
+person-specific need is sufficient for its own jurisdiction.
 
 ## Outputs
 
-`CrossingUnderstandingArtifact` schema `1.0` returns either:
+`CrossingUnderstandingArtifact` schema `2.0` returns either:
 
-- `understood`, with exactly one resolved retained transition and a supported
-  person-specific need; or
+- `understood`, with exactly one resolved retained transition; or
 - `clarification_required`, with no resolved transition and every applicable
   deterministic clarification reason.
 
@@ -127,14 +142,17 @@ are copied into new canonically ordered tuples rather than mutated. Equivalent
 input permutations produce equal artifacts and byte-identical compact UTF-8 JSON
 serialization.
 
-Every supported field is reproducible from embedded immutable observations or,
-for the directional transition only, the named versioned rule and its exact
-recorded inputs.
+Every directional field is reproducible solely from the embedded EA-1 artifact,
+its authenticated partition, and the named directional rule with exact recorded
+characteristic identities. CU-1 cannot authenticate or repair a characteristic.
 
 ## Explicit non-claims
 
 CU-1 does not:
 
+- authenticate ending or beginning characteristics;
+- accept arbitrary directional claim text;
+- normalize, alias, reinterpret, or re-bless EA-1 values;
 - diagnose psychological state;
 - classify a person;
 - infer a need from the curriculum;

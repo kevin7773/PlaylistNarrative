@@ -7,10 +7,18 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from playlist_narrative_engine.evidence_authentication import (
+    AuthenticatedStructuredCharacteristic,
+    AuthenticatedStructuredCharacteristicArtifact,
+    CharacteristicRole,
+)
+from playlist_narrative_engine.evidence_authentication.serialization import (
+    serialize_evidence_authentication,
+)
 from playlist_narrative_engine.objective_safety import AcceptedObjectiveArtifact
 
 
-CROSSING_UNDERSTANDING_SCHEMA_VERSION = "1.0"
+CROSSING_UNDERSTANDING_SCHEMA_VERSION = "2.0"
 DIRECTIONAL_TRANSITION_RULE_ID = "crossing.directional_transition"
 DIRECTIONAL_TRANSITION_RULE_VERSION = "1.0"
 
@@ -52,57 +60,21 @@ class CrossingUnderstandingOutcome(StrEnum):
 
 
 class CrossingClarificationReasonCode(StrEnum):
-    EVENT_UNAVAILABLE = "CU_EVENT_UNAVAILABLE"
-    EVENT_UNSUPPORTED = "CU_EVENT_UNSUPPORTED"
-    EVENT_CONFLICTING = "CU_EVENT_CONFLICTING"
     TRANSITION_ENDING_UNAVAILABLE = "CU_TRANSITION_ENDING_UNAVAILABLE"
     TRANSITION_BEGINNING_UNAVAILABLE = "CU_TRANSITION_BEGINNING_UNAVAILABLE"
-    TRANSITION_UNSUPPORTED = "CU_TRANSITION_UNSUPPORTED"
-    TRANSITION_CONFLICTING = "CU_TRANSITION_CONFLICTING"
     MULTIPLE_TRANSITIONS_PLAUSIBLE = "CU_MULTIPLE_TRANSITIONS_PLAUSIBLE"
-    NEED_UNAVAILABLE = "CU_NEED_UNAVAILABLE"
-    NEED_UNSUPPORTED = "CU_NEED_UNSUPPORTED"
-    NEED_CONFLICTING = "CU_NEED_CONFLICTING"
-    USER_CONFIRMATION_REQUIRED = "CU_USER_CONFIRMATION_REQUIRED"
 
 
 CLARIFICATION_REASON_PRECEDENCE = tuple(CrossingClarificationReasonCode)
 CLARIFICATION_REASON_EXPLANATIONS = {
-    CrossingClarificationReasonCode.EVENT_UNAVAILABLE: (
-        "Evidence of lived experience is unavailable."
-    ),
-    CrossingClarificationReasonCode.EVENT_UNSUPPORTED: (
-        "The supplied evidence does not support a lived event or metaphor."
-    ),
-    CrossingClarificationReasonCode.EVENT_CONFLICTING: (
-        "The supplied evidence gives conflicting accounts of the lived event or metaphor."
-    ),
     CrossingClarificationReasonCode.TRANSITION_ENDING_UNAVAILABLE: (
         "What is ending or changing is unavailable."
     ),
     CrossingClarificationReasonCode.TRANSITION_BEGINNING_UNAVAILABLE: (
         "What is beginning or emerging is unavailable."
     ),
-    CrossingClarificationReasonCode.TRANSITION_UNSUPPORTED: (
-        "The supplied evidence does not support a transition."
-    ),
-    CrossingClarificationReasonCode.TRANSITION_CONFLICTING: (
-        "The supplied evidence gives conflicting accounts of the transition."
-    ),
     CrossingClarificationReasonCode.MULTIPLE_TRANSITIONS_PLAUSIBLE: (
         "Multiple materially distinct transitions remain plausible."
-    ),
-    CrossingClarificationReasonCode.NEED_UNAVAILABLE: (
-        "A person-specific need is unavailable."
-    ),
-    CrossingClarificationReasonCode.NEED_UNSUPPORTED: (
-        "The supplied evidence does not support a person-specific need."
-    ),
-    CrossingClarificationReasonCode.NEED_CONFLICTING: (
-        "The supplied evidence gives conflicting accounts of the person-specific need."
-    ),
-    CrossingClarificationReasonCode.USER_CONFIRMATION_REQUIRED: (
-        "The crossing requires explicit user confirmation before accompaniment."
     ),
 }
 
@@ -219,9 +191,9 @@ class CrossingClaim(FrozenCrossingModel):
 class TransitionDerivation(FrozenCrossingModel):
     rule_id: Literal["crossing.directional_transition"] = DIRECTIONAL_TRANSITION_RULE_ID
     rule_version: Literal["1.0"] = DIRECTIONAL_TRANSITION_RULE_VERSION
-    input_claim_ids: tuple[str, str]
+    input_authenticated_characteristic_ids: tuple[str, str]
 
-    @field_validator("input_claim_ids")
+    @field_validator("input_authenticated_characteristic_ids")
     @classmethod
     def require_exact_distinct_inputs(cls, value: tuple[str, str]) -> tuple[str, str]:
         if len(set(value)) != 2:
@@ -231,12 +203,32 @@ class TransitionDerivation(FrozenCrossingModel):
         return value
 
 
+class DirectionalTransitionRequest(FrozenCrossingModel):
+    candidate_id: str = Field(min_length=1, max_length=200)
+    ending_authenticated_characteristic_id: str = Field(min_length=1, max_length=200)
+    beginning_authenticated_characteristic_id: str = Field(min_length=1, max_length=200)
+
+    @field_validator(
+        "candidate_id",
+        "ending_authenticated_characteristic_id",
+        "beginning_authenticated_characteristic_id",
+    )
+    @classmethod
+    def require_exact_id(cls, value: str) -> str:
+        return _exact(value)
+
+    @model_validator(mode="after")
+    def require_distinct_characteristics(self) -> DirectionalTransitionRequest:
+        if self.ending_authenticated_characteristic_id == self.beginning_authenticated_characteristic_id:
+            raise ValueError("directional transition characteristics must be distinct")
+        return self
+
+
 class TransitionCandidate(FrozenCrossingModel):
     candidate_id: str = Field(min_length=1, max_length=200)
-    ending: CrossingClaim
-    beginning: CrossingClaim
-    basis: CrossingClaimBasis
-    derivation: TransitionDerivation | None = None
+    ending: AuthenticatedStructuredCharacteristic
+    beginning: AuthenticatedStructuredCharacteristic
+    derivation: TransitionDerivation
 
     @field_validator("candidate_id")
     @classmethod
@@ -245,18 +237,16 @@ class TransitionCandidate(FrozenCrossingModel):
 
     @model_validator(mode="after")
     def enforce_transition_contract(self) -> TransitionCandidate:
-        if self.ending.role is not CrossingClaimRole.ENDING:
-            raise ValueError("transition ending must use the ending claim role")
-        if self.beginning.role is not CrossingClaimRole.BEGINNING:
-            raise ValueError("transition beginning must use the beginning claim role")
-        if self.basis is CrossingClaimBasis.VERSIONED_DERIVATION:
-            if self.derivation is None:
-                raise ValueError("derived transitions require versioned derivation provenance")
-            expected_inputs = (self.ending.claim_id, self.beginning.claim_id)
-            if self.derivation.input_claim_ids != expected_inputs:
-                raise ValueError("transition derivation inputs must match ending and beginning exactly")
-        elif self.derivation is not None:
-            raise ValueError("user-supplied transitions cannot carry derivation provenance")
+        if self.ending.role is not CharacteristicRole.ENDING:
+            raise ValueError("transition ending must be an authenticated ending characteristic")
+        if self.beginning.role is not CharacteristicRole.BEGINNING:
+            raise ValueError("transition beginning must be an authenticated beginning characteristic")
+        expected_inputs = (
+            self.ending.authenticated_characteristic_id,
+            self.beginning.authenticated_characteristic_id,
+        )
+        if self.derivation.input_authenticated_characteristic_ids != expected_inputs:
+            raise ValueError("transition derivation inputs must match authenticated characteristics exactly")
         return self
 
 
@@ -319,14 +309,16 @@ class RecurringConditionCandidate(FrozenCrossingModel):
 
 
 class CrossingUnderstandingRequest(FrozenCrossingModel):
-    schema_version: Literal["1.0"] = CROSSING_UNDERSTANDING_SCHEMA_VERSION
+    schema_version: Literal["2.0"] = CROSSING_UNDERSTANDING_SCHEMA_VERSION
     request_id: str = Field(min_length=1, max_length=200)
     accepted_objective: AcceptedObjectiveArtifact
     accepted_objective_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     crossing_policy_id: str = Field(min_length=1, max_length=200)
     crossing_policy_version: str = Field(min_length=1, max_length=100)
+    evidence_authentication_artifact: AuthenticatedStructuredCharacteristicArtifact
+    evidence_authentication_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     lived_evidence: tuple[CrossingClaim, ...]
-    transition_candidates: tuple[TransitionCandidate, ...] = ()
+    directional_transition_requests: tuple[DirectionalTransitionRequest, ...] = ()
     recurring_condition_candidates: tuple[RecurringConditionCandidate, ...] = ()
     particular_need: CrossingClaim | None = None
 
@@ -345,7 +337,7 @@ class CrossingUnderstandingRequest(FrozenCrossingModel):
     def canonicalize_conditions(cls, value: Any) -> tuple[object, ...]:
         return _canonical_order(value, "candidate_id")
 
-    @field_validator("transition_candidates", mode="before")
+    @field_validator("directional_transition_requests", mode="before")
     @classmethod
     def canonicalize_transitions(cls, value: Any) -> tuple[object, ...]:
         return _canonical_order(value, "candidate_id")
@@ -368,13 +360,32 @@ class CrossingUnderstandingRequest(FrozenCrossingModel):
         claim_ids = [claim.claim_id for claim in self.lived_evidence]
         if self.particular_need is not None:
             claim_ids.append(self.particular_need.claim_id)
-        for transition in self.transition_candidates:
-            claim_ids.extend((transition.ending.claim_id, transition.beginning.claim_id))
         if len(claim_ids) != len(set(claim_ids)):
             raise ValueError("claim IDs must be unique across the request")
-        candidate_ids = tuple(item.candidate_id for item in self.transition_candidates)
+        if self.evidence_authentication_sha256 != hashlib.sha256(
+            serialize_evidence_authentication(self.evidence_authentication_artifact)
+        ).hexdigest():
+            raise ValueError("Evidence Authentication artifact digest must match exactly")
+        parent = self.evidence_authentication_artifact.content
+        if (
+            parent.accepted_objective != self.accepted_objective
+            or parent.accepted_objective_sha256 != self.accepted_objective_sha256
+        ):
+            raise ValueError("Evidence Authentication objective lineage must correspond exactly")
+        authenticated_by_id = {
+            item.authenticated_characteristic_id: item
+            for item in parent.authenticated_characteristics
+        }
+        candidate_ids = tuple(item.candidate_id for item in self.directional_transition_requests)
         if len(candidate_ids) != len(set(candidate_ids)):
             raise ValueError("transition candidate IDs must be unique")
+        for transition in self.directional_transition_requests:
+            ending = authenticated_by_id.get(transition.ending_authenticated_characteristic_id)
+            beginning = authenticated_by_id.get(transition.beginning_authenticated_characteristic_id)
+            if ending is None or beginning is None:
+                raise ValueError("directional transition inputs must identify authenticated characteristics")
+            if ending.role is not CharacteristicRole.ENDING or beginning.role is not CharacteristicRole.BEGINNING:
+                raise ValueError("directional transition roles must correspond exactly")
         condition_ids = tuple(item.candidate_id for item in self.recurring_condition_candidates)
         if len(condition_ids) != len(set(condition_ids)):
             raise ValueError("recurring-condition candidate IDs must be unique")
@@ -399,7 +410,7 @@ class CrossingClarificationReason(FrozenCrossingModel):
 
 
 class CrossingUnderstandingArtifact(FrozenCrossingModel):
-    schema_version: Literal["1.0"] = CROSSING_UNDERSTANDING_SCHEMA_VERSION
+    schema_version: Literal["2.0"] = CROSSING_UNDERSTANDING_SCHEMA_VERSION
     artifact_kind: Literal["crossing_understanding"] = "crossing_understanding"
     artifact_id: str = Field(min_length=1, max_length=200)
     request_id: str = Field(min_length=1, max_length=200)
@@ -407,6 +418,8 @@ class CrossingUnderstandingArtifact(FrozenCrossingModel):
     accepted_objective_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     crossing_policy_id: str = Field(min_length=1, max_length=200)
     crossing_policy_version: str = Field(min_length=1, max_length=100)
+    evidence_authentication_artifact: AuthenticatedStructuredCharacteristicArtifact
+    evidence_authentication_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     lived_evidence: tuple[CrossingClaim, ...]
     transition_candidates: tuple[TransitionCandidate, ...]
     resolved_transition_id: str | None = Field(default=None, max_length=200)
@@ -469,10 +482,26 @@ class CrossingUnderstandingArtifact(FrozenCrossingModel):
         claim_ids = [claim.claim_id for claim in self.lived_evidence]
         if self.particular_need is not None:
             claim_ids.append(self.particular_need.claim_id)
-        for transition in self.transition_candidates:
-            claim_ids.extend((transition.ending.claim_id, transition.beginning.claim_id))
         if len(claim_ids) != len(set(claim_ids)):
             raise ValueError("artifact claim IDs must be unique")
+        if self.evidence_authentication_sha256 != hashlib.sha256(
+            serialize_evidence_authentication(self.evidence_authentication_artifact)
+        ).hexdigest():
+            raise ValueError("artifact Evidence Authentication digest must match exactly")
+        parent = self.evidence_authentication_artifact.content
+        if (
+            parent.accepted_objective != self.accepted_objective
+            or parent.accepted_objective_sha256 != self.accepted_objective_sha256
+        ):
+            raise ValueError("artifact Evidence Authentication objective lineage must correspond exactly")
+        authenticated_by_id = {
+            item.authenticated_characteristic_id: item
+            for item in parent.authenticated_characteristics
+        }
+        for transition in self.transition_candidates:
+            for characteristic in (transition.ending, transition.beginning):
+                if authenticated_by_id.get(characteristic.authenticated_characteristic_id) != characteristic:
+                    raise ValueError("transition must reproduce exact authenticated parent characteristics")
         candidate_ids = tuple(item.candidate_id for item in self.transition_candidates)
         if len(candidate_ids) != len(set(candidate_ids)):
             raise ValueError("artifact transition candidate IDs must be unique")
@@ -491,6 +520,19 @@ class CrossingUnderstandingArtifact(FrozenCrossingModel):
         reason_keys = tuple((reason.code, reason.field_path) for reason in self.clarification_reasons)
         if len(reason_keys) != len(set(reason_keys)):
             raise ValueError("clarification reasons must be unique by code and field path")
+        if not self.transition_candidates:
+            expected_reason_keys = (
+                (CrossingClarificationReasonCode.TRANSITION_ENDING_UNAVAILABLE, "transition.ending"),
+                (CrossingClarificationReasonCode.TRANSITION_BEGINNING_UNAVAILABLE, "transition.beginning"),
+            )
+        elif len(self.transition_candidates) > 1:
+            expected_reason_keys = (
+                (CrossingClarificationReasonCode.MULTIPLE_TRANSITIONS_PLAUSIBLE, "transition_candidates"),
+            )
+        else:
+            expected_reason_keys = ()
+        if reason_keys != expected_reason_keys:
+            raise ValueError("clarification reasons must be exactly derivable from directional transitions")
         requires_clarification = bool(self.clarification_reasons)
         if self.clarification_required is not requires_clarification:
             raise ValueError("clarification flag must match reasons")
