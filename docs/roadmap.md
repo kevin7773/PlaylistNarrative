@@ -16,15 +16,23 @@ engine is now the platform on which Penny's experience vocabulary can grow. See
      accepted and declined schema `1.0` artifacts, fixed reason codes, and
      canonical serialization. Intent evaluation and policy execution remain
      future work.
-   - **Crossing Understanding CU-1 (implemented):** immutable schema `1.0`
-     representation of lived evidence, transition candidates, recurring human
-     conditions, and user-stated or user-confirmed person-specific need;
-     deterministic clarification preserves ambiguity before accompaniment or
-     music begins.
+   - **Crossing Understanding CU-1 (implemented):** immutable schema `2.0`
+     directional derivation from exact EA-1 authenticated characteristics,
+     preserving nonparticipating lived evidence and need lineage without
+     granting either crossing authority.
    - **Curriculum Orientation CU-2 (implemented):** exact schema `1.0`
      orientation from exact EA-1 lineage through a canonical digest-bound
      registry of three approved rules, with honest no-match outcomes and no
-     person-level classification or need authority. CU-3 remains planned.
+     person-level classification or need authority.
+   - **Need Authority Uncertainty CU-3 (contract proposed; blocked on
+     prerequisites):** identifies the smallest material uncertainty blocking
+     need authority without generating questions or establishing a need.
+     Authenticated person-specific evidence and an immutable need-authority
+     requirements registry must be contracted before implementation.
+   - **Need Authority Requirements (contract proposed):** case-blind normative
+     authority defining immutable conjunction-only evidentiary sufficiency
+     requirements. Proposed-need-type and evidence-grant vocabularies remain
+     prerequisite contracts; no evidence or case is evaluated here.
    - **Journey Plan artifact (implemented):** immutable schema `1.0` wrapper with
      exact journey, objective, and accepted-safety-artifact identity.
    - **Evidence Snapshot boundary (contract established):** source-specific

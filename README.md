@@ -56,8 +56,9 @@ The deterministic core currently includes:
   elicitation, objective assessment, evidence validation, and Candidate
   Formation source-evidence contracts
 
-Objective Safety policy execution, CU-3 Need Clarification, cognitive-boundary
-integration with a future accompaniment boundary, bounded
+Objective Safety policy execution, CU-3 Need Authority Uncertainty
+prerequisites, cognitive-boundary integration with a future accompaniment
+boundary, bounded
 journey refinement, evidence-acquisition adapters, exports, and the local UI/API
 remain future work. Questionnaire presence, objective sufficiency, validated
 track evidence, and CF-1 source evidence do not assert a recommendation,
@@ -141,6 +142,8 @@ documented in
 [docs/curriculum/crossing_model.md](docs/curriculum/crossing_model.md),
 [docs/curriculum/crossing_understanding.md](docs/curriculum/crossing_understanding.md),
 [docs/curriculum/curriculum_orientation.md](docs/curriculum/curriculum_orientation.md),
+[docs/curriculum/need_authority_uncertainty.md](docs/curriculum/need_authority_uncertainty.md),
+[docs/curriculum/need_authority_requirements.md](docs/curriculum/need_authority_requirements.md),
 [docs/track_evidence_validation.md](docs/track_evidence_validation.md), and
 [docs/candidate_formation.md](docs/candidate_formation.md). The downstream CF-3
 boundary is specified in

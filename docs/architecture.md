@@ -59,7 +59,7 @@ flowchart TD
     D -->|"Declined objective artifact"| F["Safe response"]
     CU -->|"Understood crossing"| O["Curriculum Orientation"]
     CU -->|"Clarification required"| C
-    O -->|"Orientation artifact"| N["Need Clarification - planned"]
+    O -->|"Orientation artifact"| N["Need Authority Uncertainty - proposed"]
     N -.->|"Future integration"| E["Journey Planning"]
     E --> G["Evidence Acquisition and Validation"]
     G --> J["Candidate Formation"]
@@ -86,6 +86,21 @@ an honest closed-world result. CU-2 is
 implemented additively; its CU-3 successor and downstream Journey Planning
 integration remain unimplemented. See the
 [CU-2 contract](curriculum/curriculum_orientation.md).
+
+Need Authority Uncertainty (CU-3) is proposed as an epistemic boundary that
+identifies the smallest material blocker between orientation and person-specific
+need authority. It does not generate questions or establish a need. Contract
+review discovered that authenticated person-specific evidence and an immutable
+need-authority requirements registry are missing upstream authorities, so CU-3
+implementation is prohibited pending those prerequisite contracts. See the
+[CU-3 contract](curriculum/need_authority_uncertainty.md).
+
+Need Authority Requirements is the proposed case-blind normative prerequisite
+for CU-3. It defines immutable conditional sufficiency criteria without
+inspecting evidence or asserting truth. Requirement authority remains independent
+of evidence authority until a separately authorized conformance boundary applies
+both. See the
+[Need Authority Requirements contract](curriculum/need_authority_requirements.md).
 
 Candidate Formation is the only boundary authorized to construct a
 `TrackCandidate` from validated source artifacts. Every formed field must trace

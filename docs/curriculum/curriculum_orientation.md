@@ -301,13 +301,17 @@ CU-2 does not:
 
 CU-2 authorizes only:
 
-> CU-3 — Need Clarification
+> CU-3 — Need Authority Uncertainty
 
-CU-3 determines what Penny must still ask before a particular need can be
-considered supported. CU-3 must consume the exact CU-2 artifact without
-promoting an orientation candidate into person-level truth or rewriting CU-1.
+CU-3 identifies the smallest material uncertainty that blocks need authority.
+It does not generate questions or choose how uncertainty should be resolved.
+CU-3 must consume the exact CU-2 artifact without promoting an orientation
+candidate into person-level truth or rewriting CU-1.
 
-CU-3 is not defined or implemented by this contract.
+CU-3 is proposed separately in the
+[Need Authority Uncertainty contract](need_authority_uncertainty.md). Its
+person-specific evidence and requirements-registry prerequisites remain
+undefined and unimplemented.
 
 ## Architectural test plan
 
