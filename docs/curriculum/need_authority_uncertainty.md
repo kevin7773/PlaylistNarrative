@@ -24,6 +24,10 @@ Implementation is therefore prohibited until the two prerequisite contracts
 exist and have been independently reviewed. This is a discovered authority gap,
 not a request to expand CU-3.
 
+The provisional [Penny Purpose](../purpose.md) supplies no missing authority and
+does not make this contract executable. It is used here only to review whether
+CU-3's proposed jurisdiction remains consistent with bounded accompaniment.
+
 ## Subject
 
 CU-3's subject is not a need. It is:
@@ -31,6 +35,9 @@ CU-3's subject is not a need. It is:
 > The unresolved distance between orientation and person-specific authority.
 
 CU-3 is the boundary where Penny proves she is not yet entitled to know.
+This distance describes a conformance relationship within one exact entrusted
+case scope. It is not an uncertainty, deficit, obstacle, or condition attributed
+to the person.
 
 ## Governing question
 
@@ -90,7 +97,10 @@ CU-3 may consume only:
   evidence already authenticated for need-authority purposes;
 - the complete immutable need-authority requirements registry and canonical
   SHA-256 digest;
-- exact policy, schema, objective, crossing, orientation, and evidence lineage.
+- the exact entrusted-case scope identity authenticated by the future
+  person-specific evidence authority; and
+- exact policy, schema, objective, crossing, orientation, case-scope, and
+  evidence lineage.
 
 The CU-2 artifact must descend from the supplied CU-1 artifact exactly. Every
 parent, policy, registry, and evidence identity must correspond without
@@ -123,11 +133,17 @@ A future `NeedAuthorityUncertaintyRequest` must contain:
   canonical SHA-256;
 - the complete future need-authority requirements registry and canonical
   SHA-256;
+- the exact entrusted-case scope identity and its authenticated lineage; and
 - exact CU-3 policy identity and version.
 
 The request shall contain no proposed question, desired answer, uncertainty
 label, need value, accompaniment hint, event interpretation, free-text semantic
 hint, or caller-authored evidence status.
+
+The entrusted-case scope is a closed boundary on inspection and applicability.
+It does not authorize CU-3 to inspect unrelated history, infer whole-person
+characteristics, or reuse a result in another objective, experience, case,
+artifact lineage, requirement version, or evidence state.
 
 ## Need-authority requirements registry
 
@@ -162,6 +178,11 @@ typical, presumed, or inferred values. Generic supported text is insufficient.
 Only a separately authorized authentication path may mint a person-specific
 evidence grant for need authority.
 
+Every grant must be bound to one exact entrusted-case scope. Evidence outside
+that scope is inaccessible to CU-3; the existence of a broader history does not
+authorize its inspection. A grant authenticated for one scope cannot satisfy a
+requirement in another scope.
+
 The exact schema and authentication mechanism belong to the prerequisite
 contract, not CU-3.
 
@@ -193,6 +214,7 @@ A future `NeedAuthorityUncertaintyArtifact` must preserve:
 - complete authenticated person-specific evidence artifact and digest;
 - complete need-authority requirements registry and digest;
 - exact accepted-objective, policy, and lineage correspondence;
+- the exact entrusted-case scope identity and authenticated lineage;
 - the exact proposed need-authority case being evaluated, supplied by an
   upstream authority rather than inferred by CU-3;
 - zero or more canonically ordered unmet requirement records;
@@ -211,6 +233,10 @@ Each unmet requirement record identifies only:
 
 It contains no question text, recommended action, expected response, emotional
 interpretation, or accompaniment proposal.
+
+An unmet record describes only the relationship between an established
+requirement and authenticated evidence within the exact case scope. It does not
+describe a deficiency, obstacle, condition, or unresolved issue in the person.
 
 ## Outcomes
 
@@ -232,7 +258,10 @@ This does **not** mean:
 - a need has been established;
 - existing need text is authoritative;
 - orientation applies to the person;
-- accompaniment may begin.
+- accompaniment or expression may begin;
+- the available representation is complete;
+- the person is well, ready, fulfilled, or free of concern; or
+- no personally meaningful uncertainty exists outside CU-3's jurisdiction.
 
 It means only:
 
@@ -257,6 +286,11 @@ request validation. They do not become uncertainty outcomes.
 - No preserved CU-1 need text participates in uncertainty derivation.
 - No event, metaphor, observation payload, free text, prior candidate wording,
   alias, normalization, or semantic similarity participates.
+- Every comparison and conclusion is bound to one exact entrusted-case scope.
+- No conclusion may be reused across a different objective, experience, case,
+  artifact lineage, requirement version, or evidence state.
+- No output characterizes the whole person or converts Penny's incomplete
+  representation into a claim about the person.
 - No uncertainty contains a resolution mechanism.
 - No question exists in the request or artifact.
 - No uncertainty is emitted merely because the boundary was invoked.
@@ -282,7 +316,12 @@ CU-3 does not claim that:
 - any uncertainty should be resolved now;
 - a specific evidence source or interaction should resolve it;
 - no blocker means a need is established;
-- accompaniment or music is appropriate.
+- accompaniment or any expressive modality is appropriate;
+- the person's representation is complete;
+- the person is well, ready, fulfilled, or free of concern;
+- the experience has a particular meaning or resonance;
+- the person will respond or change in any particular way; or
+- CU-3 has authority over identity, personal development, or Becoming.
 
 ## Successor boundaries
 
@@ -293,7 +332,8 @@ Future work must separately define:
 1. how an identified uncertainty may be resolved;
 2. how resulting person-specific evidence is authenticated;
 3. which boundary may establish a particular need from authenticated evidence;
-4. only then, how faithful accompaniment may be considered.
+4. only then, how faithful accompaniment through a separately authorized
+   expressive modality may be considered.
 
 Each requires its own authority and refusal contract.
 
@@ -303,6 +343,8 @@ Implementation, once prerequisites exist, must prove:
 
 - exact CU-1 and CU-2 ancestry and canonical digest correspondence;
 - exact person-specific evidence authority and registry correspondence;
+- exact entrusted-case scope correspondence and rejection of cross-context
+  evidence or result reuse;
 - complete structural revalidation of every frozen parent and registry;
 - fixed accounting for every governed requirement;
 - necessary, material, minimal uncertainty semantics;
@@ -314,6 +356,9 @@ Implementation, once prerequisites exist, must prove:
 - no question, resolution strategy, or expected answer can enter any schema;
 - no fallback uncertainty is manufactured;
 - null outcome semantics are literal and schema-enforced;
+- null outcomes cannot encode completeness, wellness, readiness, fulfillment,
+  absence of personal concern, or authority over meaning, response, change, or
+  Becoming;
 - deterministic UTF-8 ordering and byte-identical canonical serialization;
 - caller-owned inputs remain unchanged;
 - structural isolation from question generation, evidence authentication, need
