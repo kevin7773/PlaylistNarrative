@@ -31,13 +31,16 @@ person, belongs to an entrusted case, or may be inspected by another boundary.
 A valid `SourceReceiptArtifact` may make only this positive claim:
 
 > At capture point P, acquisition interface I at version V observed this
-> ordered set of source-item representations during receipt event R and
-> recorded interface-attested metadata and transport assertions separately.
+> receipt event R comprising these exact bounded items. For each item, the
+> artifact records either the exact finite byte sequence exposed at that point
+> or an explicitly permitted no-content capture state, preserves permitted
+> interface-local order and complete capture accounting, and records
+> interface-attested metadata and transport assertions separately.
 
-The word `exact` applies only to the representation observed at the named
-capture point. It does not imply identity with material before transport,
-material rendered by an interface, or material perceived or intended by a
-person.
+The word `exact` applies only to the bounded items and byte sequences observed
+at the named capture point. It does not imply identity or correspondence with
+material before or after that observation, or with material perceived or
+intended by a person.
 
 The artifact authenticates a receipt record. It does not authenticate the
 source material's author, truth, meaning, completeness, or admissibility to any
@@ -58,18 +61,15 @@ Within that authority it may establish:
   referenced interface registry;
 - the exact capture-point identity established by the referenced capture-point
   registry;
-- the ordered source-item representations observed at that capture point;
-- per-item capture state and representation kind;
-- digests over the exact representations preserved by the artifact, calculated
-  under the referenced canonical serialization profile;
-- interface-local item order and receipt-event order when the governing policy
-  authorizes that order;
+- the exact item boundaries exposed at that capture point;
+- for each item, one exact finite byte sequence or one explicitly permitted
+  no-content capture state;
+- interface-local item order when the governing policy authorizes that order;
 - metadata whose governed field definition and conditional policy grant permit
   direct attestation by that acquisition interface and capture point;
 - transport-provided metadata preserved explicitly as assertions;
-- facts that approved transformations were performed by the adapter when the
-  governed transformation definition, policy permission, source and derived
-  representations, and exact lineage all correspond;
+- complete accounting of every item expected under the governed capture-point
+  definition; and
 - capture failures without repair, completion, or inferred replacement.
 
 ## Refusal
@@ -85,11 +85,16 @@ Source Receipt Authority shall not:
 - establish that two receipt events are edits, retries, replacements, or
   successors merely because a transport assertion relates them;
 - interpret text, images, audio, attachments, metadata, or silence;
+- classify captured bytes by content kind, format, media type, payload role,
+  attachment role, rendering status, transcript status, derivation status, or
+  any equivalent taxonomy;
+- establish a transformation definition, transformation occurrence, provenance
+  relationship, or correspondence between distinct objects;
 - classify any item as context, activity, constraint, metaphor, emotion,
   cognition, objective, request, or other experience facet;
 - establish the truth, intent, safety, feasibility, completeness, or
   authorization of received material;
-- repair malformed content, fill unavailable content, normalize source values,
+- repair captured bytes, fill unavailable content, normalize observed values,
   resolve aliases, or substitute semantic equivalence for exact identity;
 - grant storage, retrieval, inspection, disclosure, reuse, association, or
   cross-case access rights;
@@ -121,13 +126,10 @@ definition authorities cover:
 
 - acquisition interfaces and their declared capabilities;
 - capture points and their exact observation semantics;
-- source-item representation kinds and representation-byte semantics;
 - capture-state identities and meanings;
 - receipt-metadata field identities and typed schemas;
 - receipt-event identity formats;
 - interface-local ordering semantics;
-- transformation identities and input/output contracts when derived renderings
-  are permitted;
 - canonical serialization and digest mechanics; and
 - clock or transport-time identities and scopes when authoritative time is
   permitted.
@@ -145,14 +147,12 @@ A versioned, immutable `SourceReceiptPolicy` may only compose exact references
 to those independently governed definitions into conditional attestation
 grants. For one exact acquisition interface and capture point, it may specify:
 
-- which governed representation kinds may enter a receipt claim;
 - which governed metadata fields may be attested and which must remain
   transport assertions;
 - which governed capture states are permitted and their deterministic
   precedence;
 - whether the governed interface-local order may be attested and within what
   scope;
-- which governed transformation lineage may enter the artifact; and
 - whether an independently governed time authority may support a particular
   time claim.
 
@@ -161,16 +161,16 @@ conditional grant, precedence rule, or referenced governed definition requires
 versioned policy succession and a new digest.
 
 The policy defines what the acquisition interface is conditionally permitted to
-attest. It defines no interface, capture point, representation, state, metadata
-field, identity format, transformation, serialization mechanism, or clock. It
-does not claim that any receipt occurred.
+attest. It defines no interface, capture point, byte meaning, content kind,
+state, metadata field, identity format, transformation, serialization
+mechanism, or clock. It does not claim that any receipt occurred.
 
 ### 4. Corresponding acquisition adapter
 
 A source-specific adapter must operate at the capture point established by the
 exact governed definition and referenced by the exact policy. The adapter must
-preserve the representation delivered at that point and disclose every
-transformation it performs.
+preserve each exact finite byte sequence exposed at that point without
+classification, normalization, repair, reconstruction, or substitution.
 
 An adapter name, implementation, network response, callback, or caller-created
 model is not sufficient by itself. The complete observed event must be
@@ -179,10 +179,10 @@ before authority is exercised.
 
 ### 5. Exact receipt-event input
 
-The adapter must supply one finite receipt event whose items, order, capture
-states, representations, metadata assertions, and failures can be completely
-accounted for. Material not observed at the governed capture point cannot be
-included as received material.
+The adapter must supply one finite receipt event whose bounded items, exact byte
+sequences or permitted no-content states, order, metadata assertions, and
+failures can be completely accounted for. Material not observed at the governed
+capture point cannot be included as received material.
 
 ### 6. Time authority, only when time is attested
 
@@ -231,32 +231,35 @@ The association shown above is future adjacent authority, not part of this
 contract. Receipt does not imply association, and association must never be
 reconstructed from proximity.
 
-## Source-item representations
+## Exact captured items
 
-An independently governed Source Representation Vocabulary must distinguish
-representation from interpretation. Without defining canonical entries here,
-the vocabulary must be capable of distinguishing exact observed bytes,
-interface-delivered text, structured payload representations, captured
-attachment content, attachment references without captured content, and
-derived renderings with transformation lineage.
+Source Receipt treats captured bytes as opaque finite byte sequences. It
+defines no canonical content kind and depends on no representation vocabulary.
 
-The governed forms representing those distinctions are not mutually
-substitutable.
+The governed capture-point definition establishes which item boundaries are
+observable and which items are expected for complete accounting. Source Receipt
+may attest only the exact bounded items actually observed under that definition.
 
-- Canonical UTF-8 bytes for a delivered text value are canonical artifact
-  serialization, not necessarily original source bytes.
-- A filename or media type supplied by transport is an assertion unless the
-  interface has separate authority to attest it.
-- An attachment reference is not attachment content.
-- A transcription is not original audio.
-- Extracted text is not image content.
-- Rendered text is not proof of what a person perceived.
-- A derived rendering never replaces or rewrites its source representation.
+For each item, the receipt record contains exactly one of:
 
-The policy may permit only source-item kinds already defined by the referenced
-vocabulary and canonical serialization profile. Runtime validation must reject
-any kind whose exact preservation and digest semantics are undefined or not
-conditionally permitted.
+- the exact finite byte sequence exposed at the governed capture point; or
+- one explicitly permitted no-content capture state.
+
+The byte sequence carries no receipt-authorized claim that it is text, binary,
+media, a payload, an attachment, a rendering, a transcript, derived content, or
+any other content kind. Transport-supplied labels such as filename or declared
+media type remain metadata assertions unless separately authorized metadata
+rules permit a direct attestation about the observed event.
+
+If a capture point exposes only a decoded, parsed, rendered, or otherwise
+semantically typed object rather than an exact finite byte sequence, that
+capture point cannot satisfy this contract. Source Receipt shall not convert the
+object into bytes and present the conversion as observed source material.
+
+If the bytes exposed at a capture point were produced earlier by some process,
+Source Receipt records only those observed bytes. It establishes nothing about
+what produced them, what preceded them, whether they correspond to another
+object, or whether any transformation occurred.
 
 ## Capture states and complete accounting
 
@@ -264,8 +267,7 @@ Every identifiable item in the governed receipt event must appear exactly once
 in a fixed capture-state partition. A separately governed capture-state
 vocabulary must remain small and exact. Without defining canonical entries
 here, it must distinguish successful capture at the governed point, declared
-truncation, unavailable content, and content malformed for its declared
-representation.
+truncation, and unavailable content.
 
 Final names and meanings belong to the governed capture-state vocabulary.
 Deterministic precedence among permitted states belongs to the Source Receipt
@@ -275,10 +277,10 @@ states, change their meanings, or alter their precedence.
 `Captured` means captured as observed at the governed point. It does not mean
 complete as authored, transmitted, displayed, intended, or perceived.
 
-Unavailable or malformed material remains explicitly unavailable or malformed.
-The boundary must preserve any exact bytes it did receive and the exact failure
-lineage. It must not guess, repair, decode through an unapproved fallback, or
-replace missing content with metadata.
+Unavailable material remains explicitly unavailable. For a declared truncation,
+the boundary must preserve any exact bytes it did receive and the exact observed
+failure record. It must not guess, repair, decode, reconstruct, or replace
+missing content with metadata.
 
 ## Metadata authority
 
@@ -304,12 +306,13 @@ Preservation of an assertion does not authenticate its contents.
 ## Temporal semantics
 
 The artifact must not collapse distinct time claims. A separately governed time
-vocabulary must distinguish time asserted by source material, time asserted by
-transport, interface receipt time supported by an independent clock or
-transport-time authority, artifact-recording time supported by an independent
-recording-system clock, and interface-local order that establishes only a local
-sequence. Source Receipt Policy may conditionally permit a governed time claim;
-it defines none of these time concepts and establishes no time value.
+vocabulary must distinguish time asserted by transport, interface receipt time
+supported by an independent clock or transport-time authority, and
+interface-local order that establishes only a local sequence. Source Receipt
+Policy may conditionally permit a governed time claim; it defines none of these
+time concepts and establishes no time value. Source Receipt does not inspect
+captured bytes for temporal meaning or establish a time outside the governed
+capture-point observation.
 
 Absence of time authority must produce absence of an authoritative time claim,
 not a default timestamp.
@@ -325,8 +328,9 @@ A future immutable, versioned `SourceReceiptRequest` may contain only:
 - the exact acquisition-interface and capture-point identities selected from
   those definitions and conditionally permitted by that policy;
 - one complete adapter-produced receipt event;
-- exact source-item representations, capture states, metadata partitions, and
-  transformation lineage observed for that event.
+- exact item boundaries, byte sequences or permitted no-content capture states,
+  metadata partitions, permitted local order, and complete capture accounting
+  observed for that event.
 
 Unknown fields are forbidden. The request shall contain no person, speaker,
 interaction, entrusted-case, objective, experience-facet, meaning, permission,
@@ -347,44 +351,29 @@ A future immutable, versioned `SourceReceiptArtifact` must contain:
 - complete identity, version, and digest lineage for every independently
   governed definition applied;
 - exact acquisition-interface and capture-point identities;
-- canonically represented ordered source items;
-- per-item representation kind, capture state, exact preserved content or exact
-  unavailability record, and content digest where content exists;
+- canonically recorded bounded items in permitted interface-local order;
+- per-item exact finite byte sequence or exact permitted no-content capture
+  state;
 - metadata partitioned into interface attestations and transport assertions;
-- complete transformation lineage for every derived rendering;
 - exact local-order and optional governed time lineage;
 - complete capture accounting;
 - explicit non-claims;
-- artifact content SHA-256;
 - canonical serialization.
 
 Receipt order is evidentiary within this boundary and must therefore be
-preserved. Canonical object-field ordering must not reorder source items.
+preserved. Canonical object-field ordering must not reorder observed items.
 
-## Canonical serialization and digests
+## Canonical serialization
 
-Canonical content bytes contain every artifact field except
-`artifact_content_sha256`. Canonical artifact bytes contain the complete
-artifact including that digest.
-
-Both forms must use the exact referenced canonical serialization profile. That
-profile, rather than Source Receipt Policy, defines object-field ordering,
-encoding, and the textual encoding of binary source content. Text, binary,
-structured, and derived representations must retain distinct type identity
-during serialization.
-
-`artifact_content_sha256` is the SHA-256 of canonical content bytes. Per-item
-digests are calculated over the exact representation bytes defined by the
-governed representation vocabulary and canonical serialization profile. The
-policy may require those governed forms; it may not redefine them or introduce
-semantic normalization.
+Canonical artifact bytes must use the exact referenced canonical serialization
+profile. That profile, rather than Source Receipt Policy, defines object-field
+ordering, encoding, and the artifact encoding of captured byte sequences.
+Canonical artifact bytes are record mechanics and must never be substituted for
+the exact byte sequences observed at the capture point.
 
 Construction copies all caller-owned inputs into new immutable structures and
 does not mutate them. Equivalent valid receipt events under the same exact
 policy produce equal artifacts and byte-identical canonical serialization.
-
-Artifact and item digests prove correspondence with preserved bytes. They do
-not prove real-world authorship, truth, meaning, or completeness.
 
 ## Succession
 
@@ -423,12 +412,12 @@ Source Receipt Authority neither grants nor evaluates those permissions.
 - The complete policy is immutable, versioned, canonically serialized, and
   digest-addressed.
 - Every observed item is completely accounted for in exactly one capture state.
-- Source-item order is preserved and never treated as rank or semantic priority.
+- Observed item order is preserved and never treated as rank or semantic
+  priority.
 - Interface attestations and transport assertions remain structurally distinct.
-- Source, delivered, rendered, decoded, transcribed, and extracted
-  representations remain structurally distinct.
+- Captured bytes remain content-opaque and receive no canonical content kind.
 - No normalization, aliasing, repair, semantic equivalence, or inferred default
-  changes source identity.
+  changes the exact bytes observed at the capture point.
 - Failure and partial capture remain visible.
 - Time claims never exceed their exact time authority.
 - Receipt establishes neither authorship nor case membership.
@@ -446,6 +435,10 @@ The artifact must record literal non-claims that it did not establish:
 - completeness beyond the exact capture state at the governed point;
 - equivalence between preserved material and what was authored, transmitted,
   rendered, perceived, or intended;
+- content kind, format, media identity, payload role, attachment role,
+  rendering status, transcript status, or derivation status;
+- transformation definition, transformation occurrence, provenance, or
+  correspondence between distinct objects;
 - safety, feasibility, authorization, or accepted objective;
 - access, inspection, retrieval, disclosure, association, or reuse permission;
 - Prompt Evidence Preservation;
@@ -455,9 +448,10 @@ The artifact must record literal non-claims that it did not establish:
 ## Constitutional audit question
 
 > Does every artifact claim describe only what the governed acquisition
-> interface observed at its exact capture point, or has receipt been allowed to
-> establish authorship, identity, case membership, meaning, completeness,
-> access, or downstream authority?
+> interface observed at its exact capture point, or has receipt classified
+> content or established authorship, identity, case membership, transformation,
+> provenance, object correspondence, meaning, completeness, access, or
+> downstream authority?
 
 Any field, validation rule, outcome, or consumer path that permits the second
 case is outside this boundary's jurisdiction.
@@ -467,10 +461,9 @@ case is outside this boundary's jurisdiction.
 ### Policy authority
 
 - Complete policy identity, version, content, and digest correspond exactly.
-- Every referenced interface, capture-point, representation, state, metadata,
-  identity, ordering, transformation, serialization, and optional time
-  definition independently corresponds by identity, version, content, and
-  digest.
+- Every referenced interface, capture-point, state, metadata, identity,
+  ordering, serialization, and optional time definition independently
+  corresponds by identity, version, content, and digest.
 - Policy contains only conditional grants over governed references and no
   embedded definition, clock, observed value, or runtime operation.
 - Any substantive policy grant or governed-reference change changes its digest
@@ -480,26 +473,26 @@ case is outside this boundary's jurisdiction.
 ### Exact receipt
 
 - Exact opaque bytes survive byte-for-byte.
-- Delivered text preserves exact whitespace, case, punctuation, and Unicode
-  code points without normalization.
-- Source-item order survives construction and canonical serialization.
-- Per-item digests verify against the exact governed representation bytes.
-- Unknown representation kinds fail closed.
+- Observed item order survives construction and canonical serialization.
+- Every item records exactly one finite byte sequence or one permitted
+  no-content capture state.
+- Item boundaries reproduce the exact governed capture-point observation.
 
-### Representation separation
+### Content opacity
 
-- Canonical UTF-8 text serialization cannot masquerade as source bytes.
-- Attachment references cannot masquerade as attachment content.
-- Transcriptions and extractions retain source and transformation lineage.
-- Derived renderings cannot overwrite their source representations.
+- Canonical artifact serialization cannot masquerade as observed source bytes.
+- No request, artifact, policy grant, or validation outcome assigns a canonical
+  content kind to captured bytes.
+- No receipt field records transformation definition, transformation
+  occurrence, provenance, or correspondence with another object.
 - Transport-declared media types and filenames remain assertions.
 
 ### Complete accounting and failure
 
 - Every identifiable item appears exactly once in one capture-state partition.
-- Missing, truncated, unavailable, and malformed states remain distinguishable.
-- Decode or extraction failure never triggers guessing, repair, normalization,
-  or fallback substitution.
+- Captured, declared-truncated, and unavailable states remain distinguishable.
+- Failure never triggers guessing, repair, normalization, decoding,
+  reconstruction, or fallback substitution.
 - A later successful receipt cannot mutate an earlier failed artifact.
 
 ### Negative authority
@@ -508,16 +501,17 @@ case is outside this boundary's jurisdiction.
   session, interaction, or case identity.
 - Temporal proximity cannot establish shared identity or case membership.
 - Transport predecessor assertions cannot establish succession.
-- No source content participates in semantic matching, classification,
+- No captured bytes participate in content classification, semantic matching,
   objective formation, or interpretation.
+- No receipt path establishes a transformation occurrence, provenance, or
+  correspondence between distinct objects.
 - Artifact possession cannot authorize inspection or reuse.
 - No Prompt Evidence Preservation or downstream cognitive operation is
   reachable.
 
 ### Time
 
-- Source, transport, interface-receipt, and artifact-recording times remain
-  distinct.
+- Transport assertions and governed interface-receipt time remain distinct.
 - Missing clock authority yields no authoritative timestamp.
 - Local receipt sequence cannot be presented as global chronology.
 
@@ -525,7 +519,6 @@ case is outside this boundary's jurisdiction.
 
 - Equivalent valid events and policies produce equal artifacts and
   byte-identical canonical bytes.
-- Artifact content digest verifies against canonical content bytes.
 - Construction does not mutate caller-owned items, metadata, policy, or event
   collections.
 
@@ -543,8 +536,8 @@ case is outside this boundary's jurisdiction.
 This contract changes no existing production behavior or artifact.
 
 The existing track-domain `EvidenceSnapshot` is not a Source Receipt parent or
-compatibility representation. It begins after acquisition and cannot prove a
-receipt event, capture point, interface observation, attachment capture, or
+compatibility artifact. It begins after acquisition and cannot prove a
+receipt event, capture point, interface observation, bounded-item capture, or
 receipt-time claim.
 
 Existing CLI arguments, request models, objective statements, source labels,
@@ -560,9 +553,8 @@ This phase stops at a provisional Source Receipt Authority contract.
 It does not implement:
 
 - `SourceReceiptPolicy`;
-- acquisition-interface, capture-point, representation, capture-state,
-  metadata, receipt-identity, transformation, serialization, or time
-  definitions;
+- acquisition-interface, capture-point, capture-state, metadata,
+  receipt-identity, serialization, or time definitions;
 - an acquisition adapter;
 - `SourceReceiptRequest` or `SourceReceiptArtifact`;
 - clock authority;
