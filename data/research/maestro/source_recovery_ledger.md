@@ -22,7 +22,8 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 |---|---|---|---|
 | 2026-08-08 | File Library keyword search | No primary evidence | Maestro/Alexa screenshot files were not indexed or found. Search returned design documents, architectural notes, spreadsheets, and other text artifacts only. |
 | 2026-08-08 | File Library recent-image review | Primary evidence located; correlation incomplete | Image evidence exists in File Library. No screenshot has yet been deterministically assigned to an experiment session or approved for transcription or ingestion. |
-| Pending | Historical ChatGPT conversations | Not started | Locate original conversations and inspect their uploaded image attachments rather than relying on conversational summaries. |
+| 2026-08-08 | Conversation-side session timeline reconstruction | Completed as discovery evidence | Twelve enumerated temporary recovery candidates and one multi-session source container were identified from inspectable conversation text, repository material, and thread-index metadata. See `conversation_recovery_manifest.md`. No candidate was promoted to research evidence. |
+| Pending | Historical ChatGPT conversation source correlation | Not started | Use the accepted candidate IDs and conversation windows to locate original uploads. Do not rely on conversational summaries as primary evidence. |
 | Pending | Phone Photos | Not started | Review screenshots captured approximately August 1–8. Preserve original files and metadata. |
 | Pending | Cloud photo backup | Not started | Review iCloud, Google Photos, OneDrive, or other synchronized photo storage for the same period. |
 
@@ -40,6 +41,10 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 - Do not treat human explanation of system behavior as direct observation.
 - Do not ingest a candidate until its source-to-record mapping and evidence
   completeness have been reviewed.
+- Treat conversation-side candidate IDs as temporary recovery identifiers only,
+  never as experiment IDs.
+- Do not promote a conversation discovery lead into the SQLite research store
+  without correlated primary evidence.
 - Record an unsuccessful recovery attempt as a valid result rather than
   repeating it without new evidence or a materially different search method.
 
