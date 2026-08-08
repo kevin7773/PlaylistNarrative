@@ -113,6 +113,32 @@ SQLite is the authoritative local store. Seed data is ordinary, reviewable Pytho
 data and contains no claims about track-level metadata. Artist genre labels are
 calibration groupings, not authoritative musicological classifications.
 
+## Maestro research evidence store
+
+The optional `pne-research` command maintains an isolated SQLite evidence store
+for manually observed Maestro/Amazon Music playlist-generation experiments. It
+does not feed scoring, candidate formation, planning, sequencing, evaluation, or
+recommendation behavior. Its default database is
+`data/research/maestro_experiments.db`; `PNE_RESEARCH_DATABASE_URL` can select a
+different SQLite file.
+
+```powershell
+pne-research init-db
+pne-research import-json .\data\research\manual-experiments.json
+```
+
+The importer accepts one experiment object or an array. Optional
+`prompt_labels` are explicit human-assigned analysis labels; Penny does not
+infer similarity or unrelatedness. Constraint results and observations record
+`DIRECT_OBSERVATION`, `HUMAN_ASSESSMENT`, or `DERIVED_QUERY_RESULT` provenance.
+Compact observations default to direct observation and constraint results to
+human assessment, while either may be stated explicitly.
+
+Raw observed strings remain unchanged. Normalized track fields are additive
+only. Experiment ingestion is transactional; generation failures are stored
+independently. JSON export is lossless and nested, while CSV export creates a
+relational bundle of separate files.
+
 ## Architecture
 
 The modular monolith has independently testable internal layers:

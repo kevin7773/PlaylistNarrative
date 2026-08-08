@@ -9,6 +9,11 @@ from playlist_narrative_engine.db import (
     make_engine,
     make_session_factory,
 )
+from playlist_narrative_engine.research_store.database import (
+    make_research_engine,
+    make_research_session_factory,
+)
+from playlist_narrative_engine.research_store.migrations import migrate_research_database
 
 
 @pytest.fixture
@@ -24,3 +29,13 @@ def session(engine: Engine) -> Session:
     with factory() as value:
         yield value
 
+
+@pytest.fixture
+def research_session(tmp_path) -> Session:
+    engine = make_research_engine(
+        f"sqlite:///{(tmp_path / 'research-test.db').as_posix()}"
+    )
+    migrate_research_database(engine)
+    factory = make_research_session_factory(engine)
+    with factory() as value:
+        yield value

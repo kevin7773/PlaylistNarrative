@@ -18,6 +18,7 @@ dev = ["pytest>=8.3,<10"]
 
 [project.scripts]
 pne = "playlist_narrative_engine.cli:main"
+pne-research = "playlist_narrative_engine.research_store.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/playlist_narrative_engine"]
@@ -25,4 +26,3 @@ packages = ["src/playlist_narrative_engine"]
 [tool.pytest.ini_options]
 addopts = "-q"
 testpaths = ["tests"]
-
