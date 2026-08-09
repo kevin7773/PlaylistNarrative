@@ -7,18 +7,19 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 
 ## Current governed state
 
-- Trustworthy historical Maestro imports: **5** (`REC-CHAT-007`,
+- Trustworthy historical Maestro imports: **6** (`REC-CHAT-007`,
   `REC-UNCERTAIN-001`, `sticky-sweet-forgotten-treasures`, and
-  `after-the-rain-falls-softly`, plus `overkill-on-the-half-acre`)
+  `after-the-rain-falls-softly`, `overkill-on-the-half-acre`, and
+  `stuck-in-your-head`)
 - Remaining historical candidates: **excluded pending deterministic
   session-to-file correlation**
 - Primary evidence availability: **confirmed in File Library**
-- Confirmed Maestro provenance: **5 historical experiments**
+- Confirmed Maestro provenance: **6 historical experiments**
 - Confirmed generation failures or refusals: **0**
 - Synthetic fixtures: **permanently excluded**
 - Current research schema: **version 3**; no schema change was required for the
   REC-UNCERTAIN-001 recovery
-- Database ingestion performed: **5 historical experiments and 2 separately
+- Database ingestion performed: **6 historical experiments and 2 separately
   governed current persisted artifact**
 
 ## Recovery attempts
@@ -36,6 +37,7 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 | 2026-08-08 | After the Rain Falls Softly direct capture ingestion | Primary evidence inspected; complete 36-placement Maestro playlist supported | Five newly supplied Maestro Beta captures establish the generated title, exact `petrichor` description, playlist start, overlapping ordered continuity, displayed track strings, and visible endpoint after `Before You Go` / `Lewis Capaldi`. The exact cross-modal prompt is separately user-attested and not screenshot-derived. `Save Playlist` supports only the visible captured UI state; eventual saved status remains unknown. The visible `11:26` clock is not treated as generated time. Governed source artifact: `experiments/after-the-rain-falls-softly.json`. |
 | 2026-08-09 | Raccoon Knocking Over Trash Cans current-artifact capture | Current persisted artifact inspected; complete 39-placement playlist supported | Six Amazon Music Maestro captures establish the displayed title, description, `Show Playlist` persistence state, playlist start, overlapping ordered continuity, displayed track strings, and visible endpoint after `Freak Scene [Explicit]` / `Dinosaur Jr.`. The user-attested prompt is not stored on the artifact because schema v3 has no artifact prompt field and no historical Experiment or correlation is justified. The visible `6:37` clock is not treated as generation or save time. Governed source artifact: `artifacts/raccoon-knocking-over-trash-cans-current-amazon-music.json`. |
 | 2026-08-09 | Overkill on the Half Acre creation-time capture | Historical generation inspected; complete 30-placement Maestro playlist supported | Five creation-time Maestro Beta captures establish the generated title, description, playlist start, overlapping ordered continuity, raw displayed track strings, and visible endpoint after `Pumped Up Kicks` / `Foster The People`. The exact riding-mower prompt is separately user-attested and not screenshot-derived. `Save Playlist` supports only the visible captured UI state; eventual saved status remains unknown. The visible `10:01`–`10:02` clocks are not treated as generated time. A user-supplied narrative-drift interpretation is stored separately as `HUMAN_ASSESSMENT`. Governed source artifact: `experiments/overkill-on-the-half-acre.json`. |
+| 2026-08-09 | Stuck in Your Head creation-time capture | Historical generation inspected; complete 40-placement Maestro playlist supported | Six creation-time Maestro Beta captures establish the generated title, description, playlist start, overlapping ordered continuity, raw displayed track strings, and visible endpoint after `Blinding Lights` / `The Weeknd`. The exact Earworms prompt and generation context are separately user-attested and not screenshot-derived. `Show Playlist` is preserved only as captured UI state; historical save action and later edit status remain unknown. The visible `10:46` clock is not treated as generated time. User-supplied semantic-displacement and bounded HandClap-absence observations are stored as `HUMAN_ASSESSMENT`. Governed source artifact: `experiments/stuck-in-your-head.json`. |
 | Pending | Historical ChatGPT conversation source correlation | Not started | Use the accepted candidate IDs and conversation windows to locate original uploads. Do not rely on conversational summaries as primary evidence. |
 | Pending | Phone Photos | Not started | Review screenshots captured approximately August 1–8. Preserve original files and metadata. |
 | Pending | Cloud photo backup | Not started | Review iCloud, Google Photos, OneDrive, or other synchronized photo storage for the same period. |
