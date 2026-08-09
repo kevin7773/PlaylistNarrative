@@ -1,0 +1,163 @@
+{
+  "prompt": "Generate a playlist that tastes like neon pink bubblegum, broken glass, and warm cardboard.",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Bubblegum Shards and Cardboard Dreams",
+  "generated_description": "Sweet pop chaos meets sharp edges and faded nostalgia",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 37,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "REC-UNCERTAIN-001 historical primary-evidence recovery. The exact prompt and complete ordered transcription are user-attested in the recovery handoff; the prompt is not visible in screenshots. Momma Song / Benson Boone persistent now-playing UI is excluded. No regeneration used.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex recovery handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user attests the exact submitted prompt and ordered 37-track transcription",
+      "notes": "USER_ATTESTED evidence. It is not screenshot-derived and does not establish a generation timestamp or eventual saved status."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "REC-UNCERTAIN-001 recovered historical capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\3FECF2AC-CCC7-4F49-8290-032E24013E9D\\1-Photo-1.jpg",
+      "sha256": "5fc3ebc4140349c261338f79900bb67e21aa4184c4f3db208bddf959388b51b9"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "REC-UNCERTAIN-001 recovered historical capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\3FECF2AC-CCC7-4F49-8290-032E24013E9D\\2-Photo-2.jpg",
+      "sha256": "754ef6bb7818fe614d29bcd37477a5792f8676ec922590fdac8dc10e141eae9c"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "REC-UNCERTAIN-001 recovered historical capture 3; retained as separately supplied corroborating evidence despite byte identity with capture 2",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\3FECF2AC-CCC7-4F49-8290-032E24013E9D\\3-Photo-3.jpg",
+      "sha256": "754ef6bb7818fe614d29bcd37477a5792f8676ec922590fdac8dc10e141eae9c"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "REC-UNCERTAIN-001 recovered historical capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\3FECF2AC-CCC7-4F49-8290-032E24013E9D\\4-Photo-4.jpg",
+      "sha256": "248e21e4a8f88f786a873cb7ef8d0a260463809c0ca6147ae75a770af85c2a74"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "REC-UNCERTAIN-001 recovered historical capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\3FECF2AC-CCC7-4F49-8290-032E24013E9D\\5-Photo-5.jpg",
+      "sha256": "4aa30ee8351ff32e39de2ced07ec1416bd4a162c15fc311a51fd255e550d3f5b"
+    },
+    {
+      "source_key": "capture_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "REC-UNCERTAIN-001 recovered historical capture 6",
+      "original_filename": "6-Photo-6.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\3FECF2AC-CCC7-4F49-8290-032E24013E9D\\6-Photo-6.jpg",
+      "sha256": "a7898b50a5f288458f767d116665f42a8bec5790e52f3d0c1aab0a816923c550"
+    },
+    {
+      "source_key": "capture_7",
+      "source_type": "SCREENSHOT",
+      "source_reference": "REC-UNCERTAIN-001 recovered historical capture 7",
+      "original_filename": "7-Photo-7.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\3FECF2AC-CCC7-4F49-8290-032E24013E9D\\7-Photo-7.jpg",
+      "sha256": "4cec2c6c56f81471a673c7ea23e3402544e361dc4330c67032a62ad88bda563c"
+    }
+  ],
+  "evidence": [
+    {"source_key": "user_attestation", "field_name": "prompt", "provenance_type": "DIRECT_OBSERVATION", "notes": "Direct observation of the user's attestation; not screenshot-derived."},
+    {"source_key": "capture_1", "field_name": "source_system", "provenance_type": "DIRECT_OBSERVATION"},
+    {"source_key": "capture_1", "field_name": "generated_title", "provenance_type": "DIRECT_OBSERVATION"},
+    {"source_key": "capture_1", "field_name": "generated_description", "provenance_type": "DIRECT_OBSERVATION"},
+    {"source_key": "user_attestation", "field_name": "generated_track_count", "provenance_type": "HUMAN_ASSESSMENT", "notes": "Count of the attested ordered placements; no displayed count is visible."},
+    {"source_key": "capture_1", "field_name": "tracklist_completeness", "provenance_type": "HUMAN_ASSESSMENT", "notes": "The playlist start is visible."},
+    {"source_key": "capture_7", "field_name": "tracklist_completeness", "provenance_type": "HUMAN_ASSESSMENT", "notes": "High Hopes is followed by clear playlist-body whitespace, establishing the visible endpoint."},
+    {"source_key": "user_attestation", "field_name": "tracklist_completeness", "provenance_type": "HUMAN_ASSESSMENT", "notes": "Supports the complete 37-position ordering, including the non-overlapping capture 1 to capture 2 transition."}
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "notes": "One complete sequence. Screenshot overlaps corroborate later continuity; the user-attested ordered transcription supports the capture 1 to capture 2 transition, where no shared visible track exists.",
+      "evidence": [
+        {"source_key": "capture_1", "field_name": "relationship_to_previous", "provenance_type": "DIRECT_OBSERVATION"},
+        {"source_key": "capture_1", "field_name": "captures_playlist_start", "provenance_type": "DIRECT_OBSERVATION"},
+        {"source_key": "capture_7", "field_name": "captures_playlist_end", "provenance_type": "DIRECT_OBSERVATION", "notes": "Clear whitespace follows High Hopes in the playlist body."},
+        {"source_key": "user_attestation", "field_name": "continuity", "provenance_type": "HUMAN_ASSESSMENT", "notes": "Supports the asserted complete sequence where screenshot overlap is absent."}
+      ]
+    }
+  ],
+  "tracks": [
+    {"observed_ordinal": 1, "evidence_segment": 1, "segment_ordinal": 1, "absolute_position": 1, "title": "brutal [Explicit]", "artist": "Olivia Rodrigo", "explicit_flag": true, "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 2, "evidence_segment": 1, "segment_ordinal": 2, "absolute_position": 2, "title": "Daisy [Explicit]", "artist": "Ashnikko", "explicit_flag": true, "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 3, "evidence_segment": 1, "segment_ordinal": 3, "absolute_position": 3, "title": "I Disagree", "artist": "Poppy", "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 4, "evidence_segment": 1, "segment_ordinal": 4, "absolute_position": 4, "title": "Hard Times", "artist": "Paramore", "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 5, "evidence_segment": 1, "segment_ordinal": 5, "absolute_position": 5, "title": "Vroom Vroom [Explicit]", "artist": "Charli xcx", "explicit_flag": true, "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 6, "evidence_segment": 1, "segment_ordinal": 6, "absolute_position": 6, "title": "Dollhouse [Explicit]", "artist": "Melanie Martinez", "explicit_flag": true, "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 7, "evidence_segment": 1, "segment_ordinal": 7, "absolute_position": 7, "title": "exes [Explicit]", "artist": "Tate McRae", "explicit_flag": true, "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 8, "evidence_segment": 1, "segment_ordinal": 8, "absolute_position": 8, "title": "strawberry lipstick [Explicit]", "artist": "YUNGBLUD", "explicit_flag": true, "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 9, "evidence_segment": 1, "segment_ordinal": 9, "absolute_position": 9, "title": "you should see me in a crown", "artist": "Billie Eilish", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 10, "evidence_segment": 1, "segment_ordinal": 10, "absolute_position": 10, "title": "Girlfriend [Explicit]", "artist": "Avril Lavigne", "explicit_flag": true, "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 11, "evidence_segment": 1, "segment_ordinal": 11, "absolute_position": 11, "title": "Candy [Explicit]", "artist": "Doja Cat", "explicit_flag": true, "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 12, "evidence_segment": 1, "segment_ordinal": 12, "absolute_position": 12, "title": "Oblivion", "artist": "Grimes", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 13, "evidence_segment": 1, "segment_ordinal": 13, "absolute_position": 13, "title": "Blood In The Cut [Explicit]", "artist": "K.Flay", "explicit_flag": true, "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 14, "evidence_segment": 1, "segment_ordinal": 14, "absolute_position": 14, "title": "Gasoline [Explicit]", "artist": "Halsey", "explicit_flag": true, "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 15, "evidence_segment": 1, "segment_ordinal": 15, "absolute_position": 15, "title": "my ex's best friend [Explicit]", "artist": "mgk, blackbear", "explicit_flag": true, "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 16, "evidence_segment": 1, "segment_ordinal": 16, "absolute_position": 16, "title": "MANTRA [Explicit]", "artist": "Bring Me The Horizon", "explicit_flag": true, "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 17, "evidence_segment": 1, "segment_ordinal": 17, "absolute_position": 17, "title": "Television Romance", "artist": "Pale Waves", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 18, "evidence_segment": 1, "segment_ordinal": 18, "absolute_position": 18, "title": "My House", "artist": "Pvris", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 19, "evidence_segment": 1, "segment_ordinal": 19, "absolute_position": 19, "title": "I'm a Mess", "artist": "Bebe Rexha", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 20, "evidence_segment": 1, "segment_ordinal": 20, "absolute_position": 20, "title": "Death By Rock And Roll [Explicit]", "artist": "The Pretty Reckless", "explicit_flag": true, "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 21, "evidence_segment": 1, "segment_ordinal": 21, "absolute_position": 21, "title": "Blonde", "artist": "Waterparks", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 22, "evidence_segment": 1, "segment_ordinal": 22, "absolute_position": 22, "title": "Pretty Girl [Explicit]", "artist": "Maggie Lindemann", "explicit_flag": true, "evidence": [{"source_key": "capture_6", "field_name": "title"}, {"source_key": "capture_6", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 23, "evidence_segment": 1, "segment_ordinal": 23, "absolute_position": 23, "title": "t r a n s p a r e n t s o u l [feat. Travis Barker] [Explicit]", "artist": "WILLOW, Travis Barker", "explicit_flag": true, "evidence": [{"source_key": "capture_6", "field_name": "title"}, {"source_key": "capture_6", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 24, "evidence_segment": 1, "segment_ordinal": 24, "absolute_position": 24, "title": "Lavender Bones [Explicit]", "artist": "Stand Atlantic", "explicit_flag": true, "evidence": [{"source_key": "capture_6", "field_name": "title"}, {"source_key": "capture_6", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 25, "evidence_segment": 1, "segment_ordinal": 25, "absolute_position": 25, "title": "Pink Rover [Explicit]", "artist": "Scene Queen", "explicit_flag": true, "evidence": [{"source_key": "capture_6", "field_name": "title"}, {"source_key": "capture_6", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 26, "evidence_segment": 1, "segment_ordinal": 26, "absolute_position": 26, "title": "Bestie [Explicit]", "artist": "Sizzy Rocket", "explicit_flag": true, "evidence": [{"source_key": "capture_6", "field_name": "title"}, {"source_key": "capture_6", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 27, "evidence_segment": 1, "segment_ordinal": 27, "absolute_position": 27, "title": "VICES", "artist": "MOTHICA", "evidence": [{"source_key": "capture_6", "field_name": "title"}, {"source_key": "capture_6", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 28, "evidence_segment": 1, "segment_ordinal": 28, "absolute_position": 28, "title": "i'm gonna tell my therapist on you", "artist": "Pinkshift", "evidence": [{"source_key": "capture_6", "field_name": "title"}, {"source_key": "capture_6", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 29, "evidence_segment": 1, "segment_ordinal": 29, "absolute_position": 29, "title": "Garden", "artist": "Meet Me @ The Altar", "evidence": [{"source_key": "capture_6", "field_name": "title"}, {"source_key": "capture_6", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 30, "evidence_segment": 1, "segment_ordinal": 30, "absolute_position": 30, "title": "Antagonist [Explicit]", "artist": "Nova Twins", "explicit_flag": true, "evidence": [{"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 31, "evidence_segment": 1, "segment_ordinal": 31, "absolute_position": 31, "title": "I Threw Glass at My Friend's Eyes and Now I'm on Probation [Explicit]", "artist": "Destroy Boys", "explicit_flag": true, "evidence": [{"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 32, "evidence_segment": 1, "segment_ordinal": 32, "absolute_position": 32, "title": "Kiss Me Girl", "artist": "Hands Off Gretel", "evidence": [{"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 33, "evidence_segment": 1, "segment_ordinal": 33, "absolute_position": 33, "title": "Hot Mess [Explicit]", "artist": "Girli", "explicit_flag": true, "evidence": [{"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 34, "evidence_segment": 1, "segment_ordinal": 34, "absolute_position": 34, "title": "BITCHES BE WITCHES [Explicit]", "artist": "Starbenders", "explicit_flag": true, "evidence": [{"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 35, "evidence_segment": 1, "segment_ordinal": 35, "absolute_position": 35, "title": "California Friends", "artist": "The Regrettes", "evidence": [{"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 36, "evidence_segment": 1, "segment_ordinal": 36, "absolute_position": 36, "title": "Empty House", "artist": "Doll Skin", "evidence": [{"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 37, "evidence_segment": 1, "segment_ordinal": 37, "absolute_position": 37, "title": "High Hopes", "artist": "Yours Truly", "evidence": [{"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "capture_7", "field_name": "title"}, {"source_key": "capture_7", "field_name": "artist"}, {"source_key": "user_attestation", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]}
+  ],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "The initial historical generation capture visibly shows the action label Save Playlist; this establishes only that the captured generation had not yet been saved at that visible moment.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Capture 1. No claim is made about whether the playlist was saved later."
+    },
+    {
+      "observation_type": "EXCLUDED_NOW_PLAYING_UI",
+      "observation_text": "Momma Song — Benson Boone appears in persistent now-playing UI and is excluded from the generated playlist body.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Visible across the supplied captures."
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "Visible device clock values span 7:32–7:33; these values are not treated as a generation timestamp.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Captures 1–7; date and timezone are not established."
+    }
+  ],
+  "constraints": [],
+  "prompt_labels": []
+}

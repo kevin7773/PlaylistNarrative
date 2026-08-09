@@ -7,14 +7,18 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 
 ## Current governed state
 
-- Trustworthy Maestro imports: **0**
-- Historical candidates: **excluded pending deterministic session-to-file correlation**
+- Trustworthy historical Maestro imports: **2** (`REC-CHAT-007` and
+  `REC-UNCERTAIN-001`)
+- Remaining historical candidates: **excluded pending deterministic
+  session-to-file correlation**
 - Primary evidence availability: **confirmed in File Library**
-- Confirmed Maestro provenance: **0**
+- Confirmed Maestro provenance: **2 historical experiments**
 - Confirmed generation failures or refusals: **0**
 - Synthetic fixtures: **permanently excluded**
-- Schema changes justified by recovered evidence: **none**
-- Database ingestion performed: **none**
+- Current research schema: **version 3**; no schema change was required for the
+  REC-UNCERTAIN-001 recovery
+- Database ingestion performed: **2 historical experiments and 1 separately
+  governed current persisted artifact**
 
 ## Recovery attempts
 
@@ -26,6 +30,7 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 | 2026-08-08 | REC-CHAT-007 source correlation | Primary captures not recovered from accessible sources | The stable ChatGPT thread `6a75eb70-0558-83ea-9b14-0d527ac392f5` and its 2026-08-07 10:28:18–10:34:51 EDT activity window were used only as discovery aids. Direct thread-history access could not read ChatGPT-kind content. The exact ChatGPT URL required an authenticated session unavailable in the in-app browser, and no connected authenticated desktop browser was available. A read-only search of local Codex attachments, Pictures, Downloads, and OneDrive Pictures found no matching image files or exact attachment references in a bounded 09:45–11:15 EDT window or by `toaster`/`dread` filename. REC-CHAT-007 remains a discovery lead and is not eligible for ingestion. |
 | 2026-08-08 | REC-CHAT-007 manual primary-evidence recovery | Primary evidence reported recovered; partial tracklist; visual transcription pending | This later recovery supersedes the earlier `INSUFFICIENT_EVIDENCE` result without deleting it. The user identified five original, non-regenerated screenshots recovered from the historical ChatGPT conversation and explicitly stated that the playlist was not saved. The handoff establishes Maestro Beta, generated title `Brief Existential Dread of Appliances`, generated description `Contemplative electronic ambience for mechanical self-awareness moments`, and that the final capture does not establish the terminal playlist boundary. The five named files were not attached or locally accessible in the recovery workspace during this pass, so their ordered track text and overlap could not be independently inspected or transcribed. State: `PRIMARY_EVIDENCE_RECOVERED / PARTIAL_TRACKLIST`; not eligible for SQLite ingestion under schema version 1. |
 | 2026-08-08 | REC-CHAT-007 direct visual evidence review | Primary evidence inspected; 38 unique visible playlist items; ingestion blocked | Five directly accessible historical captures were visually inspected without modifying them. Conversation-primary evidence establishes the exact submitted prompt, and user clarification establishes `saved = false`. The first five playlist positions are anchored by the first capture. Later continuity is proven by overlaps on `Wait`, `Minor Cause`, and `In The Waiting Line`, but no overlap proves adjacency between capture 1 (`Near Light`) and capture 2 (`Says`). The fifth capture ends with partially visible `Paint It Black` / `wednesday addams` and does not show the terminal playlist boundary. Schema version 1 cannot preserve the positional gap, partial terminal coverage, or unknown historical generation time without semantic loss, so no JSON or SQLite record was created. |
+| 2026-08-08 | REC-UNCERTAIN-001 direct visual evidence recovery | Primary evidence inspected; complete 37-placement historical playlist supported | Seven historical Maestro captures establish the generated title, description, playlist start, visible terminal boundary, and displayed track strings. The exact prompt and ordered transcription are separately user-attested in the recovery handoff. All seven sources are retained, including byte-identical captures 2 and 3. `Save Playlist` supports only the visible unsaved state at capture time; eventual saved status remains unknown. `Momma Song` / `Benson Boone` player UI is excluded. Governed source artifact: `experiments/rec-uncertain-001.json`. |
 | Pending | Historical ChatGPT conversation source correlation | Not started | Use the accepted candidate IDs and conversation windows to locate original uploads. Do not rely on conversational summaries as primary evidence. |
 | Pending | Phone Photos | Not started | Review screenshots captured approximately August 1–8. Preserve original files and metadata. |
 | Pending | Cloud photo backup | Not started | Review iCloud, Google Photos, OneDrive, or other synchronized photo storage for the same period. |
@@ -51,6 +56,6 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 - Record an unsuccessful recovery attempt as a valid result rather than
   repeating it without new evidence or a materially different search method.
 
-An empty research database remains the authoritative state until primary
-evidence has been deterministically correlated to experiment sessions and the
-resulting source-to-record mappings support one or more reviewed records.
+The ignored local research database is rebuildable from governed JSON source
+artifacts. Candidates not represented by those reviewed artifacts remain
+excluded until primary evidence is deterministically correlated and approved.

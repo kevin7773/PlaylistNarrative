@@ -170,6 +170,35 @@ when—or whether—they were submitted.
 | REC-UNCERTAIN-001 | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `MENTIONED_2026-08-06_08:49:33_EDT` | `Songs that taste like neon pink bubblegum, broken glass, and warm cardboard.` | `VERBATIM_QUOTED_EXAMPLE` | `Maestro` contextually indicated | `SUCCEEDED_INDICATED` | `UNKNOWN` | `UNKNOWN` | Codex `019fbd83-514d-75c2-9a99-901c7ecc5488`; turn `019fd71f-3031-70c3-9e83-a8d7bab3933c`; item `item-613` | unusual-metaphor/sensory, focused-work | The user framed Maestro as a research assistant and gave this as a successful-prompt example whose result was assessed as “Excellent work music.” The discussion does not establish the execution date or exact interface. |
 | REC-UNCERTAIN-002 | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `MENTIONED_2026-08-06_08:49:33_EDT` | `I need to focus on deep technical work. Give me something intelligent but not deep.` | `VERBATIM_QUOTED_EXAMPLE` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | Codex `019fbd83-514d-75c2-9a99-901c7ecc5488`; turn `019fd71f-3031-70c3-9e83-a8d7bab3933c`; item `item-613` | focused-work | Presented as a contrasting prompt example. The conversation does not say it was submitted, generated, saved, or captured. Keep separate from REC-CHAT-005. |
 
+### REC-UNCERTAIN-001 primary-evidence recovery supplement
+
+This supplement preserves the discovery row above and records a later,
+independent historical primary-evidence recovery.
+
+- Recovery state: `PRIMARY_EVIDENCE_RECOVERED / COMPLETE_TRACKLIST`
+- Exact submitted prompt: user-attested in the recovery conversation; not
+  visible in the screenshots
+- Source interface: `Amazon Music — Maestro Beta`
+- Generated title: `Bubblegum Shards and Cardboard Dreams`
+- Generated description: `Sweet pop chaos meets sharp edges and faded nostalgia`
+- Recovered screenshot count: `7`; all sources are retained, including the
+  byte-identical second and third supplied captures
+- Visible playlist start: captured
+- Visible playlist end: captured after `High Hopes` — `Yours Truly`
+- Ordered placements: `37`
+- Historical saved status: `UNKNOWN`; `Save Playlist` establishes only the
+  visible state at the moment of the first capture
+- Generation timestamp: `UNKNOWN`; visible clock values `7:32`–`7:33` are not
+  treated as a generation time
+- Persistent player UI: `Momma Song` — `Benson Boone` excluded
+- Governed source artifact:
+  `experiments/rec-uncertain-001.json`
+
+Screenshot overlaps corroborate later sequence continuity. No shared visible
+track bridges the transition from capture 1 to capture 2, so the exact ordered
+transcription supplied by the user is separately identified as user-attested
+support for that transition rather than screenshot-derived evidence.
+
 ## Multi-session source container
 
 | source | activity_window | status | notes |
@@ -182,11 +211,13 @@ when—or whether—they were submitted.
   actual Maestro/Alexa refusal, exact refusal prompt, or displayed message.
 - HandClap investigation: no inspectable conversation hit recovered.
 - Pumped Up Kicks investigation: no inspectable conversation hit recovered.
-- Screenshot counts: undetermined for every candidate.
-- Saved status: no user-authored statement recovered for any candidate.
+- Screenshot counts: undetermined for candidates without a primary-evidence
+  recovery supplement.
+- Saved status: unknown for candidates without independently supported evidence.
 - Exact generation timestamps: none.
 - Playlist titles, descriptions, tracks, artists, order, versions, or remasters:
-  deliberately not reconstructed.
+  deliberately not reconstructed for discovery-only candidates; recovered
+  supplements are governed separately by their cited primary evidence.
 - Sleep experiment: the journal says there was a realization “after reviewing
   Alexa,” but it does not isolate a discrete prompt/session strongly enough for
   a candidate row.
