@@ -31,12 +31,27 @@ def export_csv_bundle(repository: ResearchRepository, directory: str | Path) -> 
     ]
     concrete = [item for item in experiments if item is not None]
     _write_csv(target / "experiments.csv", [
-        {key: value for key, value in item.items() if key not in {"tracks", "constraints", "observations", "prompt_labels"}}
+        {key: value for key, value in item.items() if key not in {"tracks", "segments", "constraints", "observations", "prompt_labels", "evidence_sources", "evidence"}}
         for item in concrete
     ])
     _write_csv(target / "experiment_tracks.csv", [
         {"experiment_id": item["id"], **track}
         for item in concrete for track in item["tracks"]  # type: ignore[union-attr]
+    ])
+    _write_csv(target / "tracklist_evidence_segments.csv", [
+        {"experiment_id": item["id"], **segment}
+        for item in concrete for segment in item["segments"]  # type: ignore[union-attr]
+    ])
+    _write_csv(target / "evidence_sources.csv", [
+        {"experiment_id": item["id"], **source}
+        for item in concrete for source in item["evidence_sources"]  # type: ignore[union-attr]
+    ])
+    _write_csv(target / "evidence_links.csv", [
+        {"experiment_id": item["id"], **link}
+        for item in concrete for link in item["evidence"]  # type: ignore[union-attr]
+    ] + [
+        {"experiment_id": item["id"], "experiment_track_id": track["id"], **link}
+        for item in concrete for track in item["tracks"] for link in track["evidence"]  # type: ignore[union-attr]
     ])
     constraint_rows: list[dict[str, Any]] = []
     result_rows: list[dict[str, Any]] = []
@@ -60,7 +75,19 @@ def export_csv_bundle(repository: ResearchRepository, directory: str | Path) -> 
         {"experiment_id": item["id"], "label": label}
         for item in concrete for label in item["prompt_labels"]  # type: ignore[union-attr]
     ])
-    _write_csv(target / "generation_failures.csv", repository.list_generation_failures())
+    failures = repository.list_generation_failures()
+    _write_csv(target / "generation_failures.csv", [
+        {key: value for key, value in item.items() if key not in {"evidence_sources", "evidence"}}
+        for item in failures
+    ])
+    _write_csv(target / "generation_failure_evidence_sources.csv", [
+        {"generation_failure_id": item["id"], **source}
+        for item in failures for source in item["evidence_sources"]
+    ])
+    _write_csv(target / "generation_failure_evidence_links.csv", [
+        {"generation_failure_id": item["id"], **link}
+        for item in failures for link in item["evidence"]
+    ])
     return target
 
 

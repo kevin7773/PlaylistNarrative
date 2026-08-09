@@ -127,10 +127,22 @@ pne-research init-db
 pne-research import-json .\data\research\manual-experiments.json
 ```
 
-The importer accepts one experiment object or an array. Optional
+Schema version 2 can represent complete, partial, and unobserved successful
+tracklists. Evidence segments preserve relative observed order, nullable absolute
+positions, unknown-sized gaps, and tri-state knowledge of playlist boundaries.
+Historical generation time is nullable and never defaults from record-ingestion
+time. Displayed placement metadata may be stored without creating a canonical
+track identity.
+
+The importer accepts one experiment object or an array. A complete v2 JSON
+export, including independent failure records, can be restored with
+`pne-research import-export-json`. Optional
 `prompt_labels` are explicit human-assigned analysis labels; Penny does not
 infer similarity or unrelatedness. Constraint results and observations record
-`DIRECT_OBSERVATION`, `HUMAN_ASSESSMENT`, or `DERIVED_QUERY_RESULT` provenance.
+`DIRECT_OBSERVATION`, `HUMAN_ASSESSMENT`, `DERIVED_QUERY_RESULT`, or
+`MIGRATION_DERIVATION` provenance. Recovered historical records use structured
+field-level evidence sources and links. Locally available evidence bytes require
+a verified SHA-256 checksum; external references may omit it.
 Compact observations default to direct observation and constraint results to
 human assessment, while either may be stated explicitly.
 

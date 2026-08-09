@@ -5,7 +5,7 @@ import json
 
 from playlist_narrative_engine.research_store.database import make_research_engine, make_research_session_factory
 from playlist_narrative_engine.research_store.exporter import export_csv_bundle, export_json
-from playlist_narrative_engine.research_store.importer import import_experiment_documents
+from playlist_narrative_engine.research_store.importer import import_experiment_documents, import_research_export
 from playlist_narrative_engine.research_store.migrations import migrate_research_database
 from playlist_narrative_engine.research_store.repository import ResearchRepository
 from playlist_narrative_engine.research_store.schemas import ConstraintStatus, GenerationFailureInput
@@ -17,6 +17,8 @@ def build_parser() -> argparse.ArgumentParser:
     commands.add_parser("init-db", help="Initialize or migrate the research database")
     importer = commands.add_parser("import-json", help="Import experiment JSON")
     importer.add_argument("path")
+    export_importer = commands.add_parser("import-export-json", help="Import a complete v2 research export")
+    export_importer.add_argument("path")
     failure = commands.add_parser("record-failure", help="Record a failed generation")
     failure.add_argument("--prompt", required=True)
     failure.add_argument("--failure-type", required=True)
@@ -57,6 +59,8 @@ def main() -> None:
         repository = ResearchRepository(session)
         if args.command == "import-json":
             print(json.dumps({"experiment_ids": import_experiment_documents(repository, args.path)}))
+        elif args.command == "import-export-json":
+            print(json.dumps(import_research_export(repository, args.path)))
         elif args.command == "record-failure":
             failure_id = repository.record_generation_failure(GenerationFailureInput(
                 prompt=args.prompt, source_system=args.source_system,
