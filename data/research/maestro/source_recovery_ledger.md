@@ -7,17 +7,18 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 
 ## Current governed state
 
-- Trustworthy historical Maestro imports: **3** (`REC-CHAT-007`,
-  `REC-UNCERTAIN-001`, and `sticky-sweet-forgotten-treasures`)
+- Trustworthy historical Maestro imports: **4** (`REC-CHAT-007`,
+  `REC-UNCERTAIN-001`, `sticky-sweet-forgotten-treasures`, and
+  `after-the-rain-falls-softly`)
 - Remaining historical candidates: **excluded pending deterministic
   session-to-file correlation**
 - Primary evidence availability: **confirmed in File Library**
-- Confirmed Maestro provenance: **3 historical experiments**
+- Confirmed Maestro provenance: **4 historical experiments**
 - Confirmed generation failures or refusals: **0**
 - Synthetic fixtures: **permanently excluded**
 - Current research schema: **version 3**; no schema change was required for the
   REC-UNCERTAIN-001 recovery
-- Database ingestion performed: **3 historical experiments and 1 separately
+- Database ingestion performed: **4 historical experiments and 1 separately
   governed current persisted artifact**
 
 ## Recovery attempts
@@ -32,6 +33,7 @@ synthetic fixtures do not qualify as primary evidence for ingestion.
 | 2026-08-08 | REC-CHAT-007 direct visual evidence review | Primary evidence inspected; 38 unique visible playlist items; ingestion blocked | Five directly accessible historical captures were visually inspected without modifying them. Conversation-primary evidence establishes the exact submitted prompt, and user clarification establishes `saved = false`. The first five playlist positions are anchored by the first capture. Later continuity is proven by overlaps on `Wait`, `Minor Cause`, and `In The Waiting Line`, but no overlap proves adjacency between capture 1 (`Near Light`) and capture 2 (`Says`). The fifth capture ends with partially visible `Paint It Black` / `wednesday addams` and does not show the terminal playlist boundary. Schema version 1 cannot preserve the positional gap, partial terminal coverage, or unknown historical generation time without semantic loss, so no JSON or SQLite record was created. |
 | 2026-08-08 | REC-UNCERTAIN-001 direct visual evidence recovery | Primary evidence inspected; complete 37-placement historical playlist supported | Seven historical Maestro captures establish the generated title, description, playlist start, visible terminal boundary, and displayed track strings. The exact prompt and ordered transcription are separately user-attested in the recovery handoff. All seven sources are retained, including byte-identical captures 2 and 3. `Save Playlist` supports only the visible unsaved state at capture time; eventual saved status remains unknown. `Momma Song` / `Benson Boone` player UI is excluded. Governed source artifact: `experiments/rec-uncertain-001.json`. |
 | 2026-08-08 | Sticky Sweet Forgotten Treasures direct capture ingestion | Primary evidence inspected; complete 30-placement Maestro playlist supported | Five newly supplied Maestro Beta captures establish the generated title, description, playlist start, overlapping ordered continuity, displayed track strings, and visible endpoint after `One Way Or Another (Remastered 2001)` / `Blondie`. The exact prompt is separately user-attested and not screenshot-derived. `Save Playlist` supports only the visible captured UI state; eventual saved status remains unknown. The visible `11:13` clock is not treated as generated time. Governed source artifact: `experiments/sticky-sweet-forgotten-treasures.json`. |
+| 2026-08-08 | After the Rain Falls Softly direct capture ingestion | Primary evidence inspected; complete 36-placement Maestro playlist supported | Five newly supplied Maestro Beta captures establish the generated title, exact `petrichor` description, playlist start, overlapping ordered continuity, displayed track strings, and visible endpoint after `Before You Go` / `Lewis Capaldi`. The exact cross-modal prompt is separately user-attested and not screenshot-derived. `Save Playlist` supports only the visible captured UI state; eventual saved status remains unknown. The visible `11:26` clock is not treated as generated time. Governed source artifact: `experiments/after-the-rain-falls-softly.json`. |
 | Pending | Historical ChatGPT conversation source correlation | Not started | Use the accepted candidate IDs and conversation windows to locate original uploads. Do not rely on conversational summaries as primary evidence. |
 | Pending | Phone Photos | Not started | Review screenshots captured approximately August 1–8. Preserve original files and metadata. |
 | Pending | Cloud photo backup | Not started | Review iCloud, Google Photos, OneDrive, or other synchronized photo storage for the same period. |
