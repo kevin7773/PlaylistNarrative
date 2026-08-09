@@ -1,0 +1,136 @@
+{
+  "prompt": "Songs that feel like finding a forgotten, slightly sticky lollipop at the bottom of a leather purse.",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Sticky Sweet Forgotten Treasures",
+  "generated_description": "Sweet nostalgia meets gritty, unexpected rediscovery moments",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 30,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Newly captured Maestro Beta generation. The exact prompt is user-attested and is not visible in the screenshots. The five screenshot sequence establishes the complete visible playlist body. No persisted-artifact or correlation claim is made.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies the exact submitted prompt",
+      "notes": "USER_ATTESTED prompt evidence. Not screenshot-derived; does not establish generated_at, requested count, or eventual saved status."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sticky Sweet Forgotten Treasures Maestro Beta capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\E524110E-4305-4D8C-A732-945E73747882\\1-Photo-1.jpg",
+      "sha256": "3765f919a4c890a493ee56f01d712df89490991fc2d5b0c7e31eadb4a127e9f0"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sticky Sweet Forgotten Treasures Maestro Beta capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\E524110E-4305-4D8C-A732-945E73747882\\2-Photo-2.jpg",
+      "sha256": "84b285f7df33768f66b0716bee8806230de19f8e2732531f0adfa4222534c316"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sticky Sweet Forgotten Treasures Maestro Beta capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\E524110E-4305-4D8C-A732-945E73747882\\3-Photo-3.jpg",
+      "sha256": "6619f0336330df03d4c2114c2cbc7d136298c880c9157fb54b3c19f7450f1cdc"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sticky Sweet Forgotten Treasures Maestro Beta capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\E524110E-4305-4D8C-A732-945E73747882\\4-Photo-4.jpg",
+      "sha256": "aee5ccd26b20adc013654715dadfd368fc294311115d52fa2e06517f0b5ec8df"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sticky Sweet Forgotten Treasures Maestro Beta capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\E524110E-4305-4D8C-A732-945E73747882\\5-Photo-5.jpg",
+      "sha256": "97879d6ad7232c45f413e5bc5bd5973befcbfeac03322b28f341e19b465066b5"
+    }
+  ],
+  "evidence": [
+    {"source_key": "user_attestation", "field_name": "prompt", "provenance_type": "DIRECT_OBSERVATION", "notes": "Direct observation of the user's attestation; not screenshot-derived."},
+    {"source_key": "capture_1", "field_name": "source_system", "provenance_type": "DIRECT_OBSERVATION"},
+    {"source_key": "capture_1", "field_name": "generated_title", "provenance_type": "DIRECT_OBSERVATION"},
+    {"source_key": "capture_1", "field_name": "generated_description", "provenance_type": "DIRECT_OBSERVATION"},
+    {"source_key": "capture_1", "field_name": "generated_track_count", "provenance_type": "HUMAN_ASSESSMENT", "notes": "Count of the complete screenshot-supported sequence; no displayed count is visible."},
+    {"source_key": "capture_1", "field_name": "tracklist_completeness", "provenance_type": "HUMAN_ASSESSMENT", "notes": "Playlist start and first placement are visible."},
+    {"source_key": "capture_5", "field_name": "tracklist_completeness", "provenance_type": "HUMAN_ASSESSMENT", "notes": "Clear playlist-body whitespace follows the final Blondie placement."}
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "notes": "One complete sequence. Adjacent captures overlap on Cherry Bomb, Drain The Blood, Great Things, and the suffix beginning at Weak.",
+      "evidence": [
+        {"source_key": "capture_1", "field_name": "relationship_to_previous", "provenance_type": "DIRECT_OBSERVATION"},
+        {"source_key": "capture_1", "field_name": "captures_playlist_start", "provenance_type": "DIRECT_OBSERVATION"},
+        {"source_key": "capture_5", "field_name": "captures_playlist_end", "provenance_type": "DIRECT_OBSERVATION", "notes": "Clear whitespace follows One Way Or Another (Remastered 2001)."},
+        {"source_key": "capture_2", "field_name": "continuity", "provenance_type": "DIRECT_OBSERVATION", "notes": "Capture 1 to 2 overlap on Cherry Bomb."},
+        {"source_key": "capture_3", "field_name": "continuity", "provenance_type": "DIRECT_OBSERVATION", "notes": "Capture 2 to 3 overlap on Drain The Blood."},
+        {"source_key": "capture_4", "field_name": "continuity", "provenance_type": "DIRECT_OBSERVATION", "notes": "Capture 3 to 4 overlap on Great Things."},
+        {"source_key": "capture_5", "field_name": "continuity", "provenance_type": "DIRECT_OBSERVATION", "notes": "Capture 4 to 5 overlap across Weak through One Way Or Another."}
+      ]
+    }
+  ],
+  "tracks": [
+    {"observed_ordinal": 1, "evidence_segment": 1, "segment_ordinal": 1, "absolute_position": 1, "title": "Cherry Lips (Go Baby Go) (Roger Sanchez Remix)", "artist": "Garbage", "version_or_remaster_text": "Roger Sanchez Remix", "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "capture_1", "field_name": "version_or_remaster_text"}, {"source_key": "capture_1", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 2, "evidence_segment": 1, "segment_ordinal": 2, "absolute_position": 2, "title": "Take It Off", "artist": "The Donnas", "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "capture_1", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 3, "evidence_segment": 1, "segment_ordinal": 3, "absolute_position": 3, "title": "Sk8er Boi", "artist": "Avril Lavigne", "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "capture_1", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 4, "evidence_segment": 1, "segment_ordinal": 4, "absolute_position": 4, "title": "I Love Rock 'N Roll", "artist": "Joan Jett & the Blackhearts", "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "capture_1", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 5, "evidence_segment": 1, "segment_ordinal": 5, "absolute_position": 5, "title": "Why Can't I? [Explicit]", "artist": "Liz Phair", "explicit_flag": true, "evidence": [{"source_key": "capture_1", "field_name": "title"}, {"source_key": "capture_1", "field_name": "artist"}, {"source_key": "capture_1", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 6, "evidence_segment": 1, "segment_ordinal": 6, "absolute_position": 6, "title": "Cherry Bomb", "artist": "The Runaways", "evidence": [{"source_key": "capture_1", "field_name": "title", "support_status": "PARTIAL"}, {"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_2", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 7, "evidence_segment": 1, "segment_ordinal": 7, "absolute_position": 7, "title": "Seether", "artist": "Veruca Salt", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_2", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 8, "evidence_segment": 1, "segment_ordinal": 8, "absolute_position": 8, "title": "Here And Now", "artist": "Letters To Cleo", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_2", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 9, "evidence_segment": 1, "segment_ordinal": 9, "absolute_position": 9, "title": "Connection", "artist": "Elastica", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_2", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 10, "evidence_segment": 1, "segment_ordinal": 10, "absolute_position": 10, "title": "Malibu", "artist": "Hole", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_2", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 11, "evidence_segment": 1, "segment_ordinal": 11, "absolute_position": 11, "title": "Cannonball", "artist": "The Breeders", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_2", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 12, "evidence_segment": 1, "segment_ordinal": 12, "absolute_position": 12, "title": "Pretend We're Dead", "artist": "L7", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_2", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 13, "evidence_segment": 1, "segment_ordinal": 13, "absolute_position": 13, "title": "Dig Me Out", "artist": "Sleater-Kinney", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_2", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 14, "evidence_segment": 1, "segment_ordinal": 14, "absolute_position": 14, "title": "Drain The Blood", "artist": "The Distillers", "evidence": [{"source_key": "capture_2", "field_name": "title"}, {"source_key": "capture_2", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 15, "evidence_segment": 1, "segment_ordinal": 15, "absolute_position": 15, "title": "Maps", "artist": "Yeah Yeah Yeahs", "evidence": [{"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 16, "evidence_segment": 1, "segment_ordinal": 16, "absolute_position": 16, "title": "Crash", "artist": "The Primitives", "evidence": [{"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 17, "evidence_segment": 1, "segment_ordinal": 17, "absolute_position": 17, "title": "Naked Eye", "artist": "Luscious Jackson", "evidence": [{"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 18, "evidence_segment": 1, "segment_ordinal": 18, "absolute_position": 18, "title": "Feed the Tree", "artist": "Belly", "evidence": [{"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 19, "evidence_segment": 1, "segment_ordinal": 19, "absolute_position": 19, "title": "Never Say Never (Album Version)", "artist": "That Dog.", "version_or_remaster_text": "Album Version", "evidence": [{"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "version_or_remaster_text"}, {"source_key": "capture_3", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 20, "evidence_segment": 1, "segment_ordinal": 20, "absolute_position": 20, "title": "My Sister [Explicit]", "artist": "The Juliana Hatfield Three", "explicit_flag": true, "evidence": [{"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 21, "evidence_segment": 1, "segment_ordinal": 21, "absolute_position": 21, "title": "Counting Backwards", "artist": "Throwing Muses", "evidence": [{"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_3", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 22, "evidence_segment": 1, "segment_ordinal": 22, "absolute_position": 22, "title": "Great Things", "artist": "Echobelly", "evidence": [{"source_key": "capture_3", "field_name": "title"}, {"source_key": "capture_3", "field_name": "artist"}, {"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_4", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 23, "evidence_segment": 1, "segment_ordinal": 23, "absolute_position": 23, "title": "Ready to Go", "artist": "Republica", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_4", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 24, "evidence_segment": 1, "segment_ordinal": 24, "absolute_position": 24, "title": "Weak", "artist": "Skunk Anansie", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 25, "evidence_segment": 1, "segment_ordinal": 25, "absolute_position": 25, "title": "My Favourite Game", "artist": "The Cardigans", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 26, "evidence_segment": 1, "segment_ordinal": 26, "absolute_position": 26, "title": "I Want Your Love", "artist": "Transvision Vamp", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 27, "evidence_segment": 1, "segment_ordinal": 27, "absolute_position": 27, "title": "I Want Candy", "artist": "Bow Wow Wow", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 28, "evidence_segment": 1, "segment_ordinal": 28, "absolute_position": 28, "title": "Manic Monday", "artist": "The Bangles", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 29, "evidence_segment": 1, "segment_ordinal": 29, "absolute_position": 29, "title": "Our Lips Are Sealed (Single Version)", "artist": "The Go-Go's", "version_or_remaster_text": "Single Version", "evidence": [{"source_key": "capture_4", "field_name": "title"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "version_or_remaster_text"}, {"source_key": "capture_5", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal": 30, "evidence_segment": 1, "segment_ordinal": 30, "absolute_position": 30, "title": "One Way Or Another (Remastered 2001)", "artist": "Blondie", "version_or_remaster_text": "Remastered 2001", "evidence": [{"source_key": "capture_4", "field_name": "title", "support_status": "PARTIAL"}, {"source_key": "capture_4", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "title"}, {"source_key": "capture_5", "field_name": "artist"}, {"source_key": "capture_5", "field_name": "version_or_remaster_text"}, {"source_key": "capture_5", "field_name": "absolute_position", "provenance_type": "HUMAN_ASSESSMENT"}]}
+  ],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "The initial Maestro result visibly shows the action label Save Playlist; this establishes only that the captured generation had not yet been saved at that visible moment.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Capture 1. No claim is made about whether the playlist was saved later."
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The visible device clock reads 11:13; this value is not treated as a generation timestamp.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Captures 1–5; date and timezone are not established."
+    }
+  ],
+  "constraints": [],
+  "prompt_labels": []
+}
