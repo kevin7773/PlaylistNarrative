@@ -9,4 +9,4 @@ __pycache__/
 dist/
 build/
 *.egg-info/
-
+docs/penny_future_book.md
