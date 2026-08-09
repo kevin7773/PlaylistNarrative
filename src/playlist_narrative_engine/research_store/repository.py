@@ -10,10 +10,13 @@ from sqlalchemy.orm import Session
 from playlist_narrative_engine.research_store.models import (
     Constraint, ConstraintResult, EvidenceLink, EvidenceSource, Experiment,
     ExperimentPromptLabel, ExperimentTrack, GenerationFailure, Observation,
-    Track, TracklistEvidenceSegment,
+    PersistedArtifactExperimentLink, PersistedArtifactSegment,
+    PersistedArtifactTrack, PersistedPlaylistArtifact, Track,
+    TracklistEvidenceSegment,
 )
 from playlist_narrative_engine.research_store.schemas import (
     ConstraintStatus, ExperimentInput, FieldEvidenceInput, GenerationFailureInput,
+    PersistedArtifactExperimentLinkInput, PersistedPlaylistArtifactInput,
 )
 
 
@@ -126,7 +129,10 @@ class ResearchRepository:
             self.session.flush()
         return track
 
-    def _insert_sources(self, experiment_id, failure_id, items) -> dict[str, EvidenceSource]:
+    def _insert_sources(
+        self, experiment_id, failure_id, items, *, persisted_artifact_id=None,
+        persisted_artifact_experiment_link_id=None,
+    ) -> dict[str, EvidenceSource]:
         result = {}
         for item in items:
             if item.local_path is not None:
@@ -138,6 +144,8 @@ class ResearchRepository:
                     raise ValueError(f"evidence checksum mismatch: {path}")
             source = EvidenceSource(
                 experiment_id=experiment_id, generation_failure_id=failure_id,
+                persisted_artifact_id=persisted_artifact_id,
+                persisted_artifact_experiment_link_id=persisted_artifact_experiment_link_id,
                 source_key=item.source_key, source_type=item.source_type,
                 source_reference=item.source_reference, original_filename=item.original_filename,
                 local_path=item.local_path, sha256=None if item.sha256 is None else item.sha256.lower(),
@@ -150,11 +158,27 @@ class ResearchRepository:
 
     def _insert_links(self, sources: dict[str, EvidenceSource], items: list[FieldEvidenceInput], **target) -> None:
         for item in items:
+            source = sources[item.source_key]
+            if target.get("experiment_id") is not None or target.get("experiment_track_id") is not None:
+                valid_domain = source.experiment_id is not None
+            elif target.get("generation_failure_id") is not None:
+                valid_domain = source.generation_failure_id is not None
+            elif target.get("persisted_artifact_id") is not None or target.get("persisted_artifact_track_id") is not None:
+                valid_domain = source.persisted_artifact_id is not None
+            elif target.get("persisted_artifact_experiment_link_id") is not None:
+                valid_domain = source.persisted_artifact_experiment_link_id is not None
+            else:
+                valid_domain = False
+            if not valid_domain:
+                raise ValueError("evidence source ownership domain does not match claim target")
             self.session.add(EvidenceLink(
-                evidence_source_id=sources[item.source_key].id,
+                evidence_source_id=source.id,
                 experiment_id=target.get("experiment_id"),
                 experiment_track_id=target.get("experiment_track_id"),
                 generation_failure_id=target.get("generation_failure_id"),
+                persisted_artifact_id=target.get("persisted_artifact_id"),
+                persisted_artifact_track_id=target.get("persisted_artifact_track_id"),
+                persisted_artifact_experiment_link_id=target.get("persisted_artifact_experiment_link_id"),
                 field_name=item.field_name, provenance_type=item.provenance_type.value,
                 support_status=item.support_status.value, notes=item.notes,
             ))
@@ -173,6 +197,100 @@ class ResearchRepository:
             sources = self._insert_sources(None, failure.id, draft.evidence_sources)
             self._insert_links(sources, draft.evidence, generation_failure_id=failure.id)
             return failure.id
+
+    def insert_persisted_artifact(self, draft: PersistedPlaylistArtifactInput) -> int:
+        """Insert current persisted-artifact evidence without touching experiments."""
+        with self.session.begin():
+            values = dict(
+                observed_at=draft.observed_at, source_system=draft.source_system,
+                display_title=draft.display_title,
+                display_description=draft.display_description,
+                visibility_text=draft.visibility_text,
+                persistence_state=draft.persistence_state.value,
+                displayed_track_count=draft.displayed_track_count,
+                displayed_duration_text=draft.displayed_duration_text,
+                observed_track_count=len(draft.tracks),
+                tracklist_completeness=draft.tracklist_completeness.value,
+                evidence_standard=draft.evidence_standard.value, notes=draft.notes,
+            )
+            if draft.recorded_at is not None:
+                values["recorded_at"] = draft.recorded_at
+            artifact = PersistedPlaylistArtifact(**values)
+            self.session.add(artifact)
+            self.session.flush()
+            sources = self._insert_sources(
+                None, None, draft.evidence_sources, persisted_artifact_id=artifact.id
+            )
+            self._insert_links(sources, draft.evidence, persisted_artifact_id=artifact.id)
+            segments: dict[int, PersistedArtifactSegment] = {}
+            for item in draft.segments:
+                segment = PersistedArtifactSegment(
+                    persisted_artifact_id=artifact.id,
+                    segment_ordinal=item.segment_ordinal,
+                    relationship_to_previous=item.relationship_to_previous.value,
+                    captures_playlist_start=item.captures_playlist_start.value,
+                    captures_playlist_end=item.captures_playlist_end.value,
+                    notes=item.notes,
+                )
+                self.session.add(segment)
+                self.session.flush()
+                segments[item.segment_ordinal] = segment
+                prefixed = [
+                    link.model_copy(update={
+                        "field_name": f"segment.{item.segment_ordinal}.{link.field_name}"
+                    }) for link in item.evidence
+                ]
+                self._insert_links(sources, prefixed, persisted_artifact_id=artifact.id)
+            for item in draft.tracks:
+                track = self._canonical_track(item)
+                placement = PersistedArtifactTrack(
+                    persisted_artifact_id=artifact.id,
+                    track_id=None if track is None else track.id,
+                    artifact_segment_id=segments[item.evidence_segment].id,
+                    observed_ordinal=item.observed_ordinal,
+                    segment_ordinal=item.segment_ordinal,
+                    absolute_position=item.absolute_position,
+                    display_title=item.title, display_artist=item.artist,
+                    explicit_flag=item.explicit_flag,
+                    version_or_remaster_text=item.version_or_remaster_text,
+                    notes=item.notes,
+                )
+                self.session.add(placement)
+                self.session.flush()
+                self._insert_links(
+                    sources, item.evidence, persisted_artifact_track_id=placement.id
+                )
+            self.session.flush()
+            return artifact.id
+
+    def insert_persisted_artifact_experiment_link(
+        self, draft: PersistedArtifactExperimentLinkInput
+    ) -> int:
+        """Insert relationship evidence without mutating either endpoint."""
+        with self.session.begin():
+            if self.session.get(PersistedPlaylistArtifact, draft.persisted_artifact_id) is None:
+                raise ValueError("persisted artifact does not exist")
+            if self.session.get(Experiment, draft.experiment_id) is None:
+                raise ValueError("experiment does not exist")
+            link = PersistedArtifactExperimentLink(
+                persisted_artifact_id=draft.persisted_artifact_id,
+                experiment_id=draft.experiment_id,
+                relationship_type=draft.relationship_type.value,
+                unchanged_since_generation=draft.unchanged_since_generation.value,
+                notes=draft.notes,
+            )
+            self.session.add(link)
+            self.session.flush()
+            sources = self._insert_sources(
+                None, None, draft.evidence_sources,
+                persisted_artifact_experiment_link_id=link.id,
+            )
+            self._insert_links(
+                sources, draft.evidence,
+                persisted_artifact_experiment_link_id=link.id,
+            )
+            self.session.flush()
+            return link.id
 
     def get_experiment(self, experiment_id: int) -> dict[str, object] | None:
         experiment = self.session.get(Experiment, experiment_id)
@@ -218,6 +336,87 @@ class ResearchRepository:
                  "evidence_sources": [self._source_dict(source) for source in self.session.scalars(select(EvidenceSource).where(EvidenceSource.generation_failure_id == item.id).order_by(EvidenceSource.id))],
                  "evidence": [self._link_dict(link) for link in self.session.scalars(select(EvidenceLink).where(EvidenceLink.generation_failure_id == item.id).order_by(EvidenceLink.id))],
                  "notes": item.notes} for item in items]
+
+    def get_persisted_artifact(self, artifact_id: int) -> dict[str, object] | None:
+        artifact = self.session.get(PersistedPlaylistArtifact, artifact_id)
+        if artifact is None:
+            return None
+        segments = list(self.session.scalars(
+            select(PersistedArtifactSegment)
+            .where(PersistedArtifactSegment.persisted_artifact_id == artifact_id)
+            .order_by(PersistedArtifactSegment.segment_ordinal)
+        ))
+        placements = list(self.session.scalars(
+            select(PersistedArtifactTrack)
+            .where(PersistedArtifactTrack.persisted_artifact_id == artifact_id)
+            .order_by(PersistedArtifactTrack.observed_ordinal)
+        ))
+        sources = list(self.session.scalars(
+            select(EvidenceSource)
+            .where(EvidenceSource.persisted_artifact_id == artifact_id)
+            .order_by(EvidenceSource.id)
+        ))
+        links = list(self.session.scalars(
+            select(EvidenceLink).where(
+                (EvidenceLink.persisted_artifact_id == artifact_id)
+                | (EvidenceLink.persisted_artifact_track_id.in_(
+                    [placement.id for placement in placements] or [-1]
+                ))
+            ).order_by(EvidenceLink.id)
+        ))
+        return {
+            "id": artifact.id, "schema_version": 3,
+            "recorded_at": artifact.recorded_at.isoformat(),
+            "observed_at": None if artifact.observed_at is None else artifact.observed_at.isoformat(),
+            "source_system": artifact.source_system,
+            "display_title": artifact.display_title,
+            "display_description": artifact.display_description,
+            "visibility_text": artifact.visibility_text,
+            "persistence_state": artifact.persistence_state,
+            "displayed_track_count": artifact.displayed_track_count,
+            "displayed_duration_text": artifact.displayed_duration_text,
+            "observed_track_count": artifact.observed_track_count,
+            "tracklist_completeness": artifact.tracklist_completeness,
+            "evidence_standard": artifact.evidence_standard,
+            "notes": artifact.notes,
+            "segments": [self._artifact_segment_dict(item) for item in segments],
+            "tracks": [self._artifact_placement_dict(item) for item in placements],
+            "evidence_sources": [self._source_dict(item) for item in sources],
+            "evidence": [self._link_dict(item) for item in links if item.persisted_artifact_id is not None],
+        }
+
+    def list_persisted_artifact_ids(self) -> Sequence[int]:
+        return list(self.session.scalars(
+            select(PersistedPlaylistArtifact.id).order_by(PersistedPlaylistArtifact.id)
+        ))
+
+    def list_persisted_artifact_experiment_links(self) -> list[dict[str, object]]:
+        rows = self.session.scalars(
+            select(PersistedArtifactExperimentLink).order_by(PersistedArtifactExperimentLink.id)
+        )
+        result = []
+        for item in rows:
+            sources = list(self.session.scalars(
+                select(EvidenceSource)
+                .where(EvidenceSource.persisted_artifact_experiment_link_id == item.id)
+                .order_by(EvidenceSource.id)
+            ))
+            links = list(self.session.scalars(
+                select(EvidenceLink)
+                .where(EvidenceLink.persisted_artifact_experiment_link_id == item.id)
+                .order_by(EvidenceLink.id)
+            ))
+            result.append({
+                "id": item.id,
+                "persisted_artifact_id": item.persisted_artifact_id,
+                "experiment_id": item.experiment_id,
+                "relationship_type": item.relationship_type,
+                "unchanged_since_generation": item.unchanged_since_generation,
+                "notes": item.notes,
+                "evidence_sources": [self._source_dict(source) for source in sources],
+                "evidence": [self._link_dict(link) for link in links],
+            })
+        return result
 
     def recurring_tracks(self, limit: int = 20) -> list[dict[str, object]]:
         statement = (select(Track.id, Track.canonical_title, Track.canonical_artist,
@@ -275,12 +474,46 @@ class ResearchRepository:
                 "version_or_remaster_text": item.version_or_remaster_text, "notes": item.notes,
                 "evidence": [self._link_dict(link) for link in links]}
 
+    def _artifact_placement_dict(self, item):
+        links = list(self.session.scalars(
+            select(EvidenceLink)
+            .where(EvidenceLink.persisted_artifact_track_id == item.id)
+            .order_by(EvidenceLink.id)
+        ))
+        track = item.track
+        return {
+            "id": item.id, "observed_ordinal": item.observed_ordinal,
+            "evidence_segment": item.segment.segment_ordinal,
+            "segment_ordinal": item.segment_ordinal,
+            "absolute_position": item.absolute_position,
+            "track_id": None if track is None else track.id,
+            "canonical_title": None if track is None else track.canonical_title,
+            "canonical_artist": None if track is None else track.canonical_artist,
+            "normalized_title": None if track is None else track.normalized_title,
+            "normalized_artist": None if track is None else track.normalized_artist,
+            "title": item.display_title, "artist": item.display_artist,
+            "explicit_flag": item.explicit_flag,
+            "version_or_remaster_text": item.version_or_remaster_text,
+            "notes": item.notes,
+            "evidence": [self._link_dict(link) for link in links],
+        }
+
     @staticmethod
     def _segment_dict(item):
         return {"id": item.id, "segment_ordinal": item.segment_ordinal,
                 "relationship_to_previous": item.relationship_to_previous,
                 "captures_playlist_start": item.captures_playlist_start,
                 "captures_playlist_end": item.captures_playlist_end, "notes": item.notes}
+
+    @staticmethod
+    def _artifact_segment_dict(item):
+        return {
+            "id": item.id, "segment_ordinal": item.segment_ordinal,
+            "relationship_to_previous": item.relationship_to_previous,
+            "captures_playlist_start": item.captures_playlist_start,
+            "captures_playlist_end": item.captures_playlist_end,
+            "notes": item.notes,
+        }
 
     @staticmethod
     def _source_dict(item):

@@ -11,7 +11,7 @@ from playlist_narrative_engine.research_store.models import (
     SchemaVersion, Track, TracklistEvidenceSegment,
 )
 
-CURRENT_SCHEMA_VERSION = 2
+CURRENT_SCHEMA_VERSION = 3
 
 
 def get_schema_version(engine: Engine) -> int:
@@ -29,7 +29,7 @@ def _rows(connection, table_name: str) -> list[dict]:
 
 
 def _migrate_v1_to_v2(engine: Engine) -> None:
-    """Rebuild the isolated research schema deterministically and restore v1 rows."""
+    """Rebuild schema-v1 records under the complete-ingestion v2 contract."""
     table_names = set(inspect(engine).get_table_names())
     names = [
         "experiments", "tracks", "experiment_tracks", "constraints",
@@ -46,8 +46,8 @@ def _migrate_v1_to_v2(engine: Engine) -> None:
             old.reflect(bind=connection)
             old.drop_all(bind=connection)
             ResearchBase.metadata.create_all(bind=connection)
-
-            connection.execute(Track.__table__.insert(), snapshot["tracks"])
+            if snapshot["tracks"]:
+                connection.execute(Track.__table__.insert(), snapshot["tracks"])
             for row in snapshot["experiments"]:
                 connection.execute(Experiment.__table__.insert().values(
                     id=row["id"], recorded_at=row["created_at"], generated_at=None,
@@ -70,10 +70,10 @@ def _migrate_v1_to_v2(engine: Engine) -> None:
                 )).inserted_primary_key[0]
                 migration_source_id = connection.execute(EvidenceSource.__table__.insert().values(
                     experiment_id=row["id"], generation_failure_id=None,
+                    persisted_artifact_id=None, persisted_artifact_experiment_link_id=None,
                     source_key="schema_v1_contract", source_type="SCHEMA_MIGRATION_CONTRACT",
                     source_reference="research-store schema version 1 complete-ingestion contract",
-                    original_filename=None, local_path=None, sha256=None,
-                    source_timestamp=None,
+                    original_filename=None, local_path=None, sha256=None, source_timestamp=None,
                     notes="Structured provenance for facts deterministically created by migration 1 to 2.",
                 )).inserted_primary_key[0]
                 for field_name in (
@@ -84,6 +84,8 @@ def _migrate_v1_to_v2(engine: Engine) -> None:
                     connection.execute(EvidenceLink.__table__.insert().values(
                         evidence_source_id=migration_source_id, experiment_id=row["id"],
                         experiment_track_id=None, generation_failure_id=None,
+                        persisted_artifact_id=None, persisted_artifact_track_id=None,
+                        persisted_artifact_experiment_link_id=None,
                         field_name=field_name, provenance_type="MIGRATION_DERIVATION",
                         support_status="FULL", notes=None,
                     ))
@@ -99,7 +101,6 @@ def _migrate_v1_to_v2(engine: Engine) -> None:
                         explicit_flag=placement["explicit_flag"],
                         version_or_remaster_text=placement["version_or_remaster_text"], notes=placement["notes"],
                     ))
-
             for row in snapshot["constraints"]:
                 connection.execute(Constraint.__table__.insert().values(**row))
             for row in snapshot["constraint_results"]:
@@ -123,11 +124,44 @@ def _migrate_v1_to_v2(engine: Engine) -> None:
                 connection.execute(GenerationFailure.__table__.insert().values(
                     id=row["id"], recorded_at=row["created_at"], generated_at=None,
                     prompt_text=row["prompt_text"], source_system=row["source_system"],
-                    failure_type=row["failure_type"], displayed_message=row["displayed_message"], notes=row["notes"],
-                    evidence_standard="LEGACY_V1",
+                    failure_type=row["failure_type"], displayed_message=row["displayed_message"],
+                    notes=row["notes"], evidence_standard="LEGACY_V1",
                 ))
             connection.execute(SchemaVersion.__table__.insert().values(
                 version=2, applied_at=datetime.now(timezone.utc)
+            ))
+        connection.exec_driver_sql("PRAGMA foreign_keys=ON")
+        connection.commit()
+
+
+def _migrate_v2_to_v3(engine: Engine) -> None:
+    """Add persisted-artifact entities while preserving every v2 evidence ID."""
+    with engine.connect() as connection:
+        source_rows = _rows(connection, "evidence_sources")
+        link_rows = _rows(connection, "evidence_links")
+        connection.commit()
+        connection.exec_driver_sql("PRAGMA foreign_keys=OFF")
+        connection.commit()
+        with connection.begin():
+            old = MetaData()
+            old.reflect(bind=connection, only=["evidence_links", "evidence_sources"])
+            old.tables["evidence_links"].drop(bind=connection)
+            old.tables["evidence_sources"].drop(bind=connection)
+            ResearchBase.metadata.create_all(bind=connection)
+            for row in source_rows:
+                row.update(persisted_artifact_id=None, persisted_artifact_experiment_link_id=None)
+            for row in link_rows:
+                row.update(
+                    persisted_artifact_id=None,
+                    persisted_artifact_track_id=None,
+                    persisted_artifact_experiment_link_id=None,
+                )
+            if source_rows:
+                connection.execute(EvidenceSource.__table__.insert(), source_rows)
+            if link_rows:
+                connection.execute(EvidenceLink.__table__.insert(), link_rows)
+            connection.execute(SchemaVersion.__table__.insert().values(
+                version=3, applied_at=datetime.now(timezone.utc)
             ))
         connection.exec_driver_sql("PRAGMA foreign_keys=ON")
         connection.commit()
@@ -143,10 +177,13 @@ def migrate_research_database(engine: Engine) -> int:
         ResearchBase.metadata.create_all(engine)
         with engine.begin() as connection:
             connection.execute(SchemaVersion.__table__.insert().values(
-                version=2, applied_at=datetime.now(timezone.utc)
+                version=3, applied_at=datetime.now(timezone.utc)
             ))
-        return 2
+        return 3
     if current == 1:
         _migrate_v1_to_v2(engine)
-        return 2
+        current = 2
+    if current == 2:
+        _migrate_v2_to_v3(engine)
+        return 3
     return current

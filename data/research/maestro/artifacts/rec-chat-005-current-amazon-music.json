@@ -1,0 +1,119 @@
+{
+  "observed_at": null,
+  "source_system": "Amazon Music",
+  "display_title": "In The Zone",
+  "display_description": "High-energy focus music blending prog rock and electronic beats",
+  "visibility_text": "Public",
+  "persistence_state": "PRESENT",
+  "displayed_track_count": 31,
+  "displayed_duration_text": "3 hrs 25 min",
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "CURRENT_PRIMARY_EVIDENCE",
+  "notes": "Current persisted Amazon Music artifact associated by the user with recovery candidate REC-CHAT-005. This record makes no historical-generation or unchanged-since-generation claim.",
+  "evidence_sources": [
+    {
+      "source_key": "current_context",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Current REC-CHAT-005 recovery handoff identifies the captured interface as the user's Amazon Music library",
+      "notes": "Supports current source-system context only; not a historical generation claim."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "CURRENT_PERSISTED_ARTIFACT_SCREENSHOT",
+      "source_reference": "REC-CHAT-005 current Amazon Music artifact capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\4586FD25-74EB-4E6C-A9B5-6926598CCFC4\\1-Photo-1.jpg",
+      "sha256": "0a7066009a6b24bbe5dba6ccb309a4c786b4552b4aacc3ac470afe12c11e6ffd"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "CURRENT_PERSISTED_ARTIFACT_SCREENSHOT",
+      "source_reference": "REC-CHAT-005 current Amazon Music artifact capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\4586FD25-74EB-4E6C-A9B5-6926598CCFC4\\2-Photo-2.jpg",
+      "sha256": "f865506e8e28434527df54129947ef4550f6028583562339f9ac70b32c1b97c1"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "CURRENT_PERSISTED_ARTIFACT_SCREENSHOT",
+      "source_reference": "REC-CHAT-005 current Amazon Music artifact capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\4586FD25-74EB-4E6C-A9B5-6926598CCFC4\\3-Photo-3.jpg",
+      "sha256": "ac656b75cb990aa3fdccc8fdd0b845c6ebf43cd1de2e8465f2562cd5873c1739"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "CURRENT_PERSISTED_ARTIFACT_SCREENSHOT",
+      "source_reference": "REC-CHAT-005 current Amazon Music artifact capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\4586FD25-74EB-4E6C-A9B5-6926598CCFC4\\4-Photo-4.jpg",
+      "sha256": "06ba3a556782ca77002dbd4530602319e58d7b848cd549e879c7f9f175c4acbc"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "CURRENT_PERSISTED_ARTIFACT_SCREENSHOT",
+      "source_reference": "REC-CHAT-005 current Amazon Music artifact capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\4586FD25-74EB-4E6C-A9B5-6926598CCFC4\\5-Photo-5.jpg",
+      "sha256": "cba797e6204fb93362ea77293cb9a1f58b77226f6377474537baba153642cc40"
+    }
+  ],
+  "evidence": [
+    {"source_key": "current_context", "field_name": "source_system", "provenance_type": "DIRECT_OBSERVATION"},
+    {"source_key": "capture_1", "field_name": "display_title"},
+    {"source_key": "capture_1", "field_name": "display_description"},
+    {"source_key": "capture_1", "field_name": "visibility_text"},
+    {"source_key": "capture_1", "field_name": "persistence_state"},
+    {"source_key": "capture_1", "field_name": "displayed_track_count"},
+    {"source_key": "capture_1", "field_name": "displayed_duration_text"},
+    {"source_key": "capture_1", "field_name": "tracklist_completeness", "provenance_type": "HUMAN_ASSESSMENT", "notes": "The header reports 31 songs and five overlapping captures establish one continuous 31-placement sequence beginning at position 1."},
+    {"source_key": "capture_5", "field_name": "tracklist_completeness", "provenance_type": "HUMAN_ASSESSMENT", "notes": "The recovered final placement is the 31st item matching the displayed total; no graphical bottom marker is claimed."}
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "notes": "End boundary is established by displayed count plus continuous 31-placement reconciliation, not by a graphical bottom marker.",
+      "evidence": [
+        {"source_key": "capture_1", "field_name": "relationship_to_previous"},
+        {"source_key": "capture_1", "field_name": "captures_playlist_start"},
+        {"source_key": "capture_5", "field_name": "captures_playlist_end", "provenance_type": "HUMAN_ASSESSMENT", "notes": "Header count 31 equals the continuous recovered placement count."}
+      ]
+    }
+  ],
+  "tracks": [
+    {"observed_ordinal":1,"evidence_segment":1,"segment_ordinal":1,"absolute_position":1,"title":"Tom Sawyer","artist":"Rush","evidence":[{"source_key":"capture_1","field_name":"title"},{"source_key":"capture_1","field_name":"artist"},{"source_key":"capture_1","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":2,"evidence_segment":1,"segment_ordinal":2,"absolute_position":2,"title":"Roundabout (2024 Remaster)","artist":"YES","evidence":[{"source_key":"capture_1","field_name":"title"},{"source_key":"capture_1","field_name":"artist"},{"source_key":"capture_1","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":3,"evidence_segment":1,"segment_ordinal":3,"absolute_position":3,"title":"Galvanize [feat. Q-Tip]","artist":"The Chemical Brothers","evidence":[{"source_key":"capture_1","field_name":"title"},{"source_key":"capture_1","field_name":"artist"},{"source_key":"capture_1","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":4,"evidence_segment":1,"segment_ordinal":4,"absolute_position":4,"title":"Hysteria","artist":"Muse","evidence":[{"source_key":"capture_1","field_name":"title"},{"source_key":"capture_1","field_name":"artist"},{"source_key":"capture_1","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":5,"evidence_segment":1,"segment_ordinal":5,"absolute_position":5,"title":"Pull Me Under","artist":"Dream Theater","evidence":[{"source_key":"capture_2","field_name":"title"},{"source_key":"capture_2","field_name":"artist"},{"source_key":"capture_2","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":6,"evidence_segment":1,"segment_ordinal":6,"absolute_position":6,"title":"Aerodynamic","artist":"Daft Punk","evidence":[{"source_key":"capture_2","field_name":"title"},{"source_key":"capture_2","field_name":"artist"},{"source_key":"capture_2","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":7,"evidence_segment":1,"segment_ordinal":7,"absolute_position":7,"title":"Schism","artist":"TOOL","evidence":[{"source_key":"capture_2","field_name":"title"},{"source_key":"capture_2","field_name":"artist"},{"source_key":"capture_2","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":8,"evidence_segment":1,"segment_ordinal":8,"absolute_position":8,"title":"D.A.N.C.E.","artist":"Justice","evidence":[{"source_key":"capture_2","field_name":"title"},{"source_key":"capture_2","field_name":"artist"},{"source_key":"capture_2","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":9,"evidence_segment":1,"segment_ordinal":9,"absolute_position":9,"title":"Welcome Home (Clean Albu...","artist":"Coheed & Cambria","canonical_identity_established":false,"evidence":[{"source_key":"capture_2","field_name":"title"},{"source_key":"capture_2","field_name":"artist"},{"source_key":"capture_2","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":10,"evidence_segment":1,"segment_ordinal":10,"absolute_position":10,"title":"Your Hand In Mine (Remaste...","artist":"Explosions In The Sky","canonical_identity_established":false,"evidence":[{"source_key":"capture_2","field_name":"title"},{"source_key":"capture_2","field_name":"artist"},{"source_key":"capture_2","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":11,"evidence_segment":1,"segment_ordinal":11,"absolute_position":11,"title":"Trains (Demo)","artist":"Porcupine Tree","evidence":[{"source_key":"capture_2","field_name":"title"},{"source_key":"capture_2","field_name":"artist"},{"source_key":"capture_2","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":12,"evidence_segment":1,"segment_ordinal":12,"absolute_position":12,"title":"Propane Nightmares","artist":"Pendulum","evidence":[{"source_key":"capture_3","field_name":"title"},{"source_key":"capture_3","field_name":"artist"},{"source_key":"capture_3","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":13,"evidence_segment":1,"segment_ordinal":13,"absolute_position":13,"title":"21st Century Schizoid Man [...","artist":"King Crimson","canonical_identity_established":false,"evidence":[{"source_key":"capture_3","field_name":"title"},{"source_key":"capture_3","field_name":"artist"},{"source_key":"capture_3","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":14,"evidence_segment":1,"segment_ordinal":14,"absolute_position":14,"title":"Breathe","artist":"The Prodigy","evidence":[{"source_key":"capture_3","field_name":"title"},{"source_key":"capture_3","field_name":"artist"},{"source_key":"capture_3","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":15,"evidence_segment":1,"segment_ordinal":15,"absolute_position":15,"title":"The Motherload","artist":"Mastodon","evidence":[{"source_key":"capture_3","field_name":"title"},{"source_key":"capture_3","field_name":"artist"},{"source_key":"capture_3","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":16,"evidence_segment":1,"segment_ordinal":16,"absolute_position":16,"title":"Loud Pipes","artist":"Ratatat","evidence":[{"source_key":"capture_3","field_name":"title"},{"source_key":"capture_3","field_name":"artist"},{"source_key":"capture_3","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":17,"evidence_segment":1,"segment_ordinal":17,"absolute_position":17,"title":"The Grand Conjuration","artist":"Opeth","evidence":[{"source_key":"capture_3","field_name":"title"},{"source_key":"capture_3","field_name":"artist"},{"source_key":"capture_3","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":18,"evidence_segment":1,"segment_ordinal":18,"absolute_position":18,"title":"Awake","artist":"Tycho","evidence":[{"source_key":"capture_3","field_name":"title"},{"source_key":"capture_3","field_name":"artist"},{"source_key":"capture_3","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":19,"evidence_segment":1,"segment_ordinal":19,"absolute_position":19,"title":"Karn Evil 9 1st Impression, P...","artist":"Emerson, Lake & Palmer","canonical_identity_established":false,"evidence":[{"source_key":"capture_4","field_name":"title"},{"source_key":"capture_4","field_name":"artist"},{"source_key":"capture_4","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":20,"evidence_segment":1,"segment_ordinal":20,"absolute_position":20,"title":"Strobe","artist":"deadmau5","evidence":[{"source_key":"capture_4","field_name":"title"},{"source_key":"capture_4","field_name":"artist"},{"source_key":"capture_4","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":21,"evidence_segment":1,"segment_ordinal":21,"absolute_position":21,"title":"Second Life Syndrome (Rem...","artist":"Riverside","canonical_identity_established":false,"evidence":[{"source_key":"capture_4","field_name":"title"},{"source_key":"capture_4","field_name":"artist"},{"source_key":"capture_4","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":22,"evidence_segment":1,"segment_ordinal":22,"absolute_position":22,"title":"Say My Name (feat. Zyra)","artist":"ODESZA","evidence":[{"source_key":"capture_4","field_name":"title"},{"source_key":"capture_4","field_name":"artist"},{"source_key":"capture_4","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":23,"evidence_segment":1,"segment_ordinal":23,"absolute_position":23,"title":"Lady Fantasy (Basing Street...","artist":"Camel","canonical_identity_established":false,"evidence":[{"source_key":"capture_4","field_name":"title"},{"source_key":"capture_4","field_name":"artist"},{"source_key":"capture_4","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":24,"evidence_segment":1,"segment_ordinal":24,"absolute_position":24,"title":"Finally Moving","artist":"Pretty Lights","evidence":[{"source_key":"capture_4","field_name":"title"},{"source_key":"capture_4","field_name":"artist"},{"source_key":"capture_4","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":25,"evidence_segment":1,"segment_ordinal":25,"absolute_position":25,"title":"Aqualung","artist":"Jethro Tull","evidence":[{"source_key":"capture_4","field_name":"title"},{"source_key":"capture_4","field_name":"artist"},{"source_key":"capture_4","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":26,"evidence_segment":1,"segment_ordinal":26,"absolute_position":26,"title":"Kiara","artist":"Bonobo","evidence":[{"source_key":"capture_5","field_name":"title"},{"source_key":"capture_5","field_name":"artist"},{"source_key":"capture_5","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":27,"evidence_segment":1,"segment_ordinal":27,"absolute_position":27,"title":"The Cinema Show","artist":"Genesis","evidence":[{"source_key":"capture_5","field_name":"title"},{"source_key":"capture_5","field_name":"artist"},{"source_key":"capture_5","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":28,"evidence_segment":1,"segment_ordinal":28,"absolute_position":28,"title":"Roygbiv","artist":"Boards Of Canada","evidence":[{"source_key":"capture_5","field_name":"title"},{"source_key":"capture_5","field_name":"artist"},{"source_key":"capture_5","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":29,"evidence_segment":1,"segment_ordinal":29,"absolute_position":29,"title":"Killer (2005 Digital Remaster)","artist":"Van Der Graaf Generator","evidence":[{"source_key":"capture_5","field_name":"title"},{"source_key":"capture_5","field_name":"artist"},{"source_key":"capture_5","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":30,"evidence_segment":1,"segment_ordinal":30,"absolute_position":30,"title":"Open Eye Signal (Remaster...","artist":"Jon Hopkins","canonical_identity_established":false,"evidence":[{"source_key":"capture_5","field_name":"title"},{"source_key":"capture_5","field_name":"artist"},{"source_key":"capture_5","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]},
+    {"observed_ordinal":31,"evidence_segment":1,"segment_ordinal":31,"absolute_position":31,"title":"Archangel","artist":"Burial","evidence":[{"source_key":"capture_5","field_name":"title"},{"source_key":"capture_5","field_name":"artist"},{"source_key":"capture_5","field_name":"absolute_position","provenance_type":"HUMAN_ASSESSMENT"}]}
+  ]
+}

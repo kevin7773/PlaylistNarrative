@@ -36,7 +36,7 @@ class Experiment(ResearchBase):
         CheckConstraint("generated_track_count IS NULL OR generated_track_count >= 0"),
         CheckConstraint("observed_track_count >= 0"),
         CheckConstraint("tracklist_completeness IN ('COMPLETE', 'PARTIAL', 'NOT_OBSERVED')"),
-        CheckConstraint("evidence_standard IN ('LEGACY_V1', 'CONTEMPORARY_MANUAL', 'RECOVERED_HISTORICAL')"),
+        CheckConstraint("evidence_standard IN ('LEGACY_V1', 'CONTEMPORARY_MANUAL', 'RECOVERED_HISTORICAL', 'CURRENT_PRIMARY_EVIDENCE')"),
         Index("ix_experiments_recorded_at", "recorded_at"),
         Index("ix_experiments_generated_at", "generated_at"),
     )
@@ -237,19 +237,153 @@ class GenerationFailure(ResearchBase):
     notes: Mapped[str | None] = mapped_column(Text)
 
 
+class PersistedPlaylistArtifact(ResearchBase):
+    __tablename__ = "persisted_playlist_artifacts"
+    __table_args__ = (
+        CheckConstraint("displayed_track_count IS NULL OR displayed_track_count >= 0"),
+        CheckConstraint("observed_track_count >= 0"),
+        CheckConstraint("persistence_state IN ('PRESENT', 'ABSENT', 'UNKNOWN')"),
+        CheckConstraint("tracklist_completeness IN ('COMPLETE', 'PARTIAL', 'NOT_OBSERVED')"),
+        CheckConstraint("evidence_standard IN ('LEGACY_V1', 'CONTEMPORARY_MANUAL', 'RECOVERED_HISTORICAL', 'CURRENT_PRIMARY_EVIDENCE')"),
+        Index("ix_persisted_artifacts_recorded_at", "recorded_at"),
+        Index("ix_persisted_artifacts_observed_at", "observed_at"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    recorded_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+    observed_at: Mapped[datetime | None] = mapped_column(DateTime)
+    source_system: Mapped[str | None] = mapped_column(Text)
+    display_title: Mapped[str | None] = mapped_column(Text)
+    display_description: Mapped[str | None] = mapped_column(Text)
+    visibility_text: Mapped[str | None] = mapped_column(Text)
+    persistence_state: Mapped[str] = mapped_column(String(10))
+    displayed_track_count: Mapped[int | None] = mapped_column(Integer)
+    displayed_duration_text: Mapped[str | None] = mapped_column(Text)
+    observed_track_count: Mapped[int] = mapped_column(Integer)
+    tracklist_completeness: Mapped[str] = mapped_column(String(20))
+    evidence_standard: Mapped[str] = mapped_column(String(30))
+    notes: Mapped[str | None] = mapped_column(Text)
+
+    segments: Mapped[list[PersistedArtifactSegment]] = relationship(
+        back_populates="artifact", cascade="all, delete-orphan"
+    )
+    placements: Mapped[list[PersistedArtifactTrack]] = relationship(
+        back_populates="artifact", cascade="all, delete-orphan"
+    )
+    experiment_links: Mapped[list[PersistedArtifactExperimentLink]] = relationship(
+        back_populates="artifact", cascade="all, delete-orphan"
+    )
+    evidence_sources: Mapped[list[EvidenceSource]] = relationship(
+        back_populates="persisted_artifact", cascade="all, delete-orphan"
+    )
+
+
+class PersistedArtifactSegment(ResearchBase):
+    __tablename__ = "persisted_artifact_segments"
+    __table_args__ = (
+        UniqueConstraint("persisted_artifact_id", "segment_ordinal", name="uq_artifact_segment_ordinal"),
+        CheckConstraint("segment_ordinal > 0"),
+        CheckConstraint("relationship_to_previous IN ('FIRST', 'CONTIGUOUS', 'GAP_UNKNOWN_SIZE')"),
+        CheckConstraint("captures_playlist_start IN ('YES', 'NO', 'UNKNOWN')"),
+        CheckConstraint("captures_playlist_end IN ('YES', 'NO', 'UNKNOWN')"),
+        Index("ix_artifact_segments_artifact", "persisted_artifact_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    persisted_artifact_id: Mapped[int] = mapped_column(
+        ForeignKey("persisted_playlist_artifacts.id", ondelete="CASCADE")
+    )
+    segment_ordinal: Mapped[int] = mapped_column(Integer)
+    relationship_to_previous: Mapped[str] = mapped_column(String(30))
+    captures_playlist_start: Mapped[str] = mapped_column(String(10))
+    captures_playlist_end: Mapped[str] = mapped_column(String(10))
+    notes: Mapped[str | None] = mapped_column(Text)
+
+    artifact: Mapped[PersistedPlaylistArtifact] = relationship(back_populates="segments")
+    placements: Mapped[list[PersistedArtifactTrack]] = relationship(back_populates="segment")
+
+
+class PersistedArtifactTrack(ResearchBase):
+    __tablename__ = "persisted_artifact_tracks"
+    __table_args__ = (
+        UniqueConstraint("persisted_artifact_id", "observed_ordinal", name="uq_artifact_observed_ordinal"),
+        UniqueConstraint("artifact_segment_id", "segment_ordinal", name="uq_artifact_segment_track_ordinal"),
+        UniqueConstraint("persisted_artifact_id", "absolute_position", name="uq_artifact_absolute_position"),
+        CheckConstraint("observed_ordinal > 0"),
+        CheckConstraint("segment_ordinal > 0"),
+        CheckConstraint("absolute_position IS NULL OR absolute_position > 0"),
+        Index("ix_artifact_tracks_artifact", "persisted_artifact_id"),
+        Index("ix_artifact_tracks_track", "track_id"),
+        Index("ix_artifact_tracks_segment", "artifact_segment_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    persisted_artifact_id: Mapped[int] = mapped_column(
+        ForeignKey("persisted_playlist_artifacts.id", ondelete="CASCADE")
+    )
+    track_id: Mapped[int | None] = mapped_column(ForeignKey("tracks.id"))
+    artifact_segment_id: Mapped[int] = mapped_column(
+        ForeignKey("persisted_artifact_segments.id", ondelete="CASCADE")
+    )
+    observed_ordinal: Mapped[int] = mapped_column(Integer)
+    segment_ordinal: Mapped[int] = mapped_column(Integer)
+    absolute_position: Mapped[int | None] = mapped_column(Integer)
+    display_title: Mapped[str | None] = mapped_column(Text)
+    display_artist: Mapped[str | None] = mapped_column(Text)
+    explicit_flag: Mapped[bool | None] = mapped_column(Boolean)
+    version_or_remaster_text: Mapped[str | None] = mapped_column(Text)
+    notes: Mapped[str | None] = mapped_column(Text)
+
+    artifact: Mapped[PersistedPlaylistArtifact] = relationship(back_populates="placements")
+    segment: Mapped[PersistedArtifactSegment] = relationship(back_populates="placements")
+    track: Mapped[Track | None] = relationship()
+
+
+class PersistedArtifactExperimentLink(ResearchBase):
+    __tablename__ = "persisted_artifact_experiment_links"
+    __table_args__ = (
+        UniqueConstraint("persisted_artifact_id", "experiment_id", name="uq_artifact_experiment_link"),
+        CheckConstraint("relationship_type = 'USER_ATTESTED_CORRELATION'"),
+        CheckConstraint("unchanged_since_generation IN ('YES', 'NO', 'UNKNOWN')"),
+        Index("ix_artifact_experiment_links_artifact", "persisted_artifact_id"),
+        Index("ix_artifact_experiment_links_experiment", "experiment_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    persisted_artifact_id: Mapped[int] = mapped_column(
+        ForeignKey("persisted_playlist_artifacts.id", ondelete="CASCADE")
+    )
+    experiment_id: Mapped[int] = mapped_column(ForeignKey("experiments.id", ondelete="CASCADE"))
+    relationship_type: Mapped[str] = mapped_column(String(40))
+    unchanged_since_generation: Mapped[str] = mapped_column(String(10))
+    notes: Mapped[str | None] = mapped_column(Text)
+
+    artifact: Mapped[PersistedPlaylistArtifact] = relationship(back_populates="experiment_links")
+
+
 class EvidenceSource(ResearchBase):
     __tablename__ = "evidence_sources"
     __table_args__ = (
         UniqueConstraint("experiment_id", "source_key", name="uq_experiment_source_key"),
         UniqueConstraint("generation_failure_id", "source_key", name="uq_failure_source_key"),
+        UniqueConstraint("persisted_artifact_id", "source_key", name="uq_artifact_source_key"),
+        UniqueConstraint("persisted_artifact_experiment_link_id", "source_key", name="uq_artifact_link_source_key"),
         CheckConstraint("local_path IS NULL OR sha256 IS NOT NULL"),
-        CheckConstraint("(experiment_id IS NOT NULL) + (generation_failure_id IS NOT NULL) = 1"),
+        CheckConstraint("(experiment_id IS NOT NULL) + (generation_failure_id IS NOT NULL) + (persisted_artifact_id IS NOT NULL) + (persisted_artifact_experiment_link_id IS NOT NULL) = 1"),
         Index("ix_evidence_sources_experiment", "experiment_id"),
+        Index("ix_evidence_sources_artifact", "persisted_artifact_id"),
+        Index("ix_evidence_sources_artifact_link", "persisted_artifact_experiment_link_id"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
     experiment_id: Mapped[int | None] = mapped_column(ForeignKey("experiments.id", ondelete="CASCADE"))
     generation_failure_id: Mapped[int | None] = mapped_column(ForeignKey("generation_failures.id", ondelete="CASCADE"))
+    persisted_artifact_id: Mapped[int | None] = mapped_column(
+        ForeignKey("persisted_playlist_artifacts.id", ondelete="CASCADE")
+    )
+    persisted_artifact_experiment_link_id: Mapped[int | None] = mapped_column(
+        ForeignKey("persisted_artifact_experiment_links.id", ondelete="CASCADE")
+    )
     source_key: Mapped[str] = mapped_column(Text)
     source_type: Mapped[str] = mapped_column(Text)
     source_reference: Mapped[str] = mapped_column(Text)
@@ -260,6 +394,9 @@ class EvidenceSource(ResearchBase):
     notes: Mapped[str | None] = mapped_column(Text)
 
     experiment: Mapped[Experiment | None] = relationship(back_populates="evidence_sources")
+    persisted_artifact: Mapped[PersistedPlaylistArtifact | None] = relationship(
+        back_populates="evidence_sources"
+    )
 
 
 class EvidenceLink(ResearchBase):
@@ -267,10 +404,13 @@ class EvidenceLink(ResearchBase):
     __table_args__ = (
         CheckConstraint("provenance_type IN ('DIRECT_OBSERVATION', 'HUMAN_ASSESSMENT', 'DERIVED_QUERY_RESULT', 'MIGRATION_DERIVATION')"),
         CheckConstraint("support_status IN ('FULL', 'PARTIAL')"),
-        CheckConstraint("(experiment_id IS NOT NULL) + (experiment_track_id IS NOT NULL) + (generation_failure_id IS NOT NULL) = 1"),
+        CheckConstraint("(experiment_id IS NOT NULL) + (experiment_track_id IS NOT NULL) + (generation_failure_id IS NOT NULL) + (persisted_artifact_id IS NOT NULL) + (persisted_artifact_track_id IS NOT NULL) + (persisted_artifact_experiment_link_id IS NOT NULL) = 1"),
         Index("ix_evidence_links_source", "evidence_source_id"),
         Index("ix_evidence_links_experiment", "experiment_id"),
         Index("ix_evidence_links_track", "experiment_track_id"),
+        Index("ix_evidence_links_artifact", "persisted_artifact_id"),
+        Index("ix_evidence_links_artifact_track", "persisted_artifact_track_id"),
+        Index("ix_evidence_links_artifact_link", "persisted_artifact_experiment_link_id"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -278,6 +418,15 @@ class EvidenceLink(ResearchBase):
     experiment_id: Mapped[int | None] = mapped_column(ForeignKey("experiments.id", ondelete="CASCADE"))
     experiment_track_id: Mapped[int | None] = mapped_column(ForeignKey("experiment_tracks.id", ondelete="CASCADE"))
     generation_failure_id: Mapped[int | None] = mapped_column(ForeignKey("generation_failures.id", ondelete="CASCADE"))
+    persisted_artifact_id: Mapped[int | None] = mapped_column(
+        ForeignKey("persisted_playlist_artifacts.id", ondelete="CASCADE")
+    )
+    persisted_artifact_track_id: Mapped[int | None] = mapped_column(
+        ForeignKey("persisted_artifact_tracks.id", ondelete="CASCADE")
+    )
+    persisted_artifact_experiment_link_id: Mapped[int | None] = mapped_column(
+        ForeignKey("persisted_artifact_experiment_links.id", ondelete="CASCADE")
+    )
     field_name: Mapped[str] = mapped_column(Text)
     provenance_type: Mapped[str] = mapped_column(String(30))
     support_status: Mapped[str] = mapped_column(String(10))

@@ -5,7 +5,10 @@ import json
 
 from playlist_narrative_engine.research_store.database import make_research_engine, make_research_session_factory
 from playlist_narrative_engine.research_store.exporter import export_csv_bundle, export_json
-from playlist_narrative_engine.research_store.importer import import_experiment_documents, import_research_export
+from playlist_narrative_engine.research_store.importer import (
+    import_experiment_documents, import_persisted_artifact_documents,
+    import_research_export,
+)
 from playlist_narrative_engine.research_store.migrations import migrate_research_database
 from playlist_narrative_engine.research_store.repository import ResearchRepository
 from playlist_narrative_engine.research_store.schemas import ConstraintStatus, GenerationFailureInput
@@ -19,6 +22,8 @@ def build_parser() -> argparse.ArgumentParser:
     importer.add_argument("path")
     export_importer = commands.add_parser("import-export-json", help="Import a complete v2 research export")
     export_importer.add_argument("path")
+    artifact_importer = commands.add_parser("import-artifact-json", help="Import persisted-artifact JSON")
+    artifact_importer.add_argument("path")
     failure = commands.add_parser("record-failure", help="Record a failed generation")
     failure.add_argument("--prompt", required=True)
     failure.add_argument("--failure-type", required=True)
@@ -27,6 +32,8 @@ def build_parser() -> argparse.ArgumentParser:
     failure.add_argument("--notes")
     show = commands.add_parser("show", help="Show one complete experiment as JSON")
     show.add_argument("experiment_id", type=int)
+    show_artifact = commands.add_parser("show-artifact", help="Show one persisted artifact as JSON")
+    show_artifact.add_argument("artifact_id", type=int)
     recurring_tracks = commands.add_parser("recurring-tracks")
     recurring_tracks.add_argument("--limit", type=int, default=20)
     recurring_artists = commands.add_parser("recurring-artists")
@@ -61,6 +68,8 @@ def main() -> None:
             print(json.dumps({"experiment_ids": import_experiment_documents(repository, args.path)}))
         elif args.command == "import-export-json":
             print(json.dumps(import_research_export(repository, args.path)))
+        elif args.command == "import-artifact-json":
+            print(json.dumps({"persisted_artifact_ids": import_persisted_artifact_documents(repository, args.path)}))
         elif args.command == "record-failure":
             failure_id = repository.record_generation_failure(GenerationFailureInput(
                 prompt=args.prompt, source_system=args.source_system,
@@ -69,6 +78,8 @@ def main() -> None:
             print(json.dumps({"generation_failure_id": failure_id}))
         elif args.command == "show":
             print(json.dumps(repository.get_experiment(args.experiment_id), indent=2))
+        elif args.command == "show-artifact":
+            print(json.dumps(repository.get_persisted_artifact(args.artifact_id), indent=2))
         elif args.command == "recurring-tracks":
             print(json.dumps(repository.recurring_tracks(args.limit), indent=2))
         elif args.command == "recurring-artists":

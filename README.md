@@ -143,6 +143,13 @@ infer similarity or unrelatedness. Constraint results and observations record
 `MIGRATION_DERIVATION` provenance. Recovered historical records use structured
 field-level evidence sources and links. Locally available evidence bytes require
 a verified SHA-256 checksum; external references may omit it.
+
+Schema version 3 adds separately governed `PersistedPlaylistArtifact` records
+for presently observed library playlists. Artifact fields, placements,
+completeness, persistence, and evidence never backfill historical experiments.
+An evidence-qualified `USER_ATTESTED_CORRELATION` may relate an artifact to an
+experiment without asserting content identity or unchanged contents. Import a
+standalone artifact with `pne-research import-artifact-json`.
 Compact observations default to direct observation and constraint results to
 human assessment, while either may be stated explicitly.
 

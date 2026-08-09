@@ -155,7 +155,7 @@ def test_recovered_historical_assertions_require_field_evidence() -> None:
         ))
 
 
-def test_deterministic_populated_v1_to_v2_migration(tmp_path) -> None:
+def test_deterministic_populated_v1_to_v3_migration(tmp_path) -> None:
     path = tmp_path / "v1.db"
     engine = make_research_engine(f"sqlite:///{path.as_posix()}")
     with engine.begin() as connection:
@@ -172,9 +172,9 @@ def test_deterministic_populated_v1_to_v2_migration(tmp_path) -> None:
         connection.execute(text("INSERT INTO experiments VALUES (7, '2026-01-02', 'Prompt', NULL, 'Maestro Beta', 'Title', 'Desc', NULL, 1, 0, NULL, NULL)"))
         connection.execute(text("INSERT INTO tracks VALUES (9, 'Raw', 'Artist', NULL, NULL)"))
         connection.execute(text("INSERT INTO experiment_tracks VALUES (7, 9, 1, 'Raw', 'Artist', NULL, NULL, NULL)"))
-    assert migrate_research_database(engine) == 2
-    assert migrate_research_database(engine) == 2
-    assert get_schema_version(engine) == 2
+    assert migrate_research_database(engine) == 3
+    assert migrate_research_database(engine) == 3
+    assert get_schema_version(engine) == 3
     sessions = make_research_session_factory(engine)
     with sessions() as session:
         result = ResearchRepository(session).get_experiment(7)

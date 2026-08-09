@@ -16,6 +16,13 @@ def export_json(repository: ResearchRepository, path: str | Path) -> Path:
             repository.get_experiment(item) for item in repository.list_experiment_ids()
         ],
         "generation_failures": repository.list_generation_failures(),
+        "persisted_playlist_artifacts": [
+            repository.get_persisted_artifact(item)
+            for item in repository.list_persisted_artifact_ids()
+        ],
+        "persisted_artifact_experiment_links": (
+            repository.list_persisted_artifact_experiment_links()
+        ),
     }
     with target.open("w", encoding="utf-8", newline="") as handle:
         json.dump(payload, handle, ensure_ascii=False, indent=2)
@@ -35,7 +42,7 @@ def export_csv_bundle(repository: ResearchRepository, directory: str | Path) -> 
         for item in concrete
     ])
     _write_csv(target / "experiment_tracks.csv", [
-        {"experiment_id": item["id"], **track}
+        {"experiment_id": item["id"], **{key: value for key, value in track.items() if key != "evidence"}}
         for item in concrete for track in item["tracks"]  # type: ignore[union-attr]
     ])
     _write_csv(target / "tracklist_evidence_segments.csv", [
@@ -87,6 +94,48 @@ def export_csv_bundle(repository: ResearchRepository, directory: str | Path) -> 
     _write_csv(target / "generation_failure_evidence_links.csv", [
         {"generation_failure_id": item["id"], **link}
         for item in failures for link in item["evidence"]
+    ])
+    artifacts = [
+        repository.get_persisted_artifact(item)
+        for item in repository.list_persisted_artifact_ids()
+    ]
+    artifact_rows = [item for item in artifacts if item is not None]
+    _write_csv(target / "persisted_playlist_artifacts.csv", [
+        {key: value for key, value in item.items() if key not in {
+            "segments", "tracks", "evidence_sources", "evidence"
+        }} for item in artifact_rows
+    ])
+    _write_csv(target / "persisted_artifact_segments.csv", [
+        {"persisted_artifact_id": item["id"], **segment}
+        for item in artifact_rows for segment in item["segments"]
+    ])
+    _write_csv(target / "persisted_artifact_tracks.csv", [
+        {"persisted_artifact_id": item["id"], **{key: value for key, value in track.items() if key != "evidence"}}
+        for item in artifact_rows for track in item["tracks"]
+    ])
+    _write_csv(target / "persisted_artifact_evidence_sources.csv", [
+        {"persisted_artifact_id": item["id"], **source}
+        for item in artifact_rows for source in item["evidence_sources"]
+    ])
+    _write_csv(target / "persisted_artifact_evidence_links.csv", [
+        {"persisted_artifact_id": item["id"], **link}
+        for item in artifact_rows for link in item["evidence"]
+    ] + [
+        {"persisted_artifact_id": item["id"], "persisted_artifact_track_id": track["id"], **link}
+        for item in artifact_rows for track in item["tracks"] for link in track["evidence"]
+    ])
+    correlations = repository.list_persisted_artifact_experiment_links()
+    _write_csv(target / "persisted_artifact_experiment_links.csv", [
+        {key: value for key, value in item.items() if key not in {"evidence_sources", "evidence"}}
+        for item in correlations
+    ])
+    _write_csv(target / "persisted_artifact_correlation_evidence_sources.csv", [
+        {"persisted_artifact_experiment_link_id": item["id"], **source}
+        for item in correlations for source in item["evidence_sources"]
+    ])
+    _write_csv(target / "persisted_artifact_correlation_evidence_links.csv", [
+        {"persisted_artifact_experiment_link_id": item["id"], **link}
+        for item in correlations for link in item["evidence"]
     ])
     return target
 

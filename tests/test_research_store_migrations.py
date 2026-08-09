@@ -10,9 +10,9 @@ from playlist_narrative_engine.research_store.migrations import (
 
 def test_initial_migration_is_idempotent_and_enables_sqlite_guards(tmp_path) -> None:
     engine = make_research_engine(f"sqlite:///{(tmp_path / 'research.db').as_posix()}")
-    assert migrate_research_database(engine) == CURRENT_SCHEMA_VERSION == 2
-    assert migrate_research_database(engine) == 2
-    assert get_schema_version(engine) == 2
+    assert migrate_research_database(engine) == CURRENT_SCHEMA_VERSION == 3
+    assert migrate_research_database(engine) == 3
+    assert get_schema_version(engine) == 3
     with engine.connect() as connection:
         assert connection.scalar(text("PRAGMA foreign_keys")) == 1
         assert connection.scalar(text("PRAGMA journal_mode")) == "wal"

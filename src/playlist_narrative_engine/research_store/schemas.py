@@ -46,11 +46,22 @@ class EvidenceStandard(StrEnum):
     LEGACY_V1 = "LEGACY_V1"
     CONTEMPORARY_MANUAL = "CONTEMPORARY_MANUAL"
     RECOVERED_HISTORICAL = "RECOVERED_HISTORICAL"
+    CURRENT_PRIMARY_EVIDENCE = "CURRENT_PRIMARY_EVIDENCE"
 
 
 class SupportStatus(StrEnum):
     FULL = "FULL"
     PARTIAL = "PARTIAL"
+
+
+class PersistenceState(StrEnum):
+    PRESENT = "PRESENT"
+    ABSENT = "ABSENT"
+    UNKNOWN = "UNKNOWN"
+
+
+class ArtifactRelationshipType(StrEnum):
+    USER_ATTESTED_CORRELATION = "USER_ATTESTED_CORRELATION"
 
 
 class EvidenceSourceInput(StrictModel):
@@ -131,6 +142,14 @@ class SegmentInput(StrictModel):
     captures_playlist_end: BoundaryKnowledge = BoundaryKnowledge.UNKNOWN
     notes: str | None = None
     evidence: list[FieldEvidenceInput] = Field(default_factory=list)
+
+
+class PersistedArtifactTrackInput(TrackInput):
+    """Placement evidence belonging only to a persisted artifact."""
+
+
+class PersistedArtifactSegmentInput(SegmentInput):
+    """Continuity evidence belonging only to a persisted artifact."""
 
 
 class ConstraintResultInput(StrictModel):
@@ -261,7 +280,10 @@ class ExperimentInput(StrictModel):
         all_links += [link for segment in self.segments for link in segment.evidence]
         if any(link.source_key not in set(source_keys) for link in all_links):
             raise ValueError("evidence links must reference declared source keys")
-        if self.evidence_standard == EvidenceStandard.RECOVERED_HISTORICAL:
+        if self.evidence_standard in {
+            EvidenceStandard.RECOVERED_HISTORICAL,
+            EvidenceStandard.CURRENT_PRIMARY_EVIDENCE,
+        }:
             required = {"tracklist_completeness"}
             for field, value in {
                 "prompt": self.prompt,
@@ -310,7 +332,10 @@ class GenerationFailureInput(StrictModel):
         keys = {item.source_key for item in self.evidence_sources}
         if any(item.source_key not in keys for item in self.evidence):
             raise ValueError("failure evidence links must reference declared source keys")
-        if self.evidence_standard == EvidenceStandard.RECOVERED_HISTORICAL:
+        if self.evidence_standard in {
+            EvidenceStandard.RECOVERED_HISTORICAL,
+            EvidenceStandard.CURRENT_PRIMARY_EVIDENCE,
+        }:
             required = {"failure_type"}
             for field, value in {
                 "prompt": self.prompt, "source_system": self.source_system,
@@ -321,4 +346,127 @@ class GenerationFailureInput(StrictModel):
             supported = {item.field_name for item in self.evidence}
             if not required <= supported:
                 raise ValueError("recovered historical failure fields lack evidence")
+        return self
+
+
+class PersistedPlaylistArtifactInput(StrictModel):
+    recorded_at: datetime | None = None
+    observed_at: datetime | None = None
+    source_system: str | None = None
+    display_title: str | None = None
+    display_description: str | None = None
+    visibility_text: str | None = None
+    persistence_state: PersistenceState
+    displayed_track_count: int | None = Field(default=None, ge=0)
+    displayed_duration_text: str | None = None
+    tracklist_completeness: TracklistCompleteness
+    evidence_standard: EvidenceStandard = EvidenceStandard.CONTEMPORARY_MANUAL
+    notes: str | None = None
+    segments: list[PersistedArtifactSegmentInput] = Field(default_factory=list)
+    tracks: list[PersistedArtifactTrackInput] = Field(default_factory=list)
+    evidence_sources: list[EvidenceSourceInput] = Field(default_factory=list)
+    evidence: list[FieldEvidenceInput] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_artifact_evidence(self) -> PersistedPlaylistArtifactInput:
+        segment_numbers = [item.segment_ordinal for item in self.segments]
+        if segment_numbers != list(range(1, len(segment_numbers) + 1)):
+            raise ValueError("artifact segment ordinals must be contiguous from 1")
+        if self.segments and self.segments[0].relationship_to_previous != SegmentRelationship.FIRST:
+            raise ValueError("the first artifact segment must have relationship FIRST")
+        if any(item.relationship_to_previous == SegmentRelationship.FIRST for item in self.segments[1:]):
+            raise ValueError("only the first artifact segment may use relationship FIRST")
+        observed = [item.observed_ordinal for item in self.tracks]
+        if len(observed) != len(set(observed)) or sorted(observed) != list(range(1, len(observed) + 1)):
+            raise ValueError("artifact observed ordinals must be unique and contiguous from 1")
+        absolute = [item.absolute_position for item in self.tracks if item.absolute_position is not None]
+        if len(absolute) != len(set(absolute)):
+            raise ValueError("known artifact absolute positions must be unique")
+        segment_set = set(segment_numbers)
+        for number in segment_numbers:
+            local = [item.segment_ordinal for item in self.tracks if item.evidence_segment == number]
+            if len(local) != len(set(local)) or sorted(local) != list(range(1, len(local) + 1)):
+                raise ValueError("artifact track segment ordinals must be unique and contiguous from 1")
+        if any(item.evidence_segment not in segment_set for item in self.tracks):
+            raise ValueError("every artifact track must reference an artifact segment")
+        if self.tracklist_completeness == TracklistCompleteness.NOT_OBSERVED:
+            if self.tracks or self.segments:
+                raise ValueError("artifact NOT_OBSERVED requires no segments or placements")
+        elif self.tracklist_completeness == TracklistCompleteness.PARTIAL:
+            if not self.tracks:
+                raise ValueError("artifact PARTIAL requires at least one observed placement")
+        else:
+            if not self.segments or not self.tracks:
+                raise ValueError("artifact COMPLETE requires observed placements")
+            if self.segments[0].captures_playlist_start != BoundaryKnowledge.YES:
+                raise ValueError("artifact COMPLETE requires established playlist start")
+            if self.segments[-1].captures_playlist_end != BoundaryKnowledge.YES:
+                raise ValueError("artifact COMPLETE requires established playlist end")
+            if any(item.relationship_to_previous == SegmentRelationship.GAP_UNKNOWN_SIZE for item in self.segments):
+                raise ValueError("artifact COMPLETE forbids unknown gaps")
+            if sorted(absolute) != list(range(1, len(self.tracks) + 1)):
+                raise ValueError("artifact COMPLETE requires contiguous absolute positions from 1")
+            if self.displayed_track_count != len(self.tracks):
+                raise ValueError("artifact COMPLETE requires displayed count to equal placements")
+        source_keys = [item.source_key for item in self.evidence_sources]
+        if len(source_keys) != len(set(source_keys)):
+            raise ValueError("artifact evidence source keys must be unique")
+        declared = set(source_keys)
+        links = self.evidence + [link for track in self.tracks for link in track.evidence]
+        links += [link for segment in self.segments for link in segment.evidence]
+        if any(link.source_key not in declared for link in links):
+            raise ValueError("artifact evidence links must reference artifact-owned sources")
+        if self.evidence_standard in {
+            EvidenceStandard.RECOVERED_HISTORICAL,
+            EvidenceStandard.CURRENT_PRIMARY_EVIDENCE,
+        }:
+            required = {"persistence_state", "tracklist_completeness"}
+            for field, value in {
+                "observed_at": self.observed_at,
+                "source_system": self.source_system,
+                "display_title": self.display_title,
+                "display_description": self.display_description,
+                "visibility_text": self.visibility_text,
+                "displayed_track_count": self.displayed_track_count,
+                "displayed_duration_text": self.displayed_duration_text,
+            }.items():
+                if value is not None:
+                    required.add(field)
+            supported = {link.field_name for link in self.evidence}
+            missing = required - supported
+            if missing:
+                raise ValueError(f"recovered artifact fields lack evidence: {sorted(missing)}")
+            for track in self.tracks:
+                asserted = {name for name, value in {
+                    "title": track.title,
+                    "artist": track.artist,
+                    "absolute_position": track.absolute_position,
+                    "version_or_remaster_text": track.version_or_remaster_text,
+                }.items() if value is not None}
+                if not asserted <= {link.field_name for link in track.evidence}:
+                    raise ValueError("recovered artifact track fields lack evidence")
+        return self
+
+
+class PersistedArtifactExperimentLinkInput(StrictModel):
+    persisted_artifact_id: int = Field(gt=0)
+    experiment_id: int = Field(gt=0)
+    relationship_type: ArtifactRelationshipType = ArtifactRelationshipType.USER_ATTESTED_CORRELATION
+    unchanged_since_generation: BoundaryKnowledge = BoundaryKnowledge.UNKNOWN
+    notes: str | None = None
+    evidence_sources: list[EvidenceSourceInput]
+    evidence: list[FieldEvidenceInput]
+
+    @model_validator(mode="after")
+    def validate_relationship_evidence(self) -> PersistedArtifactExperimentLinkInput:
+        keys = [item.source_key for item in self.evidence_sources]
+        if len(keys) != len(set(keys)):
+            raise ValueError("correlation evidence source keys must be unique")
+        if any(link.source_key not in set(keys) for link in self.evidence):
+            raise ValueError("correlation evidence links must reference relationship-owned sources")
+        supported = {link.field_name for link in self.evidence}
+        if "relationship_type" not in supported:
+            raise ValueError("correlation relationship_type requires relationship-owned evidence")
+        if self.unchanged_since_generation != BoundaryKnowledge.UNKNOWN and "unchanged_since_generation" not in supported:
+            raise ValueError("asserted unchanged status requires relationship-owned evidence")
         return self
