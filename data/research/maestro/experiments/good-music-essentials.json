@@ -1,0 +1,1192 @@
+{
+  "prompt": "play good music",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Good Music Essentials",
+  "generated_description": "High-quality hits across your favorite genres",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 40,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Creation-time Maestro Beta research capture. The exact prompt is user-attested and is not visible in the screenshots. Persistent now-playing UI, including Hide Away / Daya and Phoebe / Audrey Hobert, is excluded from the generated playlist body.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies the exact prompt, historical-generation context, and research assessments",
+      "notes": "USER_ATTESTED evidence. Not screenshot-derived; does not establish generated_at, requested count, eventual saved status, save timestamp, later edits, or Amazon ranking mechanics."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Good Music Essentials original Maestro capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2B1B0F28-ED89-40A2-B144-CFD6281B04EC\\1-Photo-1.jpg",
+      "sha256": "aeb909137534a402d20a14a19c6a4cc7aaf407a40af8a102c5533fd613948ae1"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Good Music Essentials original Maestro capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2B1B0F28-ED89-40A2-B144-CFD6281B04EC\\2-Photo-2.jpg",
+      "sha256": "60b54ff3ca59dc2ec79e70eeaf9298d848c9256867f8712df6130adee94216b5"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Good Music Essentials original Maestro capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2B1B0F28-ED89-40A2-B144-CFD6281B04EC\\3-Photo-3.jpg",
+      "sha256": "5fdf50c4333139f8c7fcb589a7bb3ac717398e54409bcf97f9a0a70aa873f41c"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Good Music Essentials original Maestro capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2B1B0F28-ED89-40A2-B144-CFD6281B04EC\\4-Photo-4.jpg",
+      "sha256": "d65325ef48e1f4e661e5c97f00151be036a75bea1c961162a81b6d75f95d2a40"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Good Music Essentials original Maestro capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2B1B0F28-ED89-40A2-B144-CFD6281B04EC\\5-Photo-5.jpg",
+      "sha256": "766d333a75a6a9df77b56f54d5fa0147d7e329eb050948eda3189b607b503e8f"
+    },
+    {
+      "source_key": "capture_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Good Music Essentials original Maestro capture 6",
+      "original_filename": "6-Photo-6.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2B1B0F28-ED89-40A2-B144-CFD6281B04EC\\6-Photo-6.jpg",
+      "sha256": "023d00ae4d181f51af46f8381748ca00111684f08b9a9d712800f519d06a065c"
+    },
+    {
+      "source_key": "capture_7",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Good Music Essentials original Maestro capture 7",
+      "original_filename": "7-Photo-7.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2B1B0F28-ED89-40A2-B144-CFD6281B04EC\\7-Photo-7.jpg",
+      "sha256": "03c9de4d634b3aa9a07b94fd3b70209986497a79c790cb7945c405a88f0cdd8e"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "user_attestation",
+      "field_name": "prompt",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "notes": "Direct observation of the user's attestation; not screenshot-derived."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_track_count",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Count of the complete screenshot-supported sequence; no numeric count is displayed."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Playlist header, start, and first placement are visible."
+    },
+    {
+      "source_key": "capture_7",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Substantial playlist-body whitespace follows Closer."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "notes": "One complete sequence. Adjacent captures overlap on Blinding Lights, One More Time, Paranoid (2014 Remaster), Loser, Plush (2017 Remaster), and the Shape of You through Closer suffix.",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Substantial whitespace follows Closer."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 1 to 2 overlap on Blinding Lights."
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 2 to 3 overlap on One More Time."
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 3 to 4 overlap on Paranoid (2014 Remaster)."
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 4 to 5 overlap on Loser."
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 5 to 6 overlap on Plush (2017 Remaster)."
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 6 to 7 overlaps from the Walk/Shape of You region through Closer."
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Do I Wanna Know?",
+      "artist": "Arctic Monkeys",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "Levitating [Explicit]",
+      "artist": "Dua Lipa",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Everlong",
+      "artist": "Foo Fighters",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Enter Sandman (Remastered)",
+      "artist": "Metallica",
+      "version_or_remaster_text": "Remastered",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Blinding Lights",
+      "artist": "The Weeknd",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "The Less I Know The Better [Explicit]",
+      "artist": "Tame Impala",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Summer",
+      "artist": "Calvin Harris",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Starlight",
+      "artist": "Muse",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "The Trooper (2015 Remaster)",
+      "artist": "Iron Maiden",
+      "version_or_remaster_text": "2015 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "bad guy",
+      "artist": "Billie Eilish",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "No One Knows",
+      "artist": "Queens Of The Stone Age",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "One More Time",
+      "artist": "Daft Punk",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Creep [Explicit]",
+      "artist": "Radiohead",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "Breaking the Law",
+      "artist": "Judas Priest",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "good 4 u [Explicit]",
+      "artist": "Olivia Rodrigo",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "Mr. Brightside",
+      "artist": "The Killers",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Firestone",
+      "artist": "Kygo, Conrad Sewell",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Smells Like Teen Spirit (Remastered 2021)",
+      "artist": "Nirvana",
+      "version_or_remaster_text": "Remastered 2021",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Paranoid (2014 Remaster)",
+      "artist": "Black Sabbath",
+      "version_or_remaster_text": "2014 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "positions [Explicit]",
+      "artist": "Ariana Grande",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Ain't No Rest for the Wicked",
+      "artist": "Cage The Elephant",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "Clarity [feat. Foxes]",
+      "artist": "Zedd, Foxes",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Alive",
+      "artist": "Pearl Jam",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Duality [Explicit]",
+      "artist": "Slipknot",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "As It Was",
+      "artist": "Harry Styles",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Loser",
+      "artist": "Beck",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Wake Me Up",
+      "artist": "Avicii",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Black Hole Sun",
+      "artist": "Soundgarden",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Symphony Of Destruction (1992 Mix Remaster)",
+      "artist": "Megadeth",
+      "version_or_remaster_text": "1992 Mix Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "Kiss Me More [Explicit]",
+      "artist": "Doja Cat, SZA",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "Reptilia",
+      "artist": "The Strokes",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Happier",
+      "artist": "Marshmello, Bastille",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Plush (2017 Remaster)",
+      "artist": "Stone Temple Pilots",
+      "version_or_remaster_text": "2017 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Walk [Explicit]",
+      "artist": "Pantera",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "Shape of You",
+      "artist": "Ed Sheeran",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "Buddy Holly",
+      "artist": "Weezer",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "Titanium (Feat. Sia)",
+      "artist": "David Guetta, Sia",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "Man In The Box [Explicit]",
+      "artist": "Alice In Chains",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "Raining Blood",
+      "artist": "Slayer",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 40,
+      "evidence_segment": 1,
+      "segment_ordinal": 40,
+      "absolute_position": 40,
+      "title": "Closer",
+      "artist": "The Chainsmokers, Halsey",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "Save Playlist is visible in the initial screenshot. This establishes only the captured UI state; eventual saved status, save timestamp, later edits, and persisted-artifact existence remain unknown.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The supplied screenshots visibly show device time 4:23. This is not treated as generated_at.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "WEAK_PROMPT_BASELINE_RECOMMENDER_PRIOR_EXPOSURE",
+      "observation_text": "The prompt supplies almost no narrative, experiential, or genre constraint. The result may be useful as a baseline/control for studying behavior under minimal prompt-specific semantic pressure. The generated description appears to expose a relatively unconditioned recommendation prior compared with semantically specific absurdist experiments; this does not establish Amazon's internal algorithm.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "USER_AFFINITY_HYPOTHESIS",
+      "observation_text": "The playlist spans alternative/indie, hard rock, grunge, heavy metal, pop, and electronic/dance. It appears less like a coherent journey and more like a broad sample of high-confidence tracks across the listener's likely affinity space. This is a hypothesis and does not establish a literal user-affinity score.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "GLOBAL_CONFIDENCE_PRIOR_HYPOTHESIS",
+      "observation_text": "The result contains many broadly popular, culturally recognizable, or high-confidence mainstream selections. Maestro may combine user-specific affinity with broader global popularity/confidence priors when the prompt is weak. This is analytical speculation, not direct evidence.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SEQUENCE_COHERENCE_OBSERVATION",
+      "observation_text": "The playlist exhibits very high genre variation between adjacent tracks, producing strong genre whiplash. It is assessed as low in local genre/mood continuity despite high apparent confidence in individual track quality or relevance.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "BASELINE_SIGNIFICANCE_FOR_MAESTRO_DRIFT_RESEARCH",
+      "observation_text": "Working hypothesis: strong semantic constraints can initially impose scenario-specific structure, while weak constraints allow underlying recommendation or affinity priors to dominate. Apparent narrative drift elsewhere may represent partial regression toward this default recommendation landscape. This experiment alone does not establish causality.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "PERSONALIZATION_LANGUAGE_BOUNDARY",
+      "observation_text": "The generated description directly says “across your favorite genres.” Preserve that language, but do not treat it as evidence of a specific personalization model, profile state, ranking function, or preference-data source.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    }
+  ],
+  "prompt_labels": []
+}

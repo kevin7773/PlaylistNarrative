@@ -1,0 +1,1392 @@
+{
+  "prompt": "play something upbeat",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Sunny Day Grooves",
+  "generated_description": "Bright rhythms to lift your spirits",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 49,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Creation-time Maestro Beta research capture. The exact prompt is user-attested and is not visible in the screenshots. Persistent now-playing UI, including Just Keep Watching / Tate McRae and Unstoppable / Sia, is excluded from the generated playlist body. The Golden artist string is preserved as visibly truncated and is not promoted to canonical identity.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies the exact prompt, historical-generation context, and research assessments",
+      "notes": "USER_ATTESTED evidence. Not screenshot-derived; does not establish generated_at, requested count, eventual saved status, save timestamp, later edits, household influence, or Amazon ranking mechanics."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sunny Day Grooves original Maestro capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\BBB35F66-7D40-41D9-AF33-4B8D8EB6846B\\1-Photo-1.jpg",
+      "sha256": "4f00c93f16bc904c78b32e67c3f32dc60d12a4999bc379ca35af3f131e2801f8"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sunny Day Grooves original Maestro capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\BBB35F66-7D40-41D9-AF33-4B8D8EB6846B\\2-Photo-2.jpg",
+      "sha256": "62a100526021d322f9362b887ffd36209373dcce44010a97e31a5085d644f898"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sunny Day Grooves original Maestro capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\BBB35F66-7D40-41D9-AF33-4B8D8EB6846B\\3-Photo-3.jpg",
+      "sha256": "f904bad07b0b8de98cb6eec43165e83267b8a115bd22e589c8b7ed2dc78e2882"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sunny Day Grooves original Maestro capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\BBB35F66-7D40-41D9-AF33-4B8D8EB6846B\\4-Photo-4.jpg",
+      "sha256": "d56bdeb31b0eed65e3173e32fd95eae8b58bcf13d9e0134665869f69d8271c03"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sunny Day Grooves original Maestro capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\BBB35F66-7D40-41D9-AF33-4B8D8EB6846B\\5-Photo-5.jpg",
+      "sha256": "d6c044ba7143b5d822aefbf3d3e19784b8ce2be1daf29235afa062b20b32e0ef"
+    },
+    {
+      "source_key": "capture_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sunny Day Grooves original Maestro capture 6",
+      "original_filename": "6-Photo-6.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\BBB35F66-7D40-41D9-AF33-4B8D8EB6846B\\6-Photo-6.jpg",
+      "sha256": "19fe6edb6afa177167efcea8bd79262d39ec71c849ad2a36258bcdb34b1c0cea"
+    },
+    {
+      "source_key": "capture_7",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sunny Day Grooves original Maestro capture 7",
+      "original_filename": "7-Photo-7.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\BBB35F66-7D40-41D9-AF33-4B8D8EB6846B\\7-Photo-7.jpg",
+      "sha256": "a61771893142b3d058ca06cc0e6bb3feeb51aed74e67760f44f7bb9f29131afb"
+    },
+    {
+      "source_key": "capture_8",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Sunny Day Grooves original Maestro capture 8",
+      "original_filename": "8-Photo-8.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\BBB35F66-7D40-41D9-AF33-4B8D8EB6846B\\8-Photo-8.jpg",
+      "sha256": "f7dc28a54392d83b45481335089fde78c1c07c48c398677918529999a5ba7add"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "user_attestation",
+      "field_name": "prompt",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "notes": "Direct observation of the user's attestation; not screenshot-derived."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_track_count",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Count of the complete screenshot-supported sequence; no numeric count is displayed."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Playlist header, start, and first placement are visible."
+    },
+    {
+      "source_key": "capture_8",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Substantial playlist-body whitespace follows Thunder."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "notes": "One complete sequence. Adjacent captures overlap on Midnight Sun, Party In The U.S.A., Earrings, Lush Life, Just In Case, Believer, and the Risk It All through Janice STFU suffix.",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Substantial whitespace follows Thunder."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 1 to 2 overlap on Midnight Sun."
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 2 to 3 overlap on Party In The U.S.A."
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 3 to 4 overlap on Earrings."
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 4 to 5 overlap on Lush Life."
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 5 to 6 overlap on Just In Case."
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 6 to 7 overlap on Believer."
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 7 to 8 overlaps from the Whiskey Glasses/Risk It All region through Janice STFU."
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Been By Now",
+      "artist": "Morgan Wallen",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "I Knew It, I Knew You (From \"Toy Story 5\")",
+      "artist": "Taylor Swift",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Dai Dai",
+      "artist": "Shakira, Burna Boy",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Billie Jean",
+      "artist": "Michael Jackson",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Midnight Sun",
+      "artist": "Zara Larsson",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "The Fate of Ophelia",
+      "artist": "Taylor Swift",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Mr. Brightside",
+      "artist": "The Killers",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Man I Need",
+      "artist": "Olivia Dean",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "I Just Might",
+      "artist": "Bruno Mars",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Opalite",
+      "artist": "Taylor Swift",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "Golden",
+      "artist": "HUNTR/X, EJAE, AUDREY NUNA, Rei Ami, KPop D...",
+      "canonical_identity_established": false,
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Party In The U.S.A.",
+      "artist": "Miley Cyrus",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Beautiful Things",
+      "artist": "Benson Boone",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "Mystical Magical",
+      "artist": "Benson Boone",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "So Easy (To Fall In Love)",
+      "artist": "Olivia Dean",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "the cure [Explicit]",
+      "artist": "Olivia Rodrigo",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Babydoll",
+      "artist": "Dominic Fike",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "stupid song",
+      "artist": "Olivia Rodrigo",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Earrings",
+      "artist": "Malcolm Todd",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Fast Car",
+      "artist": "Luke Combs",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Wonderwall (Remastered)",
+      "artist": "Oasis",
+      "version_or_remaster_text": "Remastered",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "A Bar Song (Tipsy) [Explicit]",
+      "artist": "Shaboozey",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Shake It Off",
+      "artist": "Taylor Swift",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Iris",
+      "artist": "Goo Goo Dolls",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "drop dead [Explicit]",
+      "artist": "Olivia Rodrigo",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Lush Life",
+      "artist": "Zara Larsson",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Last Night [Explicit]",
+      "artist": "Morgan Wallen",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Pink Pony Club",
+      "artist": "Chappell Roan",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Thunderstruck",
+      "artist": "AC/DC",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "Beauty And A Beat [feat. Nicki Minaj] [Explicit]",
+      "artist": "Justin Bieber, Nicki Minaj",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "Baby [feat. Ludacris]",
+      "artist": "Justin Bieber, Ludacris",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Beat It",
+      "artist": "Michael Jackson",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Just In Case",
+      "artist": "Morgan Wallen",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "California Gurls [feat. Snoop Dogg]",
+      "artist": "Katy Perry, Snoop Dogg",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "WHERE IS MY HUSBAND!",
+      "artist": "RAYE",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "Sweet Home Alabama",
+      "artist": "Lynyrd Skynyrd",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "Cruel Summer",
+      "artist": "Taylor Swift",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "Springsteen",
+      "artist": "Eric Church",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "Homewrecker",
+      "artist": "sombr",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 40,
+      "evidence_segment": 1,
+      "segment_ordinal": 40,
+      "absolute_position": 40,
+      "title": "Believer",
+      "artist": "Imagine Dragons",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 41,
+      "evidence_segment": 1,
+      "segment_ordinal": 41,
+      "absolute_position": 41,
+      "title": "DAISIES",
+      "artist": "Justin Bieber",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 42,
+      "evidence_segment": 1,
+      "segment_ordinal": 42,
+      "absolute_position": 42,
+      "title": "American Girls",
+      "artist": "Harry Styles",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 43,
+      "evidence_segment": 1,
+      "segment_ordinal": 43,
+      "absolute_position": 43,
+      "title": "Whiskey Glasses",
+      "artist": "Morgan Wallen",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 44,
+      "evidence_segment": 1,
+      "segment_ordinal": 44,
+      "absolute_position": 44,
+      "title": "Risk It All",
+      "artist": "Bruno Mars",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 45,
+      "evidence_segment": 1,
+      "segment_ordinal": 45,
+      "absolute_position": 45,
+      "title": "Don't Stop 'Til You Get Enough",
+      "artist": "Michael Jackson",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 46,
+      "evidence_segment": 1,
+      "segment_ordinal": 46,
+      "absolute_position": 46,
+      "title": "Summer Of '69",
+      "artist": "Bryan Adams",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 47,
+      "evidence_segment": 1,
+      "segment_ordinal": 47,
+      "absolute_position": 47,
+      "title": "Janice STFU [Explicit]",
+      "artist": "Drake",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 48,
+      "evidence_segment": 1,
+      "segment_ordinal": 48,
+      "absolute_position": 48,
+      "title": "Dracula (JENNIE Remix) [Explicit]",
+      "artist": "Tame Impala, JENNIE",
+      "explicit_flag": true,
+      "version_or_remaster_text": "JENNIE Remix",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 49,
+      "evidence_segment": 1,
+      "segment_ordinal": 49,
+      "absolute_position": 49,
+      "title": "Thunder",
+      "artist": "Imagine Dragons",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "Save Playlist is visible in the initial screenshot. This establishes only the captured UI state; eventual saved status, save timestamp, later edits, and persisted-artifact existence remain unknown.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The supplied screenshots visibly show device time 4:29. This is not treated as generated_at.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "WEAK_PROMPT_BASELINE_AFFECTIVE_CONSTRAINT_BASELINE",
+      "observation_text": "The prompt provides a broad affective constraint but no narrative, experiential, or genre-specific structure. The description suggests Maestro interpreted upbeat primarily as positive or bright affect. This may be useful as a weak-prompt control with a simple affective constraint; it does not establish Amazon's internal ranking algorithm.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "MAINSTREAM_POP_ATTRACTOR_SAFE_SPACE_HYPOTHESIS",
+      "observation_text": "Compared with Good Music Essentials, this result appears more concentrated in contemporary mainstream pop, culturally ubiquitous hits, repeated high-profile artists, and broad household-recognition tracks. This is a research hypothesis only.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "USER_CHARACTERIZATION",
+      "observation_text": "The user characterized the result as “basically my daughter's top 40.” This is a qualitative characterization of the musical neighborhood, not evidence that the daughter's profile, household listening history, or another account influenced the result.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "PROMPT_CONDITIONED_CANDIDATE_DOMAIN_HYPOTHESIS",
+      "observation_text": "Compared with the broad genre sampling and genre whiplash of Good Music Essentials, adding the affective constraint upbeat may influence which recommendation neighborhood is searched or reweighted before ranking, yielding a narrower bright-pop-heavy result with repeated artists and mass-recognition concentration. This does not establish causality or internal architecture.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SEQUENCE_CHARACTERIZATION",
+      "observation_text": "The playlist includes legacy rock, country, and pop anchors, but its dominant musical neighborhood appears narrower and more mainstream-pop-oriented than Good Music Essentials. It may help distinguish a weak unconstrained preference baseline from a weak affectively constrained recommendation baseline.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "CROSS_BASELINE_RECURRENCE",
+      "observation_text": "Mr. Brightside appears in both Good Music Essentials and Sunny Day Grooves. Canonical identity recurrence does not itself prove a personalization or popularity mechanism.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    }
+  ],
+  "prompt_labels": []
+}
