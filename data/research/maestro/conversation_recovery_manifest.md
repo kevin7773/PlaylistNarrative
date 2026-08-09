@@ -43,6 +43,112 @@ All reported times are Eastern Daylight Time.
 | REC-CHAT-006 | 2026-08-06 | 20:07:03 | 20:08:48 | `CONVERSATION_THREAD_WINDOW` | `Color-coded chaos` | `THREAD_TITLE_ONLY_INCOMPLETE` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | ChatGPT `6a75219b-e314-83ea-b8ba-da12c56cae92` | unusual-metaphor/sensory | Strong discovery phrase, but not proven to be the submitted prompt. |
 | REC-CHAT-007 | 2026-08-07 | 10:28:18 | 10:34:51 | `CONVERSATION_THREAD_WINDOW` | `Toaster existential dread music` | `THREAD_TITLE_ONLY_INCOMPLETE` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | ChatGPT `6a75eb70-0558-83ea-9b14-0d527ac392f5` | unusual-metaphor/sensory | Strong screenshot-correlation lead. Generation and interface are not established by the index. |
 
+### REC-CHAT-007 primary-evidence recovery supplement
+
+This supplement preserves the conversation-side row above unchanged and records
+a later, independent source-recovery result. The earlier failed correlation
+attempt remains in `source_recovery_ledger.md` as history.
+
+- Recovery state: `PRIMARY_EVIDENCE_RECOVERED / PARTIAL_TRACKLIST`
+- Historical source: original screenshots recovered manually from the ChatGPT
+  conversation; not a regeneration and not captures from a saved playlist
+- Exact user-authored prompt: `An ambient electronic soundtrack for a toaster that has achieved a brief moment of existential dread.`
+- Prompt evidence: conversation-primary evidence supplied by the user
+- Source interface: `Maestro Beta`
+- Generated playlist title: `Brief Existential Dread of Appliances`
+- Generated description: `Contemplative electronic ambience for mechanical self-awareness moments`
+- User-stated saved status: `false`
+- Recovered screenshot count: `5`
+- Unique visible playlist items: `38`
+- First playlist position: captured
+- Terminal playlist boundary: not captured
+- Complete track count: `UNKNOWN`
+- Generation date and time: `UNKNOWN`; the visible device clock and conversation
+  activity window are not generation timestamps
+- Visual track transcription: completed from the directly accessible images
+- SQLite eligibility: blocked under schema version 1 because it has no governed
+  completeness state for partial terminal coverage and cannot represent the
+  unproven positional adjacency between the first and second captures; its
+  non-null `created_at` default would also replace an unknown historical
+  generation time with ingestion time
+
+Original filenames, to be preserved unchanged:
+
+1. `B33EE06F-21A8-4034-AFBE-970D6B5C8684.png`
+2. `47661CC8-CC44-48F3-AF75-83F3814ACA28.png`
+3. `2008D641-27B1-4F90-B1F4-6C0EE2AF49B8.png`
+4. `C78A00D9-08E6-4B18-BC3D-AD94856E8B21.png`
+5. `920F5F6A-9F51-4C60-A3E5-B52C6F58C60D.png`
+
+The directly accessible attachment copies were named `1-Photo-1.jpg` through
+`5-Photo-5.jpg`. No source image was cropped, renamed, modified, enhanced, or
+copied into the repository.
+
+### REC-CHAT-007 visible ordered track evidence
+
+`observed_ordinal` records only the order of directly visible unique items
+across the supplied screenshot sequence. Exact playlist positions 1–5 are
+anchored by the first capture, which shows the start of the playlist body.
+There is no visual overlap between the first capture (`Near Light`) and the
+second (`Says`), so items after position 5 have `UNKNOWN` exact playlist
+positions and may have unseen intervening tracks.
+
+| observed_ordinal | exact_playlist_position | displayed_title | displayed_artist | evidence note |
+|---:|---:|---|---|---|
+| 1 | 1 | `#3` | `Aphex Twin` | Fully visible in capture 1. |
+| 2 | 2 | `An Ending (Ascent) (Remastered 2005)` | `Brian Eno` | Fully visible in capture 1. |
+| 3 | 3 | `Roygbiv` | `Boards Of Canada` | Fully visible in capture 1. |
+| 4 | 4 | `Abandon Window (Remaster 2023)` | `Jon Hopkins` | Fully visible in capture 1. |
+| 5 | 5 | `Near Light` | `Ólafur Arnalds` | Fully visible in capture 1. |
+| 6 | `UNKNOWN` | `Says` | `Nils Frahm` | Fully visible in capture 2; adjacency to position 5 is not proven. |
+| 7 | `UNKNOWN` | `A Walk` | `Tycho` | Fully visible in capture 2. |
+| 8 | `UNKNOWN` | `Porcelain` | `Moby` | Fully visible in capture 2. |
+| 9 | `UNKNOWN` | `Little Fluffy Clouds` | `The Orb` | Fully visible in capture 2. |
+| 10 | `UNKNOWN` | `Kerala` | `Bonobo` | Fully visible in capture 2. |
+| 11 | `UNKNOWN` | `Angel Echoes` | `Four Tet` | Fully visible in capture 2. |
+| 12 | `UNKNOWN` | `Can't Do Without You` | `Caribou` | Fully visible in capture 2. |
+| 13 | `UNKNOWN` | `What Else Is There ?` | `Röyksopp` | Fully visible in capture 2; displayed space before `?` preserved. |
+| 14 | `UNKNOWN` | `Wait` | `M83` | Partially visible in capture 2 and fully visible in capture 3; overlap establishes continuity. |
+| 15 | `UNKNOWN` | `On My Own (2019 remaster)` | `Ulrich Schnauss` | Fully visible in capture 3. |
+| 16 | `UNKNOWN` | `Mute Angels` | `Hammock` | Fully visible in capture 3. |
+| 17 | `UNKNOWN` | `Halving The Compass` | `Helios` | Fully visible in capture 3. |
+| 18 | `UNKNOWN` | `Lit` | `Kiasmos` | Fully visible in capture 3. |
+| 19 | `UNKNOWN` | `Untravel` | `Rival Consoles` | Fully visible in capture 3. |
+| 20 | `UNKNOWN` | `Silhouettes (I, II, III)` | `Floating Points` | Fully visible in capture 3. |
+| 21 | `UNKNOWN` | `You` | `Gold Panda` | Fully visible in capture 3. |
+| 22 | `UNKNOWN` | `Minor Cause` | `Emancipator` | Partially visible in capture 3 and fully visible in capture 4; overlap establishes continuity. |
+| 23 | `UNKNOWN` | `Your Hand In Mine (Remastered)` | `Explosions In The Sky` | Fully visible in capture 4. |
+| 24 | `UNKNOWN` | `Svefn-g-englar` | `Sigur Rós` | Fully visible in capture 4. |
+| 25 | `UNKNOWN` | `Archangel` | `Burial` | Fully visible in capture 4. |
+| 26 | `UNKNOWN` | `A New Error` | `Moderat` | Fully visible in capture 4. |
+| 27 | `UNKNOWN` | `Goodbye (feat. Soap&Skin) [Theme from Dark, A Netflix Original Series]` | `Apparat, Soap&Skin` | Fully visible across wrapped display lines in capture 4. |
+| 28 | `UNKNOWN` | `Moan (Trentemøller Dub Remix)` | `Trentemøller` | Fully visible in capture 4. |
+| 29 | `UNKNOWN` | `Teardrop (Remastered 2019) [feat. Elizabeth Fraser]` | `Massive Attack, Elizabeth Fraser` | Fully visible across wrapped display lines in capture 4. |
+| 30 | `UNKNOWN` | `In The Waiting Line` | `Zero 7, Sophie Barker` | Partially visible in capture 4 and fully visible in capture 5; overlap establishes continuity. |
+| 31 | `UNKNOWN` | `La Femme D'argent` | `Air` | Fully visible in capture 5. |
+| 32 | `UNKNOWN` | `Green Green Grass Of Tunnel` | `Múm` | Fully visible in capture 5. |
+| 33 | `UNKNOWN` | `Alison` | `Slowdive` | Fully visible in capture 5. |
+| 34 | `UNKNOWN` | `Cherry-coloured Funk` | `Cocteau Twins` | Fully visible in capture 5. |
+| 35 | `UNKNOWN` | `Hearing Damage` | `Thom Yorke` | Fully visible in capture 5. |
+| 36 | `UNKNOWN` | `Treefingers` | `Radiohead` | Fully visible in capture 5. |
+| 37 | `UNKNOWN` | `Eutow` | `Autechre` | Fully visible in capture 5. |
+| 38 | `UNKNOWN` | `Paint It Black` | `wednesday addams` | Final item is partially visible in capture 5; only the directly readable title and artist text are recorded. Content continues below the capture. |
+
+The persistent bottom-player entry `Midnight City` — `M83` is excluded. It is
+now-playing UI and does not independently appear in the playlist body within
+the recovered captures.
+
+### REC-CHAT-007 screenshot continuity
+
+- Capture 1 ends with `Near Light`; capture 2 begins with `Says`. No shared item
+  proves adjacency, so hidden intervening tracks remain possible.
+- Capture 2 to capture 3 overlaps on `Wait` — `M83`.
+- Capture 3 to capture 4 overlaps on `Minor Cause` — `Emancipator`.
+- Capture 4 to capture 5 overlaps on `In The Waiting Line` —
+  `Zero 7, Sophie Barker`.
+- Capture 5 ends with a partially visible `Paint It Black` —
+  `wednesday addams`, and the terminal playlist boundary is not shown.
+
 ## Date-only sessions supported by the August 1 journal entry
 
 These three candidates may overlap with the ChatGPT threads above or with the
