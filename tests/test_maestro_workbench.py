@@ -209,6 +209,51 @@ def test_structured_builder_accepts_explicit_non_file_evidence_source() -> None:
     }
 
 
+def test_six_staged_filenames_survive_proposal_assembly_without_operator_reentry() -> None:
+    filenames = [
+        "1-Photo-1.jpg",
+        "02 wheelbarrow.png",
+        "IMG_0003.PNG",
+        "capture four.jpeg",
+        "fifth—capture.webp",
+        "final screenshot.png",
+    ]
+    staged = [{
+        "source_type": "SCREENSHOT",
+        "source_reference": f"Operator supplied capture {index}",
+        "original_filename": filename,
+        "local_path": f"staging/exact-{index}.bin",
+        "sha256": f"{index:x}" * 64,
+    } for index, filename in enumerate(filenames, start=1)]
+    staged.append({
+        "source_type": "CONVERSATION_USER_STATEMENT",
+        "source_reference": "workbench:operator-prompt-attestation",
+    })
+
+    proposal = build_governed_proposal(
+        "historical_experiment",
+        {"tracklist_completeness": "NOT_OBSERVED", "tracks": []},
+        staged,
+    )
+
+    file_sources = proposal["evidence_sources"][:6]
+    attestation = proposal["evidence_sources"][6]
+    assert [source["original_filename"] for source in file_sources] == filenames
+    assert [source["local_path"] for source in file_sources] == [
+        f"staging/exact-{index}.bin" for index in range(1, 7)
+    ]
+    assert len({source["source_key"] for source in file_sources}) == 6
+    assert "original_filename" not in attestation
+    assert "local_path" not in attestation
+    assert "sha256" not in attestation
+
+    html = (
+        Path(__file__).parents[1]
+        / "src" / "playlist_narrative_engine" / "maestro_workbench" / "static" / "index.html"
+    ).read_text(encoding="utf-8")
+    assert "original-filename" not in html
+
+
 def test_structured_builder_requires_explicit_declarations() -> None:
     with pytest.raises(ValueError, match="tracklist_completeness"):
         build_governed_proposal("historical_experiment", {"tracks": []}, [])
