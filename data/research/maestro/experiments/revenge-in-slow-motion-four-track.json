@@ -1,0 +1,237 @@
+{
+  "prompt": "Songs that play in slow motion while I stare blankly out a rainy train window plotting my grand revenge.",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Revenge in Slow Motion",
+  "generated_description": "Cinematic brooding anthems for plotting your comeback",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 4,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "First of two distinct user-attested immediate same-prompt generations. This four-track output is preserved independently and is not corrected, merged, averaged, or provenance-linked to the retry. Persistent Mr. Brightside / The Killers now-playing UI is excluded.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies the exact prompt and immediate same-prompt retry context for Experiment A",
+      "notes": "USER_ATTESTED evidence. The user reports navigating back and immediately resubmitting the same prompt. This does not establish identical model state, randomness, candidate pool, catalog availability, or cause of variance."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Revenge in Slow Motion four-track generation original Maestro capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\5D2373C9-6006-436D-90AA-63C98BC2FFF2\\1-Photo-1.jpg",
+      "sha256": "eab664a26252747b701133bdf81d92ff4c53a2bcdb351959a38cea46cafa5f3e"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "user_attestation",
+      "field_name": "prompt",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "notes": "Direct observation of the user's attestation; not screenshot-derived."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_track_count",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Four placements followed by substantial playlist-body whitespace."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Header, first placement, fourth placement, and terminal whitespace are visible."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "notes": "Single screenshot establishes the complete four-track sequence.",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Substantial whitespace follows the fourth placement."
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Liability",
+      "artist": "Lorde",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "idontwannabeyouanymore [Explicit]",
+      "artist": "Billie Eilish",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Daddy Issues",
+      "artist": "The Neighbourhood",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "hope is a dangerous thing for a woman like me to have - but I have it [Explicit]",
+      "artist": "Lana Del Rey",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "Save Playlist is visible. This establishes only the captured UI state; eventual saved status, save timestamp, later edits, and persisted-artifact existence remain unknown.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The screenshot visibly shows device time 8:25. This is not treated as generated_at.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "SEVERE_UNDERGENERATION",
+      "observation_text": "The generated metadata strongly captures cinematic brooding and revenge/comeback, but the result terminates after four tracks. The selected tracks emphasize inward-looking melancholy, wounded affect, detachment, and brooding; revenge/comeback is stronger in the metadata than the selections.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SAME_PROMPT_RETRY_VARIANCE",
+      "observation_text": "The user attests that this result and its paired Revenge in Slow Motion result were generated from the same prompt in immediate succession after navigating back and resubmitting. The outputs differ materially in track count, identities, style distribution, and apparent construction strategy. The cause is unknown.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SEMANTIC_INTERPRETATION_STABILITY",
+      "observation_text": "Despite radically different track construction, both outputs use the title Revenge in Slow Motion and closely similar cinematic-brooding comeback descriptions. High-level semantic interpretation appears more stable than downstream playlist realization. This is not proof of internal architecture.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SAME_PROMPT_CONSTRUCTION_VARIANCE",
+      "observation_text": "The two outputs appear to represent very different musical realizations of a nearly identical semantic abstraction: one is intimate, vocal-heavy, melancholy/pop-adjacent and four tracks; the retry is broader across alternative, post-rock, trip-hop, shoegaze, and dark rock/metal-adjacent material and forty tracks.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "UNDERGENERATION_REINTERPRETATION",
+      "observation_text": "The four-track result remains a real observed generation, but the immediate forty-track retry weakens strong causal claims such as hard constraint ceiling, candidate scarcity, insufficient catalog, or deterministic refusal to pad. Supported conclusion: one same-prompt generation severely undergenerated while an immediate retry did not.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SAME_PROMPT_VARIANCE_RESEARCH_SIGNIFICANCE",
+      "observation_text": "This paired case may help distinguish prompt-interpretation stability, candidate or retrieval variance, construction or ranking variance, output-length variance, and sequencing variance. No observed variance is attributed to a particular internal Maestro stage.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    }
+  ],
+  "prompt_labels": []
+}

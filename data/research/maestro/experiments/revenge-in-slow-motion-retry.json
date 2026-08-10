@@ -1,0 +1,1185 @@
+{
+  "prompt": "Songs that play in slow motion while I stare blankly out a rainy train window plotting my grand revenge.",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Revenge in Slow Motion",
+  "generated_description": "Cinematic brooding anthems for plotting your comeback moment",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 40,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Second of two distinct user-attested immediate same-prompt generations, produced after navigating back and resubmitting. This retry is preserved independently and does not correct, merge, average, or receive provenance from the four-track output. Persistent Mr. Brightside / The Killers now-playing UI is excluded.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies the exact prompt and immediate same-prompt retry context for Experiment B",
+      "notes": "USER_ATTESTED evidence. The user reports navigating back and immediately resubmitting the same prompt. This does not establish identical model state, randomness, candidate pool, catalog availability, or cause of variance."
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Revenge in Slow Motion retry generation original Maestro capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\5D2373C9-6006-436D-90AA-63C98BC2FFF2\\2-Photo-2.jpg",
+      "sha256": "e0fdc009f483a3c53b60495309d550b2ad418f6229480131bae77bb538880807"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Revenge in Slow Motion retry generation original Maestro capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\5D2373C9-6006-436D-90AA-63C98BC2FFF2\\3-Photo-3.jpg",
+      "sha256": "ca35eabcce60d57c3127629fde607a83c5e4073ffb85de2f9f72b19e5272ce91"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Revenge in Slow Motion retry generation original Maestro capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\5D2373C9-6006-436D-90AA-63C98BC2FFF2\\4-Photo-4.jpg",
+      "sha256": "2eb8d9815518e231542ce69757abf821a8d13a9195571f8cb696f73653a3cf1c"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Revenge in Slow Motion retry generation original Maestro capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\5D2373C9-6006-436D-90AA-63C98BC2FFF2\\5-Photo-5.jpg",
+      "sha256": "405087b256eaf8a1cea2f91789e432ecfcdd7b66dfe34aa7dc6c378bc7549641"
+    },
+    {
+      "source_key": "capture_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Revenge in Slow Motion retry generation original Maestro capture 6",
+      "original_filename": "6-Photo-6.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\5D2373C9-6006-436D-90AA-63C98BC2FFF2\\6-Photo-6.jpg",
+      "sha256": "5029e7fd926546dae2da9de9ee7e8b6136c7d9ad15df5b825623fa840fe686b3"
+    },
+    {
+      "source_key": "capture_7",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Revenge in Slow Motion retry generation original Maestro capture 7",
+      "original_filename": "7-Photo-7.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\5D2373C9-6006-436D-90AA-63C98BC2FFF2\\7-Photo-7.jpg",
+      "sha256": "bc475733b4e519acfa2416e8da94dcbc84ecc1d583f158c7457399d86cb9f6e7"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "user_attestation",
+      "field_name": "prompt",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "notes": "Direct observation of the user's attestation; not screenshot-derived."
+    },
+    {
+      "source_key": "capture_2",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_2",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_2",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_2",
+      "field_name": "generated_track_count",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Count of the complete screenshot-supported sequence; no numeric count is displayed."
+    },
+    {
+      "source_key": "capture_2",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Playlist header, start, and first placement are visible."
+    },
+    {
+      "source_key": "capture_7",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Substantial playlist-body whitespace follows Raising Your Voice... Trying to Stop an Echo."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "notes": "One complete sequence. Captures overlap on Seven Devils, Intro, Disarm, Enjoy the Silence, and the Autre temps / Feral Love region.",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Substantial whitespace follows the final placement."
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 2 to 3 overlap on Seven Devils."
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 3 to 4 overlap on Intro."
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 4 to 5 overlap on Disarm (2011 Remaster)."
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 5 to 6 overlap on Enjoy the Silence."
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 6 to 7 overlaps in the Autre temps / Feral Love region."
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Exit Music (For A Film) (Remastered)",
+      "artist": "Radiohead",
+      "version_or_remaster_text": "Remastered",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "Youth",
+      "artist": "Daughter",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Bloodbuzz Ohio",
+      "artist": "The National",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Every You Every Me",
+      "artist": "Placebo",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Seven Devils",
+      "artist": "Florence + The Machine",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "Citizen Erased (XX Anniversary RemiXX)",
+      "artist": "Muse",
+      "version_or_remaster_text": "XX Anniversary RemiXX",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Trains (Demo)",
+      "artist": "Porcupine Tree",
+      "version_or_remaster_text": "Demo",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Evil",
+      "artist": "Interpol",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Papillon",
+      "artist": "Editors",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Svefn-g-englar",
+      "artist": "Sigur Rós",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "Your Hand In Mine (Remastered)",
+      "artist": "Explosions In The Sky",
+      "version_or_remaster_text": "Remastered",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Intro",
+      "artist": "The xx",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Roads",
+      "artist": "Portishead",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "Teardrop (Remastered 2019) [feat. Elizabeth Fraser]",
+      "artist": "Massive Attack, Elizabeth Fraser",
+      "version_or_remaster_text": "Remastered 2019",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "Change (In the House of Flies)",
+      "artist": "Deftones",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "Take Me Somewhere Nice",
+      "artist": "Mogwai",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "When the Sun Hits",
+      "artist": "Slowdive",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Sometimes",
+      "artist": "my bloody valentine",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Fade Into You",
+      "artist": "Mazzy Star",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Disarm (2011 Remaster)",
+      "artist": "The Smashing Pumpkins",
+      "version_or_remaster_text": "2011 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "#1 Crush (Nellee Hooper Mix)",
+      "artist": "Garbage",
+      "version_or_remaster_text": "Nellee Hooper Mix",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "Silk",
+      "artist": "Wolf Alice",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Strong",
+      "artist": "London Grammar",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Retrograde",
+      "artist": "James Blake",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "Holocene [Explicit]",
+      "artist": "Bon Iver",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Fourth of July",
+      "artist": "Sufjan Stevens",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Pictures of You (2010 Remaster)",
+      "artist": "The Cure",
+      "version_or_remaster_text": "2010 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Enjoy the Silence",
+      "artist": "Depeche Mode",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Hurt [Explicit]",
+      "artist": "Nine Inch Nails",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "The Outsider",
+      "artist": "A Perfect Circle",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "Harvest",
+      "artist": "Opeth",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Untouchable (Part 1) (Live)",
+      "artist": "Anathema",
+      "version_or_remaster_text": "Live",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Day",
+      "artist": "Katatonia",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Autre temps (Album version)",
+      "artist": "Alcest",
+      "version_or_remaster_text": "Album version",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "Feral Love",
+      "artist": "Chelsea Wolfe",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "Marked for Death",
+      "artist": "Emma Ruth Rundle",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "Harper Lewis",
+      "artist": "Russian Circles",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "All Is Violent, All Is Bright",
+      "artist": "God Is An Astronaut",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "Waking Season",
+      "artist": "Caspian",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 40,
+      "evidence_segment": 1,
+      "segment_ordinal": 40,
+      "absolute_position": 40,
+      "title": "Raising Your Voice... Trying to Stop an Echo",
+      "artist": "Hammock",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "Save Playlist is visible in the initial retry screenshot. This establishes only the captured UI state; eventual saved status, save timestamp, later edits, and persisted-artifact existence remain unknown.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The retry captures visibly show device times 8:27 and 8:28. These are not treated as generated_at.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "SAME_PROMPT_RETRY_VARIANCE",
+      "observation_text": "The user attests that this result and its paired Revenge in Slow Motion result were generated from the same prompt in immediate succession after navigating back and resubmitting. The outputs differ materially in track count, identities, style distribution, and apparent construction strategy. The cause is unknown.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SEMANTIC_INTERPRETATION_STABILITY",
+      "observation_text": "Despite radically different track construction, both outputs use the title Revenge in Slow Motion and closely similar cinematic-brooding comeback descriptions. High-level semantic interpretation appears more stable than downstream playlist realization. This is not proof of internal architecture.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SAME_PROMPT_CONSTRUCTION_VARIANCE",
+      "observation_text": "The two outputs appear to represent very different musical realizations of a nearly identical semantic abstraction: one is intimate, vocal-heavy, melancholy/pop-adjacent and four tracks; the retry is broader across alternative, post-rock, trip-hop, shoegaze, and dark rock/metal-adjacent material and forty tracks.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "UNDERGENERATION_REINTERPRETATION",
+      "observation_text": "The four-track result remains a real observed generation, but the immediate forty-track retry weakens strong causal claims such as hard constraint ceiling, candidate scarcity, insufficient catalog, or deterministic refusal to pad. Supported conclusion: one same-prompt generation severely undergenerated while an immediate retry did not.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SAME_PROMPT_VARIANCE_RESEARCH_SIGNIFICANCE",
+      "observation_text": "This paired case may help distinguish prompt-interpretation stability, candidate or retrieval variance, construction or ranking variance, output-length variance, and sequencing variance. No observed variance is attributed to a particular internal Maestro stage.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    }
+  ],
+  "prompt_labels": []
+}
