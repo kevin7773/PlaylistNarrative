@@ -8,6 +8,7 @@ const stagedEvidence = [];
 let confirmedTracks = null;
 let validatedProposalSnapshot = null;
 let ingestionActive = false;
+let pendingSourceDeclarations = null;
 
 const REQUIRED_HISTORICAL_CLAIMS = [
   ["source_system", "Source system"],
@@ -129,6 +130,58 @@ function renderStaged() {
   refreshReadiness();
 }
 
+function sourceDeclarationPreview(sourceType, referenceBase) {
+  const base = referenceBase.trim();
+  if (sourceType !== "SCREENSHOT") throw new Error("Select the established screenshot source type");
+  if (!base) throw new Error("Enter an explicit source-reference base");
+  if (!stagedEvidence.length) throw new Error("Stage at least one screenshot before previewing declarations");
+  return stagedEvidence.map((item, index) => ({
+    source_type: sourceType,
+    source_reference: `${base} ${index + 1}`,
+    original_filename: item.original_filename,
+  }));
+}
+
+function clearSourceDeclarationPreview(message = "No bulk source declaration preview.") {
+  pendingSourceDeclarations = null;
+  $("#source-declaration-preview").innerHTML = `<p class="hint">${escapeHtml(message)}</p>`;
+}
+
+function previewSourceDeclarations() {
+  try {
+    pendingSourceDeclarations = sourceDeclarationPreview(
+      $("#bulk-source-type").value,
+      $("#bulk-source-reference").value,
+    );
+    $("#source-declaration-preview").innerHTML = `
+      <strong>Preview only — nothing has been applied.</strong>
+      <ol>${pendingSourceDeclarations.map(item => `<li>${escapeHtml(item.source_reference)} <span class="hint">(${escapeHtml(item.original_filename)})</span></li>`).join("")}</ol>
+      <div class="preview-actions"><button id="apply-source-declarations" type="button">Apply these declarations</button><button id="cancel-source-declarations" class="ghost" type="button">Cancel</button></div>`;
+    $("#apply-source-declarations").addEventListener("click", applySourceDeclarations);
+    $("#cancel-source-declarations").addEventListener("click", () => clearSourceDeclarationPreview("Bulk declaration cancelled. Existing declarations were not changed."));
+  } catch (error) {
+    clearSourceDeclarationPreview(error.message);
+  }
+}
+
+function applySourceDeclarations() {
+  if (!pendingSourceDeclarations || pendingSourceDeclarations.length !== stagedEvidence.length) {
+    clearSourceDeclarationPreview("Preview the complete declaration set before applying it.");
+    return;
+  }
+  pendingSourceDeclarations.forEach((declaration, index) => {
+    stagedEvidence[index].source_type = declaration.source_type;
+    stagedEvidence[index].source_reference = declaration.source_reference;
+  });
+  const count = pendingSourceDeclarations.length;
+  pendingSourceDeclarations = null;
+  renderStaged();
+  clearSourceDeclarationPreview(`Applied explicit SCREENSHOT declarations to ${count} distinct staged screenshots. Individual references remain editable below.`);
+  setLocalStatus("#stage-status", `Applied ${count} explicit screenshot source declarations.`, "success");
+  invalidateValidation();
+  refreshReadiness();
+}
+
 function renderCoverage() {
   const container = $("#track-coverage");
   const previous = new Map([...container.querySelectorAll(".coverage-row")].map(row => [row.dataset.sourceKey, {
@@ -167,6 +220,7 @@ async function stageEvidence() {
       stagedEvidence.push(await readJsonResponse(response, `Staging ${file.name}`));
     }
     $("#evidence-files").value = "";
+    clearSourceDeclarationPreview("Evidence changed. Preview bulk declarations again before applying them.");
     renderStaged();
     const message = `Staged ${files.length} original${files.length === 1 ? "" : "s"}. Verify filenames and SHA-256 values below.`;
     setLocalStatus("#stage-status", message, "success");
@@ -188,6 +242,42 @@ function optionalText(selector) {
 function optionalNumber(selector) {
   const value = $(selector).value;
   return value === "" ? undefined : Number(value);
+}
+
+function declaredRequestedTrackCount(state, rawValue) {
+  if (state !== "KNOWN") return undefined;
+  if (rawValue === "") throw new Error("Enter the explicitly known requested track count");
+  return Number(rawValue);
+}
+
+function declaredSavedStatus(state) {
+  if (state === "YES") return true;
+  if (state === "NO") return false;
+  return undefined;
+}
+
+function savedEvidenceReadinessIssue(state, selectedSourceKeys) {
+  if (state === "UNKNOWN" || selectedSourceKeys.length) return null;
+  return "Link the asserted saved status to supporting evidence";
+}
+
+function updateRequestedTrackCountState() {
+  const known = $("#requested-count-state").value === "KNOWN";
+  $("#requested-count").disabled = !known;
+  if (!known) $("#requested-count").value = "";
+  invalidateValidation();
+  refreshReadiness();
+}
+
+function updateSavedStatus() {
+  const unknown = $("#saved").value === "UNKNOWN";
+  $("#saved-evidence-field").hidden = unknown;
+  if (unknown) {
+    const selector = document.querySelector("[data-claim-field='saved']");
+    [...selector.options].forEach(option => { option.selected = false; });
+  }
+  invalidateValidation();
+  refreshReadiness();
 }
 
 function collectStagedEvidence() {
@@ -229,12 +319,15 @@ function selectedValues(select) {
 function collectClaimEvidence() {
   const provenanceType = $("#evidence-provenance").value;
   const supportStatus = $("#evidence-support").value;
-  const links = [...document.querySelectorAll("[data-claim-field]")].flatMap(select => selectedValues(select).map(sourceKey => ({
-    source_key: sourceKey,
-    field_name: select.dataset.claimField,
-    provenance_type: provenanceType,
-    support_status: supportStatus,
-  })));
+  const links = [...document.querySelectorAll("[data-claim-field]")].flatMap(select => {
+    if (select.dataset.claimField === "saved" && $("#saved").value === "UNKNOWN") return [];
+    return selectedValues(select).map(sourceKey => ({
+      source_key: sourceKey,
+      field_name: select.dataset.claimField,
+      provenance_type: provenanceType,
+      support_status: supportStatus,
+    }));
+  });
   if ($("#prompt-attested").checked) {
     links.push({
       source_key: promptAttestationSourceKey(),
@@ -273,6 +366,13 @@ function tracksWithCoverage() {
   }));
 }
 
+function incompleteSourceDeclarationOrdinals(items) {
+  return items.reduce((ordinals, item, index) => {
+    if (!(item.source_type || "").trim() || !(item.source_reference || "").trim()) ordinals.push(index + 1);
+    return ordinals;
+  }, []);
+}
+
 function readinessIssues() {
   const issues = [];
   const standard = $("#evidence-standard").value;
@@ -284,10 +384,7 @@ function readinessIssues() {
     if (!$("#captures-end").value) issues.push("Declare whether capture includes playlist end");
     if (confirmedTracks === null) issues.push("Confirm the reviewed tracklist");
   }
-  const incompleteSources = stagedEvidence.reduce((items, item, index) => {
-    if (!(item.source_type || "").trim() || !(item.source_reference || "").trim()) items.push(index + 1);
-    return items;
-  }, []);
+  const incompleteSources = incompleteSourceDeclarationOrdinals(stagedEvidence);
   if (!stagedEvidence.length) issues.push("Stage evidence screenshots");
   else if (incompleteSources.length) issues.push(`Complete source declarations for screenshots ${incompleteSources.join(", ")}`);
   if (standard === "RECOVERED_HISTORICAL" && kind.value === "historical_experiment") {
@@ -306,6 +403,11 @@ function readinessIssues() {
     for (const [field, label] of REQUIRED_HISTORICAL_CLAIMS) {
       const select = document.querySelector(`[data-claim-field='${field}']`);
       if (!selectedValues(select).length) issues.push(`Link ${label.toLowerCase()} to supporting evidence`);
+    }
+    if ($("#saved").value !== "UNKNOWN") {
+      const savedEvidence = document.querySelector("[data-claim-field='saved']");
+      const savedIssue = savedEvidenceReadinessIssue($("#saved").value, selectedValues(savedEvidence));
+      if (savedIssue) issues.push(savedIssue);
     }
     if (confirmedTracks?.length) {
       const uncovered = [...coverageByTrack(confirmedTracks.length)].filter(([, keys]) => !keys.length).map(([position]) => position);
@@ -352,10 +454,15 @@ function collectDeclarations() {
   if (kind.value === "historical_experiment") {
     Object.assign(values, {
       prompt: optionalText("#prompt"), prompt_title: optionalText("#prompt-title"),
-      requested_track_count: optionalNumber("#requested-count"), generated_title: optionalText("#generated-title"),
+      generated_title: optionalText("#generated-title"),
       generated_description: optionalText("#generated-description"), assessment: optionalText("#assessment")
     });
-    if ($("#saved").value !== "") values.saved = $("#saved").value === "true";
+    const requestedTrackCount = declaredRequestedTrackCount(
+      $("#requested-count-state").value, $("#requested-count").value
+    );
+    if (requestedTrackCount !== undefined) values.requested_track_count = requestedTrackCount;
+    const savedStatus = declaredSavedStatus($("#saved").value);
+    if (savedStatus !== undefined) values.saved = savedStatus;
   } else {
     Object.assign(values, {
       display_title: optionalText("#display-title"), display_description: optionalText("#display-description"),
@@ -718,17 +825,10 @@ function initializeDraftTrackWorkflow() {
 
 kind.addEventListener("change", updateMode);
 $("#completeness").addEventListener("change", updateCompleteness);
+$("#requested-count-state").addEventListener("change", updateRequestedTrackCountState);
+$("#saved").addEventListener("change", updateSavedStatus);
 $("#stage").addEventListener("click", stageEvidence);
-$("#apply-source-type").addEventListener("click", () => {
-  const value = $("#bulk-source-type").value;
-  if (!value.trim()) {
-    setLocalStatus("#stage-status", "Enter an explicit source type before applying it.", "error");
-    return;
-  }
-  stagedEvidence.forEach(item => { item.source_type = value; });
-  renderStaged();
-  setLocalStatus("#stage-status", `Applied source type “${value}” to ${stagedEvidence.length} staged screenshot${stagedEvidence.length === 1 ? "" : "s"}.`, "success");
-});
+$("#preview-source-declarations").addEventListener("click", previewSourceDeclarations);
 $("#structured-draft-file").addEventListener("change", async event => {
   const file = event.target.files[0];
   if (!file) return;
@@ -755,6 +855,11 @@ $("#prompt").addEventListener("input", () => {
 document.querySelectorAll("#evidence-standard, #captures-start, #captures-end, #evidence-provenance, #evidence-support, [data-claim-field], #source-system, #prompt, #prompt-attested, #generated-title, #generated-description, #notes")
   .forEach(input => input.addEventListener("change", () => { invalidateValidation(); refreshReadiness(); }));
 renderStaged();
+$("#requested-count-state").value = "UNKNOWN";
+$("#requested-count").value = "";
+$("#saved").value = "UNKNOWN";
 updateMode();
 updateCompleteness();
+updateRequestedTrackCountState();
+updateSavedStatus();
 initializeDraftTrackWorkflow();

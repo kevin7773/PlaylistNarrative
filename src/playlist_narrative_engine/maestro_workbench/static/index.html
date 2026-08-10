@@ -34,9 +34,11 @@
       <div id="stage-status" class="operation-status" aria-live="polite">No staging operation performed.</div>
       <div id="staged" class="card-list" aria-live="polite"><p class="empty">No evidence staged.</p></div>
       <div class="bulk-source declaration-tools">
-        <label>Apply one explicit source type to all staged screenshots<input id="bulk-source-type" type="text" placeholder="Exact source type"></label>
-        <button id="apply-source-type" class="secondary" type="button">Apply source type to all</button>
+        <label>Screenshot source type<select id="bulk-source-type"><option value="">Select explicitly…</option><option value="SCREENSHOT">Screenshot (SCREENSHOT)</option></select></label>
+        <label>Source-reference base<input id="bulk-source-reference" type="text" placeholder="Operator-authored base, without ordinal"></label>
+        <button id="preview-source-declarations" class="secondary" type="button">Preview declarations for all screenshots</button>
       </div>
+      <div id="source-declaration-preview" class="declaration-preview" aria-live="polite"><p class="hint">No bulk source declaration preview.</p></div>
     </section>
 
     <section class="panel">
@@ -68,10 +70,11 @@
           <label class="wide attestation"><input id="prompt-attested" type="checkbox"> Record my operator attestation that the historical prompt entered above is accurate to the best of my knowledge (non-screenshot evidence).</label>
           <p class="hint wide">Use this only when you personally know the prompt. It records an explicit human attestation; it does not claim that a screenshot contains the prompt.</p>
           <label>Prompt title<input id="prompt-title" type="text"></label>
-          <label>Requested track count<input id="requested-count" type="number" min="0"></label>
+          <label>Requested track count status<select id="requested-count-state" autocomplete="off"><option value="UNKNOWN">Unknown / not asserted</option><option value="KNOWN">Explicitly known</option></select></label>
+          <label>Requested track count <span class="hint">Optional; enabled only when explicitly known.</span><input id="requested-count" type="number" min="0" autocomplete="off" disabled></label>
           <label>Generated title<input id="generated-title" type="text"></label>
           <label>Generated description<input id="generated-description" type="text"></label>
-          <label>Saved by user<select id="saved"><option value="">Not declared</option><option value="true">Yes</option><option value="false">No</option></select></label>
+          <label>Saved status<select id="saved" autocomplete="off"><option value="UNKNOWN">Unknown / not asserted</option><option value="YES">Yes</option><option value="NO">No</option></select></label>
           <label>Assessment<input id="assessment" type="text"></label>
         </div>
       </fieldset>
@@ -123,6 +126,7 @@
           <label>Generated description supported by<select multiple size="3" data-claim-field="generated_description" data-source-select></select></label>
           <label>Generated track count supported by<select multiple size="3" data-claim-field="generated_track_count" data-source-select></select></label>
           <label>Tracklist completeness supported by<select multiple size="3" data-claim-field="tracklist_completeness" data-source-select></select></label>
+          <label id="saved-evidence-field" hidden>Saved status supported by<select multiple size="3" data-claim-field="saved" data-source-select></select></label>
         </div>
         <h4>Screenshot-to-track coverage</h4>
         <p class="hint">Explicitly declare the inclusive track range supported by each screenshot. Overlap is allowed.</p>

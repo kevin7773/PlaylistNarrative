@@ -27,6 +27,9 @@ button.ghost { padding: .35rem .6rem; background: transparent; border: 1px solid
 .actions, .file-row, .subhead, .entry-head { display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; }
 .actions { margin-top: 1rem; }
 .file-row { align-items: end; }
+.declaration-preview { margin-top: 1rem; padding: .8rem; border: 1px dashed #3b4b5b; border-radius: .6rem; }
+.declaration-preview ol { margin: .65rem 0; padding-left: 1.6rem; }
+.preview-actions { display: flex; gap: .7rem; flex-wrap: wrap; }
 .subhead { justify-content: space-between; margin-top: 1.35rem; }
 .tracklist-intro { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.35rem; }
 .extract-action { padding: .9rem 1.35rem; font-size: 1rem; }

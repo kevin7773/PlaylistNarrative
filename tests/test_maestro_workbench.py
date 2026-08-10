@@ -626,7 +626,8 @@ function buildEnvironment() {
   element("#draft-tracks");
   element("#overlap-suggestions");
   element("#raw-draft");
-  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#apply-source-type", "#bulk-source-type", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#generated-title", "#generated-description", "#notes"]) element(selector);
+  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#preview-source-declarations", "#source-declaration-preview", "#bulk-source-type", "#bulk-source-reference", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#requested-count-state", "#requested-count", "#saved", "#saved-evidence-field", "#generated-title", "#generated-description", "#notes"]) element(selector);
+  element("[data-claim-field='saved']").options = [];
 
   const boundaryFields = [new FakeElement(), new FakeElement()];
   const document = {
@@ -790,7 +791,8 @@ function buildEnvironment() {
   element("#draft-tracks");
   element("#overlap-suggestions");
   element("#raw-draft");
-  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#apply-source-type", "#bulk-source-type", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#generated-title", "#generated-description", "#notes"]) element(selector);
+  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#preview-source-declarations", "#source-declaration-preview", "#bulk-source-type", "#bulk-source-reference", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#requested-count-state", "#requested-count", "#saved", "#saved-evidence-field", "#generated-title", "#generated-description", "#notes"]) element(selector);
+  element("[data-claim-field='saved']").options = [];
 
   const boundaryFields = [new FakeElement(), new FakeElement()];
   const document = {
@@ -1392,6 +1394,9 @@ def test_realistic_historical_workbench_http_journey_builds_validates_ingests_an
         assert len(built["tracks"]) == 40
         assert len(built["evidence_sources"]) == 7
         assert len(built["evidence"]) == 6
+        assert built["generated_track_count"] == 40
+        assert "requested_track_count" not in built
+        assert "saved" not in built
         prompt_link = next(link for link in built["evidence"] if link["field_name"] == "prompt")
         assert prompt_link["source_key"] == "source_7"
         assert prompt_link["provenance_type"] == "HUMAN_ASSESSMENT"
@@ -1403,6 +1408,38 @@ def test_realistic_historical_workbench_http_journey_builds_validates_ingests_an
             "evidence_valid": True,
             "evidence_issues": [],
         }
+        requested_assertion = {**built, "requested_track_count": 40}
+        requested_validation = post_json(
+            "/api/validate", {"kind": "historical_experiment", "proposal": requested_assertion}
+        )
+        assert not requested_validation["valid"]
+        assert any("requested_track_count" in issue["message"] for issue in requested_validation["validation_issues"])
+        saved_assertion = {**built, "saved": False}
+        saved_validation = post_json(
+            "/api/validate", {"kind": "historical_experiment", "proposal": saved_assertion}
+        )
+        assert not saved_validation["valid"]
+        assert any("saved" in issue["message"] for issue in saved_validation["validation_issues"])
+        for saved_value in (True, False):
+            supported_saved = {
+                **built,
+                "saved": saved_value,
+                "evidence": [*built["evidence"], {
+                    "source_key": "source_1",
+                    "field_name": "saved",
+                    "provenance_type": "DIRECT_OBSERVATION",
+                    "support_status": "FULL",
+                }],
+            }
+            supported_validation = post_json(
+                "/api/validate", {"kind": "historical_experiment", "proposal": supported_saved}
+            )
+            assert supported_validation == {
+                "valid": True,
+                "validation_issues": [],
+                "evidence_valid": True,
+                "evidence_issues": [],
+            }
         with open_research_store_service(database_url) as service:
             assert service.get_experiment(1) is None
 
@@ -1451,3 +1488,81 @@ def test_workbench_operator_lifecycle_is_local_and_fail_closed() -> None:
     assert "Ingestion cancelled. No write occurred." in javascript
     assert "renderReadback(body.record, body.kind)" in javascript
     assert "View raw projection" in javascript
+
+
+def test_bulk_screenshot_declarations_require_preview_and_explicit_application() -> None:
+    root = Path(__file__).parents[1] / "src" / "playlist_narrative_engine" / "maestro_workbench" / "static"
+    html = (root / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "app.js").read_text(encoding="utf-8")
+
+    assert '<option value="SCREENSHOT">Screenshot (SCREENSHOT)</option>' in html
+    assert 'id="bulk-source-reference"' in html
+    assert 'id="preview-source-declarations"' in html
+    assert "Preview only — nothing has been applied." in javascript
+    assert 'id="apply-source-declarations"' in javascript
+    assert 'id="cancel-source-declarations"' in javascript
+    assert 'data-source-reference' in javascript
+    assert "item.source_reference = event.target.value" in javascript
+    assert "incompleteSourceDeclarationOrdinals(stagedEvidence)" in javascript
+
+    start = javascript.index("function sourceDeclarationPreview")
+    end = javascript.index("function clearSourceDeclarationPreview")
+    function_source = javascript[start:end]
+    readiness_start = javascript.index("function incompleteSourceDeclarationOrdinals")
+    readiness_end = javascript.index("function readinessIssues")
+    readiness_source = javascript[readiness_start:readiness_end]
+    script = f'''const stagedEvidence = Array.from({{length: 6}}, (_, index) => ({{original_filename: `capture-${{index + 1}}.png`}}));
+{function_source}
+{readiness_source}
+const before = JSON.stringify(stagedEvidence);
+const preview = sourceDeclarationPreview("SCREENSHOT", "When Things Break Again Maestro Beta capture");
+process.stdout.write(JSON.stringify({{before, after: JSON.stringify(stagedEvidence), preview, incomplete: incompleteSourceDeclarationOrdinals(preview)}}));'''
+    completed = subprocess.run(["node", "-e", script], check=True, capture_output=True, text=True)
+    result = json.loads(completed.stdout)
+
+    assert result["before"] == result["after"]
+    assert [item["source_type"] for item in result["preview"]] == ["SCREENSHOT"] * 6
+    assert [item["source_reference"] for item in result["preview"]] == [
+        f"When Things Break Again Maestro Beta capture {index}" for index in range(1, 7)
+    ]
+    assert len({item["original_filename"] for item in result["preview"]}) == 6
+    assert result["incomplete"] == []
+
+
+def test_unknown_historical_request_and_saved_states_are_non_asserting() -> None:
+    root = Path(__file__).parents[1] / "src" / "playlist_narrative_engine" / "maestro_workbench" / "static"
+    html = (root / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "app.js").read_text(encoding="utf-8")
+
+    assert '<option value="UNKNOWN">Unknown / not asserted</option>' in html
+    assert '<option value="YES">Yes</option><option value="NO">No</option>' in html
+    assert 'id="requested-count" type="number" min="0" autocomplete="off" disabled' in html
+    assert 'id="saved-evidence-field" hidden' in html
+    assert 'data-claim-field="saved"' in html
+    start = javascript.index("function declaredRequestedTrackCount")
+    end = javascript.index("function updateRequestedTrackCountState")
+    helpers = javascript[start:end]
+    script = f'''{helpers}
+const values = {{
+  unknownCount: declaredRequestedTrackCount("UNKNOWN", "40"),
+  knownCount: declaredRequestedTrackCount("KNOWN", "40"),
+  unknownSaved: declaredSavedStatus("UNKNOWN"),
+  yes: declaredSavedStatus("YES"),
+  no: declaredSavedStatus("NO"),
+  unknownEvidenceIssue: savedEvidenceReadinessIssue("UNKNOWN", []),
+  yesEvidenceIssue: savedEvidenceReadinessIssue("YES", []),
+  noEvidenceIssue: savedEvidenceReadinessIssue("NO", []),
+  supportedEvidenceIssue: savedEvidenceReadinessIssue("YES", ["source_1"]),
+}};
+process.stdout.write(JSON.stringify(values));'''
+    completed = subprocess.run(["node", "-e", script], check=True, capture_output=True, text=True)
+
+    assert json.loads(completed.stdout) == {
+        "knownCount": 40,
+        "yes": True,
+        "no": False,
+        "unknownEvidenceIssue": None,
+        "yesEvidenceIssue": "Link the asserted saved status to supporting evidence",
+        "noEvidenceIssue": "Link the asserted saved status to supporting evidence",
+        "supportedEvidenceIssue": None,
+    }
