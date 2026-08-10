@@ -31,15 +31,20 @@
         <input id="evidence-files" type="file" multiple accept="image/*">
         <button id="stage" type="button">Stage selected originals</button>
       </div>
+      <div id="stage-status" class="operation-status" aria-live="polite">No staging operation performed.</div>
       <div id="staged" class="card-list" aria-live="polite"><p class="empty">No evidence staged.</p></div>
+      <div class="bulk-source declaration-tools">
+        <label>Apply one explicit source type to all staged screenshots<input id="bulk-source-type" type="text" placeholder="Exact source type"></label>
+        <button id="apply-source-type" class="secondary" type="button">Apply source type to all</button>
+      </div>
     </section>
 
     <section class="panel">
       <span class="step">03</span><h2>Make explicit declarations</h2>
       <div class="form-grid">
         <label>Source system<input id="source-system" type="text" placeholder="Exact supplied label"></label>
-        <label>Evidence standard<select id="evidence-standard">
-          <option>CONTEMPORARY_MANUAL</option><option>RECOVERED_HISTORICAL</option>
+        <label>Evidence standard<select id="evidence-standard" required>
+          <option value="">Select explicitly…</option><option>CONTEMPORARY_MANUAL</option><option>RECOVERED_HISTORICAL</option>
           <option>CURRENT_PRIMARY_EVIDENCE</option><option>LEGACY_V1</option>
         </select></label>
         <label>Tracklist completeness<select id="completeness">
@@ -82,13 +87,63 @@
       </fieldset>
       <label>Notes<textarea id="notes" class="short"></textarea></label>
 
-      <div class="subhead"><div><h3>Observed tracks</h3><p class="hint">Enter only what you explicitly observed. Order is the row order.</p></div><button id="add-track" class="secondary" type="button">Add track</button></div>
-      <div id="tracks" class="card-list"><p class="empty">No tracks declared.</p></div>
+      <div class="tracklist-intro"><div><h3>Tracklist</h3><p class="hint">Generated tracks are a draft. Review the list before confirming.</p></div><button id="generate-tracks" class="extract-action" type="button">Generate draft tracklist</button></div>
+      <div id="extraction-status" class="extraction-status" aria-live="polite">Stage screenshots, then generate a draft tracklist.</div>
+      <div class="draft-import-primary">
+        <h4>Import draft tracklist</h4>
+        <p class="hint">Paste structured JSON from ChatGPT or another external tool. Imported tracks remain a non-authoritative draft.</p>
+        <label>Draft tracklist JSON<textarea id="structured-draft" class="short" spellcheck="false" placeholder='{"tracks":[{"position":1,"title":"Track title","artist":"Artist","version":null,"uncertain":false,"source_keys":["source_1"]}]}'></textarea></label>
+        <div class="file-row"><input id="structured-draft-file" type="file" accept="application/json,text/json,text/plain,.json,.txt"><button id="import-draft" class="secondary" type="button">Import draft tracklist</button></div>
+        <div id="import-status" class="extraction-status" aria-live="polite">No structured draft imported.</div>
+      </div>
+      <div id="overlap-suggestions" class="suggestions" aria-live="polite"></div>
+      <div id="draft-tracks" class="card-list"><p class="empty">No draft tracks.</p></div>
+      <button id="add-draft" class="secondary insert-track" type="button">Insert track</button>
+      <div class="confirmation-bar">
+        <div><strong>Review complete?</strong><p class="hint">Confirmation applies to the complete retained list.</p></div>
+        <button id="confirm-tracks" type="button">Confirm reviewed tracklist</button>
+      </div>
+      <div id="confirmed-summary" class="confirmed-summary">No tracklist confirmed.</div>
 
-      <div class="subhead"><div><h3>Top-level evidence links</h3><p class="hint">Link one exact source to one exact proposal field. No link is inferred.</p></div><button id="add-link" class="secondary" type="button">Add evidence link</button></div>
-      <div id="evidence-links" class="card-list"><p class="empty">No top-level evidence links declared.</p></div>
+      <section class="declaration-block" aria-labelledby="evidence-declarations-heading">
+        <h3 id="evidence-declarations-heading">Evidence declarations</h3>
+        <p class="hint">Choose the provenance and support status you are explicitly declaring for the evidence links below.</p>
+        <div class="form-grid">
+          <label>Evidence provenance<select id="evidence-provenance"><option value="">Select explicitly…</option><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label>
+          <label>Support status<select id="evidence-support"><option value="">Select explicitly…</option><option>FULL</option><option>PARTIAL</option></select></label>
+        </div>
+        <h4>Experiment claims</h4>
+        <p class="hint">Select every screenshot that supports each claim. No relationship is inferred.</p>
+        <div id="claim-evidence" class="claim-grid">
+          <label>Prompt supported by<select multiple size="3" data-claim-field="prompt" data-source-select></select></label>
+          <label>Source system supported by<select multiple size="3" data-claim-field="source_system" data-source-select></select></label>
+          <label>Generated title supported by<select multiple size="3" data-claim-field="generated_title" data-source-select></select></label>
+          <label>Generated description supported by<select multiple size="3" data-claim-field="generated_description" data-source-select></select></label>
+          <label>Generated track count supported by<select multiple size="3" data-claim-field="generated_track_count" data-source-select></select></label>
+          <label>Tracklist completeness supported by<select multiple size="3" data-claim-field="tracklist_completeness" data-source-select></select></label>
+        </div>
+        <h4>Screenshot-to-track coverage</h4>
+        <p class="hint">Explicitly declare the inclusive track range supported by each screenshot. Overlap is allowed.</p>
+        <div id="track-coverage" class="card-list"><p class="empty">Stage screenshots to declare track coverage.</p></div>
+      </section>
 
+      <details class="advanced-tools">
+        <summary>Advanced tracklist tools</summary>
+        <div class="draft-import">
+          <label class="wide">Paste a mechanical draft <span class="format">position | title | artist | version/remaster</span><textarea id="draft-text" class="short" placeholder="1 | Track title | Artist | Remastered 2025"></textarea></label>
+          <label>Source screenshot(s)<select id="draft-sources" multiple size="3" data-source-select></select></label>
+          <button id="load-draft" class="secondary" type="button">Load pasted draft</button>
+        </div>
+        <div class="draft-toolbar"><button id="merge-drafts" class="ghost" type="button">Merge selected rows</button></div>
+        <h4>Raw draft inspection</h4>
+        <pre id="raw-draft">[]</pre>
+      </details>
+
+      <details class="advanced-tools"><summary>Advanced evidence-link tools</summary><div class="subhead"><div><h3>Additional top-level evidence links</h3><p class="hint">Optional expert surface for existing schema fields.</p></div><button id="add-link" class="secondary" type="button">Add evidence link</button></div><div id="evidence-links" class="card-list"><p class="empty">No additional evidence links declared.</p></div></details>
+
+      <div id="readiness" class="readiness" aria-live="polite"><strong>Evidence readiness</strong><p>Complete the explicit declarations above.</p></div>
       <button id="build" type="button">Build governed proposal</button>
+      <div id="build-status" class="operation-status" aria-live="polite">No proposal built.</div>
     </section>
 
     <section class="panel editor-panel">
@@ -100,17 +155,34 @@
       </details>
       <div class="actions">
         <button id="validate" class="secondary" type="button">Validate without writing</button>
-        <button id="ingest" class="danger" type="button">Ingest exactly one reviewed record</button>
+        <button id="ingest" class="danger" type="button" disabled>Ingest exactly one reviewed record</button>
       </div>
+      <div id="validation-status" class="operation-status" aria-live="polite">No validation performed.</div>
+      <div id="ingest-status" class="operation-status" aria-live="polite">No ingestion performed.</div>
+      <div id="readback-summary" class="readback-summary" aria-live="polite"></div>
     </section>
 
-    <section class="panel">
-      <span class="step">05</span><h2>Result</h2>
-      <pre id="result" aria-live="polite">No operation performed.</pre>
-    </section>
+    <details class="panel advanced-tools"><summary><span class="step">05</span> Advanced raw operation output</summary><pre id="result" aria-live="polite">No operation performed.</pre></details>
   </main>
-  <template id="track-template"><article class="entry-card track-row"><div class="entry-head"><strong>Track</strong><button class="remove ghost" type="button">Remove</button></div><div class="form-grid"><label>Title<input data-field="title" type="text"></label><label>Artist<input data-field="artist" type="text"></label><label>Absolute position<input data-field="absolute_position" type="number" min="1"></label><label>Evidence source<select data-field="source_key"><option value="">None declared</option></select></label><label>Provenance<select data-field="provenance_type"><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label><label>Canonical identity established<select data-field="canonical_identity_established" data-boolean><option value="">Select explicitly…</option><option value="true">Yes</option><option value="false">No</option></select></label></div></article></template>
-  <template id="link-template"><article class="entry-card link-row"><div class="entry-head"><strong>Evidence link</strong><button class="remove ghost" type="button">Remove</button></div><div class="form-grid"><label>Proposal field<input data-field="field_name" type="text" placeholder="Exact schema field name"></label><label>Evidence source<select data-field="source_key"><option value="">Select explicitly…</option></select></label><label>Provenance<select data-field="provenance_type"><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label></div></article></template>
+  <template id="draft-template"><article class="entry-card draft-row"><div class="entry-head"><strong data-row-label>Track</strong><div class="row-actions"><button data-move-up class="ghost" type="button" aria-label="Move track up">↑</button><button data-move-down class="ghost" type="button" aria-label="Move track down">↓</button><button data-remove class="ghost" type="button">Delete</button></div></div><div class="track-fields"><label class="position-field">Position<input data-field="proposed_position" type="number" min="1"></label><label>Title<input data-field="proposed_title" type="text"></label><label>Artist<input data-field="proposed_artist" type="text"></label><label>Version/remaster<input data-field="proposed_version_remaster_text" type="text"></label></div><label class="uncertain"><input data-field="ambiguity_flag" type="checkbox"> Mark uncertain</label><details class="row-advanced"><summary>Row tools and source details</summary><label class="select-row"><input data-select-row type="checkbox"> Select for merge</label><button data-split class="ghost" type="button">Split row</button><label>Extraction source screenshot(s)<select data-field="source_keys" multiple size="3" data-source-select></select></label><label>Canonical identity established<select data-field="canonical_identity_established" data-boolean><option value="false">No</option><option value="true">Yes</option></select></label><label>Evidence provenance<select data-field="provenance_type"><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label></details></article></template>
+  <template id="link-template"><article class="entry-card link-row"><div class="entry-head"><strong>Evidence link</strong><button class="remove ghost" type="button">Remove</button></div><div class="form-grid"><label>Proposal field<input data-field="field_name" type="text" placeholder="Exact schema field name"></label><label>Evidence source<select data-field="source_key"><option value="">Select explicitly…</option></select></label><label>Provenance<select data-field="provenance_type"><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label><label>Support status<select data-field="support_status"><option>FULL</option><option>PARTIAL</option></select></label></div></article></template>
+  <script>
+    window.PneDraftGenerationPublication = {state: "awaiting-script"};
+    document.documentElement.dataset.draftGenerationPublication = "awaiting-script";
+    window.addEventListener("error", function (event) {
+      if (event.target && event.target.getAttribute && event.target.getAttribute("src") === "/draft_generation.js") {
+        window.PneDraftGenerationPublication.state = "load-failed";
+        document.documentElement.dataset.draftGenerationPublication = "load-failed";
+      }
+    }, true);
+  </script>
+  <script src="/draft_generation.js"></script>
+  <script>
+    if (window.PneDraftGenerationPublication.state !== "published" && window.PneDraftGenerationPublication.state !== "load-failed") {
+      window.PneDraftGenerationPublication.state = "execution-failed";
+      document.documentElement.dataset.draftGenerationPublication = "execution-failed";
+    }
+  </script>
   <script src="/app.js"></script>
 </body>
 </html>

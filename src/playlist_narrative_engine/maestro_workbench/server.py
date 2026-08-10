@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import mimetypes
 import secrets
 import socket
+from dataclasses import dataclass
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -16,6 +18,11 @@ from playlist_narrative_engine.maestro_workbench.operations import (
 )
 from playlist_narrative_engine.maestro_workbench.proposal_builder import (
     build_governed_proposal,
+)
+from playlist_narrative_engine.maestro_workbench.track_extraction import (
+    DraftTrackGenerationError,
+    draft_track_provider,
+    generate_draft_tracks,
 )
 from playlist_narrative_engine.research_store.service import (
     initialize_research_store,
@@ -48,36 +55,33 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = urlparse(self.path).path
+        try:
+            self._require_access()
+        except PermissionError as exc:
+            self._send_json(HTTPStatus.FORBIDDEN, {"error": str(exc)})
+            return
         if path == "/api/health":
-            try:
-                self._require_api_access()
-            except PermissionError as exc:
-                self._send_json(HTTPStatus.FORBIDDEN, {"error": str(exc)})
-                return
             self._send_json(HTTPStatus.OK, {"status": "ok"})
             return
-        static_files = {
-            "/": ("index.html", "text/html; charset=utf-8"),
-            "/app.js": ("app.js", "text/javascript; charset=utf-8"),
-            "/styles.css": ("styles.css", "text/css; charset=utf-8"),
-        }
-        selected = static_files.get(path)
-        if selected is None:
+        static_file = self._resolve_static_file(path)
+        if static_file is None:
             self.send_error(HTTPStatus.NOT_FOUND)
             return
-        filename, content_type = selected
-        content = (STATIC_ROOT / filename).read_bytes()
+        content = static_file.read_bytes()
         self.send_response(HTTPStatus.OK)
-        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Type", _content_type_for(static_file))
         self.send_header("Content-Length", str(len(content)))
-        self.send_header("Cache-Control", "no-store")
+        self._send_no_cache_headers()
+        supplied_query = self._query_access_token()
+        if self.server.access_token is not None and supplied_query is not None:
+            self.send_header("Set-Cookie", f"pne_workbench_token={supplied_query}; Path=/; HttpOnly; SameSite=Strict")
         self.end_headers()
         self.wfile.write(content)
 
     def do_POST(self) -> None:
         path = urlparse(self.path).path
         try:
-            self._require_api_access()
+            self._require_access()
             if path == "/api/stage-evidence":
                 self._stage_evidence()
             elif path == "/api/validate":
@@ -97,20 +101,48 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
                         _required_text(request, "kind"), declarations, staged_evidence
                     )
                 })
+            elif path == "/api/generate-draft-tracklist":
+                request = self._read_json()
+                provider = _required_text(request, "provider")
+                source_keys = request.get("source_keys", [])
+                if not isinstance(source_keys, list) or not all(isinstance(item, str) for item in source_keys):
+                    raise ValueError("source_keys must be a list of exact staged-source keys")
+                supplied_text = request.get("supplied_text")
+                if supplied_text is not None and not isinstance(supplied_text, str):
+                    raise ValueError("supplied_text must be text when supplied")
+                selected_provider = draft_track_provider(provider)
+                extracted = generate_draft_tracks(selected_provider, tuple(source_keys), supplied_text)
+                self._send_json(HTTPStatus.OK, extracted.to_dict())
             else:
                 self.send_error(HTTPStatus.NOT_FOUND)
         except PermissionError as exc:
             self._send_json(HTTPStatus.FORBIDDEN, {"error": str(exc)})
+        except DraftTrackGenerationError as exc:
+            self._send_json(HTTPStatus.BAD_GATEWAY, {"error": str(exc)})
         except (ValueError, json.JSONDecodeError) as exc:
             self._send_json(HTTPStatus.BAD_REQUEST, {"error": str(exc)})
 
-    def _require_api_access(self) -> None:
+    def _require_access(self) -> None:
         expected = self.server.access_token
         if expected is None:
             return
-        supplied = self.headers.get("X-Workbench-Token", "")
+        supplied = self.headers.get("X-Workbench-Token") or self._query_access_token() or self._cookie_access_token() or ""
         if not secrets.compare_digest(supplied, expected):
             raise PermissionError("valid workbench session token required")
+
+    def _query_access_token(self) -> str | None:
+        from urllib.parse import parse_qs
+
+        values = parse_qs(urlparse(self.path).query)
+        supplied = values.get("session") or values.get("token")
+        return supplied[0] if supplied else None
+
+    def _cookie_access_token(self) -> str | None:
+        for item in self.headers.get("Cookie", "").split(";"):
+            name, separator, value = item.strip().partition("=")
+            if separator and name == "pne_workbench_token":
+                return value
+        return None
 
     def _execute(self, operation: str, request: dict[str, Any]) -> dict[str, object]:
         kind = _required_text(request, "kind")
@@ -119,6 +151,21 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
             if operation == "validate":
                 return operations.validate(kind, request.get("proposal"))
             return operations.ingest(kind, request.get("proposal"))
+
+    def _resolve_static_file(self, path: str) -> Path | None:
+        relative = "index.html" if path == "/" else path.lstrip("/")
+        if not relative:
+            return None
+        candidate = (STATIC_ROOT / relative).resolve()
+        try:
+            candidate.relative_to(STATIC_ROOT.resolve())
+        except ValueError:
+            return None
+        if not candidate.is_file():
+            return None
+        if candidate.suffix not in {".html", ".js", ".css"}:
+            return None
+        return candidate
 
     def _stage_evidence(self) -> None:
         filename = self.headers.get("X-Original-Filename")
@@ -153,12 +200,28 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(content)))
-        self.send_header("Cache-Control", "no-store")
+        self._send_no_cache_headers()
         self.end_headers()
         self.wfile.write(content)
 
+    def _send_no_cache_headers(self) -> None:
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
+
     def log_message(self, format: str, *args: object) -> None:
         return
+
+
+def _content_type_for(path: Path) -> str:
+    if path.suffix == ".js":
+        return "text/javascript; charset=utf-8"
+    if path.suffix == ".css":
+        return "text/css; charset=utf-8"
+    if path.suffix == ".html":
+        return "text/html; charset=utf-8"
+    guessed, _ = mimetypes.guess_type(path.name)
+    return guessed or "application/octet-stream"
 
 
 def _required_text(document: dict[str, Any], field: str) -> str:
@@ -176,9 +239,47 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--lan",
         action="store_true",
-        help="Listen on the local network with a random API access token",
+        help="Listen without authentication on a trusted local network",
+    )
+    parser.add_argument(
+        "--secure",
+        action="store_true",
+        help="Require a fresh session token for LAN access (requires --lan)",
     )
     return parser
+
+
+@dataclass(frozen=True)
+class WorkbenchLaunchMode:
+    name: str
+    bind_host: str
+    access_token: str | None
+
+
+def resolve_launch_mode(*, lan: bool, secure: bool) -> WorkbenchLaunchMode:
+    if secure and not lan:
+        raise ValueError("--secure requires --lan")
+    if not lan:
+        return WorkbenchLaunchMode("localhost", "127.0.0.1", None)
+    if not secure:
+        return WorkbenchLaunchMode("trusted LAN", "0.0.0.0", None)
+    return WorkbenchLaunchMode("protected LAN", "0.0.0.0", secrets.token_urlsafe(24))
+
+
+def startup_lines(mode: WorkbenchLaunchMode, port: int, addresses: list[str]) -> list[str]:
+    lines = ["Maestro Evidence Workbench", f"Mode: {mode.name}"]
+    if mode.name == "localhost":
+        return lines + [f"Open: http://127.0.0.1:{port}"]
+    if mode.name == "trusted LAN":
+        lines += [
+            "WARNING: Trusted LAN mode enabled.",
+            "This workbench is accessible to devices on your local network.",
+            "Use only on networks you trust.",
+            "Open:",
+        ]
+        return lines + [f"http://{address}:{port}" for address in addresses]
+    lines += ["Session token generated for this launch.", "Open:"]
+    return lines + [f"http://{address}:{port}/?session={mode.access_token}" for address in addresses]
 
 
 def _local_ipv4_addresses() -> list[str]:
@@ -192,22 +293,20 @@ def _local_ipv4_addresses() -> list[str]:
 
 def main() -> None:
     args = build_parser().parse_args()
+    try:
+        mode = resolve_launch_mode(lan=args.lan, secure=args.secure)
+    except ValueError as exc:
+        build_parser().error(str(exc))
     initialize_research_store(args.database_url)
-    access_token = secrets.token_urlsafe(24) if args.lan else None
-    bind_host = "0.0.0.0" if args.lan else "127.0.0.1"
     server = MaestroWorkbenchServer(
-        (bind_host, args.port),
+        (mode.bind_host, args.port),
         database_url=args.database_url,
         staging_root=args.staging_root,
-        access_token=access_token,
+        access_token=mode.access_token,
     )
-    if args.lan:
-        print("Maestro Workbench LAN access is enabled for this session.")
-        for address in _local_ipv4_addresses():
-            print(f"  http://{address}:{server.server_port}/?token={access_token}")
-        print("Keep this tokenized URL private. Press Ctrl+C to stop LAN access.")
-    else:
-        print(f"Maestro Workbench listening at http://127.0.0.1:{server.server_port}")
+    addresses = _local_ipv4_addresses() if args.lan else ["127.0.0.1"]
+    for line in startup_lines(mode, server.server_port, addresses):
+        print(line)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

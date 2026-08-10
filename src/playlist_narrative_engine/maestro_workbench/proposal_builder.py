@@ -80,8 +80,13 @@ def _build_tracks(items: object, sources: list[dict[str, Any]]) -> list[dict[str
         artist = _optional_text(item.get("artist"))
         if title is None and artist is None:
             raise ValueError(f"track {index} requires an explicit title or artist")
-        source_key = item.get("source_key")
-        if source_key is not None and source_key not in valid_keys:
+        source_keys = item.get("source_keys")
+        if source_keys is None:
+            source_key = item.get("source_key")
+            source_keys = [] if source_key is None else [source_key]
+        if not isinstance(source_keys, list) or not all(isinstance(key, str) for key in source_keys):
+            raise ValueError(f"track {index} source_keys must be an explicit list")
+        if any(key not in valid_keys for key in source_keys):
             raise ValueError(f"track {index} references an unknown staged source")
         track = {
             "observed_ordinal": index,
@@ -90,18 +95,23 @@ def _build_tracks(items: object, sources: list[dict[str, Any]]) -> list[dict[str
             "absolute_position": item.get("absolute_position"),
             "title": title,
             "artist": artist,
+            "version_or_remaster_text": _optional_text(item.get("version_or_remaster_text")),
+            "notes": _optional_text(item.get("notes")),
             "canonical_identity_established": _required_bool(item, "canonical_identity_established"),
             "evidence": [],
         }
-        if source_key is not None:
+        if source_keys:
             provenance = item.get("provenance_type", "DIRECT_OBSERVATION")
-            for field in ("title", "artist", "absolute_position"):
-                if track[field] is not None:
-                    track["evidence"].append({
-                        "source_key": source_key,
-                        "field_name": field,
-                        "provenance_type": provenance,
-                    })
+            support_status = item.get("support_status", "FULL")
+            for source_key in source_keys:
+                for field in ("title", "artist", "absolute_position", "version_or_remaster_text"):
+                    if track[field] is not None:
+                        track["evidence"].append({
+                            "source_key": source_key,
+                            "field_name": field,
+                            "provenance_type": provenance,
+                            "support_status": support_status,
+                        })
         result.append(track)
     return result
 
@@ -164,6 +174,7 @@ def _build_top_level_evidence(
             "source_key": source_key,
             "field_name": _required_text(mapping, "field_name"),
             "provenance_type": _required_text(mapping, "provenance_type"),
+            "support_status": mapping.get("support_status", "FULL"),
         })
     return result
 
