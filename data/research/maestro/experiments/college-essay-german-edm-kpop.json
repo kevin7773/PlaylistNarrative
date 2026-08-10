@@ -1,0 +1,1158 @@
+{
+  "prompt": "Soundtrack for an unprepared college student writing an essay that is 50% of his exam, using only German EDM and K-pop",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Last Minute Essay Survival Soundtrack",
+  "generated_description": "Panic-fueled productivity powered by German beats and K-Pop energy",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 41,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Historical Maestro Beta constrained-genre intervention for the college-student scenario. Save Playlist is captured UI state only. Persistent Mr. Brightside / The Killers now-playing UI is excluded. Comparative interpretation remains non-authoritative HUMAN_ASSESSMENT.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies exact constrained prompt and comparative research assessment",
+      "notes": "USER_ATTESTED conversation evidence; not screenshot-derived and does not establish generated_at, requested count, saved status, later edits, or Maestro internals."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Last Minute Essay Survival Soundtrack original Maestro capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\1-Photo-1.jpg",
+      "sha256": "6ccd6885a96f5f8d9483872f29cf390882fdba24559a81d902f2709592955f14"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Last Minute Essay Survival Soundtrack original Maestro capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\2-Photo-2.jpg",
+      "sha256": "371848203d1b3f87c3f106303290af5fb4575038a49418677f871542d4f4b832"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Last Minute Essay Survival Soundtrack original Maestro capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\3-Photo-3.jpg",
+      "sha256": "94fbf6ede54f1bafe0baeecbb556eefaaa9e20aac34d589227a3aff61f2170be"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Last Minute Essay Survival Soundtrack original Maestro capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\4-Photo-4.jpg",
+      "sha256": "8e2b816d06379037d594069c88003dcb83f02525004658db895a4efa3fcc650b"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Last Minute Essay Survival Soundtrack original Maestro capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\5-Photo-5.jpg",
+      "sha256": "2e11f18c7e84ae486cc43347277d8dcd50a359cf785aa79694cf28b7d581e58b"
+    },
+    {
+      "source_key": "capture_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Last Minute Essay Survival Soundtrack original Maestro capture 6",
+      "original_filename": "6-Photo-6.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\6-Photo-6.jpg",
+      "sha256": "da2ca475992e4878b5692f3c9e942619fe173ad138d89e4745c945dba248e68e"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "user_attestation",
+      "field_name": "prompt",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "notes": "Direct observation of the user's exact prompt attestation; not screenshot-derived."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_track_count",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Count reconciled from continuous capture and terminal boundary."
+    },
+    {
+      "source_key": "capture_6",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Complete start-to-end capture with continuous overlaps and visible whitespace after DUN DUN."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Sugar (feat. Francesco Yates)",
+      "artist": "Robin Schulz, Francesco Yates",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "DDU-DU DDU-DU",
+      "artist": "BLACKPINK",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Sky and Sand",
+      "artist": "Paul Kalkbrenner",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Burning Up (Fire)",
+      "artist": "BTS",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Ain't Nobody (Loves Me Better) [feat. Jasmine Thompson]",
+      "artist": "felix jaehn, Jasmine Thompson",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "FANCY",
+      "artist": "TWICE",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Clarity [feat. Foxes]",
+      "artist": "Zedd, Foxes",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "God’s Menu",
+      "artist": "Stray Kids",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Breaking Me",
+      "artist": "Topic, A7S",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "WANNABE",
+      "artist": "ITZY",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "9Pm (Till I Come)",
+      "artist": "ATB",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Monster",
+      "artist": "EXO",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Bad Ideas",
+      "artist": "Alle Farben",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "Psycho",
+      "artist": "Red Velvet",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "Glad You Came",
+      "artist": "VIZE",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "HOT",
+      "artist": "SEVENTEEN",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Hypnotized",
+      "artist": "Purple Disco Machine, Sophie and the Giants",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Savage",
+      "artist": "aespa",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Kick It",
+      "artist": "NCT 127",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "How Much Is The Fish?",
+      "artist": "Scooter",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Drunk-Dazed",
+      "artist": "ENHYPEN",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "Everytime We Touch",
+      "artist": "Cascada",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Celebrity",
+      "artist": "IU",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Freaks [Explicit]",
+      "artist": "Timmy Trumpet, Savage",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "explicit_flag"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "0X1=LOVESONG (I Know I Love You) feat. Seori",
+      "artist": "TOMORROW X TOGETHER, Seori",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Our Own Way (THT & Ced Tecknoboy Bootleg Mix Edit)",
+      "artist": "Klaas",
+      "version_or_remaster_text": "THT & Ced Tecknoboy Bootleg Mix Edit",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "HIP",
+      "artist": "MAMAMOO",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Drop That Low (When I Dip)",
+      "artist": "Tujamo",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "ANTIFRAGILE",
+      "artist": "LE SSERAFIM",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "You're Under Control",
+      "artist": "Neelix",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "TOMBOY",
+      "artist": "i-dle",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Customer Is King",
+      "artist": "Solomun",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Hype Boy",
+      "artist": "NewJeans",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Champs",
+      "artist": "Moguai",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "Wonderland (Japanese Ver.)",
+      "artist": "ATEEZ",
+      "version_or_remaster_text": "Japanese Ver.",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "Wizards Of The Sonic (Mark Sherry Remix)",
+      "artist": "WestBam",
+      "version_or_remaster_text": "Mark Sherry Remix",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "LOVE DIVE",
+      "artist": "IVE",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "She Moves",
+      "artist": "Alle Farben, Graham Candy",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "GAMBLER",
+      "artist": "MONSTA X",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 40,
+      "evidence_segment": 1,
+      "segment_ordinal": 40,
+      "absolute_position": 40,
+      "title": "Piece Of Your Heart",
+      "artist": "Meduza, GOODBOYS",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 41,
+      "evidence_segment": 1,
+      "segment_ordinal": 41,
+      "absolute_position": 41,
+      "title": "DUN DUN",
+      "artist": "EVERGLOW",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "The initial Maestro result screen visibly shows Save Playlist.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Capture 1; does not establish eventual saved status."
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The supplied captures visibly show device clocks of 9:09–9:10.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "UI context only; not treated as generated_at."
+    },
+    {
+      "observation_type": "CONSTRAINT_INTERVENTION_COMPARISON",
+      "observation_text": "Compared with the unconstrained college-student baseline, the explicit German EDM and K-pop constraint appears to move the catalog substantially away from the repeatedly observed indie-pop/upbeat-pop neighborhood.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Research assessment relevant to constraint-strength/default-basin hypotheses; not a claim about Maestro internals."
+    }
+  ],
+  "prompt_labels": []
+}

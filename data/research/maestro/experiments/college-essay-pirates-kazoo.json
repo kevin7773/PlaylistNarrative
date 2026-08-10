@@ -1,0 +1,1012 @@
+{
+  "prompt": null,
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Cramming with Chaotic Epic Energy",
+  "generated_description": "Epic yet whimsical anthems for last-minute academic heroics",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": null,
+  "saved": null,
+  "tracklist_completeness": "PARTIAL",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Historical Maestro Beta semantic/timbral intervention. The exact submitted prompt is not preserved as one verbatim string; only the separately attested scenario and additional constraint are retained in observations. Save Playlist is captured UI state only. Mr. Brightside is an actual playlist placement here; the persistent footer instance is excluded. Terminal boundary is not captured.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies underlying scenario, additional Pirates/kazoo constraint, characterization, hypotheses, and design analysis",
+      "notes": "USER_ATTESTED conversation evidence; not screenshot-derived and does not establish generated_at, requested count, saved status, later edits, or Maestro internals."
+    },
+    {
+      "source_key": "capture_7",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Cramming with Chaotic Epic Energy original Maestro capture 7",
+      "original_filename": "7-Photo-7.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\7-Photo-7.jpg",
+      "sha256": "8bc299eda09251541ac88c40300e2e9a9cc9c2962490844b11765906a33dee8f"
+    },
+    {
+      "source_key": "capture_8",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Cramming with Chaotic Epic Energy original Maestro capture 8",
+      "original_filename": "8-Photo-8.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\8-Photo-8.jpg",
+      "sha256": "959a4c44144a6d541df9f8f4e0f9167e552ed565b01a4d544b10a34f5fbd917d"
+    },
+    {
+      "source_key": "capture_9",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Cramming with Chaotic Epic Energy original Maestro capture 9",
+      "original_filename": "9-Photo-9.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\9-Photo-9.jpg",
+      "sha256": "4da2bd9f1ea0a824d8d726d65bf460a9b27ea912175f0df748883e0b670c1797"
+    },
+    {
+      "source_key": "capture_10",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Cramming with Chaotic Epic Energy original Maestro capture 10",
+      "original_filename": "10-Photo-10.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2A3BCD80-36AF-4E8C-813C-B10E605973BE\\10-Photo-10.jpg",
+      "sha256": "7a6bed45eaabd6341202781f141907b30a912d04f72891da8fa1810412db1c18"
+    },
+    {
+      "source_key": "capture_11",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Cramming with Chaotic Epic Energy original Maestro continuation capture",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\EA6F669A-E1F0-4F20-80BD-732BF56209A4\\1-Photo-1.jpg",
+      "sha256": "71901323692d12e327701ec5424b3156226707ac5b47e2a58931e1879faefc6e"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "capture_7",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_7",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_7",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_11",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "A continuous sequence beginning at position 1 survives, but the final capture does not establish the playlist endpoint."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "NO",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "No terminal whitespace or endpoint marker is captured after Figure It Out."
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "What You Know",
+      "artist": "Two Door Cinema Club",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "Radioactive",
+      "artist": "Imagine Dragons",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Pompeii",
+      "artist": "Bastille",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Pumped Up Kicks",
+      "artist": "Foster The People",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Shut Up and Dance",
+      "artist": "WALK THE MOON",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "Victorious (Live at Amway Center, Orlando, FL, 4/14/2017)",
+      "artist": "Panic! At The Disco",
+      "version_or_remaster_text": "Live at Amway Center, Orlando, FL, 4/14/2017",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Stressed Out",
+      "artist": "Twenty One Pilots",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Centuries",
+      "artist": "Fall Out Boy",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Mr. Brightside",
+      "artist": "The Killers",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Counting Stars",
+      "artist": "OneRepublic",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "Uprising",
+      "artist": "Muse",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Do I Wanna Know?",
+      "artist": "Arctic Monkeys",
+      "evidence": [
+        {
+          "source_key": "capture_8",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_8",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Sail",
+      "artist": "AWOLNATION",
+      "evidence": [
+        {
+          "source_key": "capture_9",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "Feel It Still",
+      "artist": "Portugal. The Man",
+      "evidence": [
+        {
+          "source_key": "capture_9",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "Ain't No Rest for the Wicked",
+      "artist": "Cage The Elephant",
+      "evidence": [
+        {
+          "source_key": "capture_9",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "My Body",
+      "artist": "Young The Giant",
+      "evidence": [
+        {
+          "source_key": "capture_9",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Reptilia",
+      "artist": "The Strokes",
+      "evidence": [
+        {
+          "source_key": "capture_9",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Take Me Out",
+      "artist": "Franz Ferdinand",
+      "evidence": [
+        {
+          "source_key": "capture_9",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Help I'm Alive",
+      "artist": "Metric",
+      "evidence": [
+        {
+          "source_key": "capture_9",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Lisztomania",
+      "artist": "Phoenix",
+      "evidence": [
+        {
+          "source_key": "capture_9",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_9",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Electric Feel",
+      "artist": "MGMT",
+      "evidence": [
+        {
+          "source_key": "capture_10",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "A-Punk",
+      "artist": "Vampire Weekend",
+      "evidence": [
+        {
+          "source_key": "capture_10",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Tongue Tied",
+      "artist": "Grouplove",
+      "evidence": [
+        {
+          "source_key": "capture_10",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Animal",
+      "artist": "Neon Trees",
+      "evidence": [
+        {
+          "source_key": "capture_10",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "Safe and Sound",
+      "artist": "Capital Cities",
+      "evidence": [
+        {
+          "source_key": "capture_10",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "I Wanna Get Better",
+      "artist": "Bleachers",
+      "evidence": [
+        {
+          "source_key": "capture_10",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "HandClap",
+      "artist": "Fitz & The Tantrums",
+      "evidence": [
+        {
+          "source_key": "capture_10",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_10",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "My Type",
+      "artist": "Saint Motel",
+      "evidence": [
+        {
+          "source_key": "capture_11",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Dreaming",
+      "artist": "Smallpools",
+      "evidence": [
+        {
+          "source_key": "capture_11",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "Reflections",
+      "artist": "MisterWives",
+      "evidence": [
+        {
+          "source_key": "capture_11",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "Talk Too Much",
+      "artist": "COIN",
+      "evidence": [
+        {
+          "source_key": "capture_11",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Let's Dance to Joy Division",
+      "artist": "The Wombats",
+      "evidence": [
+        {
+          "source_key": "capture_11",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Kathleen",
+      "artist": "Catfish & the Bottlemen",
+      "evidence": [
+        {
+          "source_key": "capture_11",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Amsterdam [Explicit]",
+      "artist": "Nothing But Thieves",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_11",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "explicit_flag"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "Figure It Out",
+      "artist": "Royal Blood",
+      "evidence": [
+        {
+          "source_key": "capture_11",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_11",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from screenshot overlap and continuous ordered capture."
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [
+    {
+      "observation_type": "USER_ATTESTED_PROMPT_COMPONENTS",
+      "observation_text": "Underlying scenario: “Soundtrack for an unprepared college student writing an essay that is 50% of his exam” Additional constraint: “the sound should reflect the power of the theme from Pirates of the Caribbean as if it were being played through a kazoo.”",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Direct observation of the user's attestation. The exact combined submitted string and joining punctuation are unknown, so prompt remains NULL."
+    },
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "The initial Maestro result screen visibly shows Save Playlist.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Capture 7; does not establish eventual saved status."
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The supplied captures visibly show device clocks of 9:15–9:16.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "UI context only; not treated as generated_at."
+    },
+    {
+      "observation_type": "USER_CHARACTERIZATION_AHOY_BRUNCH",
+      "observation_text": "Ahoy Matey! X marks the brunch location!",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Humorous user characterization of convergence toward the previously observed upbeat indie/pop or Millennial Brunch neighborhood."
+    },
+    {
+      "observation_type": "DEFAULT_CATALOG_REALIZATION_HYPOTHESIS",
+      "observation_text": "Despite a radically different semantic/timbral constraint, the track selection appears to converge strongly toward the previously observed upbeat indie/pop neighborhood. A non-authoritative conceptual hypothesis is prompt semantics → experiential/latent representation → catalog realization, with strong semantic interpretation but possible collapse toward a high-prior/default catalog neighborhood.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Research hypothesis only; does not claim this architecture exists inside Maestro."
+    },
+    {
+      "observation_type": "NARRATIVE_REVALIDATION_DIAGNOSTIC",
+      "observation_text": "Repeated appearance of a track or artist associated with an observed fallback/default neighborhood could serve only as a signal for additional narrative scrutiny, never automatic rejection. Proposed diagnostic wording: “If track = Fitz, run narrative gate scan again.”",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Design analysis only. No production behavior or test is created. Candidate future test concept: test_fitz_requires_narrative_revalidation_not_rejection."
+    },
+    {
+      "observation_type": "FUTURE_CATALOG_OVERLAP_STUDY",
+      "observation_text": "Proposed future analysis: compare the three college-student variants and relevant prior experiments using exact-track overlap, artist overlap, neighborhood similarity, early/late sequence behavior, title/description adherence, and catalog adherence.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Proposed research direction only; no causal correlation is asserted."
+    }
+  ],
+  "prompt_labels": []
+}

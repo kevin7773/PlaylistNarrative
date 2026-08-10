@@ -1,0 +1,910 @@
+{
+  "prompt": "The internal monologue of a medieval peasant who just tasted processed sugar for the first time.",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "What Sorcery Is This Sweetness",
+  "generated_description": "Pure ecstasy, disbelief, and life-changing revelation in sound",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 30,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Historical Maestro Beta generation captured after it displayed Show Playlist. The UI state is preserved without inferring saved_by_user, save time, later edits, or a current persisted artifact. Persistent Mr. Brightside / The Killers now-playing UI is excluded. Research hypotheses and proposed design principles remain non-authoritative HUMAN_ASSESSMENT.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies exact prompt, characterization, research hypotheses, design analysis, and proposed controlled study",
+      "notes": "USER_ATTESTED evidence. Not screenshot-derived; does not establish generated_at, requested count, save action/status, later edits, or Maestro internals."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "What Sorcery Is This Sweetness original Maestro capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\88B00ED7-71A1-4396-BB4C-55EF9CAAE637\\1-Photo-1.jpg",
+      "sha256": "fcce3188765164a2710f111cb1abab84e6e15f790f0901c7fd4a8545abc380a1"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "What Sorcery Is This Sweetness original Maestro capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\88B00ED7-71A1-4396-BB4C-55EF9CAAE637\\2-Photo-2.jpg",
+      "sha256": "125c9099b7de654fd7a2ea4293fa8d80e5721f9309bb44fd1537a876c891981a"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "What Sorcery Is This Sweetness original Maestro capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\88B00ED7-71A1-4396-BB4C-55EF9CAAE637\\3-Photo-3.jpg",
+      "sha256": "e8594b4a61cfe82b04f256ffbb7028e6087bc54aa2b0c958d175f52c6b0eb1d1"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "What Sorcery Is This Sweetness original Maestro capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\88B00ED7-71A1-4396-BB4C-55EF9CAAE637\\4-Photo-4.jpg",
+      "sha256": "e8b8c898e2324645dd15e533a610347120ef65c610a5e711b1d2e852bfbf1538"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "What Sorcery Is This Sweetness original Maestro capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\88B00ED7-71A1-4396-BB4C-55EF9CAAE637\\5-Photo-5.jpg",
+      "sha256": "e682343092a3572a6e135809e22d8b1b1bf001d03d9f35a23afe66c49126de97"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "user_attestation",
+      "field_name": "prompt",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "notes": "Direct observation of the user's attestation; not screenshot-derived."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_track_count",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Count of the complete screenshot-supported sequence; no numeric count is displayed."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Playlist header, start, and first placement are visible."
+    },
+    {
+      "source_key": "capture_5",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Substantial playlist-body whitespace follows Oblivion."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "notes": "One complete sequence. Adjacent captures overlap on Perfect Places, On Top Of The World, Light On, and the Runaway / River region.",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Substantial whitespace follows Oblivion."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 1 to 2 overlap on Perfect Places [Explicit]."
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 2 to 3 overlap on On Top Of The World."
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 3 to 4 overlap on Light On."
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "continuity",
+          "provenance_type": "DIRECT_OBSERVATION",
+          "notes": "Capture 4 to 5 overlaps in the Runaway / River region."
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Dog Days Are Over",
+      "artist": "Florence + The Machine",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "Clearest Blue",
+      "artist": "CHVRCHES",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Almost (Sweet Music)",
+      "artist": "Hozier",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "That's What You Get",
+      "artist": "Paramore",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Perfect Places [Explicit]",
+      "artist": "Lorde",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "Colors",
+      "artist": "Halsey",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Can You Feel My Heart [Explicit]",
+      "artist": "Bring Me The Horizon",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Love It If We Made It [Explicit]",
+      "artist": "The 1975",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Garden Song",
+      "artist": "Phoebe Bridgers",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Enchanted",
+      "artist": "Taylor Swift",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "my future",
+      "artist": "Billie Eilish",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "On Top Of The World",
+      "artist": "Imagine Dragons",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Alive",
+      "artist": "Sia",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "Stressed Out",
+      "artist": "Twenty One Pilots",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "Happiness is a butterfly",
+      "artist": "Lana Del Rey",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "Summer Girl (Bonus Track)",
+      "artist": "HAIM",
+      "version_or_remaster_text": "Bonus Track",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "The Less I Know The Better [Explicit]",
+      "artist": "Tame Impala",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Holocene [Explicit]",
+      "artist": "Bon Iver",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Light On",
+      "artist": "Maggie Rogers",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "I Will Wait (Live)",
+      "artist": "Mumford & Sons",
+      "version_or_remaster_text": "Live",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "version_or_remaster_text"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Ophelia",
+      "artist": "The Lumineers",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "Little Talks",
+      "artist": "Of Monsters And Men",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Pompeii",
+      "artist": "Bastille",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Runaway",
+      "artist": "AURORA",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "River",
+      "artist": "Bishop Briggs",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Heat Waves",
+      "artist": "Glass Animals",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Breezeblocks",
+      "artist": "alt-J",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Midnight City",
+      "artist": "M83",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Gold Guns Girls",
+      "artist": "Metric",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "Oblivion",
+      "artist": "Grimes",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SHOW_PLAYLIST_UI_STATE",
+      "observation_text": "Show Playlist is visible in the initial screenshot. This directly establishes the captured UI state, but without explicit save attestation it is not promoted to saved_by_user or a current persisted artifact.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "All five screenshots visibly show device time 8:42. This is not treated as generated_at.",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "observation_type": "USER_CHARACTERIZATION_NARRATIVE_DRIFT",
+      "observation_text": "The user characterized the result as: “It understood the assignment before it had a sugar crash and got lost in indie pop comfort zone weirdness.” This is a HUMAN_ASSESSMENT, not direct system behavior.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "SEMANTIC_ABSTRACTION_STRENGTH",
+      "observation_text": "The title and description appear to abstract the scenario as unexpected sensation, disbelief, ecstasy, and life-changing revelation rather than relying on literal lexical matching. The early playlist appears comparatively consistent with that abstraction.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "LATE_SEQUENCE_PROMPT_SPECIFIC_DRIFT",
+      "observation_text": "Later positions appear weaker in prompt-specific and narrative relevance and increasingly resemble broadly compatible indie, alternative, and pop selections. Unlike the Vikings in Neon Tokyo aggregation case, this is assessed as early abstraction followed by later drift toward a compatible comfort zone.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "DEFAULT_LENGTH_TARGET_HYPOTHESIS",
+      "observation_text": "A cautious cross-experiment hypothesis is that construction may normally favor a target near forty tracks but can terminate early; as prompt-specific confidence declines, different paths may stop or broaden candidate acceptance. The four-track Revenge generation directly contradicts any claim that Maestro always generates forty tracks. No internal mechanism or causal claim is established.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "TRACK_COUNT_CONFIDENCE_DESIGN_ANALYSIS",
+      "observation_text": "Non-authoritative Penny design analysis: track-count satisfaction should not outrank narrative confidence. A shorter coherent playlist may be preferable to a longer playlist whose later positions have progressively weaker narrative justification. This is not production or constitutional policy.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "PROPOSED_LENGTH_CONTROLLED_EXPERIMENT",
+      "observation_text": "Proposed future study, not executed: repeat one narrow semantic prompt with no count, exactly 10, exactly 20, exactly 40, and an instruction to stop when strong conceptual fit runs out. Compare length, relevance and coherence by position, drift point, artist/genre broadening, fallback patterns, termination, and retry variance.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    }
+  ],
+  "prompt_labels": []
+}
