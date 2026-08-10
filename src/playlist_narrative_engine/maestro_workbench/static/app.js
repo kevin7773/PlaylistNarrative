@@ -10,13 +10,16 @@ let validatedProposalSnapshot = null;
 let ingestionActive = false;
 
 const REQUIRED_HISTORICAL_CLAIMS = [
-  ["prompt", "Prompt"],
   ["source_system", "Source system"],
   ["generated_title", "Generated title"],
   ["generated_description", "Generated description"],
   ["generated_track_count", "Generated track count"],
   ["tracklist_completeness", "Tracklist completeness"],
 ];
+
+function promptAttestationSourceKey() {
+  return `source_${stagedEvidence.length + 1}`;
+}
 
 function apiHeaders(additional = {}) {
   return accessToken ? {...additional, "X-Workbench-Token": accessToken} : additional;
@@ -188,13 +191,21 @@ function optionalNumber(selector) {
 }
 
 function collectStagedEvidence() {
-  return stagedEvidence.map((item, index) => {
+  const sources = stagedEvidence.map((item, index) => {
     const card = stagedContainer.children[index];
     const sourceType = card.querySelector("[data-source-type]").value.trim();
     const sourceReference = card.querySelector("[data-source-reference]").value.trim();
     if (!sourceType || !sourceReference) throw new Error(`source_${index + 1} requires source type and source reference`);
     return {...item, source_type: sourceType, source_reference: sourceReference};
   });
+  if ($("#prompt-attested").checked) {
+    sources.push({
+      source_type: "CONVERSATION_USER_STATEMENT",
+      source_reference: "workbench:operator-prompt-attestation",
+      notes: "Operator explicitly attested that the supplied prompt is the exact original prompt.",
+    });
+  }
+  return sources;
 }
 
 function collectRows(containerSelector, rowSelector) {
@@ -218,12 +229,21 @@ function selectedValues(select) {
 function collectClaimEvidence() {
   const provenanceType = $("#evidence-provenance").value;
   const supportStatus = $("#evidence-support").value;
-  return [...document.querySelectorAll("[data-claim-field]")].flatMap(select => selectedValues(select).map(sourceKey => ({
+  const links = [...document.querySelectorAll("[data-claim-field]")].flatMap(select => selectedValues(select).map(sourceKey => ({
     source_key: sourceKey,
     field_name: select.dataset.claimField,
     provenance_type: provenanceType,
     support_status: supportStatus,
   })));
+  if ($("#prompt-attested").checked) {
+    links.push({
+      source_key: promptAttestationSourceKey(),
+      field_name: "prompt",
+      provenance_type: "HUMAN_ASSESSMENT",
+      support_status: "FULL",
+    });
+  }
+  return links;
 }
 
 function coverageByTrack(trackCount) {
@@ -271,7 +291,13 @@ function readinessIssues() {
   if (!stagedEvidence.length) issues.push("Stage evidence screenshots");
   else if (incompleteSources.length) issues.push(`Complete source declarations for screenshots ${incompleteSources.join(", ")}`);
   if (standard === "RECOVERED_HISTORICAL" && kind.value === "historical_experiment") {
-    if (!$("#prompt").value) issues.push("Enter the prompt being supported");
+    const promptPresent = Boolean($("#prompt").value);
+    const promptScreenshotSupport = selectedValues(document.querySelector("[data-claim-field='prompt']")).length > 0;
+    const promptAttested = $("#prompt-attested").checked;
+    if (!promptPresent) issues.push("Enter the prompt being supported");
+    else if (!promptScreenshotSupport && !promptAttested) {
+      issues.push("Support the prompt with a visible screenshot or explicitly attest the exact original prompt");
+    }
     if (!$("#source-system").value) issues.push("Enter the source system being supported");
     if (!$("#generated-title").value) issues.push("Enter the generated title being supported");
     if (!$("#generated-description").value) issues.push("Enter the generated description being supported");
@@ -656,6 +682,7 @@ function updateMode() {
   $("#artifact-fields").hidden = historical;
   proposal.value = "";
   confirmedTracks = null;
+  $("#prompt-attested").checked = false;
   $("#confirmed-summary").textContent = "No tracklist confirmed.";
   $("#confirmed-summary").classList.remove("confirmed");
   invalidateValidation("Mode changed. Build and validate a new proposal.");
@@ -720,7 +747,12 @@ $("#build").addEventListener("click", buildProposal);
 $("#validate").addEventListener("click", validateProposal);
 $("#ingest").addEventListener("click", ingestProposal);
 proposal.addEventListener("input", () => invalidateValidation());
-document.querySelectorAll("#evidence-standard, #captures-start, #captures-end, #evidence-provenance, #evidence-support, [data-claim-field], #source-system, #prompt, #generated-title, #generated-description, #notes")
+$("#prompt").addEventListener("input", () => {
+  $("#prompt-attested").checked = false;
+  invalidateValidation();
+  refreshReadiness();
+});
+document.querySelectorAll("#evidence-standard, #captures-start, #captures-end, #evidence-provenance, #evidence-support, [data-claim-field], #source-system, #prompt, #prompt-attested, #generated-title, #generated-description, #notes")
   .forEach(input => input.addEventListener("change", () => { invalidateValidation(); refreshReadiness(); }));
 renderStaged();
 updateMode();

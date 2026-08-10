@@ -65,6 +65,8 @@
         <legend>Historical experiment fields</legend>
         <div class="form-grid">
           <label class="wide">Prompt<textarea id="prompt" class="short" placeholder="Exact prompt, if supplied"></textarea></label>
+          <label class="wide attestation"><input id="prompt-attested" type="checkbox"> Record my operator attestation that the historical prompt entered above is accurate to the best of my knowledge (non-screenshot evidence).</label>
+          <p class="hint wide">Use this only when you personally know the prompt. It records an explicit human attestation; it does not claim that a screenshot contains the prompt.</p>
           <label>Prompt title<input id="prompt-title" type="text"></label>
           <label>Requested track count<input id="requested-count" type="number" min="0"></label>
           <label>Generated title<input id="generated-title" type="text"></label>
@@ -115,7 +117,7 @@
         <h4>Experiment claims</h4>
         <p class="hint">Select every screenshot that supports each claim. No relationship is inferred.</p>
         <div id="claim-evidence" class="claim-grid">
-          <label>Prompt supported by<select multiple size="3" data-claim-field="prompt" data-source-select></select></label>
+          <label>Prompt visibly supported by screenshot(s)<select multiple size="3" data-claim-field="prompt" data-source-select></select></label>
           <label>Source system supported by<select multiple size="3" data-claim-field="source_system" data-source-select></select></label>
           <label>Generated title supported by<select multiple size="3" data-claim-field="generated_title" data-source-select></select></label>
           <label>Generated description supported by<select multiple size="3" data-claim-field="generated_description" data-source-select></select></label>

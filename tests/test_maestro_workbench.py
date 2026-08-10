@@ -168,6 +168,47 @@ def test_structured_builder_copies_only_explicit_declarations() -> None:
     ]
 
 
+def test_structured_builder_accepts_explicit_non_file_evidence_source() -> None:
+    proposal = build_governed_proposal(
+        "historical_experiment",
+        {
+            "prompt": "Exact prompt",
+            "tracklist_completeness": "NOT_OBSERVED",
+            "evidence_standard": "RECOVERED_HISTORICAL",
+            "tracks": [],
+            "top_level_evidence": [{
+                "source_key": "source_1",
+                "field_name": "prompt",
+                "provenance_type": "HUMAN_ASSESSMENT",
+                "support_status": "FULL",
+            }, {
+                "source_key": "source_1",
+                "field_name": "tracklist_completeness",
+                "provenance_type": "HUMAN_ASSESSMENT",
+                "support_status": "FULL",
+            }],
+        },
+        [{
+            "source_type": "CONVERSATION_USER_STATEMENT",
+            "source_reference": "workbench:operator-prompt-attestation",
+            "notes": "Explicit operator declaration.",
+        }],
+    )
+
+    assert proposal["evidence_sources"] == [{
+        "source_key": "source_1",
+        "source_type": "CONVERSATION_USER_STATEMENT",
+        "source_reference": "workbench:operator-prompt-attestation",
+        "notes": "Explicit operator declaration.",
+    }]
+    assert proposal["evidence"][0] == {
+        "source_key": "source_1",
+        "field_name": "prompt",
+        "provenance_type": "HUMAN_ASSESSMENT",
+        "support_status": "FULL",
+    }
+
+
 def test_structured_builder_requires_explicit_declarations() -> None:
     with pytest.raises(ValueError, match="tracklist_completeness"):
         build_governed_proposal("historical_experiment", {"tracks": []}, [])
@@ -540,7 +581,7 @@ function buildEnvironment() {
   element("#draft-tracks");
   element("#overlap-suggestions");
   element("#raw-draft");
-  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#apply-source-type", "#bulk-source-type", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#generated-title", "#generated-description", "#notes"]) element(selector);
+  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#apply-source-type", "#bulk-source-type", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#generated-title", "#generated-description", "#notes"]) element(selector);
 
   const boundaryFields = [new FakeElement(), new FakeElement()];
   const document = {
@@ -704,7 +745,7 @@ function buildEnvironment() {
   element("#draft-tracks");
   element("#overlap-suggestions");
   element("#raw-draft");
-  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#apply-source-type", "#bulk-source-type", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#generated-title", "#generated-description", "#notes"]) element(selector);
+  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#apply-source-type", "#bulk-source-type", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#generated-title", "#generated-description", "#notes"]) element(selector);
 
   const boundaryFields = [new FakeElement(), new FakeElement()];
   const document = {
@@ -1228,6 +1269,7 @@ def test_realistic_historical_workbench_http_journey_builds_validates_ingests_an
         assert 'id="validation-status"' in html
         assert 'id="ingest-status"' in html
         assert 'data-claim-field="prompt"' in html
+        assert 'id="prompt-attested"' in html
         assert "function coverageByTrack(trackCount)" in javascript
         assert "function renderReadback(record, kindName)" in javascript
 
@@ -1265,10 +1307,15 @@ def test_realistic_historical_workbench_http_journey_builds_validates_ingests_an
                 "provenance_type": "DIRECT_OBSERVATION",
                 "support_status": "FULL",
             })
-        claim_fields = (
-            "prompt", "source_system", "generated_title", "generated_description",
+        screenshot_claim_fields = (
+            "source_system", "generated_title", "generated_description",
             "generated_track_count", "tracklist_completeness",
         )
+        staged.append({
+            "source_type": "CONVERSATION_USER_STATEMENT",
+            "source_reference": "workbench:operator-prompt-attestation",
+            "notes": "Operator explicitly attested that the supplied prompt is exact.",
+        })
         declarations = {
             "prompt": "Songs that accurately capture the exact emotional frequency of a medieval peasant watching a wheelbarrow break for the third time that week.",
             "source_system": "Maestro Beta",
@@ -1285,7 +1332,12 @@ def test_realistic_historical_workbench_http_journey_builds_validates_ingests_an
                 "field_name": field,
                 "provenance_type": "DIRECT_OBSERVATION",
                 "support_status": "FULL",
-            } for field in claim_fields],
+            } for field in screenshot_claim_fields] + [{
+                "source_key": "source_7",
+                "field_name": "prompt",
+                "provenance_type": "HUMAN_ASSESSMENT",
+                "support_status": "FULL",
+            }],
         }
         built = post_json("/api/build-proposal", {
             "kind": "historical_experiment",
@@ -1293,8 +1345,11 @@ def test_realistic_historical_workbench_http_journey_builds_validates_ingests_an
             "staged_evidence": staged,
         })["proposal"]
         assert len(built["tracks"]) == 40
-        assert len(built["evidence_sources"]) == 6
+        assert len(built["evidence_sources"]) == 7
         assert len(built["evidence"]) == 6
+        prompt_link = next(link for link in built["evidence"] if link["field_name"] == "prompt")
+        assert prompt_link["source_key"] == "source_7"
+        assert prompt_link["provenance_type"] == "HUMAN_ASSESSMENT"
 
         validation = post_json("/api/validate", {"kind": "historical_experiment", "proposal": built})
         assert validation == {
@@ -1315,8 +1370,8 @@ def test_realistic_historical_workbench_http_journey_builds_validates_ingests_an
         assert record["tracklist_completeness"] == "COMPLETE"
         assert len(record["tracks"]) == 40
         assert [track["position"] for track in record["tracks"]] == list(range(1, 41))
-        assert len(record["evidence_sources"]) == 6
-        assert {link["field_name"] for link in record["evidence"]} == set(claim_fields)
+        assert len(record["evidence_sources"]) == 7
+        assert {link["field_name"] for link in record["evidence"]} == set(screenshot_claim_fields) | {"prompt"}
         assert all(track["evidence"] for track in record["tracks"])
         with open_research_store_service(database_url) as service:
             assert service.get_experiment(1) == record
@@ -1335,6 +1390,11 @@ def test_workbench_operator_lifecycle_is_local_and_fail_closed() -> None:
     for status_id in ("stage-status", "build-status", "validation-status", "ingest-status"):
         assert f'id="{status_id}"' in html
     assert '<option value="">Select explicitly…</option><option>CONTEMPORARY_MANUAL</option>' in html
+    assert 'id="prompt-attested"' in html
+    assert 'source_type: "CONVERSATION_USER_STATEMENT"' in javascript
+    assert 'provenance_type: "HUMAN_ASSESSMENT"' in javascript
+    assert "Support the prompt with a visible screenshot or explicitly attest" in javascript
+    assert '$("#prompt-attested").checked = false;' in javascript
     assert "Cannot build yet:" in javascript
     assert "missing_prerequisites: issues" in javascript
     assert "returned a malformed response" in javascript

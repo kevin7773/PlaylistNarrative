@@ -57,14 +57,16 @@ def _build_sources(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for index, item in enumerate(items, start=1):
         source_type = _required_text(item, "source_type")
         source_reference = _required_text(item, "source_reference")
-        sources.append({
+        source = {
             "source_key": f"source_{index}",
             "source_type": source_type,
             "source_reference": source_reference,
-            "original_filename": _required_text(item, "original_filename"),
-            "local_path": _required_text(item, "local_path"),
-            "sha256": _required_text(item, "sha256"),
-        })
+        }
+        for field in ("original_filename", "local_path", "sha256", "notes"):
+            value = _optional_text(item.get(field))
+            if value is not None:
+                source[field] = value
+        sources.append(source)
     return sources
 
 
