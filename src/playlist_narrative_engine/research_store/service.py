@@ -2,12 +2,18 @@ from __future__ import annotations
 
 import hashlib
 from collections.abc import Callable
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Generic, Literal, TypeVar
+from typing import Generic, Iterator, Literal, TypeVar
 
 from pydantic import ValidationError
 
+from playlist_narrative_engine.research_store.database import (
+    make_research_engine,
+    make_research_session_factory,
+)
+from playlist_narrative_engine.research_store.migrations import migrate_research_database
 from playlist_narrative_engine.research_store.repository import ResearchRepository
 from playlist_narrative_engine.research_store.schemas import (
     EvidenceSourceInput,
@@ -131,6 +137,22 @@ class ResearchStoreService:
         finally:
             if not transaction_already_active and session.in_transaction():
                 session.rollback()
+
+
+def initialize_research_store(database_url: str | None = None) -> int:
+    """Prepare the isolated research store without exposing its persistence objects."""
+    return migrate_research_database(make_research_engine(database_url))
+
+
+@contextmanager
+def open_research_store_service(
+    database_url: str | None = None,
+) -> Iterator[ResearchStoreService]:
+    """Open one service scope while keeping repository and session wiring private."""
+    engine = make_research_engine(database_url)
+    sessions = make_research_session_factory(engine)
+    with sessions() as session:
+        yield ResearchStoreService(ResearchRepository(session))
 
 
 def _validate(model_type: type[ValidatedValue], proposal: object) -> ValidationResult[ValidatedValue]:

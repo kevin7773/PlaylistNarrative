@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maestro Evidence Workbench</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Playlist Narrative Engine</p>
+      <h1>Maestro Evidence Workbench</h1>
+      <p class="boundary">Collect. Display. Invoke. This interface does not decide provenance, completeness, boundaries, identity, or correlation.</p>
+    </header>
+
+    <section class="panel">
+      <h2>1. Intake mode</h2>
+      <label for="kind">Governed record type</label>
+      <select id="kind">
+        <option value="historical_experiment">Historical generation experiment</option>
+        <option value="current_persisted_artifact">Current persisted artifact</option>
+      </select>
+      <p class="hint">Recovery leads are intentionally unsupported.</p>
+    </section>
+
+    <section class="panel">
+      <h2>2. Stage original evidence</h2>
+      <input id="evidence-files" type="file" multiple accept="image/*">
+      <button id="stage" type="button">Stage selected originals</button>
+      <div id="staged" class="results" aria-live="polite"></div>
+    </section>
+
+    <section class="panel editor-panel">
+      <h2>3. Prepare governed proposal</h2>
+      <p class="hint">Edit a proposal explicitly. Staged evidence is not inserted automatically.</p>
+      <textarea id="proposal" spellcheck="false"></textarea>
+      <div class="actions">
+        <button id="validate" type="button">Validate without writing</button>
+        <button id="ingest" class="danger" type="button">Ingest one reviewed record</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>4. Result</h2>
+      <pre id="result" aria-live="polite">No operation performed.</pre>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
