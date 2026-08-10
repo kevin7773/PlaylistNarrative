@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Generic, Literal, TypeVar
@@ -91,7 +92,7 @@ class ResearchStoreService:
     def ingest_experiment(self, proposal: ExperimentInput) -> IngestedRecord:
         _require_type(proposal, ExperimentInput)
         record_id = self._repository.insert_experiment(proposal)
-        record = self._repository.get_experiment(record_id)
+        record = self._read_experiment(record_id)
         if record is None:
             raise RuntimeError("inserted experiment could not be read back")
         return IngestedRecord("experiment", record_id, record)
@@ -101,16 +102,35 @@ class ResearchStoreService:
     ) -> IngestedRecord:
         _require_type(proposal, PersistedPlaylistArtifactInput)
         record_id = self._repository.insert_persisted_artifact(proposal)
-        record = self._repository.get_persisted_artifact(record_id)
+        record = self._read_persisted_artifact(record_id)
         if record is None:
             raise RuntimeError("inserted persisted artifact could not be read back")
         return IngestedRecord("persisted_artifact", record_id, record)
 
     def get_experiment(self, record_id: int) -> dict[str, object] | None:
-        return self._repository.get_experiment(record_id)
+        return self._read_experiment(record_id)
 
     def get_persisted_artifact(self, record_id: int) -> dict[str, object] | None:
-        return self._repository.get_persisted_artifact(record_id)
+        return self._read_persisted_artifact(record_id)
+
+    def _read_experiment(self, record_id: int) -> dict[str, object] | None:
+        return self._read_projection(self._repository.get_experiment, record_id)
+
+    def _read_persisted_artifact(self, record_id: int) -> dict[str, object] | None:
+        return self._read_projection(self._repository.get_persisted_artifact, record_id)
+
+    def _read_projection(
+        self,
+        reader: Callable[[int], dict[str, object] | None],
+        record_id: int,
+    ) -> dict[str, object] | None:
+        session = self._repository.session
+        transaction_already_active = session.in_transaction()
+        try:
+            return reader(record_id)
+        finally:
+            if not transaction_already_active and session.in_transaction():
+                session.rollback()
 
 
 def _validate(model_type: type[ValidatedValue], proposal: object) -> ValidationResult[ValidatedValue]:

@@ -6,12 +6,13 @@ import json
 from playlist_narrative_engine.research_store.database import make_research_engine, make_research_session_factory
 from playlist_narrative_engine.research_store.exporter import export_csv_bundle, export_json
 from playlist_narrative_engine.research_store.importer import (
-    import_experiment_documents, import_persisted_artifact_documents,
-    import_research_export,
+    import_research_export, load_experiment_documents,
+    load_persisted_artifact_documents,
 )
 from playlist_narrative_engine.research_store.migrations import migrate_research_database
 from playlist_narrative_engine.research_store.repository import ResearchRepository
 from playlist_narrative_engine.research_store.schemas import ConstraintStatus, GenerationFailureInput
+from playlist_narrative_engine.research_store.service import ResearchStoreService
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -64,12 +65,21 @@ def main() -> None:
     sessions = make_research_session_factory(engine)
     with sessions() as session:
         repository = ResearchRepository(session)
+        service = ResearchStoreService(repository)
         if args.command == "import-json":
-            print(json.dumps({"experiment_ids": import_experiment_documents(repository, args.path)}))
+            experiment_ids = [
+                service.ingest_experiment(item).record_id
+                for item in load_experiment_documents(args.path)
+            ]
+            print(json.dumps({"experiment_ids": experiment_ids}))
         elif args.command == "import-export-json":
             print(json.dumps(import_research_export(repository, args.path)))
         elif args.command == "import-artifact-json":
-            print(json.dumps({"persisted_artifact_ids": import_persisted_artifact_documents(repository, args.path)}))
+            artifact_ids = [
+                service.ingest_persisted_artifact(item).record_id
+                for item in load_persisted_artifact_documents(args.path)
+            ]
+            print(json.dumps({"persisted_artifact_ids": artifact_ids}))
         elif args.command == "record-failure":
             failure_id = repository.record_generation_failure(GenerationFailureInput(
                 prompt=args.prompt, source_system=args.source_system,
@@ -77,9 +87,9 @@ def main() -> None:
             ))
             print(json.dumps({"generation_failure_id": failure_id}))
         elif args.command == "show":
-            print(json.dumps(repository.get_experiment(args.experiment_id), indent=2))
+            print(json.dumps(service.get_experiment(args.experiment_id), indent=2))
         elif args.command == "show-artifact":
-            print(json.dumps(repository.get_persisted_artifact(args.artifact_id), indent=2))
+            print(json.dumps(service.get_persisted_artifact(args.artifact_id), indent=2))
         elif args.command == "recurring-tracks":
             print(json.dumps(repository.recurring_tracks(args.limit), indent=2))
         elif args.command == "recurring-artists":

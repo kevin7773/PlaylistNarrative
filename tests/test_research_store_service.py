@@ -109,6 +109,19 @@ def test_single_experiment_ingestion_delegates_and_reads_back(research_session) 
     assert inserted.record["prompt"] == "Exact prompt"
 
 
+def test_read_back_does_not_block_next_single_record_transaction(research_session) -> None:
+    service = _service(research_session)
+
+    first = service.ingest_experiment(ExperimentInput.model_validate(_experiment()))
+    second = service.ingest_experiment(ExperimentInput.model_validate(
+        _experiment(prompt="Second")
+    ))
+
+    assert first.record_id == 1
+    assert second.record_id == 2
+    assert second.record["prompt"] == "Second"
+
+
 def test_single_artifact_ingestion_delegates_and_reads_back(research_session) -> None:
     service = _service(research_session)
     draft = PersistedPlaylistArtifactInput.model_validate(_artifact())
