@@ -14,6 +14,9 @@ from playlist_narrative_engine.maestro_workbench.operations import (
     EvidenceStager,
     WorkbenchOperations,
 )
+from playlist_narrative_engine.maestro_workbench.proposal_builder import (
+    build_governed_proposal,
+)
 from playlist_narrative_engine.research_store.service import (
     initialize_research_store,
     open_research_store_service,
@@ -83,6 +86,17 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
             elif path == "/api/ingest":
                 request = self._read_json()
                 self._send_json(HTTPStatus.CREATED, self._execute("ingest", request))
+            elif path == "/api/build-proposal":
+                request = self._read_json()
+                declarations = request.get("declarations")
+                staged_evidence = request.get("staged_evidence")
+                if not isinstance(declarations, dict) or not isinstance(staged_evidence, list):
+                    raise ValueError("declarations and staged_evidence are required")
+                self._send_json(HTTPStatus.OK, {
+                    "proposal": build_governed_proposal(
+                        _required_text(request, "kind"), declarations, staged_evidence
+                    )
+                })
             else:
                 self.send_error(HTTPStatus.NOT_FOUND)
         except PermissionError as exc:
