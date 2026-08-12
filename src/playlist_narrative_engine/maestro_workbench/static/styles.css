@@ -81,6 +81,10 @@ dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .3re
 dt { color: #8193a4; }
 dd { margin: 0; overflow-wrap: anywhere; font-family: "Cascadia Code", Consolas, monospace; }
 .empty { color: #748596; font-style: italic; }
+.extraction-launch { margin-top: 1rem; }
+.extraction-review { margin-top: 1rem; padding: 1rem; border: 2px solid #61738a; border-radius: .75rem; background: #111923; }
+.extraction-review .warning { color: #ffb36b; font-weight: 700; }
+.extraction-track { border-left: 4px solid #61738a; }
 details summary { cursor: pointer; color: #65d9c4; margin-bottom: .7rem; font-weight: 700; }
 pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #070b10; border-radius: 8px; padding: 1rem; color: #cbd7e1; min-height: 4rem; }
 [hidden] { display: none !important; }

@@ -19,6 +19,12 @@ from playlist_narrative_engine.maestro_workbench.operations import (
 from playlist_narrative_engine.maestro_workbench.proposal_builder import (
     build_governed_proposal,
 )
+from playlist_narrative_engine.maestro_workbench.screenshot_extraction import (
+    RapidOCRScreenshotExtractor,
+    ScreenshotExtractor,
+    extract_screenshot_draft,
+    maestro_layout_profile,
+)
 from playlist_narrative_engine.maestro_workbench.track_extraction import (
     DraftTrackGenerationError,
     draft_track_provider,
@@ -43,11 +49,14 @@ class MaestroWorkbenchServer(ThreadingHTTPServer):
         database_url: str | None = None,
         staging_root: Path | None = None,
         access_token: str | None = None,
+        screenshot_extractor: ScreenshotExtractor | None = None,
     ) -> None:
         super().__init__(address, MaestroWorkbenchHandler)
         self.database_url = database_url
         self.evidence_stager = EvidenceStager(staging_root)
         self.access_token = access_token
+        self.screenshot_extractor = screenshot_extractor
+        self.staged_paths: set[str] = set()
 
 
 class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
@@ -113,6 +122,24 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
                 selected_provider = draft_track_provider(provider)
                 extracted = generate_draft_tracks(selected_provider, tuple(source_keys), supplied_text)
                 self._send_json(HTTPStatus.OK, extracted.to_dict())
+            elif path == "/api/extract-screenshot-draft":
+                request = self._read_json()
+                staged_sources = request.get("staged_sources")
+                if not isinstance(staged_sources, list) or not staged_sources:
+                    raise ValueError("staged_sources must be a non-empty list")
+                for source in staged_sources:
+                    if not isinstance(source, dict):
+                        raise ValueError("each staged source must be an object")
+                    _required_text(source, "source_key")
+                    local_path = _required_text(source, "local_path")
+                    if str(Path(local_path).resolve()) not in self.server.staged_paths:
+                        raise ValueError("screenshot extraction accepts only evidence staged by this Workbench launch")
+                extractor = self.server.screenshot_extractor or RapidOCRScreenshotExtractor()
+                try:
+                    review = extract_screenshot_draft(extractor, staged_sources)
+                except Exception as exc:
+                    raise DraftTrackGenerationError(f"screenshot extraction failed: {exc}") from exc
+                self._send_json(HTTPStatus.OK, review.to_dict())
             else:
                 self.send_error(HTTPStatus.NOT_FOUND)
         except PermissionError as exc:
@@ -173,11 +200,24 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
             raise ValueError("X-Original-Filename is required")
         content = self._read_body(MAX_EVIDENCE_BYTES)
         staged = self.server.evidence_stager.stage(unquote(filename), content)
+        self.server.staged_paths.add(str(Path(staged.local_path).resolve()))
+        from PIL import Image
+
+        try:
+            with Image.open(staged.local_path) as image:
+                width, height = image.size
+        except Exception:
+            width = height = None
+        profile = maestro_layout_profile(width, height) if width is not None and height is not None else None
         self._send_json(HTTPStatus.CREATED, {
             "original_filename": staged.original_filename,
             "local_path": staged.local_path,
             "sha256": staged.sha256,
             "size_bytes": staged.size_bytes,
+            "width": width,
+            "height": height,
+            "screenshot_extraction_supported": profile is not None,
+            "screenshot_layout_profile": profile.name if profile else None,
         })
 
     def _read_json(self) -> dict[str, Any]:

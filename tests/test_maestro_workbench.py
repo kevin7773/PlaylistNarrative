@@ -519,6 +519,46 @@ def test_static_workbench_requires_review_confirmation_before_proposal_build() -
     assert 'window.confirm("Ingest exactly this one reviewed record?")' in javascript
 
 
+def test_evidence_and_prompt_metadata_immediately_precedes_build_prompt_controls() -> None:
+    html = (
+        Path(__file__).parents[1]
+        / "src" / "playlist_narrative_engine" / "maestro_workbench" / "static" / "index.html"
+    ).read_text(encoding="utf-8")
+    metadata_start = html.index('<section id="build-prompt-metadata"')
+    declarations_start = html.index('<section id="source-tracklist-declarations"')
+    declarations_end = html.index("</section>", declarations_start)
+    metadata_end = html.index("</section>", metadata_start)
+    readiness = html.index('<div id="readiness"', metadata_end)
+    build = html.index('<button id="build"', readiness)
+    assert metadata_end < readiness < build
+    assert declarations_end < metadata_start
+    assert html[declarations_end + len("</section>"):metadata_start].strip() == ""
+    between = html[metadata_end + len("</section>"):readiness]
+    assert between.strip() == ""
+    metadata = html[metadata_start:metadata_end]
+    for field_id in ("evidence-standard", "prompt", "prompt-title", "assessment", "notes"):
+        assert f'id="{field_id}"' in metadata
+
+
+def test_submit_next_experiment_is_final_control_and_reuses_one_nonmutating_reset_path() -> None:
+    root = Path(__file__).parents[1] / "src" / "playlist_narrative_engine" / "maestro_workbench" / "static"
+    html = (root / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "app.js").read_text(encoding="utf-8")
+    button = html.index('id="submit-next-experiment"')
+    assert button > html.index("Advanced raw operation output")
+    assert html.index("</main>", button) > button
+    reset = javascript[javascript.index("function resetForNextExperiment()") : javascript.index("function updateCompleteness()")]
+    assert "stagedEvidence.splice(0, stagedEvidence.length)" in reset
+    assert "confirmedTracks = null" in reset
+    assert "ScreenshotExtractionReview.discard" in reset
+    assert 'window.scrollTo({top: 0, behavior: "smooth"})' in reset
+    assert "fetch(" not in reset
+    assert "ingestProposal" not in reset
+    assert "buildProposal" not in reset
+    assert "validateProposal" not in reset
+    assert '$("#submit-next-experiment").addEventListener("click", resetForNextExperiment)' in javascript
+
+
 def test_draft_generation_explicitly_exports_browser_global() -> None:
     script_path = (
         Path(__file__).parents[1]
@@ -605,6 +645,7 @@ function buildEnvironment() {
   element("#artifact-fields");
   element("#confirmed-summary");
   element("#stage");
+  element("#submit-next-experiment");
   element("#generate-tracks");
   element("#import-draft");
   element("#load-draft");
@@ -769,6 +810,7 @@ function buildEnvironment() {
   element("#artifact-fields");
   element("#confirmed-summary");
   element("#stage");
+  element("#submit-next-experiment");
   element("#generate-tracks");
   element("#import-draft");
   element("#load-draft");

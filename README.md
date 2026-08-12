@@ -158,6 +158,14 @@ only. Experiment ingestion is transactional; generation failures are stored
 independently. JSON export is lossless and nested, while CSV export creates a
 relational bundle of separate files.
 
+The local Maestro Evidence Workbench includes optional RapidOCR screenshot
+assistance calibrated only for the observed 590×1280 and 1179×2556 Maestro mobile layouts.
+Unsupported dimensions remain available to the manual workflow and are never
+resized into the validated layout. OCR results are disposable drafts requiring
+explicit operator acceptance and the existing tracklist confirmation. The local
+runtime adds RapidOCR, ONNX Runtime, OpenCV, NumPy, Pillow, and model assets; the
+feasibility environment measured approximately 297 MB installed.
+
 ## Architecture
 
 The modular monolith has independently testable internal layers:

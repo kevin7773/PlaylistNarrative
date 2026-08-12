@@ -39,59 +39,15 @@
         <button id="preview-source-declarations" class="secondary" type="button">Preview declarations for all screenshots</button>
       </div>
       <div id="source-declaration-preview" class="declaration-preview" aria-live="polite"><p class="hint">No bulk source declaration preview.</p></div>
+      <div class="extraction-launch">
+        <button id="extract-screenshots" class="extract-action" type="button" disabled>Extract Draft From Screenshots</button>
+        <div id="screenshot-extraction-status" class="operation-status" aria-live="polite">Stage a screenshot matching an exact validated Maestro layout to enable extraction.</div>
+      </div>
+      <section id="screenshot-extraction-review" class="extraction-review" hidden aria-live="polite"></section>
     </section>
 
     <section class="panel">
       <span class="step">03</span><h2>Make explicit declarations</h2>
-      <div class="form-grid">
-        <label>Source system<input id="source-system" type="text" placeholder="Exact supplied label"></label>
-        <label>Evidence standard<select id="evidence-standard" required>
-          <option value="">Select explicitly…</option><option>CONTEMPORARY_MANUAL</option><option>RECOVERED_HISTORICAL</option>
-          <option>CURRENT_PRIMARY_EVIDENCE</option><option>LEGACY_V1</option>
-        </select></label>
-        <label>Tracklist completeness<select id="completeness">
-          <option value="">Select explicitly…</option><option>COMPLETE</option><option>PARTIAL</option><option>NOT_OBSERVED</option>
-        </select></label>
-        <label class="boundary-field">Captures playlist start<select id="captures-start">
-          <option value="">Select explicitly…</option><option>YES</option><option>NO</option><option>UNKNOWN</option>
-        </select></label>
-        <label class="boundary-field">Captures playlist end<select id="captures-end">
-          <option value="">Select explicitly…</option><option>YES</option><option>NO</option><option>UNKNOWN</option>
-        </select></label>
-        <label class="boundary-field">Start evidence source<select id="start-source"><option value="">None declared</option></select></label>
-        <label class="boundary-field">End evidence source<select id="end-source"><option value="">None declared</option></select></label>
-        <label class="boundary-field">Boundary provenance<select id="boundary-provenance"><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label>
-      </div>
-
-      <fieldset id="historical-fields">
-        <legend>Historical experiment fields</legend>
-        <div class="form-grid">
-          <label class="wide">Prompt<textarea id="prompt" class="short" placeholder="Exact prompt, if supplied"></textarea></label>
-          <label class="wide attestation"><input id="prompt-attested" type="checkbox"> Record my operator attestation that the historical prompt entered above is accurate to the best of my knowledge (non-screenshot evidence).</label>
-          <p class="hint wide">Use this only when you personally know the prompt. It records an explicit human attestation; it does not claim that a screenshot contains the prompt.</p>
-          <label>Prompt title<input id="prompt-title" type="text"></label>
-          <label>Requested track count status<select id="requested-count-state" autocomplete="off"><option value="UNKNOWN">Unknown / not asserted</option><option value="KNOWN">Explicitly known</option></select></label>
-          <label>Requested track count <span class="hint">Optional; enabled only when explicitly known.</span><input id="requested-count" type="number" min="0" autocomplete="off" disabled></label>
-          <label>Generated title<input id="generated-title" type="text"></label>
-          <label>Generated description<input id="generated-description" type="text"></label>
-          <label>Saved status<select id="saved" autocomplete="off"><option value="UNKNOWN">Unknown / not asserted</option><option value="YES">Yes</option><option value="NO">No</option></select></label>
-          <label>Assessment<input id="assessment" type="text"></label>
-        </div>
-      </fieldset>
-
-      <fieldset id="artifact-fields" hidden>
-        <legend>Persisted artifact fields</legend>
-        <div class="form-grid">
-          <label>Display title<input id="display-title" type="text"></label>
-          <label>Display description<input id="display-description" type="text"></label>
-          <label>Visibility text<input id="visibility-text" type="text"></label>
-          <label>Persistence state<select id="persistence-state"><option value="">Select explicitly…</option><option>PRESENT</option><option>ABSENT</option><option>UNKNOWN</option></select></label>
-          <label>Displayed track count<input id="displayed-count" type="number" min="0"></label>
-          <label>Displayed duration text<input id="displayed-duration" type="text"></label>
-        </div>
-      </fieldset>
-      <label>Notes<textarea id="notes" class="short"></textarea></label>
-
       <div class="tracklist-intro"><div><h3>Tracklist</h3><p class="hint">Generated tracks are a draft. Review the list before confirming.</p></div><button id="generate-tracks" class="extract-action" type="button">Generate draft tracklist</button></div>
       <div id="extraction-status" class="extraction-status" aria-live="polite">Stage screenshots, then generate a draft tracklist.</div>
       <div class="draft-import-primary">
@@ -147,6 +103,62 @@
 
       <details class="advanced-tools"><summary>Advanced evidence-link tools</summary><div class="subhead"><div><h3>Additional top-level evidence links</h3><p class="hint">Optional expert surface for existing schema fields.</p></div><button id="add-link" class="secondary" type="button">Add evidence link</button></div><div id="evidence-links" class="card-list"><p class="empty">No additional evidence links declared.</p></div></details>
 
+      <section id="source-tracklist-declarations" class="declaration-block" aria-labelledby="source-tracklist-declarations-heading">
+        <h3 id="source-tracklist-declarations-heading">Source and tracklist declarations</h3>
+        <div class="form-grid">
+          <label>Source system<input id="source-system" type="text" placeholder="Exact supplied label"></label>
+          <label>Tracklist completeness<select id="completeness">
+            <option value="">Select explicitly…</option><option>COMPLETE</option><option>PARTIAL</option><option>NOT_OBSERVED</option>
+          </select></label>
+          <label class="boundary-field">Captures playlist start<select id="captures-start">
+            <option value="">Select explicitly…</option><option>YES</option><option>NO</option><option>UNKNOWN</option>
+          </select></label>
+          <label class="boundary-field">Captures playlist end<select id="captures-end">
+            <option value="">Select explicitly…</option><option>YES</option><option>NO</option><option>UNKNOWN</option>
+          </select></label>
+          <label class="boundary-field">Start evidence source<select id="start-source"><option value="">None declared</option></select></label>
+          <label class="boundary-field">End evidence source<select id="end-source"><option value="">None declared</option></select></label>
+          <label class="boundary-field">Boundary provenance<select id="boundary-provenance"><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label>
+        </div>
+        <fieldset id="artifact-fields" hidden>
+          <legend>Persisted artifact fields</legend>
+          <div class="form-grid">
+            <label>Display title<input id="display-title" type="text"></label>
+            <label>Display description<input id="display-description" type="text"></label>
+            <label>Visibility text<input id="visibility-text" type="text"></label>
+            <label>Persistence state<select id="persistence-state"><option value="">Select explicitly…</option><option>PRESENT</option><option>ABSENT</option><option>UNKNOWN</option></select></label>
+            <label>Displayed track count<input id="displayed-count" type="number" min="0"></label>
+            <label>Displayed duration text<input id="displayed-duration" type="text"></label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section id="build-prompt-metadata" class="declaration-block" aria-labelledby="build-prompt-metadata-heading">
+        <h3 id="build-prompt-metadata-heading">Evidence and prompt details</h3>
+        <div class="form-grid">
+          <label>Evidence standard<select id="evidence-standard" required>
+            <option value="">Select explicitly…</option><option>CONTEMPORARY_MANUAL</option><option>RECOVERED_HISTORICAL</option>
+            <option>CURRENT_PRIMARY_EVIDENCE</option><option>LEGACY_V1</option>
+          </select></label>
+        </div>
+        <fieldset id="historical-fields">
+          <legend>Historical experiment fields</legend>
+          <div class="form-grid">
+            <label class="wide">Prompt<textarea id="prompt" class="short" placeholder="Exact prompt, if supplied"></textarea></label>
+            <label class="wide attestation"><input id="prompt-attested" type="checkbox"> Record my operator attestation that the historical prompt entered above is accurate to the best of my knowledge (non-screenshot evidence).</label>
+            <p class="hint wide">Use this only when you personally know the prompt. It records an explicit human attestation; it does not claim that a screenshot contains the prompt.</p>
+            <label>Prompt title<input id="prompt-title" type="text"></label>
+            <label>Requested track count status<select id="requested-count-state" autocomplete="off"><option value="UNKNOWN">Unknown / not asserted</option><option value="KNOWN">Explicitly known</option></select></label>
+            <label>Requested track count <span class="hint">Optional; enabled only when explicitly known.</span><input id="requested-count" type="number" min="0" autocomplete="off" disabled></label>
+            <label>Generated title<input id="generated-title" type="text"></label>
+            <label>Generated description<input id="generated-description" type="text"></label>
+            <label>Saved status<select id="saved" autocomplete="off"><option value="UNKNOWN">Unknown / not asserted</option><option value="YES">Yes</option><option value="NO">No</option></select></label>
+            <label>Assessment<input id="assessment" type="text"></label>
+          </div>
+        </fieldset>
+        <label>Notes<textarea id="notes" class="short"></textarea></label>
+      </section>
+
       <div id="readiness" class="readiness" aria-live="polite"><strong>Evidence readiness</strong><p>Complete the explicit declarations above.</p></div>
       <button id="build" type="button">Build governed proposal</button>
       <div id="build-status" class="operation-status" aria-live="polite">No proposal built.</div>
@@ -169,6 +181,7 @@
     </section>
 
     <details class="panel advanced-tools"><summary><span class="step">05</span> Advanced raw operation output</summary><pre id="result" aria-live="polite">No operation performed.</pre></details>
+    <section class="panel next-experiment-panel"><button id="submit-next-experiment" type="button">Submit Next Experiment</button></section>
   </main>
   <template id="draft-template"><article class="entry-card draft-row"><div class="entry-head"><strong data-row-label>Track</strong><div class="row-actions"><button data-move-up class="ghost" type="button" aria-label="Move track up">↑</button><button data-move-down class="ghost" type="button" aria-label="Move track down">↓</button><button data-remove class="ghost" type="button">Delete</button></div></div><div class="track-fields"><label class="position-field">Position<input data-field="proposed_position" type="number" min="1"></label><label>Title<input data-field="proposed_title" type="text"></label><label>Artist<input data-field="proposed_artist" type="text"></label><label>Version/remaster<input data-field="proposed_version_remaster_text" type="text"></label></div><label class="uncertain"><input data-field="ambiguity_flag" type="checkbox"> Mark uncertain</label><details class="row-advanced"><summary>Row tools and source details</summary><label class="select-row"><input data-select-row type="checkbox"> Select for merge</label><button data-split class="ghost" type="button">Split row</button><label>Extraction source screenshot(s)<select data-field="source_keys" multiple size="3" data-source-select></select></label><label>Canonical identity established<select data-field="canonical_identity_established" data-boolean><option value="false">No</option><option value="true">Yes</option></select></label><label>Evidence provenance<select data-field="provenance_type"><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label></details></article></template>
   <template id="link-template"><article class="entry-card link-row"><div class="entry-head"><strong>Evidence link</strong><button class="remove ghost" type="button">Remove</button></div><div class="form-grid"><label>Proposal field<input data-field="field_name" type="text" placeholder="Exact schema field name"></label><label>Evidence source<select data-field="source_key"><option value="">Select explicitly…</option></select></label><label>Provenance<select data-field="provenance_type"><option>DIRECT_OBSERVATION</option><option>HUMAN_ASSESSMENT</option><option>DERIVED_QUERY_RESULT</option><option>MIGRATION_DERIVATION</option></select></label><label>Support status<select data-field="support_status"><option>FULL</option><option>PARTIAL</option></select></label></div></article></template>
@@ -183,6 +196,7 @@
     }, true);
   </script>
   <script src="/draft_generation.js"></script>
+  <script src="/screenshot_extraction.js"></script>
   <script>
     if (window.PneDraftGenerationPublication.state !== "published" && window.PneDraftGenerationPublication.state !== "load-failed") {
       window.PneDraftGenerationPublication.state = "execution-failed";

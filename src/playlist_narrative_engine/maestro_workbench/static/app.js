@@ -6,6 +6,7 @@ const stagedContainer = $("#staged");
 const accessToken = new URLSearchParams(window.location.search).get("session") || new URLSearchParams(window.location.search).get("token");
 const stagedEvidence = [];
 let confirmedTracks = null;
+let acceptedExtractionContinuity = null;
 let validatedProposalSnapshot = null;
 let ingestionActive = false;
 let pendingSourceDeclarations = null;
@@ -109,6 +110,7 @@ function renderStaged() {
     refreshSourceSelectors();
     renderCoverage();
     refreshReadiness();
+    refreshScreenshotExtractionAvailability();
     return;
   }
   stagedEvidence.forEach((item, index) => {
@@ -128,6 +130,18 @@ function renderStaged() {
   refreshSourceSelectors();
   renderCoverage();
   refreshReadiness();
+  refreshScreenshotExtractionAvailability();
+}
+
+function refreshScreenshotExtractionAvailability() {
+  if (typeof document.getElementById !== "function" || !document.getElementById("extract-screenshots")) return;
+  const eligible = stagedEvidence.some(item => item.screenshot_extraction_supported === true);
+  $("#extract-screenshots").disabled = !eligible;
+  if (!stagedEvidence.length) {
+    setLocalStatus("#screenshot-extraction-status", "Stage a screenshot matching an exact validated Maestro layout to enable extraction.");
+  } else if (!eligible) {
+    setLocalStatus("#screenshot-extraction-status", "No staged screenshot matches an exact validated Maestro layout. Manual draft tools remain available.");
+  }
 }
 
 function sourceDeclarationPreview(sourceType, referenceBase) {
@@ -231,6 +245,47 @@ async function stageEvidence() {
     show({error: message});
   } finally {
     finish();
+  }
+}
+
+function acceptScreenshotExtraction(review) {
+  if (review.generated_title !== null) $("#generated-title").value = review.generated_title;
+  if (review.generated_description !== null) $("#generated-description").value = review.generated_description;
+  $("#draft-tracks").innerHTML = "";
+  review.tracks.forEach(track => addDraftRow({...track, canonical_identity_established: false, provenance_type: "DIRECT_OBSERVATION"}));
+  acceptedExtractionContinuity = review.continuity_established;
+  review.coverage.forEach(item => {
+    const row = [...document.querySelectorAll("#track-coverage .coverage-row")]
+      .find(candidate => candidate.dataset.sourceKey === item.source_key);
+    if (row) {
+      row.querySelector("[data-coverage-start]").value = item.start ?? "";
+      row.querySelector("[data-coverage-end]").value = item.end ?? "";
+    }
+  });
+  const start = review.coverage.find(item => item.playlist_start === "YES");
+  const end = review.coverage.find(item => item.playlist_end === "YES");
+  if (start) { $("#captures-start").value = "YES"; $("#start-source").value = start.source_key; }
+  if (end) { $("#captures-end").value = "YES"; $("#end-source").value = end.source_key; }
+  invalidateConfirmation();
+  setLocalStatus("#screenshot-extraction-status", `Accepted ${review.tracks.length} reviewed extraction rows into the unconfirmed draft.`, "success");
+}
+
+async function extractScreenshotDraft() {
+  const button = $("#extract-screenshots");
+  const finish = beginOperation(button, "#screenshot-extraction-status", "Extracting screenshot draft");
+  try {
+    const response = await fetch("/api/extract-screenshot-draft", {
+      method: "POST", headers: apiHeaders({"Content-Type": "application/json"}),
+      body: JSON.stringify({staged_sources: stagedEvidence.map((item, index) => ({source_key: `source_${index + 1}`, local_path: item.local_path}))}),
+    });
+    const review = await readJsonResponse(response, "Screenshot extraction");
+    window.ScreenshotExtractionReview.render($("#screenshot-extraction-review"), review, acceptScreenshotExtraction);
+    setLocalStatus("#screenshot-extraction-status", "Extraction complete. Review or discard the disposable result.", "success");
+  } catch (error) {
+    setLocalStatus("#screenshot-extraction-status", `Screenshot extraction failed: ${error.message}`, "error");
+  } finally {
+    finish();
+    refreshScreenshotExtractionAvailability();
   }
 }
 
@@ -353,6 +408,15 @@ function coverageByTrack(trackCount) {
   return result;
 }
 
+function operatorCoverageComplete(trackCount) {
+  if (!trackCount) return false;
+  const ranges = [...document.querySelectorAll(".coverage-row")].map(row => ({
+    start: row.querySelector("[data-coverage-start]").value,
+    end: row.querySelector("[data-coverage-end]").value,
+  }));
+  return window.ScreenshotExtractionReview.coverageRangesComplete(trackCount, ranges);
+}
+
 function tracksWithCoverage() {
   if (!confirmedTracks) return [];
   const coverage = coverageByTrack(confirmedTracks.length);
@@ -383,6 +447,12 @@ function readinessIssues() {
     if (!$("#captures-start").value) issues.push("Declare whether capture includes playlist start");
     if (!$("#captures-end").value) issues.push("Declare whether capture includes playlist end");
     if (confirmedTracks === null) issues.push("Confirm the reviewed tracklist");
+    const continuityIssue = window.ScreenshotExtractionReview.completeContinuityIssue(
+      completeness,
+      acceptedExtractionContinuity,
+      operatorCoverageComplete(confirmedTracks?.length || 0)
+    );
+    if (continuityIssue) issues.push(continuityIssue);
   }
   const incompleteSources = incompleteSourceDeclarationOrdinals(stagedEvidence);
   if (!stagedEvidence.length) issues.push("Stage evidence screenshots");
@@ -432,6 +502,12 @@ function refreshReadiness() {
 function collectDeclarations() {
   const completeness = $("#completeness").value;
   if (!completeness) throw new Error("Tracklist completeness must be explicitly declared");
+  const continuityIssue = window.ScreenshotExtractionReview.completeContinuityIssue(
+    completeness,
+    acceptedExtractionContinuity,
+    operatorCoverageComplete(confirmedTracks?.length || 0)
+  );
+  if (continuityIssue) throw new Error(continuityIssue);
   const values = {
     source_system: optionalText("#source-system"),
     evidence_standard: $("#evidence-standard").value,
@@ -704,6 +780,7 @@ async function generateDraft(draftGenerationFlow, provider, suppliedText = null)
         return result;
       },
       acceptDrafts: draftTracks => {
+        acceptedExtractionContinuity = null;
         if (provider === "automatic" || provider === "structured_json") {
           $("#draft-tracks").innerHTML = "";
         }
@@ -797,6 +874,37 @@ function updateMode() {
   refreshReadiness();
 }
 
+function resetForNextExperiment() {
+  document.querySelectorAll("main input, main textarea, main select").forEach(control => {
+    if (control.type === "checkbox" || control.type === "radio") control.checked = control.defaultChecked;
+    else if (control instanceof HTMLSelectElement) control.selectedIndex = 0;
+    else control.value = control.defaultValue;
+  });
+  stagedEvidence.splice(0, stagedEvidence.length);
+  confirmedTracks = null;
+  acceptedExtractionContinuity = null;
+  validatedProposalSnapshot = null;
+  ingestionActive = false;
+  pendingSourceDeclarations = null;
+  window.ScreenshotExtractionReview.discard($("#screenshot-extraction-review"));
+  $("#draft-tracks").innerHTML = '<p class="empty">No draft tracks.</p>';
+  $("#evidence-links").innerHTML = '<p class="empty">No additional evidence links declared.</p>';
+  $("#proposal").value = "";
+  $("#confirmed-summary").textContent = "No tracklist confirmed.";
+  $("#confirmed-summary").classList.remove("confirmed");
+  $("#import-status").textContent = "No structured draft imported.";
+  $("#extraction-status").textContent = "Stage screenshots, then generate a draft tracklist.";
+  $("#build-status").textContent = "No proposal built.";
+  $("#validation-status").textContent = "No validation performed.";
+  $("#ingest-status").textContent = "No ingestion performed.";
+  $("#readback-summary").innerHTML = "";
+  $("#result").textContent = "No operation performed.";
+  $("#ingest").disabled = true;
+  renderStaged();
+  updateMode();
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
 function updateCompleteness() {
   const hidden = $("#completeness").value === "NOT_OBSERVED";
   document.querySelectorAll(".boundary-field").forEach(field => field.hidden = hidden);
@@ -828,6 +936,10 @@ $("#completeness").addEventListener("change", updateCompleteness);
 $("#requested-count-state").addEventListener("change", updateRequestedTrackCountState);
 $("#saved").addEventListener("change", updateSavedStatus);
 $("#stage").addEventListener("click", stageEvidence);
+$("#submit-next-experiment").addEventListener("click", resetForNextExperiment);
+if (typeof document.getElementById === "function" && document.getElementById("extract-screenshots")) {
+  $("#extract-screenshots").addEventListener("click", extractScreenshotDraft);
+}
 $("#preview-source-declarations").addEventListener("click", previewSourceDeclarations);
 $("#structured-draft-file").addEventListener("change", async event => {
   const file = event.target.files[0];
