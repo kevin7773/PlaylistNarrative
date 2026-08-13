@@ -10,6 +10,10 @@ let acceptedExtractionContinuity = null;
 let validatedProposalSnapshot = null;
 let ingestionActive = false;
 let pendingSourceDeclarations = null;
+let plannedRunContext = (() => {
+  try { return JSON.parse(sessionStorage.getItem("pne-planned-run") || "null"); }
+  catch (_error) { return null; }
+})();
 
 const REQUIRED_HISTORICAL_CLAIMS = [
   ["source_system", "Source system"],
@@ -302,7 +306,11 @@ function optionalNumber(selector) {
 function declaredRequestedTrackCount(state, rawValue) {
   if (state !== "KNOWN") return undefined;
   if (rawValue === "") throw new Error("Enter the explicitly known requested track count");
-  return Number(rawValue);
+  const value = Number(rawValue);
+  if (!Number.isInteger(value) || value <= 0) {
+    throw new Error("Requested track count must be an integer greater than zero");
+  }
+  return value;
 }
 
 function declaredSavedStatus(state) {
@@ -437,6 +445,20 @@ function incompleteSourceDeclarationOrdinals(items) {
   }, []);
 }
 
+function additionalEvidenceLinkIssues() {
+  const issues = [];
+  document.querySelectorAll("#evidence-links .link-row").forEach((row, index) => {
+    const ordinal = index + 1;
+    const sourceKey = row.querySelector("[data-field='source_key']").value;
+    const fieldName = row.querySelector("[data-field='field_name']").value.trim();
+    const provenanceType = row.querySelector("[data-field='provenance_type']").value;
+    if (!sourceKey) issues.push(`Choose an evidence source for additional evidence link ${ordinal}`);
+    if (!fieldName) issues.push(`Enter a proposal field for additional evidence link ${ordinal}`);
+    if (!provenanceType) issues.push(`Choose provenance for additional evidence link ${ordinal}`);
+  });
+  return issues;
+}
+
 function readinessIssues() {
   const issues = [];
   const standard = $("#evidence-standard").value;
@@ -457,6 +479,7 @@ function readinessIssues() {
   const incompleteSources = incompleteSourceDeclarationOrdinals(stagedEvidence);
   if (!stagedEvidence.length) issues.push("Stage evidence screenshots");
   else if (incompleteSources.length) issues.push(`Complete source declarations for screenshots ${incompleteSources.join(", ")}`);
+  issues.push(...additionalEvidenceLinkIssues());
   if (standard === "RECOVERED_HISTORICAL" && kind.value === "historical_experiment") {
     const promptPresent = Boolean($("#prompt").value);
     const promptScreenshotSupport = selectedValues(document.querySelector("[data-claim-field='prompt']")).length > 0;
@@ -488,6 +511,7 @@ function readinessIssues() {
 }
 
 function refreshReadiness() {
+  refreshResearchReadiness();
   const issues = readinessIssues();
   const target = $("#readiness");
   if (!issues.length) {
@@ -497,6 +521,26 @@ function refreshReadiness() {
   }
   target.dataset.state = "incomplete";
   target.innerHTML = `<strong>Evidence readiness</strong><ul>${issues.map(issue => `<li>${escapeHtml(issue)}</li>`).join("")}</ul>`;
+}
+
+function refreshResearchReadiness() {
+  const requestedDeclared = $("#requested-count-state").value === "KNOWN";
+  const canonicalTotal = confirmedTracks?.length || 0;
+  const canonicalEstablished = confirmedTracks
+    ? confirmedTracks.filter(track => track.canonical_identity_established === true).length
+    : 0;
+  const items = [
+    ["Assessment Outcome", $("#assessment-outcome").value],
+    ["Requested Track Count", requestedDeclared ? `declared (${$("#requested-count").value || "value required"})` : "not declared"],
+    ["Tracklist Standard", $("#completeness").value || "not declared"],
+    ["Playlist Start", $("#captures-start").value || "not declared"],
+    ["Playlist End", $("#captures-end").value || "not declared"],
+    ["Notes", $("#notes").value.trim() ? "present" : "absent"],
+    ["Canonical Identity Coverage", canonicalTotal ? `${canonicalEstablished}/${canonicalTotal} confirmed tracks` : "not available"],
+  ];
+  $("#research-readiness").innerHTML = `<strong>Research readiness</strong><ul>${items.map(
+    ([label, value]) => `<li><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</li>`
+  ).join("")}</ul><p class="hint">Informational only; governed build and validation requirements are unchanged.</p>`;
 }
 
 function collectDeclarations() {
@@ -531,8 +575,28 @@ function collectDeclarations() {
     Object.assign(values, {
       prompt: optionalText("#prompt"), prompt_title: optionalText("#prompt-title"),
       generated_title: optionalText("#generated-title"),
-      generated_description: optionalText("#generated-description"), assessment: optionalText("#assessment")
+      generated_description: optionalText("#generated-description"),
+      assessment_outcome: $("#assessment-outcome").value
     });
+    if (plannedRunContext) {
+      values.prompt = plannedRunContext.prompt;
+      values.source_system = plannedRunContext.source_system;
+      values.constraints = plannedRunContext.constraints.map(definition => {
+        const status = $(`[data-study-result-status="${definition.id}"]`)?.value || "UNKNOWN";
+        const evidence = $(`[data-study-result-evidence="${definition.id}"]`)?.value || null;
+        return {
+          study_constraint_definition_id: definition.id,
+          constraint_type: definition.constraint_type,
+          constraint_text: definition.constraint_text,
+          is_hard_constraint: definition.is_hard_constraint,
+          result: {
+            status,
+            evidence,
+            provenance_type: definition.permitted_result_provenance,
+          },
+        };
+      });
+    }
     const requestedTrackCount = declaredRequestedTrackCount(
       $("#requested-count-state").value, $("#requested-count").value
     );
@@ -637,12 +701,18 @@ async function ingestProposal() {
   const button = $("#ingest");
   const finish = beginOperation(button, "#ingest-status", "Ingesting one reviewed record");
   try {
-    const response = await fetch("/api/ingest", {method: "POST", headers: apiHeaders({"Content-Type": "application/json"}), body: JSON.stringify(requestBody())});
+    const endpoint = plannedRunContext ? `/api/study-runs/${plannedRunContext.run_id}/realize-experiment` : "/api/ingest";
+    const bodyValue = plannedRunContext ? {proposal: JSON.parse(proposal.value)} : requestBody();
+    const response = await fetch(endpoint, {method: "POST", headers: apiHeaders({"Content-Type": "application/json"}), body: JSON.stringify(bodyValue)});
     const body = await readJsonResponse(response, "Ingestion");
     show(body);
     renderReadback(body.record, body.kind);
     setLocalStatus("#ingest-status", `Ingestion successful. ${body.kind} ${body.record_id} was inserted and read back.`, "success");
     validatedProposalSnapshot = null;
+    if (plannedRunContext) {
+      sessionStorage.removeItem("pne-planned-run");
+      plannedRunContext = null;
+    }
   } catch (error) {
     const message = `Ingestion failed: ${error.message}`;
     setLocalStatus("#ingest-status", message, "error");
@@ -660,12 +730,20 @@ function addRow(templateSelector, containerSelector) {
   row.querySelector(".remove").addEventListener("click", () => {
     row.remove();
     if (!$(containerSelector).children.length) $(containerSelector).innerHTML = `<p class="empty">None declared.</p>`;
+    invalidateValidation();
+    refreshReadiness();
+  });
+  row.querySelectorAll("[data-field]").forEach(input => {
+    input.addEventListener("change", () => { invalidateValidation(); refreshReadiness(); });
+    input.addEventListener("input", () => { invalidateValidation(); refreshReadiness(); });
   });
   const sourceSelect = row.querySelector("[data-field='source_key']");
   if (sourceSelect) sourceOptions(sourceSelect);
   const container = $(containerSelector);
   container.querySelector(".empty")?.remove();
   container.append(fragment);
+  invalidateValidation();
+  refreshReadiness();
 }
 
 function invalidateConfirmation() {
@@ -931,6 +1009,23 @@ function initializeDraftTrackWorkflow() {
   return draftGenerationFlow;
 }
 
+function initializePlannedRunContext() {
+  if (!plannedRunContext) return;
+  kind.value = "historical_experiment";
+  kind.disabled = true;
+  $("#planned-run-context").hidden = false;
+  $("#prompt").value = plannedRunContext.prompt;
+  $("#prompt").readOnly = true;
+  $("#source-system").value = plannedRunContext.source_system || "";
+  $("#source-system").readOnly = true;
+  $("#planned-run-summary").innerHTML = `<dl><dt>Study</dt><dd>${escapeHtml(plannedRunContext.study_key)}</dd><dt>Protocol version</dt><dd>${plannedRunContext.protocol_version}</dd><dt>Run</dt><dd>${escapeHtml(plannedRunContext.run_key)}</dd><dt>Exact planned prompt</dt><dd class="locked-value">${escapeHtml(plannedRunContext.prompt)}</dd></dl><h3>Frozen constraints and run-specific results</h3>${plannedRunContext.constraints.map(definition => `<article class="study-row"><strong>${escapeHtml(definition.constraint_key)} · ${escapeHtml(definition.constraint_text)}</strong><p class="hint">${escapeHtml(definition.constraint_type)} · ${definition.is_hard_constraint ? "hard" : "soft"} · provenance ${escapeHtml(definition.permitted_result_provenance)}</p><div class="form-grid"><label>Result status<select data-study-result-status="${definition.id}"><option>UNKNOWN</option><option>PASS</option><option>PARTIAL</option><option>FAIL</option></select></label><label>Evidence/evaluation text<textarea class="short" data-study-result-evidence="${definition.id}"></textarea></label></div></article>`).join("")}`;
+  document.querySelectorAll("[data-study-result-status],[data-study-result-evidence]").forEach(control => control.addEventListener("change", invalidateValidation));
+  $("#leave-planned-run").onclick = () => {
+    if (!confirm("Leave this planned-run execution? No Study outcome will be recorded.")) return;
+    sessionStorage.removeItem("pne-planned-run"); location.reload();
+  };
+}
+
 kind.addEventListener("change", updateMode);
 $("#completeness").addEventListener("change", updateCompleteness);
 $("#requested-count-state").addEventListener("change", updateRequestedTrackCountState);
@@ -964,7 +1059,7 @@ $("#prompt").addEventListener("input", () => {
   invalidateValidation();
   refreshReadiness();
 });
-document.querySelectorAll("#evidence-standard, #captures-start, #captures-end, #evidence-provenance, #evidence-support, [data-claim-field], #source-system, #prompt, #prompt-attested, #generated-title, #generated-description, #notes")
+document.querySelectorAll("#evidence-standard, #captures-start, #captures-end, #evidence-provenance, #evidence-support, [data-claim-field], #source-system, #prompt, #prompt-attested, #requested-count, #assessment-outcome, #generated-title, #generated-description, #notes")
   .forEach(input => input.addEventListener("change", () => { invalidateValidation(); refreshReadiness(); }));
 renderStaged();
 $("#requested-count-state").value = "UNKNOWN";
@@ -975,3 +1070,4 @@ updateCompleteness();
 updateRequestedTrackCountState();
 updateSavedStatus();
 initializeDraftTrackWorkflow();
+initializePlannedRunContext();

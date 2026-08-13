@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 from collections.abc import Sequence
+from contextlib import nullcontext
 from pathlib import Path
 
 from sqlalchemy import Select, distinct, func, select
@@ -26,7 +27,8 @@ class ResearchRepository:
 
     def insert_experiment(self, draft: ExperimentInput) -> int:
         """Insert an experiment and every evidence-bearing child in one transaction."""
-        with self.session.begin():
+        transaction = nullcontext() if self.session.in_transaction() else self.session.begin()
+        with transaction:
             values = dict(
                 generated_at=draft.generated_at, prompt_text=draft.prompt,
                 prompt_title=draft.prompt_title, source_system=draft.source_system,
@@ -37,6 +39,7 @@ class ResearchRepository:
                 observed_track_count=len(draft.tracks),
                 tracklist_completeness=draft.tracklist_completeness.value,
                 saved_by_user=draft.saved, evidence_standard=draft.evidence_standard.value,
+                assessment_outcome=draft.assessment_outcome.value,
                 overall_assessment=draft.assessment, notes=draft.notes,
             )
             if draft.recorded_at is not None:
@@ -86,6 +89,7 @@ class ResearchRepository:
                 constraint = Constraint(
                     experiment_id=experiment.id, constraint_type=item.constraint_type,
                     constraint_text=item.constraint_text, is_hard_constraint=item.is_hard_constraint,
+                    study_constraint_definition_id=item.study_constraint_definition_id,
                 )
                 self.session.add(constraint)
                 self.session.flush()
@@ -184,7 +188,8 @@ class ResearchRepository:
             ))
 
     def record_generation_failure(self, draft: GenerationFailureInput) -> int:
-        with self.session.begin():
+        transaction = nullcontext() if self.session.in_transaction() else self.session.begin()
+        with transaction:
             values = dict(generated_at=draft.generated_at, prompt_text=draft.prompt,
                           source_system=draft.source_system, failure_type=draft.failure_type,
                           displayed_message=draft.displayed_message,
@@ -305,7 +310,7 @@ class ResearchRepository:
         links = list(self.session.scalars(select(EvidenceLink).where((EvidenceLink.experiment_id == experiment_id) | (EvidenceLink.experiment_track_id.in_([p.id for p in placements] or [-1]))).order_by(EvidenceLink.id)))
         recorded = experiment.recorded_at.isoformat()
         return {
-            "id": experiment.id, "schema_version": 2, "recorded_at": recorded,
+            "id": experiment.id, "schema_version": 3, "recorded_at": recorded,
             "created_at": recorded, "generated_at": None if experiment.generated_at is None else experiment.generated_at.isoformat(),
             "prompt": experiment.prompt_text, "prompt_title": experiment.prompt_title,
             "source_system": experiment.source_system,
@@ -316,6 +321,7 @@ class ResearchRepository:
             "observed_track_count": experiment.observed_track_count,
             "tracklist_completeness": experiment.tracklist_completeness,
             "saved": experiment.saved_by_user, "evidence_standard": experiment.evidence_standard,
+            "assessment_outcome": experiment.assessment_outcome,
             "assessment": experiment.overall_assessment, "notes": experiment.notes,
             "prompt_labels": labels,
             "segments": [self._segment_dict(item) for item in segments],
@@ -433,6 +439,66 @@ class ResearchRepository:
                     .order_by(func.count(distinct(ExperimentTrack.experiment_id)).desc(), Track.canonical_artist).limit(limit))
         return [dict(row._mapping) for row in self.session.execute(statement)]
 
+    def track_occurrences(self, canonical_track_id: int) -> list[dict[str, object]]:
+        statement = (
+            select(
+                Experiment.id.label("experiment_id"),
+                Experiment.prompt_title,
+                Experiment.generated_playlist_title.label("generated_title"),
+                func.coalesce(
+                    Experiment.generated_track_count,
+                    Experiment.observed_track_count,
+                ).label("tracklist_length"),
+                Track.id.label("canonical_track_id"),
+                Track.canonical_title,
+                Track.canonical_artist,
+                ExperimentTrack.display_title,
+                ExperimentTrack.display_artist,
+                ExperimentTrack.observed_ordinal,
+                ExperimentTrack.absolute_position,
+            )
+            .join(ExperimentTrack, ExperimentTrack.experiment_id == Experiment.id)
+            .join(Track, Track.id == ExperimentTrack.track_id)
+            .where(Track.id == canonical_track_id)
+            .order_by(
+                Experiment.id,
+                ExperimentTrack.absolute_position.is_(None),
+                ExperimentTrack.absolute_position,
+                ExperimentTrack.observed_ordinal,
+            )
+        )
+        return [dict(row._mapping) for row in self.session.execute(statement)]
+
+    def artist_occurrences(self, canonical_artist: str) -> list[dict[str, object]]:
+        statement = (
+            select(
+                Experiment.id.label("experiment_id"),
+                Experiment.prompt_title,
+                Experiment.generated_playlist_title.label("generated_title"),
+                func.coalesce(
+                    Experiment.generated_track_count,
+                    Experiment.observed_track_count,
+                ).label("tracklist_length"),
+                Track.id.label("canonical_track_id"),
+                Track.canonical_title,
+                Track.canonical_artist,
+                ExperimentTrack.display_title,
+                ExperimentTrack.display_artist,
+                ExperimentTrack.observed_ordinal,
+                ExperimentTrack.absolute_position,
+            )
+            .join(ExperimentTrack, ExperimentTrack.experiment_id == Experiment.id)
+            .join(Track, Track.id == ExperimentTrack.track_id)
+            .where(Track.canonical_artist == canonical_artist)
+            .order_by(
+                Experiment.id,
+                ExperimentTrack.absolute_position.is_(None),
+                ExperimentTrack.absolute_position,
+                ExperimentTrack.observed_ordinal,
+            )
+        )
+        return [dict(row._mapping) for row in self.session.execute(statement)]
+
     def tracks_across_prompt_labels(self, *, minimum_distinct_labels: int = 2) -> list[dict[str, object]]:
         statement = (select(Track.id, Track.canonical_title, Track.canonical_artist,
                     func.count(distinct(ExperimentPromptLabel.label)).label("label_count"),
@@ -443,13 +509,19 @@ class ResearchRepository:
                     .order_by(func.count(distinct(ExperimentPromptLabel.label)).desc(), Track.id))
         return [dict(row._mapping) for row in self.session.execute(statement)]
 
-    def query_experiments(self, *, assessment=None, constraint_status=None, saved=None) -> list[dict[str, object]]:
+    def query_experiments(
+        self, *, assessment=None, assessment_outcome=None,
+        constraint_status=None, saved=None,
+    ) -> list[dict[str, object]]:
         statement: Select[tuple[Experiment]] = select(Experiment)
         if constraint_status is not None:
             value = constraint_status.value if isinstance(constraint_status, ConstraintStatus) else constraint_status
             statement = statement.join(ConstraintResult).where(ConstraintResult.status == value)
         if assessment is not None:
             statement = statement.where(Experiment.overall_assessment == assessment)
+        if assessment_outcome is not None:
+            value = getattr(assessment_outcome, "value", assessment_outcome)
+            statement = statement.where(Experiment.assessment_outcome == value)
         if saved is not None:
             statement = statement.where(Experiment.saved_by_user.is_(saved))
         statement = statement.distinct().order_by(Experiment.recorded_at, Experiment.id)
@@ -534,6 +606,7 @@ class ResearchRepository:
         result = item.result
         return {"id": item.id, "constraint_type": item.constraint_type,
                 "constraint_text": item.constraint_text, "is_hard_constraint": item.is_hard_constraint,
+                "study_constraint_definition_id": item.study_constraint_definition_id,
                 "result": None if result is None else {"status": result.status, "evidence": result.evidence,
                 "provenance_type": result.provenance_type, "recorded_by": result.recorded_by,
                 "provenance_notes": result.provenance_notes}}
@@ -554,6 +627,7 @@ class ResearchRepository:
                 "created_at": item.recorded_at.isoformat(),
                 "generated_at": None if item.generated_at is None else item.generated_at.isoformat(),
                 "prompt": item.prompt_text, "generated_title": item.generated_playlist_title,
+                "assessment_outcome": item.assessment_outcome,
                 "assessment": item.overall_assessment, "saved": item.saved_by_user,
                 "observed_track_count": item.observed_track_count,
                 "tracklist_completeness": item.tracklist_completeness}

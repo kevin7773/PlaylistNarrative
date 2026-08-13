@@ -88,6 +88,16 @@ dd { margin: 0; overflow-wrap: anywhere; font-family: "Cascadia Code", Consolas,
 details summary { cursor: pointer; color: #65d9c4; margin-bottom: .7rem; font-weight: 700; }
 pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #070b10; border-radius: 8px; padding: 1rem; color: #cbd7e1; min-height: 4rem; }
 [hidden] { display: none !important; }
+.top-nav { display: flex; gap: .75rem; margin-top: 1rem; }
+.top-nav a { color: #9db0c2; border: 1px solid #334252; border-radius: 999px; padding: .45rem .8rem; text-decoration: none; }
+.top-nav a.active { color: #07100f; background: #65d9c4; border-color: #65d9c4; }
+.frozen-panel { border-color: #65d9c4; box-shadow: inset 4px 0 #65d9c4; }
+.warning { color: #ffbd77; font-weight: 700; }
+.study-grid { display: grid; gap: 1rem; }
+.study-row { border: 1px solid #334252; border-radius: 10px; padding: .85rem; background: #0c131b; }
+.study-row-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .65rem; }
+.study-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .7rem; }
+.locked-value { white-space: pre-wrap; background: #070b10; border-radius: 6px; padding: .65rem; }
 @media (max-width: 680px) {
   main { width: min(100% - 1rem, 1100px); padding-top: 1.3rem; }
   .panel { padding: 1rem; border-radius: 12px; }

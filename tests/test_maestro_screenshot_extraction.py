@@ -324,6 +324,51 @@ def test_extraction_review_delete_is_disposable_and_does_not_manufacture_overlap
     assert "EXACT_OVERLAP_ACCEPTED" not in delete_handler
 
 
+def test_extraction_review_playlist_boundaries_are_independently_mutually_exclusive() -> None:
+    import subprocess
+
+    script_path = Path("src/playlist_narrative_engine/maestro_workbench/static/screenshot_extraction.js").resolve()
+    script = r'''const api = require(process.argv[1]);
+function row(start = "UNRESOLVED", end = "UNRESOLVED") {
+  const values = {"[data-playlist-start]": {value: start}, "[data-playlist-end]": {value: end}};
+  return {querySelector(selector) { return values[selector]; }, values};
+}
+const a = row("YES", "YES");
+const b = row("YES", "NO");
+const c = row("NO", "YES");
+const rows = [a, b, c];
+const single = row("YES", "YES");
+api.applyExclusiveBoundary([single], single, "[data-playlist-start]");
+api.applyExclusiveBoundary([single], single, "[data-playlist-end]");
+api.applyExclusiveBoundary(rows, b, "[data-playlist-start]");
+const afterStart = rows.map(row => ({start: row.values["[data-playlist-start]"].value, end: row.values["[data-playlist-end]"].value}));
+api.applyExclusiveBoundary(rows, c, "[data-playlist-end]");
+const afterEnd = rows.map(row => ({start: row.values["[data-playlist-start]"].value, end: row.values["[data-playlist-end]"].value}));
+b.values["[data-playlist-start]"].value = "NO";
+api.applyExclusiveBoundary(rows, b, "[data-playlist-start]");
+c.values["[data-playlist-end]"].value = "NO";
+api.applyExclusiveBoundary(rows, c, "[data-playlist-end]");
+process.stdout.write(JSON.stringify({single: {start: single.values["[data-playlist-start]"].value, end: single.values["[data-playlist-end]"].value}, afterStart, afterEnd, afterClearing: rows.map(row => ({start: row.values["[data-playlist-start]"].value, end: row.values["[data-playlist-end]"].value}))}));'''
+    completed = subprocess.run(
+        ["node", "-e", script, str(script_path)], check=True, capture_output=True, text=True,
+    )
+    result = json.loads(completed.stdout)
+    assert result["single"] == {"start": "YES", "end": "YES"}
+    assert [item["start"] for item in result["afterStart"]] == ["NO", "YES", "NO"]
+    assert [item["end"] for item in result["afterStart"]] == ["YES", "NO", "YES"]
+    assert [item["start"] for item in result["afterEnd"]] == ["NO", "YES", "NO"]
+    assert [item["end"] for item in result["afterEnd"]] == ["NO", "NO", "YES"]
+    assert [item["start"] for item in result["afterClearing"]] == ["NO", "NO", "NO"]
+    assert [item["end"] for item in result["afterClearing"]] == ["NO", "NO", "NO"]
+
+
+def test_staging_does_not_assign_playlist_boundaries() -> None:
+    app = Path("src/playlist_narrative_engine/maestro_workbench/static/app.js").read_text(encoding="utf-8")
+    stage = app[app.index("async function stageEvidence()") : app.index("function acceptScreenshotExtraction")]
+    assert '$("#captures-start").value = "YES"' not in stage
+    assert '$("#captures-end").value = "YES"' not in stage
+
+
 def test_http_extraction_returns_disposable_review_without_research_store_access(tmp_path: Path) -> None:
     class FixtureExtractor:
         def extract(self, source_key: str, _path: Path) -> ScreenshotObservation:

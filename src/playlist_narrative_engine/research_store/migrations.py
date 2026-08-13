@@ -11,7 +11,7 @@ from playlist_narrative_engine.research_store.models import (
     SchemaVersion, Track, TracklistEvidenceSegment,
 )
 
-CURRENT_SCHEMA_VERSION = 3
+CURRENT_SCHEMA_VERSION = 5
 
 
 def get_schema_version(engine: Engine) -> int:
@@ -60,6 +60,7 @@ def _migrate_v1_to_v2(engine: Engine) -> None:
                     observed_track_count=row["observed_track_count"],
                     tracklist_completeness="COMPLETE", saved_by_user=row["saved_by_user"],
                     evidence_standard="LEGACY_V1", overall_assessment=row["overall_assessment"],
+                    assessment_outcome="INDETERMINATE",
                     notes=row["notes"],
                 ))
                 segment_id = connection.execute(TracklistEvidenceSegment.__table__.insert().values(
@@ -167,6 +168,139 @@ def _migrate_v2_to_v3(engine: Engine) -> None:
         connection.commit()
 
 
+def _migrate_v3_to_v4(engine: Engine) -> None:
+    """Add an explicit assessment outcome without interpreting legacy prose."""
+    with engine.begin() as connection:
+        columns = {item["name"] for item in inspect(connection).get_columns("experiments")}
+        if "assessment_outcome" not in columns:
+            connection.exec_driver_sql(
+                "ALTER TABLE experiments ADD COLUMN assessment_outcome VARCHAR(20) "
+                "NOT NULL DEFAULT 'INDETERMINATE' "
+                "CHECK (assessment_outcome IN "
+                "('INDETERMINATE', 'PASS', 'PARTIAL_PASS', 'FAIL'))"
+            )
+        connection.execute(SchemaVersion.__table__.insert().values(
+            version=4, applied_at=datetime.now(timezone.utc)
+        ))
+
+
+_PROTOCOL_CHILD_TABLES = {
+    "study_conditions": "protocol_version_id",
+    "study_blocks": "protocol_version_id",
+    "study_constraint_definitions": "protocol_version_id",
+    "study_outcome_definitions": "protocol_version_id",
+    "study_analysis_definitions": "protocol_version_id",
+    "study_planned_runs": "protocol_version_id",
+}
+
+
+def _create_study_immutability_triggers(connection) -> None:
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_identity_no_update "
+        "BEFORE UPDATE ON studies BEGIN SELECT RAISE(ABORT, 'registered study identity is immutable'); END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_identity_no_delete "
+        "BEFORE DELETE ON studies BEGIN SELECT RAISE(ABORT, 'registered study identity is immutable'); END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_protocol_no_update_after_registration "
+        "BEFORE UPDATE ON study_protocol_versions WHEN OLD.registered_at IS NOT NULL "
+        "BEGIN SELECT RAISE(ABORT, 'registered protocol is immutable'); END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_protocol_no_delete_after_registration "
+        "BEFORE DELETE ON study_protocol_versions WHEN OLD.registered_at IS NOT NULL "
+        "BEGIN SELECT RAISE(ABORT, 'registered protocol is immutable'); END"
+    )
+    for table, column in _PROTOCOL_CHILD_TABLES.items():
+        connection.exec_driver_sql(
+            f"CREATE TRIGGER IF NOT EXISTS {table}_no_insert_after_registration "
+            f"BEFORE INSERT ON {table} WHEN "
+            f"(SELECT registered_at FROM study_protocol_versions WHERE id=NEW.{column}) IS NOT NULL "
+            "BEGIN SELECT RAISE(ABORT, 'registered protocol children are immutable'); END"
+        )
+        connection.exec_driver_sql(
+            f"CREATE TRIGGER IF NOT EXISTS {table}_no_update_after_registration "
+            f"BEFORE UPDATE ON {table} WHEN "
+            f"(SELECT registered_at FROM study_protocol_versions WHERE id=OLD.{column}) IS NOT NULL "
+            "BEGIN SELECT RAISE(ABORT, 'registered protocol children are immutable'); END"
+        )
+        connection.exec_driver_sql(
+            f"CREATE TRIGGER IF NOT EXISTS {table}_no_delete_after_registration "
+            f"BEFORE DELETE ON {table} WHEN "
+            f"(SELECT registered_at FROM study_protocol_versions WHERE id=OLD.{column}) IS NOT NULL "
+            "BEGIN SELECT RAISE(ABORT, 'registered protocol children are immutable'); END"
+        )
+    for table in ("study_planned_run_constraints",):
+        parent = (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_planned_runs pr ON pr.protocol_version_id=pv.id "
+            f"WHERE pr.id={{alias}}.planned_run_id"
+        )
+        for action, alias in (("INSERT", "NEW"), ("UPDATE", "OLD"), ("DELETE", "OLD")):
+            connection.exec_driver_sql(
+                f"CREATE TRIGGER IF NOT EXISTS {table}_no_{action.lower()}_after_registration "
+                f"BEFORE {action} ON {table} WHEN ({parent.format(alias=alias)}) IS NOT NULL "
+                "BEGIN SELECT RAISE(ABORT, 'registered protocol applicability is immutable'); END"
+            )
+    for table in ("study_run_attempts", "study_run_realizations"):
+        connection.exec_driver_sql(
+            f"CREATE TRIGGER IF NOT EXISTS {table}_no_update "
+            f"BEFORE UPDATE ON {table} BEGIN SELECT RAISE(ABORT, 'study run history is append-only'); END"
+        )
+        connection.exec_driver_sql(
+            f"CREATE TRIGGER IF NOT EXISTS {table}_no_delete "
+            f"BEFORE DELETE ON {table} BEGIN SELECT RAISE(ABORT, 'study run history is append-only'); END"
+        )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_realization_no_predating_experiment "
+        "BEFORE INSERT ON study_run_realizations "
+        "WHEN NEW.experiment_id IS NOT NULL AND "
+        "(SELECT e.recorded_at FROM experiments e WHERE e.id=NEW.experiment_id) < "
+        "(SELECT pv.registered_at FROM study_protocol_versions pv "
+        "JOIN study_planned_runs pr ON pr.protocol_version_id=pv.id "
+        "WHERE pr.id=NEW.planned_run_id) "
+        "BEGIN SELECT RAISE(ABORT, 'experiment predates protocol registration'); END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_realization_no_predating_failure "
+        "BEFORE INSERT ON study_run_realizations "
+        "WHEN NEW.generation_failure_id IS NOT NULL AND "
+        "(SELECT gf.recorded_at FROM generation_failures gf WHERE gf.id=NEW.generation_failure_id) < "
+        "(SELECT pv.registered_at FROM study_protocol_versions pv "
+        "JOIN study_planned_runs pr ON pr.protocol_version_id=pv.id "
+        "WHERE pr.id=NEW.planned_run_id) "
+        "BEGIN SELECT RAISE(ABORT, 'generation failure predates protocol registration'); END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_linked_constraint_no_update "
+        "BEFORE UPDATE ON constraints WHEN OLD.study_constraint_definition_id IS NOT NULL "
+        "BEGIN SELECT RAISE(ABORT, 'study-attributed constraint snapshots are immutable'); END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_linked_constraint_no_delete "
+        "BEFORE DELETE ON constraints WHEN OLD.study_constraint_definition_id IS NOT NULL "
+        "BEGIN SELECT RAISE(ABORT, 'study-attributed constraint snapshots are immutable'); END"
+    )
+
+
+def _migrate_v4_to_v5(engine: Engine) -> None:
+    """Add prospective study registration without reinterpreting experiments."""
+    with engine.begin() as connection:
+        ResearchBase.metadata.create_all(bind=connection)
+        columns = {item["name"] for item in inspect(connection).get_columns("constraints")}
+        if "study_constraint_definition_id" not in columns:
+            connection.exec_driver_sql(
+                "ALTER TABLE constraints ADD COLUMN study_constraint_definition_id INTEGER "
+                "REFERENCES study_constraint_definitions(id)"
+            )
+        _create_study_immutability_triggers(connection)
+        connection.execute(SchemaVersion.__table__.insert().values(
+            version=5, applied_at=datetime.now(timezone.utc)
+        ))
+
+
 def migrate_research_database(engine: Engine) -> int:
     current = get_schema_version(engine)
     if current > CURRENT_SCHEMA_VERSION:
@@ -176,14 +310,21 @@ def migrate_research_database(engine: Engine) -> int:
     if current == 0:
         ResearchBase.metadata.create_all(engine)
         with engine.begin() as connection:
+            _create_study_immutability_triggers(connection)
             connection.execute(SchemaVersion.__table__.insert().values(
-                version=3, applied_at=datetime.now(timezone.utc)
+                version=5, applied_at=datetime.now(timezone.utc)
             ))
-        return 3
+        return 5
     if current == 1:
         _migrate_v1_to_v2(engine)
         current = 2
     if current == 2:
         _migrate_v2_to_v3(engine)
-        return 3
+        current = 3
+    if current == 3:
+        _migrate_v3_to_v4(engine)
+        current = 4
+    if current == 4:
+        _migrate_v4_to_v5(engine)
+        return 5
     return current

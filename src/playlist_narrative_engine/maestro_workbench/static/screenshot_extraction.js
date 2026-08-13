@@ -18,6 +18,25 @@
     return tracks.length ? null : "Retain at least one extracted track before accepting the draft.";
   }
 
+  function applyExclusiveBoundary(rows, changedRow, selector) {
+    const changed = changedRow.querySelector(selector);
+    if (changed.value !== "YES") return;
+    rows.forEach(row => {
+      if (row !== changedRow) row.querySelector(selector).value = "NO";
+    });
+  }
+
+  function wireExclusiveBoundaries(container) {
+    const rows = [...container.querySelectorAll("[data-coverage-source]")];
+    rows.forEach(row => {
+      for (const selector of ["[data-playlist-start]", "[data-playlist-end]"]) {
+        row.querySelector(selector).addEventListener("change", () => {
+          applyExclusiveBoundary(rows, row, selector);
+        });
+      }
+    });
+  }
+
   function coverageRangesComplete(trackCount, ranges) {
     if (!Number.isInteger(trackCount) || trackCount < 1) return false;
     const covered = new Set();
@@ -82,6 +101,7 @@
       });
       rows.append(card);
     });
+    wireExclusiveBoundaries(container);
 
     container.querySelector("[data-discard-extraction]").addEventListener("click", () => discard(container));
     container.querySelector("[data-accept-extraction]").addEventListener("click", () => {
@@ -126,7 +146,8 @@
 
   const api = {
     render, discard, renumberAcceptedTracks, renumberReviewRows,
-    acceptanceIssue, coverageRangesComplete, completeContinuityIssue,
+    acceptanceIssue, applyExclusiveBoundary, wireExclusiveBoundaries,
+    coverageRangesComplete, completeContinuityIssue,
     hasActiveReview: () => activeReview !== null,
   };
   if (typeof window !== "undefined") window.ScreenshotExtractionReview = api;

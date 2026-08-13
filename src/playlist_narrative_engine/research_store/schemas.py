@@ -24,6 +24,13 @@ class ConstraintStatus(StrEnum):
     UNKNOWN = "UNKNOWN"
 
 
+class ExperimentAssessmentOutcome(StrEnum):
+    INDETERMINATE = "INDETERMINATE"
+    PASS = "PASS"
+    PARTIAL_PASS = "PARTIAL_PASS"
+    FAIL = "FAIL"
+
+
 class TracklistCompleteness(StrEnum):
     COMPLETE = "COMPLETE"
     PARTIAL = "PARTIAL"
@@ -164,6 +171,7 @@ class ConstraintInput(StrictModel):
     constraint_type: str
     constraint_text: str
     is_hard_constraint: bool = True
+    study_constraint_definition_id: int | None = Field(default=None, gt=0)
     result: ConstraintResultInput | None = None
 
 
@@ -187,11 +195,14 @@ class ExperimentInput(StrictModel):
     source_system: str | None = "Maestro Beta"
     generated_title: str | None = None
     generated_description: str | None = None
-    requested_track_count: int | None = Field(default=None, ge=0)
+    requested_track_count: int | None = Field(default=None, gt=0)
     generated_track_count: int | None = Field(default=None, ge=0)
     saved: bool | None = None
     tracklist_completeness: TracklistCompleteness | None = None
     evidence_standard: EvidenceStandard = EvidenceStandard.CONTEMPORARY_MANUAL
+    assessment_outcome: ExperimentAssessmentOutcome = (
+        ExperimentAssessmentOutcome.INDETERMINATE
+    )
     assessment: str | None = None
     notes: str | None = None
     segments: list[SegmentInput] = Field(default_factory=list)

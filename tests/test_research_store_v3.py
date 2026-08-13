@@ -48,11 +48,11 @@ def _artifact_document(completeness="COMPLETE", **changes):
     return document
 
 
-def test_fresh_database_is_schema_v3(tmp_path) -> None:
+def test_fresh_database_is_schema_v5(tmp_path) -> None:
     engine = make_research_engine(f"sqlite:///{(tmp_path / 'fresh.db').as_posix()}")
-    assert migrate_research_database(engine) == 3
-    assert migrate_research_database(engine) == 3
-    assert get_schema_version(engine) == 3
+    assert migrate_research_database(engine) == 5
+    assert migrate_research_database(engine) == 5
+    assert get_schema_version(engine) == 5
 
 
 def test_artifact_complete_partial_not_observed_and_tristate_boundaries() -> None:
@@ -251,7 +251,7 @@ def test_populated_schema_v2_to_v3_preserves_experiment_and_evidence_ids(tmp_pat
     with engine.begin() as connection:
         connection.execute(text("DELETE FROM schema_version"))
         connection.execute(text("INSERT INTO schema_version(version, applied_at) VALUES (2, CURRENT_TIMESTAMP)"))
-    assert migrate_research_database(engine) == 3
+    assert migrate_research_database(engine) == 5
     with sessions() as session:
         after = ResearchRepository(session).get_experiment(experiment_id)
         assert after == before
@@ -277,7 +277,7 @@ def test_rec_chat_007_normalized_representation_survives_v2_to_v3(tmp_path) -> N
     with engine.begin() as connection:
         connection.execute(text("DELETE FROM schema_version"))
         connection.execute(text("INSERT INTO schema_version(version, applied_at) VALUES (2, CURRENT_TIMESTAMP)"))
-    assert migrate_research_database(engine) == 3
+    assert migrate_research_database(engine) == 5
     with sessions() as session:
         repository = ResearchRepository(session)
         after = repository.get_experiment(experiment_id)

@@ -32,11 +32,12 @@ class SchemaVersion(ResearchBase):
 class Experiment(ResearchBase):
     __tablename__ = "experiments"
     __table_args__ = (
-        CheckConstraint("requested_track_count IS NULL OR requested_track_count >= 0"),
+        CheckConstraint("requested_track_count IS NULL OR requested_track_count > 0"),
         CheckConstraint("generated_track_count IS NULL OR generated_track_count >= 0"),
         CheckConstraint("observed_track_count >= 0"),
         CheckConstraint("tracklist_completeness IN ('COMPLETE', 'PARTIAL', 'NOT_OBSERVED')"),
         CheckConstraint("evidence_standard IN ('LEGACY_V1', 'CONTEMPORARY_MANUAL', 'RECOVERED_HISTORICAL', 'CURRENT_PRIMARY_EVIDENCE')"),
+        CheckConstraint("assessment_outcome IN ('INDETERMINATE', 'PASS', 'PARTIAL_PASS', 'FAIL')"),
         Index("ix_experiments_recorded_at", "recorded_at"),
         Index("ix_experiments_generated_at", "generated_at"),
     )
@@ -55,6 +56,9 @@ class Experiment(ResearchBase):
     tracklist_completeness: Mapped[str] = mapped_column(String(20))
     saved_by_user: Mapped[bool | None] = mapped_column(Boolean)
     evidence_standard: Mapped[str] = mapped_column(String(30))
+    assessment_outcome: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="INDETERMINATE"
+    )
     overall_assessment: Mapped[str | None] = mapped_column(Text)
     notes: Mapped[str | None] = mapped_column(Text)
 
@@ -160,6 +164,9 @@ class Constraint(ResearchBase):
     constraint_type: Mapped[str] = mapped_column(Text)
     constraint_text: Mapped[str] = mapped_column(Text)
     is_hard_constraint: Mapped[bool] = mapped_column(Boolean)
+    study_constraint_definition_id: Mapped[int | None] = mapped_column(
+        ForeignKey("study_constraint_definitions.id")
+    )
 
     experiment: Mapped[Experiment] = relationship(back_populates="constraints")
     result: Mapped[ConstraintResult | None] = relationship(
@@ -433,3 +440,244 @@ class EvidenceLink(ResearchBase):
     notes: Mapped[str | None] = mapped_column(Text)
 
     source: Mapped[EvidenceSource] = relationship()
+
+
+class Study(ResearchBase):
+    __tablename__ = "studies"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    study_key: Mapped[str] = mapped_column(Text, unique=True)
+    title: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+
+
+class StudyProtocolVersion(ResearchBase):
+    __tablename__ = "study_protocol_versions"
+    __table_args__ = (
+        UniqueConstraint("study_id", "version_number", name="uq_study_protocol_version"),
+        UniqueConstraint("predecessor_version_id", name="uq_study_protocol_predecessor"),
+        CheckConstraint("version_number > 0"),
+        CheckConstraint(
+            "(registered_at IS NULL AND registration_hash IS NULL) OR "
+            "(registered_at IS NOT NULL AND registration_hash IS NOT NULL)"
+        ),
+        Index("ix_study_protocol_study", "study_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    study_id: Mapped[int] = mapped_column(ForeignKey("studies.id", ondelete="RESTRICT"))
+    version_number: Mapped[int] = mapped_column(Integer)
+    predecessor_version_id: Mapped[int | None] = mapped_column(
+        ForeignKey("study_protocol_versions.id", ondelete="RESTRICT")
+    )
+    registered_at: Mapped[datetime | None] = mapped_column(DateTime)
+    registration_hash: Mapped[str | None] = mapped_column(String(64))
+    amendment_reason: Mapped[str | None] = mapped_column(Text)
+    objective: Mapped[str] = mapped_column(Text)
+    primary_hypothesis: Mapped[str] = mapped_column(Text)
+    null_hypothesis: Mapped[str] = mapped_column(Text)
+    design_summary: Mapped[str] = mapped_column(Text)
+    planned_sample_size: Mapped[int] = mapped_column(Integer)
+    randomization_method: Mapped[str] = mapped_column(Text)
+    randomization_seed: Mapped[str] = mapped_column(Text)
+    operational_failure_policy: Mapped[str] = mapped_column(Text)
+    operational_failure_consumes_run: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False
+    )
+    refusal_policy: Mapped[str] = mapped_column(Text)
+    missing_result_policy: Mapped[str] = mapped_column(Text)
+
+
+class StudyCondition(ResearchBase):
+    __tablename__ = "study_conditions"
+    __table_args__ = (
+        UniqueConstraint("protocol_version_id", "condition_key", name="uq_study_condition_key"),
+        CheckConstraint("role IN ('CONTROL', 'TREATMENT')"),
+        Index("ix_study_conditions_protocol", "protocol_version_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    protocol_version_id: Mapped[int] = mapped_column(
+        ForeignKey("study_protocol_versions.id", ondelete="RESTRICT")
+    )
+    condition_key: Mapped[str] = mapped_column(Text)
+    label: Mapped[str] = mapped_column(Text)
+    role: Mapped[str] = mapped_column(String(20))
+    exact_factor_definition: Mapped[str] = mapped_column(Text)
+
+
+class StudyBlock(ResearchBase):
+    __tablename__ = "study_blocks"
+    __table_args__ = (
+        UniqueConstraint("protocol_version_id", "block_key", name="uq_study_block_key"),
+        Index("ix_study_blocks_protocol", "protocol_version_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    protocol_version_id: Mapped[int] = mapped_column(
+        ForeignKey("study_protocol_versions.id", ondelete="RESTRICT")
+    )
+    block_key: Mapped[str] = mapped_column(Text)
+    label: Mapped[str] = mapped_column(Text)
+    block_definition: Mapped[str] = mapped_column(Text)
+
+
+class StudyConstraintDefinition(ResearchBase):
+    __tablename__ = "study_constraint_definitions"
+    __table_args__ = (
+        UniqueConstraint("protocol_version_id", "constraint_key", name="uq_study_constraint_key"),
+        CheckConstraint(
+            "permitted_result_provenance IN "
+            "('DIRECT_OBSERVATION', 'HUMAN_ASSESSMENT', 'DERIVED_QUERY_RESULT', 'MIGRATION_DERIVATION')"
+        ),
+        Index("ix_study_constraints_protocol", "protocol_version_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    protocol_version_id: Mapped[int] = mapped_column(
+        ForeignKey("study_protocol_versions.id", ondelete="RESTRICT")
+    )
+    constraint_key: Mapped[str] = mapped_column(Text)
+    constraint_type: Mapped[str] = mapped_column(Text)
+    constraint_text: Mapped[str] = mapped_column(Text)
+    is_hard_constraint: Mapped[bool] = mapped_column(Boolean)
+    evaluation_rule: Mapped[str] = mapped_column(Text)
+    permitted_result_provenance: Mapped[str] = mapped_column(String(30))
+    unknown_handling: Mapped[str] = mapped_column(Text)
+
+
+class StudyOutcomeDefinition(ResearchBase):
+    __tablename__ = "study_outcome_definitions"
+    __table_args__ = (
+        UniqueConstraint("protocol_version_id", "outcome_key", name="uq_study_outcome_key"),
+        CheckConstraint("role IN ('PRIMARY', 'SECONDARY', 'EXPLORATORY')"),
+        Index("ix_study_outcomes_protocol", "protocol_version_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    protocol_version_id: Mapped[int] = mapped_column(
+        ForeignKey("study_protocol_versions.id", ondelete="RESTRICT")
+    )
+    outcome_key: Mapped[str] = mapped_column(Text)
+    role: Mapped[str] = mapped_column(String(20))
+    unit_of_analysis: Mapped[str] = mapped_column(Text)
+    outcome_definition: Mapped[str] = mapped_column(Text)
+    computation_rule: Mapped[str] = mapped_column(Text)
+    missing_data_rule: Mapped[str] = mapped_column(Text)
+    refusal_handling: Mapped[str] = mapped_column(Text)
+    operational_failure_handling: Mapped[str] = mapped_column(Text)
+
+
+class StudyAnalysisDefinition(ResearchBase):
+    __tablename__ = "study_analysis_definitions"
+    __table_args__ = (
+        UniqueConstraint("protocol_version_id", "analysis_key", name="uq_study_analysis_key"),
+        Index("ix_study_analyses_protocol", "protocol_version_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    protocol_version_id: Mapped[int] = mapped_column(
+        ForeignKey("study_protocol_versions.id", ondelete="RESTRICT")
+    )
+    outcome_definition_id: Mapped[int] = mapped_column(
+        ForeignKey("study_outcome_definitions.id", ondelete="RESTRICT")
+    )
+    analysis_key: Mapped[str] = mapped_column(Text)
+    analysis_population: Mapped[str] = mapped_column(Text)
+    comparison_definition: Mapped[str] = mapped_column(Text)
+    aggregation_rule: Mapped[str] = mapped_column(Text)
+    exclusion_rule: Mapped[str] = mapped_column(Text)
+    reporting_rule: Mapped[str] = mapped_column(Text)
+
+
+class StudyPlannedRun(ResearchBase):
+    __tablename__ = "study_planned_runs"
+    __table_args__ = (
+        UniqueConstraint("protocol_version_id", "run_key", name="uq_study_run_key"),
+        UniqueConstraint("protocol_version_id", "randomized_ordinal", name="uq_study_run_order"),
+        UniqueConstraint(
+            "block_id", "condition_id", "replicate_number",
+            name="uq_study_run_replicate",
+        ),
+        CheckConstraint("replicate_number > 0"),
+        CheckConstraint("randomized_ordinal > 0"),
+        Index("ix_study_runs_protocol", "protocol_version_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    protocol_version_id: Mapped[int] = mapped_column(
+        ForeignKey("study_protocol_versions.id", ondelete="RESTRICT")
+    )
+    condition_id: Mapped[int] = mapped_column(ForeignKey("study_conditions.id", ondelete="RESTRICT"))
+    block_id: Mapped[int] = mapped_column(ForeignKey("study_blocks.id", ondelete="RESTRICT"))
+    run_key: Mapped[str] = mapped_column(Text)
+    replicate_number: Mapped[int] = mapped_column(Integer)
+    randomized_ordinal: Mapped[int] = mapped_column(Integer)
+    planned_prompt_text: Mapped[str] = mapped_column(Text)
+    planned_source_system: Mapped[str | None] = mapped_column(Text)
+    replacement_for_run_id: Mapped[int | None] = mapped_column(
+        ForeignKey("study_planned_runs.id", ondelete="RESTRICT")
+    )
+
+
+class StudyPlannedRunConstraint(ResearchBase):
+    __tablename__ = "study_planned_run_constraints"
+
+    planned_run_id: Mapped[int] = mapped_column(
+        ForeignKey("study_planned_runs.id", ondelete="RESTRICT"), primary_key=True
+    )
+    constraint_definition_id: Mapped[int] = mapped_column(
+        ForeignKey("study_constraint_definitions.id", ondelete="RESTRICT"), primary_key=True
+    )
+
+
+class StudyRunAttempt(ResearchBase):
+    __tablename__ = "study_run_attempts"
+    __table_args__ = (
+        UniqueConstraint("planned_run_id", "attempt_number", name="uq_study_run_attempt"),
+        CheckConstraint("attempt_number > 0"),
+        CheckConstraint("attempt_type = 'OPERATIONAL_FAILURE'"),
+        Index("ix_study_attempts_run", "planned_run_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    planned_run_id: Mapped[int] = mapped_column(
+        ForeignKey("study_planned_runs.id", ondelete="RESTRICT")
+    )
+    attempt_number: Mapped[int] = mapped_column(Integer)
+    attempted_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+    attempt_type: Mapped[str] = mapped_column(String(30), default="OPERATIONAL_FAILURE")
+    consumes_planned_run: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    failure_code: Mapped[str] = mapped_column(Text)
+    notes: Mapped[str] = mapped_column(Text)
+
+
+class StudyRunRealization(ResearchBase):
+    __tablename__ = "study_run_realizations"
+    __table_args__ = (
+        UniqueConstraint("planned_run_id", name="uq_study_run_realization"),
+        UniqueConstraint("experiment_id", name="uq_study_realization_experiment"),
+        UniqueConstraint("generation_failure_id", name="uq_study_realization_failure"),
+        CheckConstraint(
+            "disposition IN ('EXPERIMENT_RECORDED', 'MAESTRO_REFUSAL_RECORDED', "
+            "'MAESTRO_FAILURE_RECORDED')"
+        ),
+        CheckConstraint(
+            "(disposition = 'EXPERIMENT_RECORDED' AND experiment_id IS NOT NULL "
+            "AND generation_failure_id IS NULL) OR "
+            "(disposition IN ('MAESTRO_REFUSAL_RECORDED', 'MAESTRO_FAILURE_RECORDED') "
+            "AND experiment_id IS NULL AND generation_failure_id IS NOT NULL)"
+        ),
+        Index("ix_study_realizations_run", "planned_run_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    planned_run_id: Mapped[int] = mapped_column(
+        ForeignKey("study_planned_runs.id", ondelete="RESTRICT")
+    )
+    disposition: Mapped[str] = mapped_column(String(40))
+    experiment_id: Mapped[int | None] = mapped_column(ForeignKey("experiments.id", ondelete="RESTRICT"))
+    generation_failure_id: Mapped[int | None] = mapped_column(
+        ForeignKey("generation_failures.id", ondelete="RESTRICT")
+    )
+    realized_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)

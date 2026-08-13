@@ -11,7 +11,9 @@ from playlist_narrative_engine.research_store.importer import (
 )
 from playlist_narrative_engine.research_store.migrations import migrate_research_database
 from playlist_narrative_engine.research_store.repository import ResearchRepository
-from playlist_narrative_engine.research_store.schemas import ConstraintStatus, GenerationFailureInput
+from playlist_narrative_engine.research_store.schemas import (
+    ConstraintStatus, ExperimentAssessmentOutcome, GenerationFailureInput,
+)
 from playlist_narrative_engine.research_store.service import ResearchStoreService
 
 
@@ -39,10 +41,47 @@ def build_parser() -> argparse.ArgumentParser:
     recurring_tracks.add_argument("--limit", type=int, default=20)
     recurring_artists = commands.add_parser("recurring-artists")
     recurring_artists.add_argument("--limit", type=int, default=20)
+    track_occurrences = commands.add_parser("track-occurrences")
+    track_occurrences.add_argument("canonical_track_id", type=int)
+    artist_occurrences = commands.add_parser("artist-occurrences")
+    artist_occurrences.add_argument("canonical_artist")
+    track_profile = commands.add_parser("track-profile")
+    track_profile.add_argument("canonical_track_id", type=int)
+    artist_profile = commands.add_parser("artist-profile")
+    artist_profile.add_argument("canonical_artist")
+    recurring_track_profiles = commands.add_parser("recurring-track-profiles")
+    recurring_track_profiles.add_argument("--limit", type=int, default=20)
+    recurring_artist_profiles = commands.add_parser("recurring-artist-profiles")
+    recurring_artist_profiles.add_argument("--limit", type=int, default=20)
+    compare = commands.add_parser("compare-experiments")
+    compare.add_argument("experiment_id_a", type=int)
+    compare.add_argument("experiment_id_b", type=int)
+    track_cooccurrences = commands.add_parser("track-cooccurrences")
+    track_cooccurrences.add_argument("canonical_track_id", type=int)
+    track_cooccurrences.add_argument("--limit", type=int, default=20)
+    artist_cooccurrences = commands.add_parser("artist-cooccurrences")
+    artist_cooccurrences.add_argument("canonical_artist")
+    artist_cooccurrences.add_argument("--limit", type=int, default=20)
+    track_pair = commands.add_parser("track-pair-occurrences")
+    track_pair.add_argument("canonical_track_id_a", type=int)
+    track_pair.add_argument("canonical_track_id_b", type=int)
+    artist_pair = commands.add_parser("artist-pair-occurrences")
+    artist_pair.add_argument("canonical_artist_a")
+    artist_pair.add_argument("canonical_artist_b")
+    recurring_track_pairs = commands.add_parser("recurring-track-pairs")
+    recurring_track_pairs.add_argument("--limit", type=int, default=20)
+    recurring_track_pairs.add_argument("--minimum-shared-experiments", type=int, default=2)
+    recurring_artist_pairs = commands.add_parser("recurring-artist-pairs")
+    recurring_artist_pairs.add_argument("--limit", type=int, default=20)
+    recurring_artist_pairs.add_argument("--minimum-shared-experiments", type=int, default=2)
     labels = commands.add_parser("tracks-across-labels", help="Query explicit human-assigned prompt labels")
     labels.add_argument("--minimum-labels", type=int, default=2)
     query = commands.add_parser("query")
     query.add_argument("--assessment")
+    query.add_argument(
+        "--assessment-outcome",
+        choices=[item.value for item in ExperimentAssessmentOutcome],
+    )
     query.add_argument("--constraint-status", choices=[item.value for item in ConstraintStatus])
     saved = query.add_mutually_exclusive_group()
     saved.add_argument("--saved", action="store_true", dest="saved_filter")
@@ -58,7 +97,17 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> None:
     args = build_parser().parse_args()
     engine = make_research_engine()
-    version = migrate_research_database(engine)
+    read_only_commands = {
+        "show", "show-artifact", "recurring-tracks", "recurring-artists",
+        "track-occurrences", "artist-occurrences", "tracks-across-labels", "query",
+        "track-profile", "artist-profile", "recurring-track-profiles",
+        "recurring-artist-profiles", "compare-experiments",
+        "track-cooccurrences", "artist-cooccurrences", "track-pair-occurrences",
+        "artist-pair-occurrences", "recurring-track-pairs", "recurring-artist-pairs",
+    }
+    version = None
+    if args.command not in read_only_commands:
+        version = migrate_research_database(engine)
     if args.command == "init-db":
         print(f"Research database ready at schema version {version}.")
         return
@@ -91,14 +140,56 @@ def main() -> None:
         elif args.command == "show-artifact":
             print(json.dumps(service.get_persisted_artifact(args.artifact_id), indent=2))
         elif args.command == "recurring-tracks":
-            print(json.dumps(repository.recurring_tracks(args.limit), indent=2))
+            print(json.dumps(service.recurring_tracks(args.limit), indent=2))
         elif args.command == "recurring-artists":
-            print(json.dumps(repository.recurring_artists(args.limit), indent=2))
+            print(json.dumps(service.recurring_artists(args.limit), indent=2))
+        elif args.command == "track-occurrences":
+            print(json.dumps(service.track_occurrences(args.canonical_track_id), indent=2))
+        elif args.command == "artist-occurrences":
+            print(json.dumps(service.artist_occurrences(args.canonical_artist), indent=2))
+        elif args.command == "track-profile":
+            print(json.dumps(service.track_profile(args.canonical_track_id), indent=2))
+        elif args.command == "artist-profile":
+            print(json.dumps(service.artist_profile(args.canonical_artist), indent=2))
+        elif args.command == "recurring-track-profiles":
+            print(json.dumps(service.recurring_track_profiles(args.limit), indent=2))
+        elif args.command == "recurring-artist-profiles":
+            print(json.dumps(service.recurring_artist_profiles(args.limit), indent=2))
+        elif args.command == "compare-experiments":
+            print(json.dumps(service.compare_experiments(
+                args.experiment_id_a, args.experiment_id_b,
+            ), indent=2))
+        elif args.command == "track-cooccurrences":
+            print(json.dumps(service.track_cooccurrences(
+                args.canonical_track_id, args.limit,
+            ), indent=2))
+        elif args.command == "artist-cooccurrences":
+            print(json.dumps(service.artist_cooccurrences(
+                args.canonical_artist, args.limit,
+            ), indent=2))
+        elif args.command == "track-pair-occurrences":
+            print(json.dumps(service.track_pair_occurrences(
+                args.canonical_track_id_a, args.canonical_track_id_b,
+            ), indent=2))
+        elif args.command == "artist-pair-occurrences":
+            print(json.dumps(service.artist_pair_occurrences(
+                args.canonical_artist_a, args.canonical_artist_b,
+            ), indent=2))
+        elif args.command == "recurring-track-pairs":
+            print(json.dumps(service.recurring_track_pairs(
+                args.limit, args.minimum_shared_experiments,
+            ), indent=2))
+        elif args.command == "recurring-artist-pairs":
+            print(json.dumps(service.recurring_artist_pairs(
+                args.limit, args.minimum_shared_experiments,
+            ), indent=2))
         elif args.command == "tracks-across-labels":
             print(json.dumps(repository.tracks_across_prompt_labels(minimum_distinct_labels=args.minimum_labels), indent=2))
         elif args.command == "query":
-            print(json.dumps(repository.query_experiments(
-                assessment=args.assessment, constraint_status=args.constraint_status, saved=args.saved_filter,
+            print(json.dumps(service.query_experiments(
+                assessment=args.assessment,
+                assessment_outcome=args.assessment_outcome,
+                constraint_status=args.constraint_status, saved=args.saved_filter,
             ), indent=2))
         elif args.command == "export-json":
             print(export_json(repository, args.path))

@@ -528,16 +528,59 @@ def test_evidence_and_prompt_metadata_immediately_precedes_build_prompt_controls
     declarations_start = html.index('<section id="source-tracklist-declarations"')
     declarations_end = html.index("</section>", declarations_start)
     metadata_end = html.index("</section>", metadata_start)
-    readiness = html.index('<div id="readiness"', metadata_end)
+    research_readiness = html.index('<div id="research-readiness"', metadata_end)
+    readiness = html.index('<div id="readiness"', research_readiness)
     build = html.index('<button id="build"', readiness)
-    assert metadata_end < readiness < build
+    assert metadata_end < research_readiness < readiness < build
     assert declarations_end < metadata_start
     assert html[declarations_end + len("</section>"):metadata_start].strip() == ""
-    between = html[metadata_end + len("</section>"):readiness]
+    between = html[metadata_end + len("</section>"):research_readiness]
     assert between.strip() == ""
     metadata = html[metadata_start:metadata_end]
-    for field_id in ("evidence-standard", "prompt", "prompt-title", "assessment", "notes"):
+    for field_id in ("evidence-standard", "prompt", "prompt-title", "assessment-outcome", "notes"):
         assert f'id="{field_id}"' in metadata
+
+
+def test_readiness_requires_explicit_provenance_for_additional_evidence_links() -> None:
+    javascript = (
+        Path(__file__).parents[1]
+        / "src" / "playlist_narrative_engine" / "maestro_workbench" / "static" / "app.js"
+    ).read_text(encoding="utf-8")
+    helper_start = javascript.index("function additionalEvidenceLinkIssues()")
+    helper_end = javascript.index("function readinessIssues()", helper_start)
+    helper = javascript[helper_start:helper_end]
+    readiness_end = javascript.index("function refreshReadiness()")
+    readiness = javascript[javascript.index("function readinessIssues()"):readiness_end]
+    assert 'row.querySelector("[data-field=\'provenance_type\']").value' in helper
+    assert "Choose provenance for additional evidence link" in helper
+    assert "issues.push(...additionalEvidenceLinkIssues())" in readiness
+    add_row = javascript[javascript.index("function addRow("):javascript.index("function invalidateConfirmation()")]
+    assert 'input.addEventListener("change", () => { invalidateValidation(); refreshReadiness(); })' in add_row
+
+
+def test_additional_evidence_link_provenance_is_required_and_preserved_unchanged() -> None:
+    staged = [{
+        "source_type": "SCREENSHOT",
+        "source_reference": "explicit screenshot reference",
+        "original_filename": "capture.png",
+        "local_path": "staged/capture.png",
+        "sha256": "a" * 64,
+    }]
+    declarations = {
+        "tracklist_completeness": "NOT_OBSERVED",
+        "top_level_evidence": [{
+            "source_key": "source_1",
+            "field_name": "source_system",
+            "provenance_type": "HUMAN_ASSESSMENT",
+            "support_status": "PARTIAL",
+        }],
+    }
+    proposal = build_governed_proposal("historical_experiment", declarations, staged)
+    assert proposal["evidence"][0]["provenance_type"] == "HUMAN_ASSESSMENT"
+
+    declarations["top_level_evidence"][0]["provenance_type"] = None
+    with pytest.raises(ValueError, match="provenance_type must be explicitly supplied"):
+        build_governed_proposal("historical_experiment", declarations, staged)
 
 
 def test_submit_next_experiment_is_final_control_and_reuses_one_nonmutating_reset_path() -> None:
@@ -667,7 +710,7 @@ function buildEnvironment() {
   element("#draft-tracks");
   element("#overlap-suggestions");
   element("#raw-draft");
-  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#preview-source-declarations", "#source-declaration-preview", "#bulk-source-type", "#bulk-source-reference", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#requested-count-state", "#requested-count", "#saved", "#saved-evidence-field", "#generated-title", "#generated-description", "#notes"]) element(selector);
+  for (const selector of ["#track-coverage", "#research-readiness", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#preview-source-declarations", "#source-declaration-preview", "#bulk-source-type", "#bulk-source-reference", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#requested-count-state", "#requested-count", "#assessment-outcome", "#saved", "#saved-evidence-field", "#generated-title", "#generated-description", "#notes"]) element(selector);
   element("[data-claim-field='saved']").options = [];
 
   const boundaryFields = [new FakeElement(), new FakeElement()];
@@ -833,7 +876,7 @@ function buildEnvironment() {
   element("#draft-tracks");
   element("#overlap-suggestions");
   element("#raw-draft");
-  for (const selector of ["#track-coverage", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#preview-source-declarations", "#source-declaration-preview", "#bulk-source-type", "#bulk-source-reference", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#requested-count-state", "#requested-count", "#saved", "#saved-evidence-field", "#generated-title", "#generated-description", "#notes"]) element(selector);
+  for (const selector of ["#track-coverage", "#research-readiness", "#readiness", "#stage-status", "#build-status", "#validation-status", "#ingest-status", "#readback-summary", "#preview-source-declarations", "#source-declaration-preview", "#bulk-source-type", "#bulk-source-reference", "#evidence-standard", "#captures-start", "#captures-end", "#evidence-provenance", "#evidence-support", "#source-system", "#prompt", "#prompt-attested", "#requested-count-state", "#requested-count", "#assessment-outcome", "#saved", "#saved-evidence-field", "#generated-title", "#generated-description", "#notes"]) element(selector);
   element("[data-claim-field='saved']").options = [];
 
   const boundaryFields = [new FakeElement(), new FakeElement()];
@@ -1578,7 +1621,7 @@ def test_unknown_historical_request_and_saved_states_are_non_asserting() -> None
 
     assert '<option value="UNKNOWN">Unknown / not asserted</option>' in html
     assert '<option value="YES">Yes</option><option value="NO">No</option>' in html
-    assert 'id="requested-count" type="number" min="0" autocomplete="off" disabled' in html
+    assert 'id="requested-count" type="number" min="1" autocomplete="off" disabled' in html
     assert 'id="saved-evidence-field" hidden' in html
     assert 'data-claim-field="saved"' in html
     start = javascript.index("function declaredRequestedTrackCount")
@@ -1608,3 +1651,39 @@ process.stdout.write(JSON.stringify(values));'''
         "noEvidenceIssue": "Link the asserted saved status to supporting evidence",
         "supportedEvidenceIssue": None,
     }
+
+
+def test_research_readiness_is_informational_and_reflects_declared_values() -> None:
+    root = Path(__file__).parents[1] / "src" / "playlist_narrative_engine" / "maestro_workbench" / "static"
+    html = (root / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "app.js").read_text(encoding="utf-8")
+    assert 'id="research-readiness"' in html
+    assert 'id="assessment-outcome"' in html
+    assert [value for value in ("INDETERMINATE", "PASS", "PARTIAL_PASS", "FAIL") if f"<option>{value}</option>" in html] == [
+        "INDETERMINATE", "PASS", "PARTIAL_PASS", "FAIL",
+    ]
+
+    start = javascript.index("function refreshResearchReadiness()")
+    end = javascript.index("function collectDeclarations()", start)
+    function_source = javascript[start:end]
+    script = f'''
+const elements = {{
+  "#requested-count-state": {{value: "KNOWN"}}, "#requested-count": {{value: "40"}},
+  "#assessment-outcome": {{value: "PARTIAL_PASS"}}, "#completeness": {{value: "COMPLETE"}},
+  "#captures-start": {{value: "YES"}}, "#captures-end": {{value: "YES"}},
+  "#notes": {{value: "reviewed"}}, "#research-readiness": {{innerHTML: ""}},
+}};
+const $ = selector => elements[selector];
+const escapeHtml = value => value;
+const confirmedTracks = [{{canonical_identity_established: true}}, {{canonical_identity_established: false}}];
+{function_source}
+refreshResearchReadiness();
+process.stdout.write(elements["#research-readiness"].innerHTML);
+'''
+    completed = subprocess.run(["node", "-e", script], check=True, capture_output=True, text=True)
+    assert "PARTIAL_PASS" in completed.stdout
+    assert "declared (40)" in completed.stdout
+    assert "COMPLETE" in completed.stdout
+    assert "1/2 confirmed tracks" in completed.stdout
+    readiness = javascript[javascript.index("function readinessIssues()"):javascript.index("function refreshReadiness()")]
+    assert "research-readiness" not in readiness

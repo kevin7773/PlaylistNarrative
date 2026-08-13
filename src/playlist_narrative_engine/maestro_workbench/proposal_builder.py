@@ -20,6 +20,10 @@ def build_governed_proposal(
     segments = _build_segments(declarations, completeness, sources, bool(tracks))
     if kind == "historical_experiment":
         proposal = _historical_proposal(declarations)
+        constraints = declarations.get("constraints", [])
+        if not isinstance(constraints, list):
+            raise ValueError("constraints must be an explicit list")
+        proposal["constraints"] = constraints
         if completeness == "COMPLETE":
             proposal["generated_track_count"] = len(tracks)
     else:
@@ -38,7 +42,7 @@ def _historical_proposal(values: dict[str, Any]) -> dict[str, Any]:
     return _present(values, (
         "prompt", "prompt_title", "source_system", "generated_title",
         "generated_description", "requested_track_count", "saved",
-        "evidence_standard", "assessment", "notes",
+        "evidence_standard", "assessment_outcome", "assessment", "notes",
     ))
 
 

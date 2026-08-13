@@ -12,7 +12,15 @@
       <p class="eyebrow">Playlist Narrative Engine</p>
       <h1>Maestro Evidence Workbench</h1>
       <p class="boundary">Collect. Display. Invoke. The workbench transports explicit declarations to existing governed operations; it does not decide what the evidence establishes.</p>
+      <nav class="top-nav"><a class="active" href="/">Evidence intake</a><a href="/studies.html">Studies</a></nav>
     </header>
+
+    <section id="planned-run-context" class="panel frozen-panel" hidden>
+      <span class="step">STUDY</span><h2>Frozen planned-run execution</h2>
+      <div id="planned-run-summary"></div>
+      <p class="warning">The registered prompt, source system, and constraints are immutable. This execution may only realize the selected planned run.</p>
+      <button id="leave-planned-run" class="secondary" type="button">Leave planned execution</button>
+    </section>
 
     <section class="panel">
       <span class="step">01</span><h2>Choose intake mode</h2>
@@ -149,16 +157,21 @@
             <p class="hint wide">Use this only when you personally know the prompt. It records an explicit human attestation; it does not claim that a screenshot contains the prompt.</p>
             <label>Prompt title<input id="prompt-title" type="text"></label>
             <label>Requested track count status<select id="requested-count-state" autocomplete="off"><option value="UNKNOWN">Unknown / not asserted</option><option value="KNOWN">Explicitly known</option></select></label>
-            <label>Requested track count <span class="hint">Optional; enabled only when explicitly known.</span><input id="requested-count" type="number" min="0" autocomplete="off" disabled></label>
+            <label>Requested track count <span class="hint">Optional; enabled only when explicitly known.</span><input id="requested-count" type="number" min="1" autocomplete="off" disabled></label>
             <label>Generated title<input id="generated-title" type="text"></label>
             <label>Generated description<input id="generated-description" type="text"></label>
             <label>Saved status<select id="saved" autocomplete="off"><option value="UNKNOWN">Unknown / not asserted</option><option value="YES">Yes</option><option value="NO">No</option></select></label>
-            <label>Assessment<input id="assessment" type="text"></label>
+            <label>Assessment outcome<select id="assessment-outcome" autocomplete="off">
+              <option>INDETERMINATE</option><option>PASS</option><option>PARTIAL_PASS</option><option>FAIL</option>
+            </select></label>
           </div>
         </fieldset>
         <label>Notes<textarea id="notes" class="short"></textarea></label>
       </section>
 
+      <div id="research-readiness" class="readiness" aria-live="polite">
+        <strong>Research readiness</strong><p>Prospective analytical declarations will appear here. This summary does not change governed validation.</p>
+      </div>
       <div id="readiness" class="readiness" aria-live="polite"><strong>Evidence readiness</strong><p>Complete the explicit declarations above.</p></div>
       <button id="build" type="button">Build governed proposal</button>
       <div id="build-status" class="operation-status" aria-live="polite">No proposal built.</div>

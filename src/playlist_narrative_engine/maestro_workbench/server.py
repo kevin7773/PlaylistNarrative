@@ -72,6 +72,27 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
         if path == "/api/health":
             self._send_json(HTTPStatus.OK, {"status": "ok"})
             return
+        if path == "/api/studies":
+            self._send_json(HTTPStatus.OK, {"studies": self._study_operation("list")})
+            return
+        if path.startswith("/api/studies/"):
+            parts = path.strip("/").split("/")
+            try:
+                study_id = int(parts[2])
+                if len(parts) == 5 and parts[3] == "protocols":
+                    result = self._study_operation("protocol", study_id, int(parts[4]))
+                elif len(parts) == 3:
+                    result = self._study_operation("get", study_id)
+                else:
+                    self.send_error(HTTPStatus.NOT_FOUND)
+                    return
+                if result is None:
+                    self._send_json(HTTPStatus.NOT_FOUND, {"error": "study record not found"})
+                else:
+                    self._send_json(HTTPStatus.OK, result)
+            except ValueError as exc:
+                self._send_json(HTTPStatus.BAD_REQUEST, {"error": str(exc)})
+            return
         static_file = self._resolve_static_file(path)
         if static_file is None:
             self.send_error(HTTPStatus.NOT_FOUND)
@@ -110,6 +131,27 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
                         _required_text(request, "kind"), declarations, staged_evidence
                     )
                 })
+            elif path == "/api/studies/validate":
+                self._send_json(HTTPStatus.OK, self._study_operation("validate", self._read_json()))
+            elif path == "/api/studies/register":
+                self._send_json(HTTPStatus.CREATED, self._study_operation("register", self._read_json()))
+            elif path.startswith("/api/study-runs/"):
+                parts = path.strip("/").split("/")
+                if len(parts) != 4:
+                    raise ValueError("invalid planned-run operation")
+                run_id = int(parts[2])
+                request = self._read_json()
+                if parts[3] == "operational-attempts":
+                    result = self._study_operation("attempt", run_id, request)
+                elif parts[3] == "failures":
+                    result = self._study_operation(
+                        "failure", run_id, _required_text(request, "disposition"), request.get("failure")
+                    )
+                elif parts[3] == "realize-experiment":
+                    result = self._study_operation("realize", run_id, request.get("proposal"))
+                else:
+                    raise ValueError("invalid planned-run operation")
+                self._send_json(HTTPStatus.CREATED, result)
             elif path == "/api/generate-draft-tracklist":
                 request = self._read_json()
                 provider = _required_text(request, "provider")
@@ -178,6 +220,20 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
             if operation == "validate":
                 return operations.validate(kind, request.get("proposal"))
             return operations.ingest(kind, request.get("proposal"))
+
+    def _study_operation(self, operation: str, *args):
+        with open_research_store_service(self.server.database_url) as service:
+            operations = WorkbenchOperations(service)
+            return {
+                "list": operations.list_studies,
+                "get": operations.get_study,
+                "protocol": operations.get_protocol,
+                "validate": operations.validate_study,
+                "register": operations.register_study,
+                "attempt": operations.record_operational_attempt,
+                "failure": operations.record_study_failure,
+                "realize": operations.realize_study_experiment,
+            }[operation](*args)
 
     def _resolve_static_file(self, path: str) -> Path | None:
         relative = "index.html" if path == "/" else path.lstrip("/")
