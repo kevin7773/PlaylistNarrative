@@ -1,0 +1,889 @@
+{
+  "prompt": "Create a deeply thoughtful and profound playlist, but actually it’s just a Rickroll.",
+  "prompt_title": "Deeply Thoughtful Rickroll",
+  "source_system": "Maestro Beta",
+  "generated_title": "Never Gonna Give Up On Meaning",
+  "generated_description": "Existential journey that leads to unexpected joy",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 30,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "assessment": "Partial narrative compliance",
+  "notes": "Maestro clearly recognized the Rickroll concept, reflected directly in the generated title and opening track. However, it revealed the joke immediately by placing \"Never Gonna Give You Up\" first rather than constructing a setup and later reveal. The remainder became a coherent but unusual alternative/indie-rock journey centered on introspection, alienation, melancholy, resilience, and nostalgia. Strong semantic prompt comprehension; weak comedic/narrative placement.",
+  "evidence_sources": [
+    {
+      "source_key": "source_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Deeply Thoughtful Rickroll 1",
+      "original_filename": "IMG_3537.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\cb28b24a23854475a96a1846a09fc504\\IMG_3537.png",
+      "sha256": "36c75f65b22344aac82dfb7ea41f5039c2cb532bdc5dff059bf0c486fed3786d"
+    },
+    {
+      "source_key": "source_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Deeply Thoughtful Rickroll 2",
+      "original_filename": "IMG_3538.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\57c96d84777442038cc41bdcda011223\\IMG_3538.png",
+      "sha256": "7a4ae139c75edf68aacc53826bc0a48fc97b27bb5dbea380e902d2fdfda5e30e"
+    },
+    {
+      "source_key": "source_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Deeply Thoughtful Rickroll 3",
+      "original_filename": "IMG_3539.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\e7575d25a79447edaa0589a5fa9de355\\IMG_3539.png",
+      "sha256": "020ce63c1b7ba6d3daecb69420436bb4b14345c63ad757ed7632b6bbaee47e8b"
+    },
+    {
+      "source_key": "source_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Deeply Thoughtful Rickroll 4",
+      "original_filename": "IMG_3540.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\b5748d132c7546d9b2a91293e2801659\\IMG_3540.png",
+      "sha256": "d763ac539976d1453afe484d14f950bba736153047cf6f13a0758a592a6359f2"
+    },
+    {
+      "source_key": "source_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Deeply Thoughtful Rickroll 5",
+      "original_filename": "IMG_3541.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\8bc4b736f21048f0b40b859bef4c1a9c\\IMG_3541.png",
+      "sha256": "53afd72cd410f4eb548407e86b9d15ada9e161b7d4adcae3993ec2d37c6cb7c4"
+    },
+    {
+      "source_key": "source_6",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "workbench:operator-prompt-attestation",
+      "notes": "Operator explicitly attested that the supplied prompt is the exact original prompt."
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "source_1",
+      "field_name": "source_system"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_title"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_description"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_2",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_3",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_4",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_5",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_2",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_3",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_4",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_5",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_6",
+      "field_name": "prompt",
+      "provenance_type": "HUMAN_ASSESSMENT"
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "captures_playlist_start"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "captures_playlist_end"
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Never Gonna Give You Up (2022 Remaster)",
+      "artist": "Rick Astley",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "Today (2011 Remaster)",
+      "artist": "The Smashing Pumpkins",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "No Surprises (Remastered)",
+      "artist": "Radiohead",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "I Will Follow You into the Dark",
+      "artist": "Death Cab For Cutie",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "How Soon Is Now? (2008 Remaster)",
+      "artist": "The Smiths",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "Wake Up",
+      "artist": "Arcade Fire",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Float On",
+      "artist": "Modest Mouse",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Losing My Religion",
+      "artist": "R.E.M.",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Bloodbuzz Ohio",
+      "artist": "The National",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Evil",
+      "artist": "Interpol",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "Lisztomania",
+      "artist": "Phoenix",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Time to Pretend [Explicit]",
+      "artist": "MGMT",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Let It Happen",
+      "artist": "Tame Impala",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "All These Things That I've Done (Video Mix)",
+      "artist": "The Killers",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "Starlight",
+      "artist": "Muse",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "The Only Exception",
+      "artist": "Paramore",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Everlong",
+      "artist": "Foo Fighters",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Heart-Shaped Box",
+      "artist": "Nirvana",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Black",
+      "artist": "Pearl Jam",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Black Hole Sun",
+      "artist": "Soundgarden",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Nutshell [Explicit]",
+      "artist": "Alice In Chains",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "Plush (2017 Remaster)",
+      "artist": "Stone Temple Pilots",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Dreams (Remastered 2026)",
+      "artist": "The Cranberries",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Wonderwall (Remastered)",
+      "artist": "Oasis",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "Song 2 (2012 Remaster)",
+      "artist": "Blur",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Bitter Sweet Symphony (Remastered 2016)",
+      "artist": "The Verve",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Every You Every Me",
+      "artist": "Placebo",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Only Happy When It Rains",
+      "artist": "Garbage",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Don't Speak",
+      "artist": "No Doubt",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "Say It Ain't So (Original Mix)",
+      "artist": "Weezer",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [],
+  "prompt_labels": []
+}

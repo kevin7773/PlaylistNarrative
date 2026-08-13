@@ -1,0 +1,1172 @@
+{
+  "prompt": "Gothic cathedral choir music, but it’s interrupted every two minutes by a high-pitched Windows 95 startup chime",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "Divine Glitches Cathedral Interrupted",
+  "generated_description": "Sacred choral grandeur meets jarring digital interruptions",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 39,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Historical Maestro Beta generation. Save Playlist is captured UI state only. Persistent Mr. Brightside / The Killers now-playing UI is excluded. Truncated artist strings remain raw and do not establish canonical identity. Interpretations remain non-authoritative HUMAN_ASSESSMENT.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Codex handoff 019fe2c9-0848-78c0-a653-c50966dd0546; user supplies exact prompt and comparative research hypotheses",
+      "notes": "USER_ATTESTED conversation evidence; not screenshot-derived and does not establish generated_at, requested count, saved status, later edits, or Maestro internals."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Divine Glitches Cathedral Interrupted original Maestro capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\7A523309-E2D7-4D27-8806-FEA2F2651963\\1-Photo-1.jpg",
+      "sha256": "02c2dba73abc826d75bff552309df5f9e0d1ee8b22571bfabbd7ec270407198c"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Divine Glitches Cathedral Interrupted original Maestro capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\7A523309-E2D7-4D27-8806-FEA2F2651963\\2-Photo-2.jpg",
+      "sha256": "0f558e2ba182d97d9e1b63a7b5ea6620fe02e8ab8105616ee2d5dab61df49dd1"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Divine Glitches Cathedral Interrupted original Maestro capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\7A523309-E2D7-4D27-8806-FEA2F2651963\\3-Photo-3.jpg",
+      "sha256": "1357bb4e6390f78587f3d7b4cb7a76aa7355da8bceb31c5569dc9e4c4be5e8a8"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Divine Glitches Cathedral Interrupted original Maestro capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\7A523309-E2D7-4D27-8806-FEA2F2651963\\4-Photo-4.jpg",
+      "sha256": "02a8add20d5bce2cdb357447d8d7c20c9abb4eb091ad384cc9d6531b49358152"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Divine Glitches Cathedral Interrupted original Maestro capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\7A523309-E2D7-4D27-8806-FEA2F2651963\\5-Photo-5.jpg",
+      "sha256": "a41441c81d03b76fe3ae40181dac196761b6a1db50224ebd8d70581b074cc966"
+    },
+    {
+      "source_key": "capture_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Divine Glitches Cathedral Interrupted original Maestro capture 6",
+      "original_filename": "6-Photo-6.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\7A523309-E2D7-4D27-8806-FEA2F2651963\\6-Photo-6.jpg",
+      "sha256": "668d55851aa5d07f42f8083a510ad56f85d9fc90b4619e89dc180dfee0a6657c"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "user_attestation",
+      "field_name": "prompt",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "notes": "Direct observation of the user's exact prompt attestation; not screenshot-derived."
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_track_count",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Count reconciled from continuous capture and terminal boundary."
+    },
+    {
+      "source_key": "capture_6",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Complete start-to-end capture with continuous overlaps and visible whitespace after Pursuit."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "The Host of Seraphim (Remastered)",
+      "artist": "Dead Can Dance",
+      "version_or_remaster_text": "Remastered",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "Animus Vox",
+      "artist": "The Glitch Mob",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Marble Halls",
+      "artist": "Enya",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Windowlicker",
+      "artist": "Aphex Twin",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Sadeness (Part I / Extended Trance Mix)",
+      "artist": "Enigma",
+      "version_or_remaster_text": "Extended Trance Mix",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "NEW COKE",
+      "artist": "HEALTH",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Now We Are Free (From \"Gladiator\" Soundtrack)",
+      "artist": "Lisa Gerrard, Gavin Greenaway, The Lyndhurst Orc...",
+      "canonical_identity_established": false,
+      "notes": "Artist string is visibly truncated; raw displayed text is preserved and canonical identity is not asserted.",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist",
+          "support_status": "PARTIAL"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Plague",
+      "artist": "Crystal Castles",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "The Mystic's Dream",
+      "artist": "Loreena McKennitt",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Just Like You Imagined",
+      "artist": "Nine Inch Nails",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "Moment Of Peace",
+      "artist": "Gregorian",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Scary Monsters and Nice Sprites",
+      "artist": "Skrillex",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Lacrymosa",
+      "artist": "Evanescence",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "The Island",
+      "artist": "Pendulum",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "Ameno (Remix)",
+      "artist": "ERA",
+      "version_or_remaster_text": "Remix",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "Doomsday",
+      "artist": "Nero",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Time To Say Goodbye",
+      "artist": "Sarah Brightman, Andrea Bocelli",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Internet Friends [Explicit]",
+      "artist": "Knife Party",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "explicit_flag"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Adiemus",
+      "artist": "Karl Jenkins, Jody K. Jenkins, Adiemus, London Ph...",
+      "canonical_identity_established": false,
+      "notes": "Artist string is visibly truncated; raw displayed text is preserved and canonical identity is not asserted.",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "support_status": "PARTIAL"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Divinity [feat. Amy Millan]",
+      "artist": "Porter Robinson, Amy Millan",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Theme from Harry's Game (2003 Remaster)",
+      "artist": "Clannad",
+      "version_or_remaster_text": "2003 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "Strobe",
+      "artist": "deadmau5",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Sanctus (Based on Pachelbel's Canon)",
+      "artist": "Libera, Robert Prizeman, Steven Geraghty, Chris D...",
+      "canonical_identity_established": false,
+      "notes": "Artist string is visibly truncated; raw displayed text is preserved and canonical identity is not asserted.",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "support_status": "PARTIAL"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Clarity [feat. Foxes]",
+      "artist": "Zedd, Foxes",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "Saltwater",
+      "artist": "Chicane, Moya Brennan",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Holdin On [Explicit]",
+      "artist": "Flume",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "explicit_flag"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Requiem: Pie Jesu",
+      "artist": "Charlotte Church",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Finale",
+      "artist": "Madeon, Nicholas Petricca",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Derezzed (From \"TRON: Legacy\"/Score)",
+      "artist": "Daft Punk",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "O Euchari in leta via, BN 53",
+      "artist": "Emily Van Evera, Gothic Voices, Christopher Page,...",
+      "canonical_identity_established": false,
+      "notes": "Artist string is visibly truncated; raw displayed text is preserved and canonical identity is not asserted.",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist",
+          "support_status": "PARTIAL"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "A Moment Apart",
+      "artist": "ODESZA",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Tallis: Spem in Alium - 1. Spem in Alium",
+      "artist": "The Tallis Scholars & Peter Phillips",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Slasherr",
+      "artist": "Rustie",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Spiegel im Spiegel",
+      "artist": "Renaud Capuçon, Guillaume Bellom",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "Energy Drink",
+      "artist": "Virtual Riot",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "Song For Athene",
+      "artist": "Chór Katedry Warszawsko-Praskiej \"Musica Sacra\",...",
+      "canonical_identity_established": false,
+      "notes": "Artist string is visibly truncated; raw displayed text is preserved and canonical identity is not asserted.",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist",
+          "support_status": "PARTIAL"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "Jeffer",
+      "artist": "Boys Noize",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "Miserere mei, Deus",
+      "artist": "Choir of King's College, Cambridge, Gerald Finley,...",
+      "canonical_identity_established": false,
+      "notes": "Artist string is visibly truncated; raw displayed text is preserved and canonical identity is not asserted.",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist",
+          "support_status": "PARTIAL"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "Pursuit",
+      "artist": "Gesaffelstein",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Absolute position derived from continuous screenshot overlap."
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SAVE_UI_STATE",
+      "observation_text": "The initial Maestro result screen visibly shows Save Playlist.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "Capture 1; does not establish eventual saved status."
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The supplied captures visibly show device clocks of 9:34–9:35.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "UI context only; not treated as generated_at."
+    },
+    {
+      "observation_type": "STRUCTURAL_SUBSTITUTION_HYPOTHESIS",
+      "observation_text": "Because a Windows 95 startup chime cannot literally be inserted into catalog recordings, Maestro may have approximated the requested periodic interruption through sequencing contrasts between sacred/choral/ethereal and electronic/glitch-oriented material.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Research hypothesis only; no internal mechanism is asserted."
+    },
+    {
+      "observation_type": "DUAL_NEIGHBORHOOD_HYPOTHESIS",
+      "observation_text": "The result may preserve two distinguishable candidate neighborhoods simultaneously: sacred/choral/grandiose and electronic/glitch/disruptive, unlike cases assessed as semantic compression into one catalog-realizable neighborhood.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "TEMPORAL_CONSTRAINT_REALIZATION_HYPOTHESIS",
+      "observation_text": "An unrealizable within-track temporal instruction may sometimes be translated into between-track sequencing structure rather than discarded.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Non-authoritative hypothesis; no causal or architectural claim."
+    },
+    {
+      "observation_type": "PIRATES_KAZOO_COMPARISON",
+      "observation_text": "Compared with the prior college-essay Pirates/kazoo case, this experiment is a candidate for distinguishing timbre-transformation compression from temporal-interruption substitution.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Qualitative comparison only; causality is not asserted."
+    },
+    {
+      "observation_type": "DEFAULT_BASIN_AVOIDANCE_HYPOTHESIS",
+      "observation_text": "The visible result appears substantially removed from the previously observed indie/upbeat-pop default candidate basin.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Comparative research observation only; not an established Maestro behavior."
+    },
+    {
+      "observation_type": "NO_FITZ_VISIBLE_COMPARATIVE_NOTE",
+      "observation_text": "No Fitz & The Tantrums placement appears in the complete observed 39-track sequence.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "Governed comparative note only; creates no exclusion rule, diagnostic gate, or verified explanation."
+    }
+  ],
+  "prompt_labels": []
+}

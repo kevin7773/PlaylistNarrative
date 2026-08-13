@@ -1,0 +1,1237 @@
+{
+  "prompt": "Create a playlist that expresses the irony and frustration of an engineer and his AI assistant fixing a UI repeatedly while trying to ingest evidence from a playlist called When Things Break Again into a SQL database.",
+  "prompt_title": "When Things Break Again The Saga",
+  "source_system": "Maestro Beta",
+  "generated_title": "When Things Break Again The Saga",
+  "generated_description": "From chaos and bugs to breakthrough and victory.",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 40,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "assessment": "Strong narrative compliance",
+  "notes": "Maestro interpreted the prompt as a frustration-to-victory arc. The sequence begins with chaos, frustration, stress, and ironic pop choices, moves through persistence and recovery, and ends with overt resilience and triumph. The result strongly reflects the requested engineering/debugging narrative, although selection is heavily mainstream pop/alternative.",
+  "evidence_sources": [
+    {
+      "source_key": "source_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again The Saga Maestro Beta 1",
+      "original_filename": "IMG_3528.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\9475e778aaa1426fac33edc9b44af39f\\IMG_3528.png",
+      "sha256": "be6207a59d9d5e124fc370338784ba7ed3df6d232677cf1c9a6e3b3cebe7a0f2"
+    },
+    {
+      "source_key": "source_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again The Saga Maestro Beta 2",
+      "original_filename": "IMG_3529.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\4b5b8694ca6141458d678283e68d9370\\IMG_3529.png",
+      "sha256": "796b3d954155a12f1c930a7c20aa2f2da4df6513c35085f08a032b1191337abd"
+    },
+    {
+      "source_key": "source_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again The Saga Maestro Beta 3",
+      "original_filename": "IMG_3530.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\79ba35920d524a639c7a6b1f3a53ce45\\IMG_3530.png",
+      "sha256": "ca16f4ea6305b7310e78c516f28ec772b8d19ad71ef37d12741cb03f4e2c2778"
+    },
+    {
+      "source_key": "source_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again The Saga Maestro Beta 4",
+      "original_filename": "IMG_3531.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\99ac0a8fd2f54d138b3ede17b9a4f5e7\\IMG_3531.png",
+      "sha256": "9d99fb16ed7c632b779f632be008269758dcb21877c1099920ec936bf71bd037"
+    },
+    {
+      "source_key": "source_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again The Saga Maestro Beta 5",
+      "original_filename": "IMG_3532.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\46f8a26ed27d458ba4cf2e97a2d393af\\IMG_3532.png",
+      "sha256": "982ebac4252ddd43171698b73cac58e40c73218bd6273af6c4bd5d8bac449afe"
+    },
+    {
+      "source_key": "source_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again The Saga Maestro Beta 6",
+      "original_filename": "IMG_3533.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\5cb51cbe99734775beb12b99f5e98798\\IMG_3533.png",
+      "sha256": "321e0017dca30aa9b723d469d00f6af0f94dd21f08830950777ea4d20514611e"
+    },
+    {
+      "source_key": "source_7",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again The Saga Maestro Beta 7",
+      "original_filename": "IMG_3534.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\e9cbaf2d38c04dfa8d3c23dd0252ebce\\IMG_3534.png",
+      "sha256": "3b4efa9e15d8572acdbfb022cfc3a1a3b180cc54ed94ff668e81be1a9c065c1a"
+    },
+    {
+      "source_key": "source_8",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "workbench:operator-prompt-attestation",
+      "notes": "Operator explicitly attested that the supplied prompt is the exact original prompt."
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "source_1",
+      "field_name": "source_system"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_title"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_description"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_2",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_3",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_4",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_5",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_6",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_7",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_2",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_3",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_4",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_5",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_6",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_7",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_8",
+      "field_name": "prompt",
+      "provenance_type": "HUMAN_ASSESSMENT"
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "captures_playlist_start"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "captures_playlist_end"
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Levitating [Explicit]",
+      "artist": "Dua Lipa",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "brutal [Explicit]",
+      "artist": "Olivia Rodrigo",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Something Just Like This",
+      "artist": "The Chainsmokers, Coldplay",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Whatever It Takes",
+      "artist": "Imagine Dragons",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Bang!",
+      "artist": "AJR",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "High Hopes",
+      "artist": "Panic! At The Disco",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Stressed Out",
+      "artist": "Twenty One Pilots",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Pompeii",
+      "artist": "Bastille",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Counting Stars",
+      "artist": "OneRepublic",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Shut Up and Dance",
+      "artist": "WALK THE MOON",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "I Like Me Better",
+      "artist": "Lauv",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Without Me [Explicit]",
+      "artist": "Halsey",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "bad guy",
+      "artist": "Billie Eilish",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "Dance Monkey",
+      "artist": "Tones And I",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "Heat Waves",
+      "artist": "Glass Animals",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "Electric Feel",
+      "artist": "MGMT",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Pumped Up Kicks",
+      "artist": "Foster The People",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "I Wanna Get Better",
+      "artist": "Bleachers",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Boom Clap",
+      "artist": "Charli xcx",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Run Away With Me",
+      "artist": "Carly Rae Jepsen",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "The Mother We Share [Explicit]",
+      "artist": "CHVRCHES",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "Hard Times",
+      "artist": "Paramore",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Centuries",
+      "artist": "Fall Out Boy",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Wake Me Up",
+      "artist": "Avicii",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "Clarity [feat. Foxes]",
+      "artist": "Zedd, Foxes",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Feel So Close (Radio Edit)",
+      "artist": "Calvin Harris",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Happier",
+      "artist": "Marshmello, Bastille",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Somebody Else [Explicit]",
+      "artist": "The 1975",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "My My My!",
+      "artist": "Troye Sivan",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "King",
+      "artist": "Olly Alexander (Years & Years)",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "There's Nothing Holdin' Me Back",
+      "artist": "Shawn Mendes",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Problem [feat. Iggy Azalea]",
+      "artist": "Ariana Grande, Iggy Azalea",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Shake It Off",
+      "artist": "Taylor Swift",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Roar",
+      "artist": "Katy Perry",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "Try",
+      "artist": "P!nk",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "Stronger (What Doesn't Kill You)",
+      "artist": "Kelly Clarkson",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "Brave",
+      "artist": "Sara Bareilles",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "Fight Song",
+      "artist": "Rachel Platten",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "Eye of the Tiger",
+      "artist": "Survivor",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 40,
+      "evidence_segment": 1,
+      "segment_ordinal": 40,
+      "absolute_position": 40,
+      "title": "Don't Stop Me Now (Remastered 2011)",
+      "artist": "Queen",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_7",
+          "field_name": "absolute_position"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [],
+  "prompt_labels": []
+}

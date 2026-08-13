@@ -1,0 +1,1341 @@
+{
+  "prompt": "Generate a playlist of the last 40+ years of music. Use exactly one popular song from each year starting in 1985 to the present. Do not repeat any artists. Chronologically.",
+  "source_system": "Amazon Music — Maestro Beta",
+  "generated_title": "1985 to Now One Hit Per Year",
+  "generated_description": "Four decades of hits spanning rock and indie",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 41,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "notes": "Historical Maestro generation. Captured UI controls and device clocks do not establish saved status or generated_at. Persistent now-playing UI is excluded.",
+  "evidence_sources": [
+    {
+      "source_key": "user_attestation",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "Current Codex handoff; user-attested prompt and research context",
+      "notes": "User statement evidence; not screenshot-derived."
+    },
+    {
+      "source_key": "capture_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Original Maestro capture 1",
+      "original_filename": "1-Photo-1.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2816AF06-8F82-498F-9448-672FE146CA53\\1-Photo-1.jpg",
+      "sha256": "5e46cb224edb4de329f582c89ab68db41b0ddff058c57d175976b8bad25de00e"
+    },
+    {
+      "source_key": "capture_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Original Maestro capture 2",
+      "original_filename": "2-Photo-2.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2816AF06-8F82-498F-9448-672FE146CA53\\2-Photo-2.jpg",
+      "sha256": "a5bf24324e18e494bb821579b0d7cb7eefef80935dc95a7059cc21fddba2cc7a"
+    },
+    {
+      "source_key": "capture_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Original Maestro capture 3",
+      "original_filename": "3-Photo-3.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2816AF06-8F82-498F-9448-672FE146CA53\\3-Photo-3.jpg",
+      "sha256": "f29a852b9c434ea32a9172beae8e789b9099012b9ac8535da2760d4a9c8906df"
+    },
+    {
+      "source_key": "capture_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Original Maestro capture 4",
+      "original_filename": "4-Photo-4.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2816AF06-8F82-498F-9448-672FE146CA53\\4-Photo-4.jpg",
+      "sha256": "1e9a0910510a3cf9f63563ce122c65885c8f7dc261d7f29d7ae8d49ce3c810bf"
+    },
+    {
+      "source_key": "capture_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Original Maestro capture 5",
+      "original_filename": "5-Photo-5.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2816AF06-8F82-498F-9448-672FE146CA53\\5-Photo-5.jpg",
+      "sha256": "8d4a123c04c5e0141fd958dc8ff3d9740969ae602cd017e8cb740f9327f1702d"
+    },
+    {
+      "source_key": "capture_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Original Maestro capture 6",
+      "original_filename": "6-Photo-6.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2816AF06-8F82-498F-9448-672FE146CA53\\6-Photo-6.jpg",
+      "sha256": "cce2c0960a05df8458f5220f43989f0432e37e856176cf0bebc5f9faf80ed99c"
+    },
+    {
+      "source_key": "capture_7",
+      "source_type": "SCREENSHOT",
+      "source_reference": "Original Maestro capture 7",
+      "original_filename": "7-Photo-7.jpg",
+      "local_path": "C:\\Users\\klsma\\.codex\\codex-remote-attachments\\019fe2c9-0848-78c0-a653-c50966dd0546\\2816AF06-8F82-498F-9448-672FE146CA53\\7-Photo-7.jpg",
+      "sha256": "96be05e78ad1dc07e2ddd59b4426e91ee61b8b540113c5f16d01e25125c46524"
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "user_attestation",
+      "field_name": "prompt",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "source_system",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_title",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_1",
+      "field_name": "generated_description",
+      "provenance_type": "DIRECT_OBSERVATION"
+    },
+    {
+      "source_key": "capture_7",
+      "field_name": "generated_track_count",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Count reconciled from continuous start-to-end capture."
+    },
+    {
+      "source_key": "capture_7",
+      "field_name": "tracklist_completeness",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "notes": "Complete continuous capture with visible terminal whitespace."
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "relationship_to_previous",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "captures_playlist_start",
+          "provenance_type": "HUMAN_ASSESSMENT"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "captures_playlist_end",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Terminal whitespace supports the captured endpoint."
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Master of Puppets (Remastered)",
+      "artist": "Metallica",
+      "version_or_remaster_text": "Remastered",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "Livin' On A Prayer",
+      "artist": "Bon Jovi",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Sweet Child O' Mine",
+      "artist": "Guns N' Roses",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Where Is My Mind? (2007 Remaster)",
+      "artist": "Pixies",
+      "version_or_remaster_text": "2007 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Lovesong (2010 Remaster)",
+      "artist": "The Cure",
+      "version_or_remaster_text": "2010 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_1",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_1",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "Nothing Compares 2 U (2009 Remaster)",
+      "artist": "Sinéad O'Connor",
+      "version_or_remaster_text": "2009 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Smells Like Teen Spirit (Remastered 2021)",
+      "artist": "Nirvana",
+      "version_or_remaster_text": "Remastered 2021",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Under the Bridge (2014 Remaster)",
+      "artist": "Red Hot Chili Peppers",
+      "version_or_remaster_text": "2014 Remaster",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Creep [Explicit]",
+      "artist": "Radiohead",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "explicit_flag",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Basket Case [Explicit]",
+      "artist": "Green Day",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "explicit_flag",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "You Oughta Know (2015 Remaster) [Explicit]",
+      "artist": "Alanis Morissette",
+      "version_or_remaster_text": "2015 Remaster",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "explicit_flag",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "1979 (Remastered 2012)",
+      "artist": "The Smashing Pumpkins",
+      "version_or_remaster_text": "Remastered 2012",
+      "evidence": [
+        {
+          "source_key": "capture_2",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_2",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Bitter Sweet Symphony (Remastered 2016)",
+      "artist": "The Verve",
+      "version_or_remaster_text": "Remastered 2016",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "version_or_remaster_text",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "In the Aeroplane Over the Sea",
+      "artist": "Neutral Milk Hotel",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "All The Small Things",
+      "artist": "blink-182",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "Yellow",
+      "artist": "Coldplay",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Last Nite",
+      "artist": "The Strokes",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "No One Knows",
+      "artist": "Queens Of The Stone Age",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Seven Nation Army",
+      "artist": "The White Stripes",
+      "evidence": [
+        {
+          "source_key": "capture_3",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_3",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Take Me Out",
+      "artist": "Franz Ferdinand",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Mr. Brightside",
+      "artist": "The Killers",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "I Bet You Look Good On The Dancefloor",
+      "artist": "Arctic Monkeys",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Electric Feel",
+      "artist": "MGMT",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "1901",
+      "artist": "Phoenix",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "Cousins",
+      "artist": "Vampire Weekend",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Pumped Up Kicks",
+      "artist": "Foster The People",
+      "evidence": [
+        {
+          "source_key": "capture_4",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_4",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Somebody That I Used To Know [feat. Kimbra]",
+      "artist": "Gotye, Kimbra",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "Royals",
+      "artist": "Lorde",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Take Me to Church",
+      "artist": "Hozier",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "Let It Happen",
+      "artist": "Tame Impala",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "Stressed Out",
+      "artist": "Twenty One Pilots",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "On Hold",
+      "artist": "The xx",
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "HUMBLE. [Explicit]",
+      "artist": "Kendrick Lamar",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_5",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_5",
+          "field_name": "explicit_flag",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Highway Tune",
+      "artist": "Greta Van Fleet",
+      "evidence": [
+        {
+          "source_key": "capture_6",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_6",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "bad guy",
+      "artist": "Billie Eilish",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "Blinding Lights",
+      "artist": "The Weeknd",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "good 4 u [Explicit]",
+      "artist": "Olivia Rodrigo",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "explicit_flag",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "Heat Waves",
+      "artist": "Glass Animals",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "Not Strong Enough",
+      "artist": "boygenius",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 40,
+      "evidence_segment": 1,
+      "segment_ordinal": 40,
+      "absolute_position": 40,
+      "title": "Good Luck, Babe!",
+      "artist": "Chappell Roan",
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 41,
+      "evidence_segment": 1,
+      "segment_ordinal": 41,
+      "absolute_position": 41,
+      "title": "Starburster [Explicit]",
+      "artist": "FONTAINES D.C.",
+      "explicit_flag": true,
+      "evidence": [
+        {
+          "source_key": "capture_7",
+          "field_name": "title",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "artist",
+          "provenance_type": "DIRECT_OBSERVATION"
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "absolute_position",
+          "provenance_type": "HUMAN_ASSESSMENT",
+          "notes": "Position reconciled from continuous screenshot overlap."
+        },
+        {
+          "source_key": "capture_7",
+          "field_name": "explicit_flag",
+          "provenance_type": "DIRECT_OBSERVATION"
+        }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "observation_type": "CAPTURED_SHOW_PLAYLIST_UI_STATE",
+      "observation_text": "The initial Maestro screen visibly shows Show Playlist.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "UI state only; not historical saved-status evidence."
+    },
+    {
+      "observation_type": "VISIBLE_DEVICE_CLOCK",
+      "observation_text": "The captures visibly show device clocks of 6:22–6:23.",
+      "provenance_type": "DIRECT_OBSERVATION",
+      "provenance_notes": "UI context only; not generated_at."
+    },
+    {
+      "observation_type": "USER_CLARIFICATION_CURRENT_YEAR_OPTIONAL",
+      "observation_text": "The user states that “40+” intentionally allowed omission of incomplete year 2026 while retaining the range 1985 to present.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "USER_CHARACTERIZATION_PERSONALIZED_POPULARITY",
+      "observation_text": "The user assesses “popular” as affinity-weighted rather than globally popular.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user",
+      "provenance_notes": "No personalization mechanism is asserted."
+    },
+    {
+      "observation_type": "AMBIGUOUS_POPULARITY_BASIN_HYPOTHESIS",
+      "observation_text": "The weak popularity predicate may have allowed personalization or catalog affinity to dominate selection.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "CHRONOLOGICAL_CONSTRUCTION_ASSESSMENT",
+      "observation_text": "The sequence appears broadly chronological and stops before 2026, but exact one-track-per-year mapping is not independently verified.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    },
+    {
+      "observation_type": "STRUCTURAL_VALIDATION_HYPOTHESIS",
+      "observation_text": "Maestro may satisfy local semantics without globally validating coverage, uniqueness, and exact year slots.",
+      "provenance_type": "HUMAN_ASSESSMENT",
+      "recorded_by": "user"
+    }
+  ]
+}

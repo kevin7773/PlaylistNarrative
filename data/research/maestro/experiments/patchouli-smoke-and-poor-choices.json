@@ -1,0 +1,1142 @@
+{
+  "prompt": "Songs that smell like patchouli, campfire smoke, and bad decisions.",
+  "prompt_title": "Patchouli Smoke and Poor Choices",
+  "source_system": "Maestro Beta",
+  "generated_title": "Patchouli Smoke and Poor Choices",
+  "generated_description": "Gritty anthems for wild nights and hazy mornings.",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 40,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "assessment": "PARTIAL_MATCH",
+  "notes": "Replacing “marijuana” with “campfire smoke” changed the opening character of the generation, introducing Hozier, The Lumineers, Florence + The Machine, Mumford & Sons, and other folk/roots-adjacent material. The playlist subsequently converged again toward Maestro’s recurring modern alternative/indie-rock region, including Pumped Up Kicks, Shut Up and Dance, I Wanna Get Better, Talk Too Much, and related selections.\nPaired comparison with the immediately preceding generation from “Songs that smell like patchouli, marijuana, and bad decisions.” Preserve both generations independently. The pair may be useful for later analysis of prompt-term sensitivity, but it does not by itself establish vocabulary filtering or suppression.\n",
+  "evidence_sources": [
+    {
+      "source_key": "source_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "patchouli-campfire-bad-decisions 1",
+      "original_filename": "IMG_3614.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\dc71b47e8d434745950bace68b6287ea\\IMG_3614.png",
+      "sha256": "9d4e5f3bdceeaa1242e0758a09cae0a524f635fe606403cfb1348f82c7883d1d"
+    },
+    {
+      "source_key": "source_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "patchouli-campfire-bad-decisions 2",
+      "original_filename": "IMG_3615.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\301d9e23866741368cda1957fa330440\\IMG_3615.png",
+      "sha256": "54c6cb503d5adce708b176c02c911a374f32d0531fffdc1dea1f3e44a56c91f6"
+    },
+    {
+      "source_key": "source_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "patchouli-campfire-bad-decisions 3",
+      "original_filename": "IMG_3616.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\b76b6b6b754b4bb5ba59cc8eef5bdc33\\IMG_3616.png",
+      "sha256": "b72e1bf4b86446cca97f74ec22b4137cb9b513d230d2429c4641da3ca1ff015d"
+    },
+    {
+      "source_key": "source_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "patchouli-campfire-bad-decisions 4",
+      "original_filename": "IMG_3617.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\8636109fedfe476f85ba6a60aa61fce0\\IMG_3617.png",
+      "sha256": "d84c79f8924ddfdcd792cac9bc7a40f787fc265cf86adf9d265fac0d6e231e83"
+    },
+    {
+      "source_key": "source_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "patchouli-campfire-bad-decisions 5",
+      "original_filename": "IMG_3618.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\df3375c237ea4a81aa549be9a41ac8c5\\IMG_3618.png",
+      "sha256": "9fe049a6fcc13a323d453a0bb69448c5f46d2e59e78d965ea3175d82ec821712"
+    },
+    {
+      "source_key": "source_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "patchouli-campfire-bad-decisions 6",
+      "original_filename": "IMG_3619.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\a75aef2622954325bef93648b50ae087\\IMG_3619.png",
+      "sha256": "dd9f77c43f407a8b86ee7b3782462566b0b5bd80bdddf84ce55d2a1acceaef21"
+    },
+    {
+      "source_key": "source_7",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "workbench:operator-prompt-attestation",
+      "notes": "Operator explicitly attested that the supplied prompt is the exact original prompt."
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "source_1",
+      "field_name": "source_system"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_title"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_description"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_2",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_3",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_4",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_5",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_6",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_2",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_3",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_4",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_5",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_6",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_7",
+      "field_name": "prompt",
+      "provenance_type": "HUMAN_ASSESSMENT"
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "captures_playlist_start"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "captures_playlist_end"
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Take Me to Church",
+      "artist": "Hozier",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "Ophelia",
+      "artist": "The Lumineers",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "Dog Days Are Over",
+      "artist": "Florence + The Machine",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Cigarette Daydreams",
+      "artist": "Cage The Elephant",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "Little Lion Man [Explicit]",
+      "artist": "Mumford & Sons",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "Lonely Boy (2021 Remaster)",
+      "artist": "The Black Keys",
+      "version_or_remaster_text": "2021 Remaster",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Do I Wanna Know?",
+      "artist": "Arctic Monkeys",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Sex on Fire",
+      "artist": "Kings Of Leon",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Sail",
+      "artist": "AWOLNATION",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Radioactive",
+      "artist": "Imagine Dragons",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "Sweater Weather",
+      "artist": "The Neighbourhood",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Feel It Still",
+      "artist": "Portugal. The Man",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "Pumped Up Kicks",
+      "artist": "Foster The People",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "Riptide",
+      "artist": "Vance Joy",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "Stolen Dance",
+      "artist": "Milky Chance",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "Home",
+      "artist": "Edward Sharpe & The Magnetic Zeros",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Little Talks",
+      "artist": "Of Monsters And Men",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Shut Up and Dance",
+      "artist": "WALK THE MOON",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Cough Syrup",
+      "artist": "Young The Giant",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Cringe",
+      "artist": "Matt Maeson",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Way down We Go",
+      "artist": "KALEO",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "River",
+      "artist": "Bishop Briggs",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Fire",
+      "artist": "Barns Courtney",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Could Have Been Me",
+      "artist": "The Struts",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "Amsterdam [Explicit]",
+      "artist": "Nothing But Thieves",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Kathleen",
+      "artist": "Catfish & the Bottlemen",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "Greek Tragedy",
+      "artist": "The Wombats",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "I Wanna Get Better",
+      "artist": "Bleachers",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Talk Too Much",
+      "artist": "COIN",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "Ghost [Explicit]",
+      "artist": "Badflower",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "S.O.S. (Sawed Off Shotgun) [Explicit]",
+      "artist": "The Glorious Sons",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Lydia [Explicit]",
+      "artist": "Highly Suspect",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Figure It Out",
+      "artist": "Royal Blood",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Blood // Water",
+      "artist": "grandson",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "Middle Fingers",
+      "artist": "MISSIO",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "High Enough",
+      "artist": "K.Flay",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "Legendary",
+      "artist": "Welshly Arms",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "Let Me Live / Let Me Die",
+      "artist": "Des Rocs",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "Fucking With My Head [Explicit]",
+      "artist": "Palaye Royale",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 40,
+      "evidence_segment": 1,
+      "segment_ordinal": 40,
+      "absolute_position": 40,
+      "title": "parents [Explicit]",
+      "artist": "YUNGBLUD",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [],
+  "prompt_labels": []
+}

@@ -1,0 +1,1135 @@
+{
+  "prompt": "Songs that accurately capture the exact emotional frequency of a medieval peasant watching a wheelbarrow break for the third time that week.",
+  "prompt_title": "Wheelbarrow of Broken Dreams",
+  "source_system": "Maestro Beta",
+  "generated_title": "When Things Break Again",
+  "generated_description": "Weary frustration and resigned exhaustion in musical form",
+  "generated_at": null,
+  "requested_track_count": null,
+  "generated_track_count": 40,
+  "saved": null,
+  "tracklist_completeness": "COMPLETE",
+  "evidence_standard": "RECOVERED_HISTORICAL",
+  "assessment": "Failed narrative compliance ",
+  "notes": "Maestro interpreted the deliberately absurd historical scenario as weary frustration, resignation, emotional exhaustion, and repeated disappointment. The generated description was “Weary frustration and resigned exhaustion in musical form.” Complete 40-track generation captured across six overlapping screenshots. Original prompt is user-attested rather than screenshot-visible.",
+  "evidence_sources": [
+    {
+      "source_key": "source_1",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again Maestro Beta capture 1",
+      "original_filename": "IMG_3494.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\ec315bd2cab04e9bba82ee5cce32779d\\IMG_3494.png",
+      "sha256": "15f2a49fa50391352edaff5fad34d8fe4fae5c0c7bdd764e769b4cdc8cd682ea"
+    },
+    {
+      "source_key": "source_2",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again Maestro Beta capture 2",
+      "original_filename": "IMG_3495.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\985cf73fb3ca45d7be49fa6a78a988e8\\IMG_3495.png",
+      "sha256": "91f5a2518ce6863545f73d5354c1a829c3a515cbdb867cb44bdad5a2359566ca"
+    },
+    {
+      "source_key": "source_3",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again Maestro Beta capture 3",
+      "original_filename": "IMG_3496.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\786aabda92634f05b2cd6f4363cf430a\\IMG_3496.png",
+      "sha256": "c0710367b623e6a8901bf9a2ffd01688f9c2f7c15995d7be9378238d2586c19b"
+    },
+    {
+      "source_key": "source_4",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again Maestro Beta capture 4",
+      "original_filename": "IMG_3497.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\a2475ca918544b2aa968132911d5013c\\IMG_3497.png",
+      "sha256": "f4028171c38d6b19d388f6918e5b0a47e919501c5b1a0ddb74c29f3b2be72f51"
+    },
+    {
+      "source_key": "source_5",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again Maestro Beta capture 5",
+      "original_filename": "IMG_3498.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\7c90394af31941a88833af7dd1fa6401\\IMG_3498.png",
+      "sha256": "eda687d330bf8275ebca195b9f241767d167c1259af017d438dd64af588f985c"
+    },
+    {
+      "source_key": "source_6",
+      "source_type": "SCREENSHOT",
+      "source_reference": "When Things Break Again Maestro Beta capture 6",
+      "original_filename": "IMG_3499.png",
+      "local_path": "C:\\Users\\klsma\\AppData\\Local\\PlaylistNarrativeEngine\\MaestroWorkbench\\evidence\\24e7d6fb5a724dcbaffc486d39962ee5\\IMG_3499.png",
+      "sha256": "e1b951f5ea29d3482880276c0173828b65f52c74061003328d69fb1aa22993e5"
+    },
+    {
+      "source_key": "source_7",
+      "source_type": "CONVERSATION_USER_STATEMENT",
+      "source_reference": "workbench:operator-prompt-attestation",
+      "notes": "Operator explicitly attested that the supplied prompt is the exact original prompt."
+    }
+  ],
+  "evidence": [
+    {
+      "source_key": "source_1",
+      "field_name": "source_system"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_title"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_description"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_2",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_3",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_4",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_5",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_6",
+      "field_name": "generated_track_count"
+    },
+    {
+      "source_key": "source_1",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_2",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_3",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_4",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_5",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_6",
+      "field_name": "tracklist_completeness"
+    },
+    {
+      "source_key": "source_7",
+      "field_name": "prompt",
+      "provenance_type": "HUMAN_ASSESSMENT"
+    }
+  ],
+  "segments": [
+    {
+      "segment_ordinal": 1,
+      "relationship_to_previous": "FIRST",
+      "captures_playlist_start": "YES",
+      "captures_playlist_end": "YES",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "captures_playlist_start"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "captures_playlist_end"
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "observed_ordinal": 1,
+      "evidence_segment": 1,
+      "segment_ordinal": 1,
+      "absolute_position": 1,
+      "title": "Chandelier",
+      "artist": "Sia",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 2,
+      "evidence_segment": 1,
+      "segment_ordinal": 2,
+      "absolute_position": 2,
+      "title": "everything i wanted",
+      "artist": "Billie Eilish",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 3,
+      "evidence_segment": 1,
+      "segment_ordinal": 3,
+      "absolute_position": 3,
+      "title": "traitor",
+      "artist": "Olivia Rodrigo",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 4,
+      "evidence_segment": 1,
+      "segment_ordinal": 4,
+      "absolute_position": 4,
+      "title": "Without Me [Explicit]",
+      "artist": "Halsey",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 5,
+      "evidence_segment": 1,
+      "segment_ordinal": 5,
+      "absolute_position": 5,
+      "title": "IDGAF [Explicit]",
+      "artist": "Dua Lipa",
+      "evidence": [
+        {
+          "source_key": "source_1",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_1",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 6,
+      "evidence_segment": 1,
+      "segment_ordinal": 6,
+      "absolute_position": 6,
+      "title": "breathin [Explicit]",
+      "artist": "Ariana Grande",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 7,
+      "evidence_segment": 1,
+      "segment_ordinal": 7,
+      "absolute_position": 7,
+      "title": "Anti-Hero",
+      "artist": "Taylor Swift",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 8,
+      "evidence_segment": 1,
+      "segment_ordinal": 8,
+      "absolute_position": 8,
+      "title": "Liability",
+      "artist": "Lorde",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 9,
+      "evidence_segment": 1,
+      "segment_ordinal": 9,
+      "absolute_position": 9,
+      "title": "Consequences",
+      "artist": "Camila Cabello",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 10,
+      "evidence_segment": 1,
+      "segment_ordinal": 10,
+      "absolute_position": 10,
+      "title": "Skyscraper",
+      "artist": "Demi Lovato",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 11,
+      "evidence_segment": 1,
+      "segment_ordinal": 11,
+      "absolute_position": 11,
+      "title": "Lose You To Love Me",
+      "artist": "Selena Gomez",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 12,
+      "evidence_segment": 1,
+      "segment_ordinal": 12,
+      "absolute_position": 12,
+      "title": "Wrecking Ball",
+      "artist": "Miley Cyrus",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 13,
+      "evidence_segment": 1,
+      "segment_ordinal": 13,
+      "absolute_position": 13,
+      "title": "The One That Got Away",
+      "artist": "Katy Perry",
+      "evidence": [
+        {
+          "source_key": "source_2",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_2",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 14,
+      "evidence_segment": 1,
+      "segment_ordinal": 14,
+      "absolute_position": 14,
+      "title": "I'm a Mess",
+      "artist": "Bebe Rexha",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 15,
+      "evidence_segment": 1,
+      "segment_ordinal": 15,
+      "absolute_position": 15,
+      "title": "2002",
+      "artist": "Anne-Marie",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 16,
+      "evidence_segment": 1,
+      "segment_ordinal": 16,
+      "absolute_position": 16,
+      "title": "Scars To Your Beautiful",
+      "artist": "Alessia Cara",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 17,
+      "evidence_segment": 1,
+      "segment_ordinal": 17,
+      "absolute_position": 17,
+      "title": "Habits (Stay High)",
+      "artist": "Tove Lo",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 18,
+      "evidence_segment": 1,
+      "segment_ordinal": 18,
+      "absolute_position": 18,
+      "title": "Lights",
+      "artist": "Ellie Goulding",
+      "version_or_remaster_text": "Single Version",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 19,
+      "evidence_segment": 1,
+      "segment_ordinal": 19,
+      "absolute_position": 19,
+      "title": "Lush Life",
+      "artist": "Zara Larsson",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 20,
+      "evidence_segment": 1,
+      "segment_ordinal": 20,
+      "absolute_position": 20,
+      "title": "Skin",
+      "artist": "Sabrina Carpenter",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 21,
+      "evidence_segment": 1,
+      "segment_ordinal": 21,
+      "absolute_position": 21,
+      "title": "Most Girls",
+      "artist": "Hailee Steinfeld",
+      "evidence": [
+        {
+          "source_key": "source_3",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_3",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 22,
+      "evidence_segment": 1,
+      "segment_ordinal": 22,
+      "absolute_position": 22,
+      "title": "Issues [Explicit]",
+      "artist": "Julia Michaels",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 23,
+      "evidence_segment": 1,
+      "segment_ordinal": 23,
+      "absolute_position": 23,
+      "title": "Selfish",
+      "artist": "Madison Beer",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 24,
+      "evidence_segment": 1,
+      "segment_ordinal": 24,
+      "absolute_position": 24,
+      "title": "Heather",
+      "artist": "Conan Gray",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 25,
+      "evidence_segment": 1,
+      "segment_ordinal": 25,
+      "absolute_position": 25,
+      "title": "you broke me first [Explicit]",
+      "artist": "Tate McRae",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 26,
+      "evidence_segment": 1,
+      "segment_ordinal": 26,
+      "absolute_position": 26,
+      "title": "Body Better",
+      "artist": "Maisie Peters",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 27,
+      "evidence_segment": 1,
+      "segment_ordinal": 27,
+      "absolute_position": 27,
+      "title": "abcdefu [Explicit]",
+      "artist": "GAYLE",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 28,
+      "evidence_segment": 1,
+      "segment_ordinal": 28,
+      "absolute_position": 28,
+      "title": "I miss you, I’m sorry",
+      "artist": "Gracie Abrams",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 29,
+      "evidence_segment": 1,
+      "segment_ordinal": 29,
+      "absolute_position": 29,
+      "title": "Too Well [Explicit]",
+      "artist": "Reneé Rapp",
+      "evidence": [
+        {
+          "source_key": "source_4",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_4",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 30,
+      "evidence_segment": 1,
+      "segment_ordinal": 30,
+      "absolute_position": 30,
+      "title": "drunk text me [Explicit]",
+      "artist": "Lexi Jayde",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 31,
+      "evidence_segment": 1,
+      "segment_ordinal": 31,
+      "absolute_position": 31,
+      "title": "Good Without",
+      "artist": "Mimi Webb",
+      "version_or_remaster_text": "Amazon Original",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "version_or_remaster_text"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 32,
+      "evidence_segment": 1,
+      "segment_ordinal": 32,
+      "absolute_position": 32,
+      "title": "Scarlett",
+      "artist": "Holly Humberstone",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 33,
+      "evidence_segment": 1,
+      "segment_ordinal": 33,
+      "absolute_position": 33,
+      "title": "Black Hole",
+      "artist": "Griff",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 34,
+      "evidence_segment": 1,
+      "segment_ordinal": 34,
+      "absolute_position": 34,
+      "title": "Escapism. [Explicit]",
+      "artist": "RAYE, 070 Shake",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 35,
+      "evidence_segment": 1,
+      "segment_ordinal": 35,
+      "absolute_position": 35,
+      "title": "In The Stars",
+      "artist": "Benson Boone",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 36,
+      "evidence_segment": 1,
+      "segment_ordinal": 36,
+      "absolute_position": 36,
+      "title": "ceilings",
+      "artist": "Lizzy McAlpine",
+      "evidence": [
+        {
+          "source_key": "source_5",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_5",
+          "field_name": "absolute_position"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 37,
+      "evidence_segment": 1,
+      "segment_ordinal": 37,
+      "absolute_position": 37,
+      "title": "Serotonin [Explicit]",
+      "artist": "girl in red",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 38,
+      "evidence_segment": 1,
+      "segment_ordinal": 38,
+      "absolute_position": 38,
+      "title": "Bags",
+      "artist": "Clairo",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 39,
+      "evidence_segment": 1,
+      "segment_ordinal": 39,
+      "absolute_position": 39,
+      "title": "Garden Song",
+      "artist": "Phoebe Bridgers",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    },
+    {
+      "observed_ordinal": 40,
+      "evidence_segment": 1,
+      "segment_ordinal": 40,
+      "absolute_position": 40,
+      "title": "I Like Me Better",
+      "artist": "Lauv",
+      "evidence": [
+        {
+          "source_key": "source_6",
+          "field_name": "title"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "artist"
+        },
+        {
+          "source_key": "source_6",
+          "field_name": "absolute_position"
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "observations": [],
+  "prompt_labels": []
+}
