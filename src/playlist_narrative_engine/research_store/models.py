@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
+    Date,
     DateTime,
     ForeignKey,
     Index,
@@ -20,6 +21,16 @@ from playlist_narrative_engine.research_store.database import ResearchBase
 
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
+
+
+_TYPED_PARAMETER_CHECK = (
+    "(value_type='BOOLEAN' AND boolean_value IS NOT NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+    "(value_type='INTEGER' AND boolean_value IS NULL AND integer_value IS NOT NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+    "(value_type='DECIMAL' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NOT NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+    "(value_type='TEXT' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NOT NULL AND date_value IS NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+    "(value_type='DATE' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NOT NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+    "(value_type='VOCABULARY_TERM' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_key IS NOT NULL AND vocabulary_term_key IS NOT NULL)"
+)
 
 
 class SchemaVersion(ResearchBase):
@@ -546,6 +557,272 @@ class StudyConstraintDefinition(ResearchBase):
     unknown_handling: Mapped[str] = mapped_column(Text)
 
 
+class StudyConstraintEvaluationPlan(ResearchBase):
+    __tablename__ = "study_constraint_evaluation_plans"
+    __table_args__ = (
+        UniqueConstraint("constraint_definition_id", name="uq_study_constraint_evaluation_plan"),
+        CheckConstraint("subject_kind IN ('RUN', 'EXPERIMENT_PLACEMENT', 'PLACEMENT_FIELD')"),
+        CheckConstraint(
+            "(subject_kind = 'PLACEMENT_FIELD' AND subject_field IS NOT NULL) OR "
+            "(subject_kind != 'PLACEMENT_FIELD' AND subject_field IS NULL)"
+        ),
+        CheckConstraint(
+            "subject_field IS NULL OR subject_field IN "
+            "('display_title', 'display_artist', 'explicit_flag', 'version_or_remaster_text')"
+        ),
+        Index("ix_study_evaluation_plans_definition", "constraint_definition_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    constraint_definition_id: Mapped[int] = mapped_column(
+        ForeignKey("study_constraint_definitions.id", ondelete="RESTRICT")
+    )
+    instrumentation_version: Mapped[str] = mapped_column(Text)
+    subject_kind: Mapped[str] = mapped_column(String(30))
+    subject_field: Mapped[str | None] = mapped_column(String(40))
+    subject_selector_key: Mapped[str] = mapped_column(Text)
+    subject_selector_version: Mapped[str] = mapped_column(Text)
+    subject_evaluator_key: Mapped[str] = mapped_column(Text)
+    subject_evaluator_version: Mapped[str] = mapped_column(Text)
+    aggregate_evaluator_key: Mapped[str] = mapped_column(Text)
+    aggregate_evaluator_version: Mapped[str] = mapped_column(Text)
+    require_complete_subject_set: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    allow_partial_subject_status: Mapped[bool] = mapped_column(Boolean, nullable=False)
+
+
+class StudyConstraintMeasurementDefinition(ResearchBase):
+    __tablename__ = "study_constraint_measurement_definitions"
+    __table_args__ = (
+        UniqueConstraint("evaluation_plan_id", "measurement_key", name="uq_study_measurement_key"),
+        CheckConstraint(
+            "authority IN ('DIRECT_OBSERVATION', 'STRUCTURAL_DERIVATION', "
+            "'EXTERNAL_FACT_VERIFICATION', 'HUMAN_ASSESSMENT')"
+        ),
+        CheckConstraint("value_type IN ('BOOLEAN', 'INTEGER', 'DECIMAL', 'TEXT', 'DATE', 'VOCABULARY_TERM')"),
+        CheckConstraint(
+            "(value_type = 'VOCABULARY_TERM' AND vocabulary_key IS NOT NULL) OR "
+            "(value_type != 'VOCABULARY_TERM' AND vocabulary_key IS NULL)"
+        ),
+        CheckConstraint(
+            "(derivation_key IS NULL AND derivation_version IS NULL) OR "
+            "(derivation_key IS NOT NULL AND derivation_version IS NOT NULL)"
+        ),
+        CheckConstraint(
+            "unavailable_policy IS NULL OR unavailable_policy IN "
+            "('MUST_HAVE_VALUE', 'MAY_BE_UNAVAILABLE')"
+        ),
+        Index("ix_study_measurements_plan", "evaluation_plan_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    evaluation_plan_id: Mapped[int] = mapped_column(
+        ForeignKey("study_constraint_evaluation_plans.id", ondelete="RESTRICT")
+    )
+    measurement_key: Mapped[str] = mapped_column(Text)
+    authority: Mapped[str] = mapped_column(String(40))
+    value_type: Mapped[str] = mapped_column(String(30))
+    unit_key: Mapped[str | None] = mapped_column(Text)
+    vocabulary_key: Mapped[str | None] = mapped_column(Text)
+    required: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    evidence_required: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    derivation_key: Mapped[str | None] = mapped_column(Text)
+    derivation_version: Mapped[str | None] = mapped_column(Text)
+    unavailable_policy: Mapped[str | None] = mapped_column(String(30))
+
+
+class StudyConstraintEvaluationParameter(ResearchBase):
+    __tablename__ = "study_constraint_evaluation_parameters"
+    __table_args__ = (
+        UniqueConstraint("evaluation_plan_id", "parameter_key", name="uq_study_evaluation_parameter"),
+        CheckConstraint("value_type IN ('BOOLEAN', 'INTEGER', 'DECIMAL', 'TEXT', 'DATE', 'VOCABULARY_TERM')"),
+        CheckConstraint(
+            "(value_type = 'BOOLEAN' AND boolean_value IS NOT NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+            "(value_type = 'INTEGER' AND boolean_value IS NULL AND integer_value IS NOT NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+            "(value_type = 'DECIMAL' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NOT NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+            "(value_type = 'TEXT' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NOT NULL AND date_value IS NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+            "(value_type = 'DATE' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NOT NULL AND vocabulary_key IS NULL AND vocabulary_term_key IS NULL) OR "
+            "(value_type = 'VOCABULARY_TERM' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_key IS NOT NULL AND vocabulary_term_key IS NOT NULL)"
+        ),
+        Index("ix_study_evaluation_parameters_plan", "evaluation_plan_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    evaluation_plan_id: Mapped[int] = mapped_column(
+        ForeignKey("study_constraint_evaluation_plans.id", ondelete="RESTRICT")
+    )
+    parameter_key: Mapped[str] = mapped_column(Text)
+    value_type: Mapped[str] = mapped_column(String(30))
+    boolean_value: Mapped[bool | None] = mapped_column(Boolean)
+    integer_value: Mapped[int | None] = mapped_column(Integer)
+    decimal_value: Mapped[str | None] = mapped_column(Text)
+    text_value: Mapped[str | None] = mapped_column(Text)
+    date_value: Mapped[date | None] = mapped_column(Date)
+    vocabulary_key: Mapped[str | None] = mapped_column(Text)
+    vocabulary_term_key: Mapped[str | None] = mapped_column(Text)
+
+
+class StudyConstraintEvaluationVocabularyTerm(ResearchBase):
+    __tablename__ = "study_constraint_evaluation_vocabulary_terms"
+    __table_args__ = (
+        UniqueConstraint(
+            "evaluation_plan_id", "vocabulary_key", "term_key",
+            name="uq_study_evaluation_vocabulary_term",
+        ),
+        Index("ix_study_evaluation_vocabulary_plan", "evaluation_plan_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    evaluation_plan_id: Mapped[int] = mapped_column(
+        ForeignKey("study_constraint_evaluation_plans.id", ondelete="RESTRICT")
+    )
+    vocabulary_key: Mapped[str] = mapped_column(Text)
+    term_key: Mapped[str] = mapped_column(Text)
+    term_definition: Mapped[str] = mapped_column(Text)
+
+
+class ConstraintEvaluationSubject(ResearchBase):
+    __tablename__ = "constraint_evaluation_subjects"
+    __table_args__ = (
+        CheckConstraint("subject_kind IN ('RUN', 'EXPERIMENT_PLACEMENT', 'PLACEMENT_FIELD')"),
+        CheckConstraint("enumeration_ordinal > 0"),
+        CheckConstraint(
+            "(subject_kind = 'RUN' AND experiment_track_id IS NULL AND governed_field IS NULL) OR "
+            "(subject_kind = 'EXPERIMENT_PLACEMENT' AND experiment_track_id IS NOT NULL AND governed_field IS NULL) OR "
+            "(subject_kind = 'PLACEMENT_FIELD' AND experiment_track_id IS NOT NULL AND governed_field IS NOT NULL)"
+        ),
+        CheckConstraint(
+            "governed_field IS NULL OR governed_field IN "
+            "('display_title', 'display_artist', 'explicit_flag', 'version_or_remaster_text')"
+        ),
+        UniqueConstraint(
+            "constraint_id", "subject_kind", "experiment_track_id", "governed_field",
+            name="uq_constraint_evaluation_subject_identity",
+        ),
+        UniqueConstraint(
+            "constraint_id", "enumeration_ordinal",
+            name="uq_constraint_evaluation_subject_ordinal",
+        ),
+        Index("ix_constraint_evaluation_subjects_experiment", "experiment_id"),
+        Index("ix_constraint_evaluation_subjects_constraint", "constraint_id"),
+        Index("ix_constraint_evaluation_subjects_track", "experiment_track_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    experiment_id: Mapped[int] = mapped_column(ForeignKey("experiments.id", ondelete="RESTRICT"))
+    constraint_id: Mapped[int] = mapped_column(ForeignKey("constraints.id", ondelete="RESTRICT"))
+    subject_kind: Mapped[str] = mapped_column(String(30))
+    experiment_track_id: Mapped[int | None] = mapped_column(
+        ForeignKey("experiment_tracks.id", ondelete="RESTRICT")
+    )
+    governed_field: Mapped[str | None] = mapped_column(String(40))
+    enumeration_ordinal: Mapped[int] = mapped_column(Integer)
+
+
+class ConstraintEvaluationMeasurement(ResearchBase):
+    __tablename__ = "constraint_evaluation_measurements"
+    __table_args__ = (
+        UniqueConstraint(
+            "subject_id", "measurement_definition_id",
+            name="uq_constraint_evaluation_measurement",
+        ),
+        CheckConstraint(
+            "authority_kind IN ('DIRECT_OBSERVATION', 'STRUCTURAL_DERIVATION', "
+            "'EXTERNAL_FACT_VERIFICATION', 'HUMAN_ASSESSMENT')"
+        ),
+        CheckConstraint(
+            "value_type IN ('BOOLEAN', 'INTEGER', 'DECIMAL', 'TEXT', 'DATE', "
+            "'VOCABULARY_TERM', 'UNAVAILABLE')"
+        ),
+        CheckConstraint(
+            "(value_type = 'BOOLEAN' AND boolean_value IS NOT NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_term_key IS NULL AND unavailable_reason IS NULL) OR "
+            "(value_type = 'INTEGER' AND boolean_value IS NULL AND integer_value IS NOT NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_term_key IS NULL AND unavailable_reason IS NULL) OR "
+            "(value_type = 'DECIMAL' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NOT NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_term_key IS NULL AND unavailable_reason IS NULL) OR "
+            "(value_type = 'TEXT' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NOT NULL AND date_value IS NULL AND vocabulary_term_key IS NULL AND unavailable_reason IS NULL) OR "
+            "(value_type = 'DATE' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NOT NULL AND vocabulary_term_key IS NULL AND unavailable_reason IS NULL) OR "
+            "(value_type = 'VOCABULARY_TERM' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_term_key IS NOT NULL AND unavailable_reason IS NULL) OR "
+            "(value_type = 'UNAVAILABLE' AND boolean_value IS NULL AND integer_value IS NULL AND decimal_value IS NULL AND text_value IS NULL AND date_value IS NULL AND vocabulary_term_key IS NULL AND unavailable_reason IS NOT NULL)"
+        ),
+        Index("ix_constraint_evaluation_measurements_subject", "subject_id"),
+        Index("ix_constraint_evaluation_measurements_definition", "measurement_definition_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    subject_id: Mapped[int] = mapped_column(
+        ForeignKey("constraint_evaluation_subjects.id", ondelete="RESTRICT")
+    )
+    measurement_definition_id: Mapped[int] = mapped_column(
+        ForeignKey("study_constraint_measurement_definitions.id", ondelete="RESTRICT")
+    )
+    authority_kind: Mapped[str] = mapped_column(String(40))
+    value_type: Mapped[str] = mapped_column(String(30))
+    boolean_value: Mapped[bool | None] = mapped_column(Boolean)
+    integer_value: Mapped[int | None] = mapped_column(Integer)
+    decimal_value: Mapped[str | None] = mapped_column(Text)
+    text_value: Mapped[str | None] = mapped_column(Text)
+    date_value: Mapped[date | None] = mapped_column(Date)
+    vocabulary_term_key: Mapped[str | None] = mapped_column(Text)
+    unavailable_reason: Mapped[str | None] = mapped_column(Text)
+    recorded_by: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+    notes: Mapped[str | None] = mapped_column(Text)
+
+
+class ConstraintEvaluationMeasurementEvidence(ResearchBase):
+    __tablename__ = "constraint_evaluation_measurement_evidence"
+    __table_args__ = (
+        UniqueConstraint(
+            "measurement_id", "evidence_source_id", "evidence_link_id", "evidence_role",
+            name="uq_constraint_evaluation_measurement_evidence",
+        ),
+        CheckConstraint(
+            "evidence_role IN ('SUBJECT_IDENTITY', 'OBSERVED_VALUE', 'EXTERNAL_FACT', "
+            "'CORRESPONDENCE', 'OPERATOR_JUDGMENT')"
+        ),
+        CheckConstraint(
+            "provenance_type IN ('DIRECT_OBSERVATION', 'HUMAN_ASSESSMENT', "
+            "'DERIVED_QUERY_RESULT', 'MIGRATION_DERIVATION')"
+        ),
+        CheckConstraint("support_status IN ('FULL', 'PARTIAL')"),
+        Index("ix_constraint_evaluation_evidence_measurement", "measurement_id"),
+        Index("ix_constraint_evaluation_evidence_source", "evidence_source_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    measurement_id: Mapped[int] = mapped_column(
+        ForeignKey("constraint_evaluation_measurements.id", ondelete="RESTRICT")
+    )
+    evidence_source_id: Mapped[int] = mapped_column(
+        ForeignKey("evidence_sources.id", ondelete="RESTRICT")
+    )
+    evidence_link_id: Mapped[int | None] = mapped_column(
+        ForeignKey("evidence_links.id", ondelete="RESTRICT")
+    )
+    evidence_role: Mapped[str] = mapped_column(String(30))
+    provenance_type: Mapped[str] = mapped_column(String(30))
+    support_status: Mapped[str] = mapped_column(String(10))
+    field_or_segment_reference: Mapped[str | None] = mapped_column(Text)
+    notes: Mapped[str | None] = mapped_column(Text)
+
+
+class ConstraintSubjectResult(ResearchBase):
+    __tablename__ = "constraint_subject_results"
+    __table_args__ = (
+        UniqueConstraint("subject_id", name="uq_constraint_subject_result"),
+        CheckConstraint("status IN ('PASS', 'PARTIAL', 'FAIL', 'UNKNOWN')"),
+        Index("ix_constraint_subject_results_subject", "subject_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    subject_id: Mapped[int] = mapped_column(
+        ForeignKey("constraint_evaluation_subjects.id", ondelete="RESTRICT")
+    )
+    status: Mapped[str] = mapped_column(String(20))
+    evaluator_key: Mapped[str] = mapped_column(Text)
+    evaluator_version: Mapped[str] = mapped_column(Text)
+    evaluated_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+    reason_code: Mapped[str] = mapped_column(Text)
+
+
 class StudyOutcomeDefinition(ResearchBase):
     __tablename__ = "study_outcome_definitions"
     __table_args__ = (
@@ -588,6 +865,196 @@ class StudyAnalysisDefinition(ResearchBase):
     aggregation_rule: Mapped[str] = mapped_column(Text)
     exclusion_rule: Mapped[str] = mapped_column(Text)
     reporting_rule: Mapped[str] = mapped_column(Text)
+
+
+class StudyExecutionContract(ResearchBase):
+    __tablename__ = "study_execution_contracts"
+    __table_args__ = (
+        UniqueConstraint("protocol_version_id", name="uq_study_execution_contract_protocol"),
+        Index("ix_study_execution_contracts_protocol", "protocol_version_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    protocol_version_id: Mapped[int] = mapped_column(
+        ForeignKey("study_protocol_versions.id", ondelete="RESTRICT")
+    )
+    contract_version: Mapped[str] = mapped_column(Text)
+
+
+class StudyOutcomeCalculationPlan(ResearchBase):
+    __tablename__ = "study_outcome_calculation_plans"
+    __table_args__ = (
+        UniqueConstraint("execution_contract_id", "outcome_definition_id", name="uq_study_outcome_calculation_plan"),
+        CheckConstraint("input_kind IN ('CONSTRAINT_RESULTS', 'STRUCTURED_SUBJECT_RESULTS', 'STRUCTURED_MEASUREMENTS', 'REALIZATION_DISPOSITION')"),
+        CheckConstraint("output_value_type IN ('BOOLEAN', 'INTEGER', 'DECIMAL', 'VOCABULARY_TERM', 'DISPOSITION')"),
+        CheckConstraint("subject_interpretation IS NULL OR subject_interpretation IN ('FIELD_PREDICATE', 'PLACEMENT_EVENT')"),
+        CheckConstraint("(output_value_type='VOCABULARY_TERM' AND output_vocabulary_key IS NOT NULL) OR (output_value_type!='VOCABULARY_TERM' AND output_vocabulary_key IS NULL)"),
+        Index("ix_study_outcome_calculation_contract", "execution_contract_id"),
+        Index("ix_study_outcome_calculation_outcome", "outcome_definition_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    execution_contract_id: Mapped[int] = mapped_column(ForeignKey("study_execution_contracts.id", ondelete="RESTRICT"))
+    outcome_definition_id: Mapped[int] = mapped_column(ForeignKey("study_outcome_definitions.id", ondelete="RESTRICT"))
+    calculator_key: Mapped[str] = mapped_column(Text)
+    calculator_version: Mapped[str] = mapped_column(Text)
+    input_kind: Mapped[str] = mapped_column(String(40))
+    output_value_type: Mapped[str] = mapped_column(String(30))
+    output_vocabulary_key: Mapped[str | None] = mapped_column(Text)
+    subject_interpretation: Mapped[str | None] = mapped_column(String(30))
+
+
+class StudyOutcomeDispositionPolicy(ResearchBase):
+    __tablename__ = "study_outcome_disposition_policies"
+    __table_args__ = (
+        UniqueConstraint("calculation_plan_id", "population_state", name="uq_study_outcome_disposition_policy"),
+        CheckConstraint("population_state IN ('EXPERIMENT_RECORDED', 'MAESTRO_REFUSAL_RECORDED', 'MAESTRO_FAILURE_RECORDED', 'PENDING')"),
+        CheckConstraint("treatment IN ('CALCULATE', 'MISSING', 'NOT_CALCULABLE')"),
+        Index("ix_study_outcome_disposition_plan", "calculation_plan_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    calculation_plan_id: Mapped[int] = mapped_column(
+        ForeignKey("study_outcome_calculation_plans.id", ondelete="RESTRICT")
+    )
+    population_state: Mapped[str] = mapped_column(String(40))
+    treatment: Mapped[str] = mapped_column(String(30))
+
+
+class StudyOutcomeConstraintBinding(ResearchBase):
+    __tablename__ = "study_outcome_constraint_bindings"
+    __table_args__ = (
+        UniqueConstraint("calculation_plan_id", "ordinal", name="uq_study_outcome_binding_ordinal"),
+        UniqueConstraint("calculation_plan_id", "binding_role", "constraint_definition_id", name="uq_study_outcome_binding_identity"),
+        CheckConstraint("ordinal > 0"),
+        Index("ix_study_outcome_bindings_plan", "calculation_plan_id"),
+        Index("ix_study_outcome_bindings_constraint", "constraint_definition_id"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    calculation_plan_id: Mapped[int] = mapped_column(ForeignKey("study_outcome_calculation_plans.id", ondelete="RESTRICT"))
+    constraint_definition_id: Mapped[int] = mapped_column(ForeignKey("study_constraint_definitions.id", ondelete="RESTRICT"))
+    binding_role: Mapped[str] = mapped_column(Text)
+    ordinal: Mapped[int] = mapped_column(Integer)
+
+
+class StudyOutcomeSubjectKind(ResearchBase):
+    __tablename__ = "study_outcome_subject_kinds"
+    __table_args__ = (
+        UniqueConstraint("calculation_plan_id", "subject_kind", name="uq_study_outcome_subject_kind"),
+        CheckConstraint("subject_kind IN ('RUN', 'EXPERIMENT_PLACEMENT', 'PLACEMENT_FIELD')"),
+        Index("ix_study_outcome_subject_kinds_plan", "calculation_plan_id"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    calculation_plan_id: Mapped[int] = mapped_column(ForeignKey("study_outcome_calculation_plans.id", ondelete="RESTRICT"))
+    subject_kind: Mapped[str] = mapped_column(String(30))
+
+
+class StudyOutcomeCalculationParameter(ResearchBase):
+    __tablename__ = "study_outcome_calculation_parameters"
+    __table_args__ = (
+        UniqueConstraint("calculation_plan_id", "parameter_key", "ordinal", name="uq_study_outcome_parameter"),
+        CheckConstraint("ordinal > 0"),
+        CheckConstraint("value_type IN ('BOOLEAN', 'INTEGER', 'DECIMAL', 'TEXT', 'DATE', 'VOCABULARY_TERM')"),
+        CheckConstraint(_TYPED_PARAMETER_CHECK),
+        Index("ix_study_outcome_parameters_plan", "calculation_plan_id"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    calculation_plan_id: Mapped[int] = mapped_column(ForeignKey("study_outcome_calculation_plans.id", ondelete="RESTRICT"))
+    parameter_key: Mapped[str] = mapped_column(Text)
+    ordinal: Mapped[int] = mapped_column(Integer)
+    value_type: Mapped[str] = mapped_column(String(30))
+    boolean_value: Mapped[bool | None] = mapped_column(Boolean)
+    integer_value: Mapped[int | None] = mapped_column(Integer)
+    decimal_value: Mapped[str | None] = mapped_column(Text)
+    text_value: Mapped[str | None] = mapped_column(Text)
+    date_value: Mapped[date | None] = mapped_column(Date)
+    vocabulary_key: Mapped[str | None] = mapped_column(Text)
+    vocabulary_term_key: Mapped[str | None] = mapped_column(Text)
+
+
+class StudyOutcomeCalculationVocabularyTerm(ResearchBase):
+    __tablename__ = "study_outcome_calculation_vocabulary_terms"
+    __table_args__ = (
+        UniqueConstraint("calculation_plan_id", "vocabulary_key", "term_key", name="uq_study_outcome_vocabulary_term"),
+        Index("ix_study_outcome_vocabulary_plan", "calculation_plan_id"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    calculation_plan_id: Mapped[int] = mapped_column(ForeignKey("study_outcome_calculation_plans.id", ondelete="RESTRICT"))
+    vocabulary_key: Mapped[str] = mapped_column(Text)
+    term_key: Mapped[str] = mapped_column(Text)
+    term_definition: Mapped[str] = mapped_column(Text)
+
+
+class StudyAnalysisCalculationPlan(ResearchBase):
+    __tablename__ = "study_analysis_calculation_plans"
+    __table_args__ = (
+        UniqueConstraint("execution_contract_id", "analysis_definition_id", name="uq_study_analysis_calculation_plan"),
+        CheckConstraint("population_scope='ALL_REGISTERED_PLANNED_RUNS'"),
+        Index("ix_study_analysis_calculation_contract", "execution_contract_id"),
+        Index("ix_study_analysis_calculation_analysis", "analysis_definition_id"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    execution_contract_id: Mapped[int] = mapped_column(ForeignKey("study_execution_contracts.id", ondelete="RESTRICT"))
+    analysis_definition_id: Mapped[int] = mapped_column(ForeignKey("study_analysis_definitions.id", ondelete="RESTRICT"))
+    calculator_key: Mapped[str] = mapped_column(Text)
+    calculator_version: Mapped[str] = mapped_column(Text)
+    population_scope: Mapped[str] = mapped_column(String(50))
+    output_shape_key: Mapped[str] = mapped_column(Text)
+    output_shape_version: Mapped[str] = mapped_column(Text)
+
+
+class StudyAnalysisDimension(ResearchBase):
+    __tablename__ = "study_analysis_dimensions"
+    __table_args__ = (
+        UniqueConstraint("calculation_plan_id", "ordinal", name="uq_study_analysis_dimension_ordinal"),
+        UniqueConstraint("calculation_plan_id", "dimension_role", "dimension_key", name="uq_study_analysis_dimension_identity"),
+        CheckConstraint("ordinal > 0"),
+        CheckConstraint("dimension_role IN ('GROUP', 'MATCH')"),
+        CheckConstraint("dimension_key IN ('CONDITION', 'BLOCK', 'REPLICATE')"),
+        Index("ix_study_analysis_dimensions_plan", "calculation_plan_id"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    calculation_plan_id: Mapped[int] = mapped_column(ForeignKey("study_analysis_calculation_plans.id", ondelete="RESTRICT"))
+    dimension_role: Mapped[str] = mapped_column(String(20))
+    dimension_key: Mapped[str] = mapped_column(String(20))
+    ordinal: Mapped[int] = mapped_column(Integer)
+
+
+class StudyAnalysisConditionBinding(ResearchBase):
+    __tablename__ = "study_analysis_condition_bindings"
+    __table_args__ = (
+        UniqueConstraint("calculation_plan_id", "comparison_role", name="uq_study_analysis_condition_role"),
+        CheckConstraint("comparison_role IN ('LEFT', 'RIGHT')"),
+        Index("ix_study_analysis_condition_plan", "calculation_plan_id"),
+        Index("ix_study_analysis_condition_condition", "condition_id"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    calculation_plan_id: Mapped[int] = mapped_column(ForeignKey("study_analysis_calculation_plans.id", ondelete="RESTRICT"))
+    condition_id: Mapped[int] = mapped_column(ForeignKey("study_conditions.id", ondelete="RESTRICT"))
+    comparison_role: Mapped[str] = mapped_column(String(20))
+
+
+class StudyAnalysisCalculationParameter(ResearchBase):
+    __tablename__ = "study_analysis_calculation_parameters"
+    __table_args__ = (
+        UniqueConstraint("calculation_plan_id", "parameter_key", "ordinal", name="uq_study_analysis_parameter"),
+        CheckConstraint("ordinal > 0"),
+        CheckConstraint("value_type IN ('BOOLEAN', 'INTEGER', 'DECIMAL', 'TEXT', 'DATE', 'VOCABULARY_TERM')"),
+        CheckConstraint(_TYPED_PARAMETER_CHECK),
+        Index("ix_study_analysis_parameters_plan", "calculation_plan_id"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    calculation_plan_id: Mapped[int] = mapped_column(ForeignKey("study_analysis_calculation_plans.id", ondelete="RESTRICT"))
+    parameter_key: Mapped[str] = mapped_column(Text)
+    ordinal: Mapped[int] = mapped_column(Integer)
+    value_type: Mapped[str] = mapped_column(String(30))
+    boolean_value: Mapped[bool | None] = mapped_column(Boolean)
+    integer_value: Mapped[int | None] = mapped_column(Integer)
+    decimal_value: Mapped[str | None] = mapped_column(Text)
+    text_value: Mapped[str | None] = mapped_column(Text)
+    date_value: Mapped[date | None] = mapped_column(Date)
+    vocabulary_key: Mapped[str | None] = mapped_column(Text)
+    vocabulary_term_key: Mapped[str | None] = mapped_column(Text)
 
 
 class StudyPlannedRun(ResearchBase):

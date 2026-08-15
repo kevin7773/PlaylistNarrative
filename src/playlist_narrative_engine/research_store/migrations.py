@@ -11,7 +11,7 @@ from playlist_narrative_engine.research_store.models import (
     SchemaVersion, Track, TracklistEvidenceSegment,
 )
 
-CURRENT_SCHEMA_VERSION = 5
+CURRENT_SCHEMA_VERSION = 8
 
 
 def get_schema_version(engine: Engine) -> int:
@@ -244,6 +244,123 @@ def _create_study_immutability_triggers(connection) -> None:
                 f"BEFORE {action} ON {table} WHEN ({parent.format(alias=alias)}) IS NOT NULL "
                 "BEGIN SELECT RAISE(ABORT, 'registered protocol applicability is immutable'); END"
             )
+    p7_parents = {
+        "study_constraint_evaluation_plans": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_constraint_definitions cd ON cd.protocol_version_id=pv.id "
+            "WHERE cd.id={alias}.constraint_definition_id"
+        ),
+        "study_constraint_measurement_definitions": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_constraint_definitions cd ON cd.protocol_version_id=pv.id "
+            "JOIN study_constraint_evaluation_plans ep ON ep.constraint_definition_id=cd.id "
+            "WHERE ep.id={alias}.evaluation_plan_id"
+        ),
+        "study_constraint_evaluation_parameters": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_constraint_definitions cd ON cd.protocol_version_id=pv.id "
+            "JOIN study_constraint_evaluation_plans ep ON ep.constraint_definition_id=cd.id "
+            "WHERE ep.id={alias}.evaluation_plan_id"
+        ),
+        "study_constraint_evaluation_vocabulary_terms": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_constraint_definitions cd ON cd.protocol_version_id=pv.id "
+            "JOIN study_constraint_evaluation_plans ep ON ep.constraint_definition_id=cd.id "
+            "WHERE ep.id={alias}.evaluation_plan_id"
+        ),
+    }
+    for table, parent in p7_parents.items():
+        for action, alias in (("INSERT", "NEW"), ("UPDATE", "OLD"), ("DELETE", "OLD")):
+            connection.exec_driver_sql(
+                f"CREATE TRIGGER IF NOT EXISTS {table}_no_{action.lower()}_after_registration "
+                f"BEFORE {action} ON {table} WHEN ({parent.format(alias=alias)}) IS NOT NULL "
+                "BEGIN SELECT RAISE(ABORT, 'registered structured-evaluation plan is immutable'); END"
+            )
+    execution_parents = {
+        "study_execution_contracts": (
+            "SELECT registered_at FROM study_protocol_versions "
+            "WHERE id={alias}.protocol_version_id"
+        ),
+        "study_outcome_calculation_plans": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "WHERE ec.id={alias}.execution_contract_id"
+        ),
+        "study_outcome_disposition_policies": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "JOIN study_outcome_calculation_plans op ON op.execution_contract_id=ec.id "
+            "WHERE op.id={alias}.calculation_plan_id"
+        ),
+        "study_outcome_constraint_bindings": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "JOIN study_outcome_calculation_plans op ON op.execution_contract_id=ec.id "
+            "WHERE op.id={alias}.calculation_plan_id"
+        ),
+        "study_outcome_subject_kinds": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "JOIN study_outcome_calculation_plans op ON op.execution_contract_id=ec.id "
+            "WHERE op.id={alias}.calculation_plan_id"
+        ),
+        "study_outcome_calculation_parameters": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "JOIN study_outcome_calculation_plans op ON op.execution_contract_id=ec.id "
+            "WHERE op.id={alias}.calculation_plan_id"
+        ),
+        "study_outcome_calculation_vocabulary_terms": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "JOIN study_outcome_calculation_plans op ON op.execution_contract_id=ec.id "
+            "WHERE op.id={alias}.calculation_plan_id"
+        ),
+        "study_analysis_calculation_plans": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "WHERE ec.id={alias}.execution_contract_id"
+        ),
+        "study_analysis_dimensions": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "JOIN study_analysis_calculation_plans ap ON ap.execution_contract_id=ec.id "
+            "WHERE ap.id={alias}.calculation_plan_id"
+        ),
+        "study_analysis_condition_bindings": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "JOIN study_analysis_calculation_plans ap ON ap.execution_contract_id=ec.id "
+            "WHERE ap.id={alias}.calculation_plan_id"
+        ),
+        "study_analysis_calculation_parameters": (
+            "SELECT pv.registered_at FROM study_protocol_versions pv "
+            "JOIN study_execution_contracts ec ON ec.protocol_version_id=pv.id "
+            "JOIN study_analysis_calculation_plans ap ON ap.execution_contract_id=ec.id "
+            "WHERE ap.id={alias}.calculation_plan_id"
+        ),
+    }
+    for table, parent in execution_parents.items():
+        for action, alias in (("INSERT", "NEW"), ("UPDATE", "OLD"), ("DELETE", "OLD")):
+            connection.exec_driver_sql(
+                f"CREATE TRIGGER IF NOT EXISTS {table}_no_{action.lower()}_after_registration "
+                f"BEFORE {action} ON {table} WHEN ({parent.format(alias=alias)}) IS NOT NULL "
+                "BEGIN SELECT RAISE(ABORT, 'registered execution contract is immutable'); END"
+            )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_outcome_binding_same_protocol "
+        "BEFORE INSERT ON study_outcome_constraint_bindings BEGIN "
+        "SELECT CASE WHEN (SELECT cd.protocol_version_id FROM study_constraint_definitions cd WHERE cd.id=NEW.constraint_definition_id) != "
+        "(SELECT ec.protocol_version_id FROM study_outcome_calculation_plans op JOIN study_execution_contracts ec ON ec.id=op.execution_contract_id WHERE op.id=NEW.calculation_plan_id) "
+        "THEN RAISE(ABORT, 'outcome constraint binding crosses protocol versions') END; END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_analysis_condition_same_protocol "
+        "BEFORE INSERT ON study_analysis_condition_bindings BEGIN "
+        "SELECT CASE WHEN (SELECT c.protocol_version_id FROM study_conditions c WHERE c.id=NEW.condition_id) != "
+        "(SELECT ec.protocol_version_id FROM study_analysis_calculation_plans ap JOIN study_execution_contracts ec ON ec.id=ap.execution_contract_id WHERE ap.id=NEW.calculation_plan_id) "
+        "THEN RAISE(ABORT, 'analysis condition binding crosses protocol versions') END; END"
+    )
     for table in ("study_run_attempts", "study_run_realizations"):
         connection.exec_driver_sql(
             f"CREATE TRIGGER IF NOT EXISTS {table}_no_update "
@@ -285,6 +402,156 @@ def _create_study_immutability_triggers(connection) -> None:
     )
 
 
+def _create_p7_runtime_triggers(connection) -> None:
+    runtime_tables = (
+        "constraint_evaluation_subjects",
+        "constraint_evaluation_measurements",
+        "constraint_evaluation_measurement_evidence",
+        "constraint_subject_results",
+    )
+    for table in runtime_tables:
+        connection.exec_driver_sql(
+            f"CREATE TRIGGER IF NOT EXISTS {table}_no_update BEFORE UPDATE ON {table} "
+            "BEGIN SELECT RAISE(ABORT, 'structured evaluation runtime is immutable'); END"
+        )
+    for action in ("UPDATE", "DELETE"):
+        alias = "OLD"
+        connection.exec_driver_sql(
+            f"CREATE TRIGGER IF NOT EXISTS structured_constraint_result_no_{action.lower()} "
+            f"BEFORE {action} ON constraint_results WHEN EXISTS ("
+            "SELECT 1 FROM constraints c JOIN study_constraint_evaluation_plans ep "
+            "ON ep.constraint_definition_id=c.study_constraint_definition_id "
+            f"WHERE c.id={alias}.constraint_id) "
+            "BEGIN SELECT RAISE(ABORT, 'structured aggregate ConstraintResult is immutable'); END"
+        )
+        connection.exec_driver_sql(
+            f"CREATE TRIGGER IF NOT EXISTS {table}_no_delete BEFORE DELETE ON {table} "
+            "BEGIN SELECT RAISE(ABORT, 'structured evaluation runtime is immutable'); END"
+        )
+
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS constraint_evaluation_subject_validate_insert "
+        "BEFORE INSERT ON constraint_evaluation_subjects BEGIN "
+        "SELECT CASE WHEN (SELECT experiment_id FROM constraints WHERE id=NEW.constraint_id) != NEW.experiment_id "
+        "THEN RAISE(ABORT, 'evaluation subject constraint belongs to another experiment') END; "
+        "SELECT CASE WHEN NEW.experiment_track_id IS NOT NULL AND "
+        "(SELECT experiment_id FROM experiment_tracks WHERE id=NEW.experiment_track_id) != NEW.experiment_id "
+        "THEN RAISE(ABORT, 'evaluation subject placement belongs to another experiment') END; "
+        "SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM constraints c "
+        "JOIN study_constraint_evaluation_plans ep ON ep.constraint_definition_id=c.study_constraint_definition_id "
+        "WHERE c.id=NEW.constraint_id) "
+        "THEN RAISE(ABORT, 'constraint has no registered structured-evaluation plan') END; "
+        "SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM constraints c "
+        "JOIN study_constraint_evaluation_plans ep ON ep.constraint_definition_id=c.study_constraint_definition_id "
+        "WHERE c.id=NEW.constraint_id AND ep.subject_kind=NEW.subject_kind "
+        "AND COALESCE(ep.subject_field,'')=COALESCE(NEW.governed_field,'')) "
+        "THEN RAISE(ABORT, 'evaluation subject differs from registered plan') END; "
+        "SELECT CASE WHEN EXISTS (SELECT 1 FROM constraint_evaluation_subjects existing "
+        "WHERE existing.constraint_id=NEW.constraint_id AND existing.subject_kind=NEW.subject_kind "
+        "AND COALESCE(existing.experiment_track_id,-1)=COALESCE(NEW.experiment_track_id,-1) "
+        "AND COALESCE(existing.governed_field,'')=COALESCE(NEW.governed_field,'')) "
+        "THEN RAISE(ABORT, 'duplicate evaluation subject') END; "
+        "SELECT CASE WHEN EXISTS (SELECT 1 FROM study_run_realizations WHERE experiment_id=NEW.experiment_id) "
+        "THEN RAISE(ABORT, 'cannot attach structured evaluation after realization') END; "
+        "END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS constraint_evaluation_measurement_validate_insert "
+        "BEFORE INSERT ON constraint_evaluation_measurements BEGIN "
+        "SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM constraint_evaluation_subjects s "
+        "JOIN constraints c ON c.id=s.constraint_id "
+        "JOIN study_constraint_evaluation_plans ep ON ep.constraint_definition_id=c.study_constraint_definition_id "
+        "JOIN study_constraint_measurement_definitions md ON md.evaluation_plan_id=ep.id "
+        "WHERE s.id=NEW.subject_id AND md.id=NEW.measurement_definition_id) "
+        "THEN RAISE(ABORT, 'measurement definition does not govern subject constraint') END; "
+        "SELECT CASE WHEN (SELECT authority FROM study_constraint_measurement_definitions WHERE id=NEW.measurement_definition_id) != NEW.authority_kind "
+        "THEN RAISE(ABORT, 'measurement authority differs from registered definition') END; "
+        "SELECT CASE WHEN NEW.value_type != 'UNAVAILABLE' AND "
+        "(SELECT value_type FROM study_constraint_measurement_definitions WHERE id=NEW.measurement_definition_id) != NEW.value_type "
+        "THEN RAISE(ABORT, 'measurement value type differs from registered definition') END; "
+        "SELECT CASE WHEN NEW.value_type='VOCABULARY_TERM' AND NOT EXISTS ("
+        "SELECT 1 FROM study_constraint_measurement_definitions md "
+        "JOIN study_constraint_evaluation_vocabulary_terms vt "
+        "ON vt.evaluation_plan_id=md.evaluation_plan_id AND vt.vocabulary_key=md.vocabulary_key "
+        "WHERE md.id=NEW.measurement_definition_id AND vt.term_key=NEW.vocabulary_term_key) "
+        "THEN RAISE(ABORT, 'measurement vocabulary term is not registered') END; "
+        "SELECT CASE WHEN EXISTS (SELECT 1 FROM constraint_evaluation_subjects s "
+        "JOIN study_run_realizations r ON r.experiment_id=s.experiment_id WHERE s.id=NEW.subject_id) "
+        "THEN RAISE(ABORT, 'cannot attach structured evaluation after realization') END; "
+        "END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS constraint_evaluation_evidence_validate_insert "
+        "BEFORE INSERT ON constraint_evaluation_measurement_evidence BEGIN "
+        "SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM constraint_evaluation_measurements m "
+        "JOIN constraint_evaluation_subjects s ON s.id=m.subject_id "
+        "JOIN evidence_sources es ON es.id=NEW.evidence_source_id "
+        "WHERE m.id=NEW.measurement_id AND es.experiment_id=s.experiment_id) "
+        "THEN RAISE(ABORT, 'evaluation evidence belongs to another experiment') END; "
+        "SELECT CASE WHEN NEW.evidence_link_id IS NOT NULL AND NOT EXISTS ("
+        "SELECT 1 FROM constraint_evaluation_measurements m "
+        "JOIN constraint_evaluation_subjects s ON s.id=m.subject_id "
+        "JOIN evidence_links el ON el.id=NEW.evidence_link_id "
+        "JOIN evidence_sources es ON es.id=el.evidence_source_id "
+        "WHERE m.id=NEW.measurement_id AND el.evidence_source_id=NEW.evidence_source_id "
+        "AND es.experiment_id=s.experiment_id) "
+        "THEN RAISE(ABORT, 'evaluation evidence link belongs to another experiment or source') END; "
+        "SELECT CASE WHEN NEW.evidence_link_id IS NOT NULL AND EXISTS ("
+        "SELECT 1 FROM constraint_evaluation_measurements m "
+        "JOIN constraint_evaluation_subjects s ON s.id=m.subject_id "
+        "JOIN evidence_links el ON el.id=NEW.evidence_link_id "
+        "WHERE m.id=NEW.measurement_id AND s.subject_kind='PLACEMENT_FIELD' AND "
+        "(el.experiment_track_id IS NULL OR el.experiment_track_id != s.experiment_track_id OR "
+        "NOT ((s.governed_field='display_title' AND el.field_name='title') OR "
+        "(s.governed_field='display_artist' AND el.field_name='artist') OR "
+        "(s.governed_field=el.field_name)))) "
+        "THEN RAISE(ABORT, 'field evidence link does not match evaluation subject') END; "
+        "SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM constraint_evaluation_measurements m "
+        "JOIN study_constraint_measurement_definitions md ON md.id=m.measurement_definition_id "
+        "WHERE m.id=NEW.measurement_id AND ((md.authority='DIRECT_OBSERVATION' AND NEW.evidence_role IN ('SUBJECT_IDENTITY','OBSERVED_VALUE')) OR "
+        "(md.authority='STRUCTURAL_DERIVATION' AND NEW.evidence_role='SUBJECT_IDENTITY') OR "
+        "(md.authority='EXTERNAL_FACT_VERIFICATION' AND NEW.evidence_role IN ('SUBJECT_IDENTITY','EXTERNAL_FACT','CORRESPONDENCE')) OR "
+        "(md.authority='HUMAN_ASSESSMENT' AND NEW.evidence_role IN ('SUBJECT_IDENTITY','OPERATOR_JUDGMENT')))) "
+        "THEN RAISE(ABORT, 'evidence role is not permitted for measurement authority') END; "
+        "SELECT CASE WHEN EXISTS (SELECT 1 FROM constraint_evaluation_measurement_evidence existing "
+        "WHERE existing.measurement_id=NEW.measurement_id "
+        "AND existing.evidence_source_id=NEW.evidence_source_id "
+        "AND COALESCE(existing.evidence_link_id,-1)=COALESCE(NEW.evidence_link_id,-1) "
+        "AND existing.evidence_role=NEW.evidence_role) "
+        "THEN RAISE(ABORT, 'duplicate evaluation measurement evidence') END; "
+        "SELECT CASE WHEN EXISTS (SELECT 1 FROM constraint_evaluation_measurements m "
+        "JOIN constraint_evaluation_subjects s ON s.id=m.subject_id "
+        "JOIN study_run_realizations r ON r.experiment_id=s.experiment_id WHERE m.id=NEW.measurement_id) "
+        "THEN RAISE(ABORT, 'cannot attach structured evaluation after realization') END; "
+        "END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS constraint_subject_result_validate_insert "
+        "BEFORE INSERT ON constraint_subject_results BEGIN "
+        "SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM constraint_evaluation_subjects s "
+        "JOIN constraints c ON c.id=s.constraint_id "
+        "JOIN study_constraint_evaluation_plans ep ON ep.constraint_definition_id=c.study_constraint_definition_id "
+        "WHERE s.id=NEW.subject_id AND ep.subject_evaluator_key=NEW.evaluator_key "
+        "AND ep.subject_evaluator_version=NEW.evaluator_version) "
+        "THEN RAISE(ABORT, 'subject result evaluator differs from registered plan') END; "
+        "SELECT CASE WHEN EXISTS (SELECT 1 FROM constraint_evaluation_subjects s "
+        "JOIN study_run_realizations r ON r.experiment_id=s.experiment_id WHERE s.id=NEW.subject_id) "
+        "THEN RAISE(ABORT, 'cannot attach structured evaluation after realization') END; "
+        "END"
+    )
+    connection.exec_driver_sql(
+        "CREATE TRIGGER IF NOT EXISTS study_realization_structured_protocol_match "
+        "BEFORE INSERT ON study_run_realizations WHEN NEW.experiment_id IS NOT NULL BEGIN "
+        "SELECT CASE WHEN EXISTS (SELECT 1 FROM constraint_evaluation_subjects s "
+        "JOIN constraints c ON c.id=s.constraint_id "
+        "JOIN study_constraint_definitions cd ON cd.id=c.study_constraint_definition_id "
+        "JOIN study_planned_runs pr ON pr.id=NEW.planned_run_id "
+        "WHERE s.experiment_id=NEW.experiment_id AND cd.protocol_version_id != pr.protocol_version_id) "
+        "THEN RAISE(ABORT, 'structured evaluation protocol does not match planned run') END; "
+        "END"
+    )
+
+
 def _migrate_v4_to_v5(engine: Engine) -> None:
     """Add prospective study registration without reinterpreting experiments."""
     with engine.begin() as connection:
@@ -301,6 +568,39 @@ def _migrate_v4_to_v5(engine: Engine) -> None:
         ))
 
 
+def _migrate_v5_to_v6(engine: Engine) -> None:
+    """Add prospective structured-evaluation protocol and runtime storage."""
+    with engine.begin() as connection:
+        ResearchBase.metadata.create_all(bind=connection)
+        _create_study_immutability_triggers(connection)
+        _create_p7_runtime_triggers(connection)
+        connection.execute(SchemaVersion.__table__.insert().values(
+            version=6, applied_at=datetime.now(timezone.utc)
+        ))
+
+
+def _migrate_v6_to_v7(engine: Engine) -> None:
+    """Add prospective Study execution-contract declarations without runtime results."""
+    with engine.begin() as connection:
+        ResearchBase.metadata.create_all(bind=connection)
+        _create_study_immutability_triggers(connection)
+        _create_p7_runtime_triggers(connection)
+        connection.execute(SchemaVersion.__table__.insert().values(
+            version=7, applied_at=datetime.now(timezone.utc)
+        ))
+
+
+def _migrate_v7_to_v8(engine: Engine) -> None:
+    """Add prospective outcome disposition authority without runtime results."""
+    with engine.begin() as connection:
+        ResearchBase.metadata.create_all(bind=connection)
+        _create_study_immutability_triggers(connection)
+        _create_p7_runtime_triggers(connection)
+        connection.execute(SchemaVersion.__table__.insert().values(
+            version=8, applied_at=datetime.now(timezone.utc)
+        ))
+
+
 def migrate_research_database(engine: Engine) -> int:
     current = get_schema_version(engine)
     if current > CURRENT_SCHEMA_VERSION:
@@ -311,10 +611,11 @@ def migrate_research_database(engine: Engine) -> int:
         ResearchBase.metadata.create_all(engine)
         with engine.begin() as connection:
             _create_study_immutability_triggers(connection)
+            _create_p7_runtime_triggers(connection)
             connection.execute(SchemaVersion.__table__.insert().values(
-                version=5, applied_at=datetime.now(timezone.utc)
+                version=8, applied_at=datetime.now(timezone.utc)
             ))
-        return 5
+        return 8
     if current == 1:
         _migrate_v1_to_v2(engine)
         current = 2
@@ -326,5 +627,14 @@ def migrate_research_database(engine: Engine) -> int:
         current = 4
     if current == 4:
         _migrate_v4_to_v5(engine)
-        return 5
+        current = 5
+    if current == 5:
+        _migrate_v5_to_v6(engine)
+        current = 6
+    if current == 6:
+        _migrate_v6_to_v7(engine)
+        current = 7
+    if current == 7:
+        _migrate_v7_to_v8(engine)
+        return 8
     return current

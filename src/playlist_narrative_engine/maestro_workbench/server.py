@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import importlib.metadata
 import json
 import mimetypes
+import os
 import secrets
 import socket
+import sys
+from urllib.parse import quote
 from dataclasses import dataclass
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -34,11 +39,56 @@ from playlist_narrative_engine.research_store.service import (
     initialize_research_store,
     open_research_store_service,
 )
+from playlist_narrative_engine.research_store.migrations import CURRENT_SCHEMA_VERSION
+from playlist_narrative_engine.research_store.study_schemas import StudyRegistrationInput
+from playlist_narrative_engine.research_store.study_closeout import (
+    closeout_json_bytes,
+    closeout_markdown,
+)
 
 
 MAX_JSON_BYTES = 5 * 1024 * 1024
 MAX_EVIDENCE_BYTES = 50 * 1024 * 1024
 STATIC_ROOT = Path(__file__).with_name("static")
+WORKBENCH_CONTRACT_CAPABILITIES = (
+    "study.constraint.structured_evaluation_plan",
+    "study.protocol.execution_contract",
+)
+WORKBENCH_API_CONTRACT_VERSION = "p8.1-runtime-identity-v1"
+
+
+def workbench_runtime_identity(*, launch_mode: str = "unknown") -> dict[str, Any]:
+    """Return explicit process/source/contract identity for split-version detection."""
+    schema = StudyRegistrationInput.model_json_schema()
+    canonical_schema = json.dumps(
+        schema, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    asset_hasher = hashlib.sha256()
+    asset_names = ("studies.html", "study_builder.js", "studies.js")
+    for name in asset_names:
+        asset_hasher.update(name.encode("utf-8"))
+        asset_hasher.update(b"\0")
+        asset_hasher.update((STATIC_ROOT / name).read_bytes())
+        asset_hasher.update(b"\0")
+    try:
+        package_version = importlib.metadata.version("playlist-narrative-engine")
+    except importlib.metadata.PackageNotFoundError:
+        package_version = "source-tree"
+    return {
+        "identity_version": 1,
+        "api_contract_version": WORKBENCH_API_CONTRACT_VERSION,
+        "package_version": package_version,
+        "process_id": os.getpid(),
+        "python_executable": str(Path(sys.executable).resolve()),
+        "backend_module": str(Path(__file__).resolve()),
+        "static_root": str(STATIC_ROOT.resolve()),
+        "launch_mode": launch_mode,
+        "research_schema_version": CURRENT_SCHEMA_VERSION,
+        "study_contract_sha256": hashlib.sha256(canonical_schema).hexdigest(),
+        "study_contract_capabilities": list(WORKBENCH_CONTRACT_CAPABILITIES),
+        "studies_assets_sha256": asset_hasher.hexdigest(),
+        "studies_assets": list(asset_names),
+    }
 
 
 class MaestroWorkbenchServer(ThreadingHTTPServer):
@@ -49,12 +99,14 @@ class MaestroWorkbenchServer(ThreadingHTTPServer):
         database_url: str | None = None,
         staging_root: Path | None = None,
         access_token: str | None = None,
+        launch_mode: str = "unknown",
         screenshot_extractor: ScreenshotExtractor | None = None,
     ) -> None:
         super().__init__(address, MaestroWorkbenchHandler)
         self.database_url = database_url
         self.evidence_stager = EvidenceStager(staging_root)
         self.access_token = access_token
+        self.launch_mode = launch_mode
         self.screenshot_extractor = screenshot_extractor
         self.staged_paths: set[str] = set()
 
@@ -72,15 +124,50 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
         if path == "/api/health":
             self._send_json(HTTPStatus.OK, {"status": "ok"})
             return
+        if path == "/api/runtime-identity":
+            self._send_json(
+                HTTPStatus.OK,
+                workbench_runtime_identity(launch_mode=self.server.launch_mode),
+            )
+            return
         if path == "/api/studies":
             self._send_json(HTTPStatus.OK, {"studies": self._study_operation("list")})
             return
+        if path.startswith("/api/study-runs/"):
+            parts = path.strip("/").split("/")
+            if len(parts) == 4 and parts[3] == "structured-evaluation":
+                try:
+                    result = self._study_operation("structured-run", int(parts[2]))
+                    self._send_json(HTTPStatus.OK if result is not None else HTTPStatus.NOT_FOUND,
+                                    result if result is not None else {"error": "structured run evaluation not found"})
+                except ValueError as exc:
+                    self._send_json(HTTPStatus.BAD_REQUEST, {"error": str(exc)})
+                return
         if path.startswith("/api/studies/"):
             parts = path.strip("/").split("/")
             try:
                 study_id = int(parts[2])
                 if len(parts) == 5 and parts[3] == "protocols":
                     result = self._study_operation("protocol", study_id, int(parts[4]))
+                elif len(parts) == 5 and parts[3] == "evaluations":
+                    result = self._study_operation("evaluation", study_id, int(parts[4]))
+                elif len(parts) == 5 and parts[3] == "explorations":
+                    result = self._study_operation("exploration", study_id, int(parts[4]))
+                elif len(parts) == 5 and parts[3] == "closeouts":
+                    result = self._study_operation("closeout", study_id, int(parts[4]))
+                elif len(parts) == 6 and parts[3] == "closeouts":
+                    result = self._study_operation("closeout", study_id, int(parts[4]))
+                    if result is None:
+                        self._send_json(HTTPStatus.NOT_FOUND, {"error": "study record not found"})
+                        return
+                    filename = f"{result['registered']['study_key']}-v{result['registered']['protocol_version']}-closeout"
+                    if parts[5] == "report.json":
+                        self._send_download(closeout_json_bytes(result), "application/json; charset=utf-8", filename + ".json")
+                    elif parts[5] == "report.md":
+                        self._send_download(closeout_markdown(result).encode("utf-8"), "text/markdown; charset=utf-8", filename + ".md")
+                    else:
+                        self.send_error(HTTPStatus.NOT_FOUND)
+                    return
                 elif len(parts) == 3:
                     result = self._study_operation("get", study_id)
                 else:
@@ -149,9 +236,24 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
                     )
                 elif parts[3] == "realize-experiment":
                     result = self._study_operation("realize", run_id, request.get("proposal"))
+                elif parts[3] == "structured-worksheet":
+                    result = self._study_operation("structured-worksheet", run_id, request.get("proposal"))
+                elif parts[3] == "structured-preview":
+                    result = self._study_operation(
+                        "structured-preview", run_id, request.get("proposal"), request.get("structured_evaluation")
+                    )
+                elif parts[3] == "realize-structured-experiment":
+                    result = self._study_operation(
+                        "realize-structured", run_id, request.get("proposal"), request.get("structured_evaluation")
+                    )
                 else:
                     raise ValueError("invalid planned-run operation")
-                self._send_json(HTTPStatus.CREATED, result)
+                response_status = (
+                    HTTPStatus.OK
+                    if parts[3] in {"structured-worksheet", "structured-preview"}
+                    else HTTPStatus.CREATED
+                )
+                self._send_json(response_status, result)
             elif path == "/api/generate-draft-tracklist":
                 request = self._read_json()
                 provider = _required_text(request, "provider")
@@ -228,11 +330,18 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
                 "list": operations.list_studies,
                 "get": operations.get_study,
                 "protocol": operations.get_protocol,
+                "evaluation": operations.evaluate_study,
+                "exploration": operations.explore_study,
+                "closeout": operations.closeout_study,
                 "validate": operations.validate_study,
                 "register": operations.register_study,
                 "attempt": operations.record_operational_attempt,
                 "failure": operations.record_study_failure,
                 "realize": operations.realize_study_experiment,
+                "structured-worksheet": operations.prepare_structured_worksheet,
+                "structured-preview": operations.preview_structured_evaluation,
+                "realize-structured": operations.realize_structured_study_experiment,
+                "structured-run": operations.get_structured_run_evaluation,
             }[operation](*args)
 
     def _resolve_static_file(self, path: str) -> Path | None:
@@ -300,6 +409,15 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(content)
 
+    def _send_download(self, content: bytes, content_type: str, filename: str) -> None:
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Disposition", f"attachment; filename*=UTF-8''{quote(filename)}")
+        self.send_header("Content-Length", str(len(content)))
+        self._send_no_cache_headers()
+        self.end_headers()
+        self.wfile.write(content)
+
     def _send_no_cache_headers(self) -> None:
         self.send_header("Cache-Control", "no-store")
         self.send_header("Pragma", "no-cache")
@@ -362,8 +480,25 @@ def resolve_launch_mode(*, lan: bool, secure: bool) -> WorkbenchLaunchMode:
     return WorkbenchLaunchMode("protected LAN", "0.0.0.0", secrets.token_urlsafe(24))
 
 
-def startup_lines(mode: WorkbenchLaunchMode, port: int, addresses: list[str]) -> list[str]:
-    lines = ["Maestro Evidence Workbench", f"Mode: {mode.name}"]
+def startup_lines(
+    mode: WorkbenchLaunchMode,
+    port: int,
+    addresses: list[str],
+    identity: dict[str, Any] | None = None,
+) -> list[str]:
+    identity = identity or workbench_runtime_identity(launch_mode=mode.name)
+    lines = [
+        "Maestro Evidence Workbench",
+        f"Mode: {mode.name}",
+        f"Process: {identity['process_id']}",
+        f"Python: {identity['python_executable']}",
+        f"Backend source: {identity['backend_module']}",
+        f"Static source: {identity['static_root']}",
+        f"Research schema: v{identity['research_schema_version']}",
+        f"Workbench API contract: {identity['api_contract_version']}",
+        f"Study contract: {identity['study_contract_sha256']}",
+        f"Studies assets: {identity['studies_assets_sha256']}",
+    ]
     if mode.name == "localhost":
         return lines + [f"Open: http://127.0.0.1:{port}"]
     if mode.name == "trusted LAN":
@@ -394,14 +529,24 @@ def main() -> None:
     except ValueError as exc:
         build_parser().error(str(exc))
     initialize_research_store(args.database_url)
-    server = MaestroWorkbenchServer(
-        (mode.bind_host, args.port),
-        database_url=args.database_url,
-        staging_root=args.staging_root,
-        access_token=mode.access_token,
-    )
+    try:
+        server = MaestroWorkbenchServer(
+            (mode.bind_host, args.port),
+            database_url=args.database_url,
+            staging_root=args.staging_root,
+            access_token=mode.access_token,
+            launch_mode=mode.name,
+        )
+    except OSError as exc:
+        if getattr(exc, "winerror", None) == 10048 or exc.errno in {48, 98, 10048}:
+            raise SystemExit(
+                f"Cannot start Maestro Evidence Workbench: port {args.port} is already in use. "
+                "Stop the existing listener or choose another --port; do not assume it is running this workspace."
+            ) from exc
+        raise
     addresses = _local_ipv4_addresses() if args.lan else ["127.0.0.1"]
-    for line in startup_lines(mode, server.server_port, addresses):
+    identity = workbench_runtime_identity(launch_mode=mode.name)
+    for line in startup_lines(mode, server.server_port, addresses, identity):
         print(line)
     try:
         server.serve_forever()

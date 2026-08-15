@@ -14,6 +14,8 @@ let plannedRunContext = (() => {
   try { return JSON.parse(sessionStorage.getItem("pne-planned-run") || "null"); }
   catch (_error) { return null; }
 })();
+let structuredWorksheet = null;
+let structuredPreviewComplete = false;
 
 const REQUIRED_HISTORICAL_CLAIMS = [
   ["source_system", "Source system"],
@@ -64,6 +66,10 @@ async function readJsonResponse(response, operationName) {
 
 function invalidateValidation(message = "Proposal changed. Validate again before ingestion.") {
   validatedProposalSnapshot = null;
+  if (structuredWorksheet) {
+    structuredPreviewComplete = false;
+    setLocalStatus("#structured-evaluation-preview", "Experiment proposal changed. Recalculate the deterministic preview.", "idle");
+  }
   $("#ingest").disabled = true;
   setLocalStatus("#validation-status", message, "idle");
 }
@@ -582,6 +588,14 @@ function collectDeclarations() {
       values.prompt = plannedRunContext.prompt;
       values.source_system = plannedRunContext.source_system;
       values.constraints = plannedRunContext.constraints.map(definition => {
+        if (definition.structured_evaluation_plan) {
+          return {
+            study_constraint_definition_id: definition.id,
+            constraint_type: definition.constraint_type,
+            constraint_text: definition.constraint_text,
+            is_hard_constraint: definition.is_hard_constraint,
+          };
+        }
         const status = $(`[data-study-result-status="${definition.id}"]`)?.value || "UNKNOWN";
         const evidence = $(`[data-study-result-evidence="${definition.id}"]`)?.value || null;
         return {
@@ -634,6 +648,9 @@ async function buildProposal() {
     const message = `Proposal built: ${body.proposal.tracks?.length || 0} tracks, ${body.proposal.evidence_sources?.length || 0} evidence sources. No write occurred.`;
     setLocalStatus("#build-status", message, "success");
     show({built: true, message, proposal: body.proposal});
+    if (plannedRunContext?.constraints.some(item => item.structured_evaluation_plan)) {
+      await loadStructuredWorksheet(body.proposal);
+    }
   } catch (error) {
     const message = `Proposal build failed: ${error.message}`;
     setLocalStatus("#build-status", message, "error");
@@ -658,7 +675,8 @@ async function validateProposal() {
     show(body);
     if (body.valid) {
       validatedProposalSnapshot = snapshot;
-      $("#ingest").disabled = false;
+      const requiresStructured = Boolean(plannedRunContext?.constraints.some(item => item.structured_evaluation_plan));
+      $("#ingest").disabled = requiresStructured && !structuredPreviewComplete;
       setLocalStatus("#validation-status", "Schema: valid. Evidence files: valid. No writes performed.", "success");
     } else {
       invalidateValidation();
@@ -672,7 +690,8 @@ async function validateProposal() {
     show({error: message});
   } finally {
     finish();
-    $("#ingest").disabled = validatedProposalSnapshot !== proposal.value;
+    $("#ingest").disabled = validatedProposalSnapshot !== proposal.value ||
+      Boolean(plannedRunContext?.constraints.some(item => item.structured_evaluation_plan) && !structuredPreviewComplete);
   }
 }
 
@@ -685,6 +704,134 @@ function renderReadback(record, kindName) {
   const first = tracks[0];
   const final = tracks[tracks.length - 1];
   $("#readback-summary").innerHTML = `<h3>Ingestion successful</h3><dl><dt>${kindName === "experiment" ? "Experiment" : "Artifact"} ID</dt><dd>${record.id}</dd><dt>Prompt</dt><dd>${escapeHtml(record.prompt || "Not supplied")}</dd><dt>Generated title</dt><dd>${escapeHtml(record.generated_title || record.display_title || "Not supplied")}</dd><dt>Generated description</dt><dd>${escapeHtml(record.generated_description || record.display_description || "Not supplied")}</dd><dt>Completeness</dt><dd>${escapeHtml(record.tracklist_completeness || "Not supplied")}</dd><dt>Track count</dt><dd>${tracks.length}</dd><dt>Evidence sources</dt><dd>${(record.evidence_sources || []).length}</dd><dt>Evidence links</dt><dd>${countEvidenceLinks(record)}</dd><dt>First track</dt><dd>${first ? escapeHtml(`${first.position || first.absolute_position}. ${first.title || ""} — ${first.artist || ""}`) : "None"}</dd><dt>Final track</dt><dd>${final ? escapeHtml(`${final.position || final.absolute_position}. ${final.title || ""} — ${final.artist || ""}`) : "None"}</dd></dl><details><summary>View raw projection</summary><pre>${escapeHtml(JSON.stringify(record, null, 2))}</pre></details>`;
+}
+
+function governedFieldValue(subject) {
+  const field = subject.governed_field;
+  const context = subject.displayed_context || {};
+  return ({display_title: context.title, display_artist: context.artist,
+    explicit_flag: context.explicit_flag,
+    version_or_remaster_text: context.version_or_remaster_text})[field];
+}
+
+function evidenceFieldForGovernedField(field) {
+  return ({display_title: "title", display_artist: "artist",
+    explicit_flag: "explicit_flag",
+    version_or_remaster_text: "version_or_remaster_text"})[field] || field;
+}
+
+function typedInput(definition, value, readOnly = false) {
+  const attrs = `data-measurement-value ${readOnly ? "readonly" : ""}`;
+  if (definition.value_type === "BOOLEAN") return `<select ${attrs} ${readOnly ? "disabled" : ""}><option value="">Select…</option><option value="true" ${value === true ? "selected" : ""}>True</option><option value="false" ${value === false ? "selected" : ""}>False</option></select>`;
+  if (definition.value_type === "VOCABULARY_TERM") {
+    const plan = JSON.parse(decodeURIComponent(definition.plan));
+    return `<select ${attrs}><option value="">Select registered term…</option>${plan.vocabulary_terms.filter(item => item.vocabulary_key === definition.vocabulary_key).map(item => `<option value="${escapeHtml(item.term_key)}">${escapeHtml(item.term_key)} — ${escapeHtml(item.term_definition)}</option>`).join("")}</select>`;
+  }
+  const type = definition.value_type === "DATE" ? "date" : definition.value_type === "INTEGER" || definition.value_type === "DECIMAL" ? "number" : "text";
+  const step = definition.value_type === "DECIMAL" ? ' step="any"' : "";
+  return `<input ${attrs} type="${type}"${step} value="${value ?? ""}" ${readOnly ? "readonly" : ""}>`;
+}
+
+function renderStructuredWorksheet() {
+  const host = $("#structured-evaluation-constraints");
+  const builtProposal = JSON.parse(proposal.value);
+  const evidenceSources = builtProposal.evidence_sources || [];
+  host.innerHTML = structuredWorksheet.constraints.map(item => {
+    const definition = item.definition;
+    const plan = definition.structured_evaluation_plan;
+    const authorityPanels = item.subjects.map(subject => {
+      const context = subject.displayed_context;
+      const identity = subject.subject_kind === "RUN" ? "Run-level subject" : `Placement ${subject.track_observed_ordinal}: ${context?.title || "Untitled"} — ${context?.artist || "Unknown artist"}`;
+      return `<article class="structured-subject" data-structured-subject data-definition-id="${definition.id}" data-ordinal="${subject.enumeration_ordinal}" data-subject-kind="${subject.subject_kind}" data-track-ordinal="${subject.track_observed_ordinal || ""}" data-governed-field="${subject.governed_field || ""}"><h4>${escapeHtml(identity)}</h4>${subject.governed_field ? `<p class="locked-value">Governed field ${escapeHtml(subject.governed_field)}: ${escapeHtml(String(governedFieldValue(subject) ?? "Not supplied"))}</p>` : ""}${plan.measurement_definitions.map(measurement => {
+        let autoValue = null;
+        if (measurement.authority === "STRUCTURAL_DERIVATION") {
+          const derived = item.derived_measurements.find(row => row.subject_key === subject.subject_key && row.measurement_key === measurement.measurement_key);
+          autoValue = derived?.boolean_value ?? derived?.integer_value ?? derived?.decimal_value ?? derived?.text_value ?? derived?.date_value ?? derived?.vocabulary_term_key ?? null;
+        }
+        if (measurement.authority === "DIRECT_OBSERVATION" && subject.subject_kind === "PLACEMENT_FIELD") autoValue = governedFieldValue(subject);
+        const locked = measurement.authority === "STRUCTURAL_DERIVATION" || measurement.authority === "DIRECT_OBSERVATION";
+        const placement = builtProposal.tracks?.[subject.track_observed_ordinal - 1];
+        const evidenceField = evidenceFieldForGovernedField(subject.governed_field);
+        const eligibleKeys = measurement.authority === "DIRECT_OBSERVATION" ? new Set((placement?.evidence || []).filter(link => link.field_name === evidenceField).map(link => link.source_key)) : null;
+        const eligibleSources = eligibleKeys === null ? evidenceSources : evidenceSources.filter(source => eligibleKeys.has(source.source_key));
+        const options = eligibleSources.map(source => `<option value="${escapeHtml(source.source_key)}">${escapeHtml(source.source_key)} — ${escapeHtml(source.source_reference)}</option>`).join("");
+        const role = measurement.authority === "EXTERNAL_FACT_VERIFICATION" ? "EXTERNAL_FACT" : measurement.authority === "HUMAN_ASSESSMENT" ? "OPERATOR_JUDGMENT" : "OBSERVED_VALUE";
+        const roleControl = measurement.authority === "HUMAN_ASSESSMENT" ? '<label>Judgment evidence role<select data-evidence-role><option value="OPERATOR_JUDGMENT">Operator judgment</option><option value="CORRESPONDENCE">Correspondence judgment</option></select></label>' : '';
+        const unavailableControl = measurement.authority !== "STRUCTURAL_DERIVATION" && measurement.unavailable_policy === "MAY_BE_UNAVAILABLE" ? '<label class="unknown-control"><input type="checkbox" data-unavailable> Record UNKNOWN / unavailable</label><label>Unavailable reason<input data-unavailable-reason type="text" disabled></label>' : '';
+        return `<div class="structured-measurement" data-structured-measurement data-key="${escapeHtml(measurement.measurement_key)}" data-authority="${measurement.authority}" data-value-type="${measurement.value_type}" data-evidence-required="${measurement.evidence_required}" data-role="${role}"><strong>${escapeHtml(measurement.measurement_key)}</strong><span class="authority-badge">${escapeHtml(measurement.authority.replaceAll("_", " "))}</span>${measurement.authority === "STRUCTURAL_DERIVATION" ? `<p class="hint">Derived by ${escapeHtml(measurement.derivation_key)}/${escapeHtml(measurement.derivation_version)} from governed Experiment input.</p>` : ""}${typedInput({...measurement, plan: encodeURIComponent(JSON.stringify(plan))}, autoValue, locked)}${unavailableControl}${roleControl}${measurement.evidence_required ? `<label>Supporting governed evidence<select data-measurement-source><option value="">Select explicitly…</option>${options}</select></label>` : ""}${measurement.authority !== "STRUCTURAL_DERIVATION" ? '<label>Recorded by<input data-recorded-by type="text" value="Workbench operator"></label>' : ''}${measurement.authority === "HUMAN_ASSESSMENT" ? '<p class="warning">HUMAN ASSESSMENT — explicit operator judgment, not direct observation.</p>' : ""}</div>`;
+      }).join("")}<div class="subject-result" data-subject-result>Not calculated</div></article>`;
+    }).join("");
+    return `<section class="structured-constraint" data-structured-constraint="${definition.id}"><h3>${escapeHtml(definition.constraint_key)} · ${escapeHtml(definition.constraint_text)}</h3><dl><dt>Evaluation rule</dt><dd>${escapeHtml(definition.evaluation_rule)}</dd><dt>Plan</dt><dd>${escapeHtml(plan.instrumentation_version)}</dd><dt>Subject selector</dt><dd>${escapeHtml(plan.subject_selector.evaluator_key)}/${escapeHtml(plan.subject_selector.evaluator_version)}</dd><dt>Subject evaluator</dt><dd>${escapeHtml(plan.subject_evaluator.evaluator_key)}/${escapeHtml(plan.subject_evaluator.evaluator_version)}</dd><dt>Aggregate evaluator</dt><dd>${escapeHtml(plan.aggregate_evaluator.evaluator_key)}/${escapeHtml(plan.aggregate_evaluator.evaluator_version)}</dd><dt>Completeness</dt><dd>${plan.require_complete_subject_set ? "Complete frozen subject set required" : "Registered partial subject set"}</dd></dl>${authorityPanels}<div class="aggregate-result" data-aggregate-result>Aggregate not calculated</div></section>`;
+  }).join("");
+  host.querySelectorAll("[data-unavailable]").forEach(box => box.addEventListener("change", () => {
+    const row = box.closest("[data-structured-measurement]");
+    row.querySelector("[data-measurement-value]").disabled = box.checked || row.dataset.authority === "STRUCTURAL_DERIVATION" || row.dataset.authority === "DIRECT_OBSERVATION";
+    row.querySelector("[data-unavailable-reason]").disabled = !box.checked;
+    structuredPreviewComplete = false; $("#ingest").disabled = true;
+  }));
+  host.querySelectorAll("input,select").forEach(control => control.addEventListener("change", () => { structuredPreviewComplete = false; $("#ingest").disabled = true; }));
+}
+
+async function loadStructuredWorksheet(builtProposal) {
+  const panel = $("#structured-evaluation-panel"); panel.hidden = false;
+  setLocalStatus("#structured-evaluation-status", "Enumerating frozen subjects…", "busy");
+  try {
+    const response = await fetch(`/api/study-runs/${plannedRunContext.run_id}/structured-worksheet`, {method: "POST", headers: apiHeaders({"Content-Type": "application/json"}), body: JSON.stringify({proposal: builtProposal})});
+    structuredWorksheet = await readJsonResponse(response, "Structured worksheet");
+    renderStructuredWorksheet();
+    setLocalStatus("#structured-evaluation-status", `${structuredWorksheet.constraints.length} structured constraint worksheet(s) ready. Subjects are read-only.`, "success");
+  } catch (error) {
+    structuredWorksheet = null;
+    setLocalStatus("#structured-evaluation-status", `Structured worksheet unavailable: ${error.message}. The Experiment draft remains intact.`, "error");
+  }
+}
+
+function measurementPayload(row, subject) {
+  const unavailable = row.querySelector("[data-unavailable]")?.checked || false;
+  const valueType = unavailable ? "UNAVAILABLE" : row.dataset.valueType;
+  const result = {measurement_key: row.dataset.key, authority_kind: row.dataset.authority,
+    value_type: valueType, recorded_by: row.querySelector("[data-recorded-by]")?.value || "",
+    unavailable_reason: unavailable ? row.querySelector("[data-unavailable-reason]").value || null : null, evidence: []};
+  if (!unavailable) {
+    const value = row.querySelector("[data-measurement-value]").value;
+    const key = ({BOOLEAN: "boolean_value", INTEGER: "integer_value", DECIMAL: "decimal_value", TEXT: "text_value", DATE: "date_value", VOCABULARY_TERM: "vocabulary_term_key"})[valueType];
+    if (value !== "") result[key] = valueType === "BOOLEAN" ? value === "true" : valueType === "INTEGER" ? Number.parseInt(value, 10) : valueType === "DECIMAL" ? Number(value) : value;
+  }
+  const source = row.querySelector("[data-measurement-source]")?.value;
+  if (source) result.evidence.push({source_key: source, evidence_link_field: row.dataset.authority === "DIRECT_OBSERVATION" ? evidenceFieldForGovernedField(subject.dataset.governedField) : null,
+    evidence_role: row.querySelector("[data-evidence-role]")?.value || row.dataset.role, provenance_type: row.dataset.authority === "HUMAN_ASSESSMENT" ? "HUMAN_ASSESSMENT" : "DIRECT_OBSERVATION", support_status: "FULL"});
+  return result;
+}
+
+function collectStructuredEvaluation() {
+  return {constraints: [...document.querySelectorAll("[data-structured-constraint]")].map(constraint => ({
+    study_constraint_definition_id: Number(constraint.dataset.structuredConstraint),
+    subjects: [...constraint.querySelectorAll("[data-structured-subject]")].map(subject => ({
+      subject_kind: subject.dataset.subjectKind, enumeration_ordinal: Number(subject.dataset.ordinal),
+      track_observed_ordinal: subject.dataset.trackOrdinal ? Number(subject.dataset.trackOrdinal) : null,
+      governed_field: subject.dataset.governedField || null,
+      measurements: [...subject.querySelectorAll("[data-structured-measurement]")].filter(row => row.dataset.authority !== "STRUCTURAL_DERIVATION").map(row => measurementPayload(row, subject)),
+    })),
+  }))};
+}
+
+async function previewStructuredEvaluation() {
+  if (!structuredWorksheet) return setLocalStatus("#structured-evaluation-preview", "Build the proposal and load the worksheet first.", "error");
+  try {
+    const response = await fetch(`/api/study-runs/${plannedRunContext.run_id}/structured-preview`, {method: "POST", headers: apiHeaders({"Content-Type": "application/json"}), body: JSON.stringify({proposal: JSON.parse(proposal.value), structured_evaluation: collectStructuredEvaluation()})});
+    const body = await readJsonResponse(response, "Structured preview");
+    body.constraints.forEach(item => {
+      const host = document.querySelector(`[data-structured-constraint="${item.study_constraint_definition_id}"]`);
+      item.subject_results.forEach(result => { const row = host.querySelector(`[data-ordinal="${result.subject.enumeration_ordinal}"] [data-subject-result]`); row.textContent = `${result.status} — ${result.reason_code} (${result.evaluator_key}/${result.evaluator_version})`; });
+      host.querySelector("[data-aggregate-result]").textContent = item.aggregate_constraint_result ? `${item.aggregate_constraint_result.status} — ${item.aggregate_constraint_result.reason_code} (${item.aggregate_constraint_result.aggregate_evaluator_key}/${item.aggregate_constraint_result.aggregate_evaluator_version})` : `INCOMPLETE — ${item.issues.map(issue => issue.message).join("; ")}`;
+    });
+    structuredPreviewComplete = body.complete;
+    setLocalStatus("#structured-evaluation-preview", body.complete ? "Structured evaluation complete. Atomic realization is available after governed proposal validation." : `Structured evaluation incomplete: ${body.constraints.flatMap(item => item.issues.map(issue => issue.message)).join("; ")}`, body.complete ? "success" : "error");
+    $("#ingest").disabled = !(structuredPreviewComplete && validatedProposalSnapshot === proposal.value);
+  } catch (error) {
+    structuredPreviewComplete = false; $("#ingest").disabled = true;
+    setLocalStatus("#structured-evaluation-preview", `Structured preview failed: ${error.message}. The Experiment draft remains intact.`, "error");
+  }
 }
 
 async function ingestProposal() {
@@ -701,8 +848,9 @@ async function ingestProposal() {
   const button = $("#ingest");
   const finish = beginOperation(button, "#ingest-status", "Ingesting one reviewed record");
   try {
-    const endpoint = plannedRunContext ? `/api/study-runs/${plannedRunContext.run_id}/realize-experiment` : "/api/ingest";
-    const bodyValue = plannedRunContext ? {proposal: JSON.parse(proposal.value)} : requestBody();
+    const structured = Boolean(plannedRunContext?.constraints.some(item => item.structured_evaluation_plan));
+    const endpoint = plannedRunContext ? `/api/study-runs/${plannedRunContext.run_id}/${structured ? "realize-structured-experiment" : "realize-experiment"}` : "/api/ingest";
+    const bodyValue = plannedRunContext ? {proposal: JSON.parse(proposal.value), ...(structured ? {structured_evaluation: collectStructuredEvaluation()} : {})} : requestBody();
     const response = await fetch(endpoint, {method: "POST", headers: apiHeaders({"Content-Type": "application/json"}), body: JSON.stringify(bodyValue)});
     const body = await readJsonResponse(response, "Ingestion");
     show(body);
@@ -710,8 +858,14 @@ async function ingestProposal() {
     setLocalStatus("#ingest-status", `Ingestion successful. ${body.kind} ${body.record_id} was inserted and read back.`, "success");
     validatedProposalSnapshot = null;
     if (plannedRunContext) {
-      sessionStorage.removeItem("pne-planned-run");
-      plannedRunContext = null;
+      if (structured) {
+        plannedRunContext = {...plannedRunContext, terminal: true, experiment_id: body.record_id};
+        sessionStorage.setItem("pne-planned-run", JSON.stringify(plannedRunContext));
+        await renderPersistedStructuredRun();
+      } else {
+        sessionStorage.removeItem("pne-planned-run");
+        plannedRunContext = null;
+      }
     }
   } catch (error) {
     const message = `Ingestion failed: ${error.message}`;
@@ -1018,12 +1172,35 @@ function initializePlannedRunContext() {
   $("#prompt").readOnly = true;
   $("#source-system").value = plannedRunContext.source_system || "";
   $("#source-system").readOnly = true;
-  $("#planned-run-summary").innerHTML = `<dl><dt>Study</dt><dd>${escapeHtml(plannedRunContext.study_key)}</dd><dt>Protocol version</dt><dd>${plannedRunContext.protocol_version}</dd><dt>Run</dt><dd>${escapeHtml(plannedRunContext.run_key)}</dd><dt>Exact planned prompt</dt><dd class="locked-value">${escapeHtml(plannedRunContext.prompt)}</dd></dl><h3>Frozen constraints and run-specific results</h3>${plannedRunContext.constraints.map(definition => `<article class="study-row"><strong>${escapeHtml(definition.constraint_key)} · ${escapeHtml(definition.constraint_text)}</strong><p class="hint">${escapeHtml(definition.constraint_type)} · ${definition.is_hard_constraint ? "hard" : "soft"} · provenance ${escapeHtml(definition.permitted_result_provenance)}</p><div class="form-grid"><label>Result status<select data-study-result-status="${definition.id}"><option>UNKNOWN</option><option>PASS</option><option>PARTIAL</option><option>FAIL</option></select></label><label>Evidence/evaluation text<textarea class="short" data-study-result-evidence="${definition.id}"></textarea></label></div></article>`).join("")}`;
+  $("#planned-run-summary").innerHTML = `<dl><dt>Study</dt><dd>${escapeHtml(plannedRunContext.study_key)}</dd><dt>Protocol version</dt><dd>${plannedRunContext.protocol_version}</dd><dt>Run</dt><dd>${escapeHtml(plannedRunContext.run_key)}</dd><dt>Exact planned prompt</dt><dd class="locked-value">${escapeHtml(plannedRunContext.prompt)}</dd></dl><h3>Frozen constraints and run-specific results</h3>${plannedRunContext.constraints.map(definition => definition.structured_evaluation_plan ? `<article class="study-row"><strong>${escapeHtml(definition.constraint_key)} · ${escapeHtml(definition.constraint_text)}</strong><p class="hint">STRUCTURED_REQUIRED — deterministic results are collected in the worksheet after proposal construction.</p></article>` : `<article class="study-row"><strong>${escapeHtml(definition.constraint_key)} · ${escapeHtml(definition.constraint_text)}</strong><p class="hint">LEGACY_AGGREGATE_ONLY · ${escapeHtml(definition.constraint_type)} · provenance ${escapeHtml(definition.permitted_result_provenance)}</p><div class="form-grid"><label>Result status<select data-study-result-status="${definition.id}"><option>UNKNOWN</option><option>PASS</option><option>PARTIAL</option><option>FAIL</option></select></label><label>Evidence/evaluation text<textarea class="short" data-study-result-evidence="${definition.id}"></textarea></label></div></article>`).join("")}`;
   document.querySelectorAll("[data-study-result-status],[data-study-result-evidence]").forEach(control => control.addEventListener("change", invalidateValidation));
+  if (plannedRunContext.terminal) {
+    document.querySelectorAll("main input, main select, main textarea, main button").forEach(control => {
+      if (control.id !== "leave-planned-run") control.disabled = true;
+    });
+    $("#leave-planned-run").disabled = false;
+    $("#leave-planned-run").textContent = "Return to Studies";
+    renderPersistedStructuredRun();
+  }
   $("#leave-planned-run").onclick = () => {
-    if (!confirm("Leave this planned-run execution? No Study outcome will be recorded.")) return;
-    sessionStorage.removeItem("pne-planned-run"); location.reload();
+    if (!plannedRunContext.terminal && !confirm("Leave this planned-run execution? No Study outcome will be recorded.")) return;
+    sessionStorage.removeItem("pne-planned-run");
+    location.href = plannedRunContext.terminal ? "/studies.html" : location.href;
   };
+}
+
+async function renderPersistedStructuredRun() {
+  $("#structured-evaluation-panel").hidden = false;
+  try {
+    const response = await fetch(`/api/study-runs/${plannedRunContext.run_id}/structured-evaluation`, {headers: apiHeaders()});
+    const body = await readJsonResponse(response, "Persisted structured evaluation");
+    $("#structured-evaluation-constraints").innerHTML = body.constraints.map(item => `<section class="structured-constraint"><h3>${escapeHtml(item.definition.constraint_key)} · terminal governed evaluation</h3><p class="aggregate-result">${escapeHtml(item.aggregate.status)} — ${escapeHtml(item.aggregate.provenance_notes || "Deterministically aggregated")}</p>${item.structured.subjects.map(subject => `<article class="structured-subject"><strong>${escapeHtml(subject.subject_key)}</strong><p>${escapeHtml(subject.result.status)} — ${escapeHtml(subject.result.reason_code)}</p><details><summary>Persisted provenance</summary><pre>${escapeHtml(JSON.stringify(subject, null, 2))}</pre></details></article>`).join("")}</section>`).join("");
+    $("#preview-structured-evaluation").hidden = true;
+    setLocalStatus("#structured-evaluation-status", `Terminal realization read from governed persistence. Experiment ${body.experiment.id}.`, "success");
+    setLocalStatus("#structured-evaluation-preview", "Instrumentation classification: STRUCTURED_DERIVABLE. No post-realization edits are available.", "success");
+  } catch (error) {
+    setLocalStatus("#structured-evaluation-status", `Persisted structured evaluation unavailable: ${error.message}`, "error");
+  }
 }
 
 kind.addEventListener("change", updateMode);
@@ -1053,6 +1230,7 @@ $("#add-link").addEventListener("click", () => addRow("#link-template", "#eviden
 $("#build").addEventListener("click", buildProposal);
 $("#validate").addEventListener("click", validateProposal);
 $("#ingest").addEventListener("click", ingestProposal);
+$("#preview-structured-evaluation").addEventListener("click", previewStructuredEvaluation);
 proposal.addEventListener("input", () => invalidateValidation());
 $("#prompt").addEventListener("input", () => {
   $("#prompt-attested").checked = false;

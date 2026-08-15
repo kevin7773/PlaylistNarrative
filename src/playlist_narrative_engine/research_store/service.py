@@ -18,6 +18,37 @@ from playlist_narrative_engine.research_store.database import (
 from playlist_narrative_engine.research_store.migrations import migrate_research_database
 from playlist_narrative_engine.research_store.repository import ResearchRepository
 from playlist_narrative_engine.research_store.study_repository import StudyRepository
+from playlist_narrative_engine.research_store.study_evaluator_registry import (
+    DEFAULT_STUDY_EVALUATOR_REGISTRY,
+    StudyEvaluatorRegistry,
+)
+from playlist_narrative_engine.research_store.study_execution_registry import (
+    DEFAULT_STUDY_EXECUTION_REGISTRY,
+    StudyExecutionRegistry,
+)
+from playlist_narrative_engine.research_store.study_structured_evaluation import (
+    calculate_aggregate_constraint_result as calculate_structured_aggregate,
+    calculate_subject_results as calculate_structured_subjects,
+    enumerate_evaluation_subjects as enumerate_structured_subjects,
+    evaluate_structured_constraint,
+    validate_structured_measurements as validate_measurements,
+)
+from playlist_narrative_engine.research_store.study_evaluation import (
+    evaluate_calculator_governed_study,
+    evaluate_registered_study,
+)
+from playlist_narrative_engine.research_store.study_exploration import explore_study
+from playlist_narrative_engine.research_store.study_closeout import (
+    build_study_closeout,
+    current_repository_revision,
+)
+from playlist_narrative_engine.research_store.study_calculators import (
+    DEFAULT_STUDY_CALCULATOR_EXECUTOR,
+    StudyCalculatorExecutor,
+    calculate_paired_difference,
+    calculate_status_rate,
+    unavailable_projection,
+)
 from playlist_narrative_engine.research_store.schemas import (
     EvidenceSourceInput,
     ExperimentInput,
@@ -29,6 +60,7 @@ from playlist_narrative_engine.research_store.study_schemas import (
     StudyProtocolAmendmentInput,
     StudyRegistrationInput,
     StudyRunDisposition,
+    StructuredStudyEvaluationInput,
 )
 
 
@@ -81,9 +113,20 @@ class IngestedRecord:
 class ResearchStoreService:
     """Orchestrate existing research-store operations without adding semantics."""
 
-    def __init__(self, repository: ResearchRepository) -> None:
+    def __init__(
+        self,
+        repository: ResearchRepository,
+        *,
+        evaluator_registry: StudyEvaluatorRegistry = DEFAULT_STUDY_EVALUATOR_REGISTRY,
+        execution_registry: StudyExecutionRegistry = DEFAULT_STUDY_EXECUTION_REGISTRY,
+        calculator_executor: StudyCalculatorExecutor = DEFAULT_STUDY_CALCULATOR_EXECUTOR,
+    ) -> None:
         self._repository = repository
-        self._studies = StudyRepository(repository.session)
+        self._evaluator_registry = evaluator_registry
+        self._calculator_executor = calculator_executor
+        self._studies = StudyRepository(
+            repository.session, evaluator_registry, execution_registry
+        )
 
     @staticmethod
     def validate_experiment(proposal: object) -> ValidationResult[ExperimentInput]:
@@ -127,8 +170,380 @@ class ResearchStoreService:
             self._studies.get_protocol_version, study_id_or_key, version
         )
 
+    def classify_study_execution(
+        self, study_id_or_key: int | str, version: int
+    ) -> dict[str, object] | None:
+        return self._read_query(
+            self._studies.classify_study_execution, study_id_or_key, version
+        )
+
+    def get_calculator_availability(
+        self, study_id_or_key: int | str, version: int
+    ) -> dict[str, object] | None:
+        protocol = self.get_protocol_version(study_id_or_key, version)
+        if protocol is None:
+            return None
+        contract = protocol["execution_contract"]
+        if contract is None:
+            return {
+                "study_id": protocol["study_id"], "protocol_version_id": protocol["id"],
+                "execution_classification": "LEGACY_EXECUTION", "outcomes": [], "analyses": [],
+            }
+        return {
+            "study_id": protocol["study_id"], "protocol_version_id": protocol["id"],
+            "execution_classification": "CALCULATOR_GOVERNED_EXECUTION",
+            "outcomes": [{
+                "registered_outcome_plan_id": plan["id"],
+                "calculator_key": plan["calculator_key"],
+                "calculator_version": plan["calculator_version"],
+                "execution_state": "AVAILABLE" if self._calculator_executor.outcome_available(plan) else "UNAVAILABLE",
+            } for plan in contract["outcome_calculation_plans"]],
+            "analyses": [{
+                "registered_analysis_plan_id": plan["id"],
+                "calculator_key": plan["calculator_key"],
+                "calculator_version": plan["calculator_version"],
+                "execution_state": "AVAILABLE" if self._calculator_executor.analysis_available(plan) else "UNAVAILABLE",
+            } for plan in contract["analysis_calculation_plans"]],
+        }
+
+    def calculate_registered_outcome(
+        self, study_id_or_key: int | str, version: int,
+        planned_run_id: int, outcome_plan_id: int,
+        *, _protocol: dict[str, object] | None = None,
+        _experiment_cache: dict[int, dict[str, object] | None] | None = None,
+        _structured_cache: dict[int, dict[str, object] | None] | None = None,
+    ) -> dict[str, object]:
+        protocol = _protocol or self.get_protocol_version(study_id_or_key, version)
+        if protocol is None:
+            raise ValueError("registered protocol not found")
+        contract = protocol["execution_contract"]
+        if contract is None:
+            raise ValueError("LEGACY_EXECUTION protocol has no registered calculator contract")
+        plan = next((item for item in contract["outcome_calculation_plans"] if item["id"] == outcome_plan_id), None)
+        run = next((item for item in protocol["planned_runs"] if item["id"] == planned_run_id), None)
+        if plan is None or run is None:
+            raise ValueError("outcome plan and planned run must belong to the registered protocol version")
+        if not self._calculator_executor.outcome_available(plan):
+            return unavailable_projection(plan["calculator_key"], plan["calculator_version"])
+        realization = run["realization"]
+        population_state = "PENDING" if realization is None else realization["disposition"]
+        context = {
+            "protocol_version_id": protocol["id"], "registration_hash": protocol["registration_hash"],
+            "planned_run_id": run["id"], "population_state": population_state,
+            "realization": realization,
+        }
+        if population_state != "EXPERIMENT_RECORDED":
+            projection = calculate_status_rate(plan, context, [], [])
+            if plan["calculator_key"] == "outcome.subject_status_rate":
+                projection.update(
+                    authorized_subject_kinds=plan["subject_kinds"],
+                    subject_interpretation=plan["subject_interpretation"],
+                    subject_result_ids=[], subject_identities=[],
+                    contributing_constraint_definition_ids=[],
+                )
+            return projection
+        experiment_id = int(realization["experiment_id"])
+        if _experiment_cache is None:
+            experiment = self.get_experiment(experiment_id)
+        else:
+            if experiment_id not in _experiment_cache:
+                _experiment_cache[experiment_id] = self.get_experiment(experiment_id)
+            experiment = _experiment_cache[experiment_id]
+        bound = {item["constraint_key"] for item in plan["constraint_bindings"]}
+        expected_keys = bound.intersection(run["applicable_constraint_keys"])
+        definitions = {item["constraint_key"]: item for item in protocol["constraint_definitions"]}
+        constraints = {
+            item["study_constraint_definition_id"]: item for item in experiment["constraints"]
+            if item["study_constraint_definition_id"] is not None
+        }
+        inputs: list[dict[str, object]] = []
+        missing: list[dict[str, object]] = []
+        incompatible: str | None = None
+        for key in sorted(expected_keys, key=lambda value: next(
+            item["ordinal"] for item in plan["constraint_bindings"] if item["constraint_key"] == value
+        )):
+            definition = definitions[key]
+            constraint = constraints.get(definition["id"])
+            missing_row = {
+                "constraint_definition_id": definition["id"], "constraint_key": key,
+                "sort_key": [definition["id"]],
+            }
+            if constraint is None:
+                missing.append(missing_row)
+                continue
+            if plan["calculator_key"] == "outcome.constraint_status_rate":
+                if constraint["result"] is None:
+                    missing.append({**missing_row, "constraint_id": constraint["id"]})
+                else:
+                    inputs.append({
+                        "constraint_definition_id": definition["id"], "constraint_id": constraint["id"],
+                        "experiment_id": experiment["id"], "status": constraint["result"]["status"],
+                        "provenance_type": constraint["result"]["provenance_type"],
+                        "sort_key": [definition["id"], constraint["id"]],
+                    })
+                continue
+            structured_plan = definition.get("structured_evaluation_plan")
+            if structured_plan is None or structured_plan["subject_kind"] not in plan["subject_kinds"]:
+                incompatible = f"constraint definition {definition['id']} is incompatible with the registered subject population"
+                continue
+            constraint_id = int(constraint["id"])
+            if _structured_cache is None:
+                evaluation = self.get_structured_constraint_evaluation(constraint_id)
+            else:
+                if constraint_id not in _structured_cache:
+                    _structured_cache[constraint_id] = self.get_structured_constraint_evaluation(constraint_id)
+                evaluation = _structured_cache[constraint_id]
+            if evaluation is None or evaluation["instrumentation_classification"] != "STRUCTURED_DERIVABLE":
+                incompatible = f"constraint {constraint['id']} lacks registered structured instrumentation"
+                continue
+            for subject in evaluation["subjects"]:
+                if subject["subject_kind"] not in plan["subject_kinds"]:
+                    incompatible = f"subject {subject['id']} has an unauthorized subject kind"
+                    continue
+                result = subject["result"]
+                if result is None:
+                    missing.append({
+                        **missing_row, "constraint_id": constraint["id"], "subject_id": subject["id"],
+                        "sort_key": [definition["id"], subject["enumeration_ordinal"], subject["id"]],
+                    })
+                    continue
+                registered_evaluator = structured_plan["subject_evaluator"]
+                if (result["evaluator_key"], result["evaluator_version"]) != (
+                    registered_evaluator["evaluator_key"], registered_evaluator["evaluator_version"]
+                ):
+                    incompatible = f"subject result {result['id']} evaluator differs from the registered plan"
+                    continue
+                inputs.append({
+                    "constraint_definition_id": definition["id"], "constraint_id": constraint["id"],
+                    "experiment_id": experiment["id"], "subject_id": subject["id"],
+                    "subject_kind": subject["subject_kind"], "experiment_track_id": subject["experiment_track_id"],
+                    "governed_field": subject["governed_field"], "subject_result_id": result["id"],
+                    "status": result["status"], "measurements": subject["measurements"],
+                    "sort_key": [definition["id"], subject["enumeration_ordinal"], subject["id"]],
+                })
+        projection = calculate_status_rate(plan, context, inputs, missing, incompatible_reason=incompatible)
+        if plan["calculator_key"] == "outcome.subject_status_rate":
+            projection.update(
+                authorized_subject_kinds=plan["subject_kinds"],
+                subject_interpretation=plan["subject_interpretation"],
+                subject_result_ids=sorted(item["subject_result_id"] for item in inputs),
+                subject_identities=[{
+                    "subject_id": item["subject_id"], "subject_kind": item["subject_kind"],
+                    "experiment_track_id": item["experiment_track_id"], "governed_field": item["governed_field"],
+                } for item in sorted(inputs, key=lambda row: tuple(row["sort_key"]))],
+                contributing_constraint_definition_ids=sorted({
+                    item["constraint_definition_id"] for item in projection["contributing_inputs"]
+                }),
+            )
+        return projection
+
+    def calculate_registered_run_outcomes(
+        self, study_id_or_key: int | str, version: int, planned_run_id: int
+    ) -> list[dict[str, object]]:
+        protocol = self.get_protocol_version(study_id_or_key, version)
+        if protocol is None or protocol["execution_contract"] is None:
+            raise ValueError("registered calculator execution is unavailable for this protocol")
+        return [
+            self.calculate_registered_outcome(study_id_or_key, version, planned_run_id, plan["id"])
+            for plan in protocol["execution_contract"]["outcome_calculation_plans"]
+        ]
+
+    def calculate_registered_analysis(
+        self, study_id_or_key: int | str, version: int, analysis_plan_id: int,
+        *, _protocol: dict[str, object] | None = None,
+        _outcome_cache: dict[tuple[int, int], dict[str, object]] | None = None,
+        _experiment_cache: dict[int, dict[str, object] | None] | None = None,
+        _structured_cache: dict[int, dict[str, object] | None] | None = None,
+    ) -> dict[str, object]:
+        protocol = _protocol or self.get_protocol_version(study_id_or_key, version)
+        if protocol is None or protocol["execution_contract"] is None:
+            raise ValueError("LEGACY_EXECUTION protocol has no registered calculator contract")
+        contract = protocol["execution_contract"]
+        plan = next((item for item in contract["analysis_calculation_plans"] if item["id"] == analysis_plan_id), None)
+        if plan is None:
+            raise ValueError("analysis plan must belong to the registered protocol version")
+        analysis = next(item for item in protocol["analysis_definitions"] if item["analysis_key"] == plan["analysis_key"])
+        outcome_plan = next(item for item in contract["outcome_calculation_plans"] if item["outcome_key"] == analysis["outcome_key"])
+        run_outcomes = {}
+        for run in protocol["planned_runs"]:
+            cache_key = (int(run["id"]), int(outcome_plan["id"]))
+            if _outcome_cache is not None and cache_key in _outcome_cache:
+                run_outcomes[run["id"]] = _outcome_cache[cache_key]
+                continue
+            calculated = self.calculate_registered_outcome(
+                study_id_or_key, version, run["id"], outcome_plan["id"],
+                _protocol=protocol,
+                _experiment_cache=_experiment_cache,
+                _structured_cache=_structured_cache,
+            )
+            run_outcomes[run["id"]] = calculated
+            if _outcome_cache is not None:
+                _outcome_cache[cache_key] = calculated
+        return calculate_paired_difference(
+            {**plan, "outcome_key": analysis["outcome_key"]}, protocol, run_outcomes,
+            available=self._calculator_executor.analysis_available(plan),
+        )
+
     def list_studies(self) -> list[dict[str, object]]:
         return self._read_query(self._studies.list_studies)
+
+    def classify_evaluation_instrumentation(
+        self, constraint_id: int
+    ) -> dict[str, object] | None:
+        return self._read_query(
+            self._studies.classify_evaluation_instrumentation, constraint_id
+        )
+
+    def get_structured_constraint_evaluation(
+        self, constraint_id: int
+    ) -> dict[str, object] | None:
+        return self._read_query(
+            self._studies.get_structured_constraint_evaluation, constraint_id
+        )
+
+    def get_evaluation_provenance(
+        self, constraint_id: int
+    ) -> dict[str, object] | None:
+        return self._read_query(self._studies.get_evaluation_provenance, constraint_id)
+
+    def enumerate_evaluation_subjects(self, constraint_id: int) -> list[dict[str, object]]:
+        context = self._structured_context(constraint_id)
+        return enumerate_structured_subjects(
+            context["plan"], context["experiment"], constraint_id,
+            self._evaluator_registry,
+        )
+
+    def validate_structured_measurements(
+        self, constraint_id: int, measurements: list[dict[str, object]]
+    ) -> dict[str, object]:
+        context = self._structured_context(constraint_id)
+        subjects = enumerate_structured_subjects(
+            context["plan"], context["experiment"], constraint_id,
+            self._evaluator_registry,
+        )
+        return validate_measurements(context["plan"], subjects, measurements, context["experiment"])
+
+    def calculate_subject_results(
+        self, constraint_id: int, measurements: list[dict[str, object]]
+    ) -> list[dict[str, object]]:
+        context = self._structured_context(constraint_id)
+        subjects = enumerate_structured_subjects(
+            context["plan"], context["experiment"], constraint_id,
+            self._evaluator_registry,
+        )
+        validation = validate_measurements(context["plan"], subjects, measurements, context["experiment"])
+        if not validation["valid"]:
+            raise ValueError(f"structured measurements are incomplete or invalid: {validation['issues']}")
+        return calculate_structured_subjects(
+            context["plan"], subjects, validation["measurements"], self._evaluator_registry
+        )
+
+    def calculate_aggregate_constraint_result(
+        self, constraint_id: int, subject_results: list[dict[str, object]],
+        *, supplied_aggregate_status: str | None = None,
+    ) -> dict[str, object]:
+        context = self._structured_context(constraint_id)
+        return calculate_structured_aggregate(
+            context["plan"], subject_results,
+            supplied_aggregate_status=supplied_aggregate_status,
+            registry=self._evaluator_registry,
+        )
+
+    def validate_structured_evaluation_completeness(
+        self, constraint_id: int, measurements: list[dict[str, object]],
+        *, supplied_aggregate_status: str | None = None,
+    ) -> dict[str, object]:
+        context = self._structured_context(constraint_id)
+        return evaluate_structured_constraint(
+            context["plan"], context["experiment"], constraint_id, measurements,
+            supplied_aggregate_status=supplied_aggregate_status,
+            registry=self._evaluator_registry,
+        )
+
+    def _structured_context(self, constraint_id: int) -> dict[str, object]:
+        context = self._read_query(
+            self._studies.get_structured_constraint_context, constraint_id
+        )
+        if context is None:
+            raise ValueError(f"constraint not found: {constraint_id}")
+        if context["plan"] is None:
+            raise ValueError("constraint is LEGACY_AGGREGATE_ONLY")
+        return context
+
+    def evaluate_study(
+        self, study_id_or_key: int | str, version: int
+    ) -> dict[str, object] | None:
+        protocol = self.get_protocol_version(study_id_or_key, version)
+        if protocol is None:
+            return None
+        classification = self.classify_study_execution(study_id_or_key, version)
+        if classification is None:
+            return None
+        execution_classification = classification["execution_classification"]
+        if execution_classification == "LEGACY_EXECUTION":
+            evaluation = evaluate_registered_study(protocol, self.get_experiment)
+            evaluation["execution_classification"] = "LEGACY_EXECUTION"
+            return evaluation
+        if execution_classification == "CALCULATOR_GOVERNED_EXECUTION":
+            outcome_cache: dict[tuple[int, int], dict[str, object]] = {}
+            experiment_cache: dict[int, dict[str, object] | None] = {}
+            structured_cache: dict[int, dict[str, object] | None] = {}
+
+            def calculate_outcome(planned_run_id: int, outcome_plan_id: int):
+                cache_key = (planned_run_id, outcome_plan_id)
+                if cache_key not in outcome_cache:
+                    outcome_cache[cache_key] = self.calculate_registered_outcome(
+                        study_id_or_key, version, planned_run_id, outcome_plan_id,
+                        _protocol=protocol,
+                        _experiment_cache=experiment_cache,
+                        _structured_cache=structured_cache,
+                    )
+                return outcome_cache[cache_key]
+
+            def read_experiment(experiment_id: int):
+                if experiment_id not in experiment_cache:
+                    experiment_cache[experiment_id] = self.get_experiment(experiment_id)
+                return experiment_cache[experiment_id]
+
+            return evaluate_calculator_governed_study(
+                protocol,
+                read_experiment,
+                calculate_outcome,
+                lambda analysis_plan_id: self.calculate_registered_analysis(
+                    study_id_or_key, version, analysis_plan_id,
+                    _protocol=protocol,
+                    _outcome_cache=outcome_cache,
+                    _experiment_cache=experiment_cache,
+                    _structured_cache=structured_cache,
+                ),
+            )
+        raise ValueError(
+            f"unsupported study execution classification: {execution_classification}"
+        )
+
+    def explore_study(
+        self, study_id_or_key: int | str, version: int
+    ) -> dict[str, object] | None:
+        evaluation = self.evaluate_study(study_id_or_key, version)
+        if evaluation is None or not evaluation["completion"]["realized_runs"]:
+            return None
+        return explore_study(
+            evaluation, self.get_experiment, self.get_structured_constraint_evaluation
+        )
+
+    def closeout_study(
+        self, study_id_or_key: int | str, version: int, *, generated_at: str | None = None
+    ) -> dict[str, object] | None:
+        protocol = self.get_protocol_version(study_id_or_key, version)
+        evaluation = self.evaluate_study(study_id_or_key, version)
+        if protocol is None or evaluation is None:
+            return None
+        exploration = self.explore_study(study_id_or_key, version)
+        return build_study_closeout(
+            protocol, evaluation, exploration, self.get_experiment,
+            generated_at=generated_at,
+            repository_revision=current_repository_revision(),
+        )
 
     def record_study_operational_attempt(
         self, planned_run_id: int, proposal: StudyOperationalAttemptInput
@@ -141,6 +556,195 @@ class ResearchStoreService:
     ) -> dict[str, object]:
         _require_type(proposal, ExperimentInput)
         return self._studies.realize_experiment(planned_run_id, proposal)
+
+    def realize_structured_study_experiment(
+        self,
+        planned_run_id: int,
+        experiment_input: ExperimentInput,
+        structured_evaluation_input: StructuredStudyEvaluationInput,
+    ) -> dict[str, object]:
+        _require_type(experiment_input, ExperimentInput)
+        _require_type(structured_evaluation_input, StructuredStudyEvaluationInput)
+        return self._studies.realize_structured_experiment(
+            planned_run_id, experiment_input, structured_evaluation_input
+        )
+
+    def prepare_structured_evaluation_worksheet(
+        self, planned_run_id: int, experiment_input: ExperimentInput
+    ) -> dict[str, object]:
+        """Enumerate frozen subjects against an unpersisted Experiment draft."""
+        _require_type(experiment_input, ExperimentInput)
+        context = self._read_query(
+            self._studies.get_planned_run_evaluation_context, planned_run_id
+        )
+        if context is None:
+            raise ValueError(f"planned run not found: {planned_run_id}")
+        experiment = self._structured_draft_projection(experiment_input)
+        constraints = []
+        for definition in context["constraint_definitions"]:
+            plan = definition.get("structured_evaluation_plan")
+            if plan is None:
+                continue
+            subjects = enumerate_structured_subjects(
+                plan, experiment, definition["id"], self._evaluator_registry
+            )
+            prepared = validate_measurements(plan, subjects, [], experiment)
+            constraints.append({
+                "definition": definition,
+                "subjects": [self._worksheet_subject(item, experiment) for item in subjects],
+                "derived_measurements": [
+                    row for row in prepared["measurements"]
+                    if row["authority_kind"] == "STRUCTURAL_DERIVATION"
+                ],
+            })
+        return {**context, "constraints": constraints}
+
+    def preview_structured_study_evaluation(
+        self, planned_run_id: int, experiment_input: ExperimentInput,
+        structured_input: StructuredStudyEvaluationInput,
+    ) -> dict[str, object]:
+        """Calculate a disposable P7C preview; no governed rows are created."""
+        worksheet = self.prepare_structured_evaluation_worksheet(
+            planned_run_id, experiment_input
+        )
+        experiment = self._structured_draft_projection(experiment_input)
+        submitted = {
+            item.study_constraint_definition_id: item for item in structured_input.constraints
+        }
+        results = []
+        for item in worksheet["constraints"]:
+            definition = item["definition"]
+            payload = submitted.get(definition["id"])
+            if payload is None:
+                results.append({"study_constraint_definition_id": definition["id"], "complete": False,
+                                "issues": [{"code": "STRUCTURED_INPUT_MISSING", "message": "structured constraint input is absent"}],
+                                "subjects": item["subjects"], "subject_results": [], "aggregate_constraint_result": None})
+                continue
+            expected = enumerate_structured_subjects(
+                definition["structured_evaluation_plan"], experiment, definition["id"],
+                self._evaluator_registry,
+            )
+            expected_by_ordinal = {row["enumeration_ordinal"]: row for row in expected}
+            issues = []
+            measurements = []
+            if len(payload.subjects) != len(expected):
+                issues.append({"code": "SUBJECT_SET_MISMATCH", "message": "submitted subjects differ from frozen enumeration"})
+            for subject in payload.subjects:
+                frozen = expected_by_ordinal.get(subject.enumeration_ordinal)
+                expected_track_ordinal = frozen["experiment_track_id"] if frozen is not None else None
+                if (frozen is None or subject.subject_kind.value != frozen["subject_kind"]
+                        or subject.track_observed_ordinal != expected_track_ordinal
+                        or (None if subject.governed_field is None else subject.governed_field.value) != frozen["governed_field"]):
+                    issues.append({"code": "SUBJECT_SET_MISMATCH", "message": "submitted subject differs from frozen enumeration"})
+                    continue
+                for measurement in subject.measurements:
+                    row = measurement.model_dump(mode="python")
+                    row["subject_key"] = frozen["subject_key"]
+                    row["authority_kind"] = measurement.authority_kind.value
+                    row["evidence"] = [e.model_dump(mode="python") for e in measurement.evidence]
+                    measurements.append(row)
+                    issues.extend(self._validate_draft_measurement_evidence(
+                        experiment_input, subject.track_observed_ordinal, measurement
+                    ))
+                    issues.extend(self._validate_draft_direct_field_value(
+                        experiment_input, subject, measurement,
+                        definition["structured_evaluation_plan"],
+                    ))
+            if issues:
+                calculated = {"complete": False, "issues": issues, "subjects": item["subjects"], "subject_results": [], "aggregate_constraint_result": None}
+            else:
+                calculated = evaluate_structured_constraint(
+                    definition["structured_evaluation_plan"], experiment, definition["id"], measurements,
+                    supplied_aggregate_status=payload.asserted_aggregate_status,
+                    registry=self._evaluator_registry,
+                )
+                calculated["subjects"] = item["subjects"]
+            results.append({"study_constraint_definition_id": definition["id"], **calculated})
+        expected_ids = {row["definition"]["id"] for row in worksheet["constraints"]}
+        complete = bool(expected_ids) and set(submitted) == expected_ids and all(row["complete"] for row in results)
+        return {"complete": complete, "constraints": results}
+
+    @staticmethod
+    def _validate_draft_measurement_evidence(experiment, track_ordinal, measurement):
+        issues = []
+        source_keys = {item.source_key for item in experiment.evidence_sources}
+        for evidence in measurement.evidence:
+            if evidence.source_key not in source_keys:
+                issues.append({"code": "CROSS_EXPERIMENT_EVIDENCE", "message": f"measurement source is not owned by this Experiment: {evidence.source_key}"})
+                continue
+            if evidence.evidence_link_id is not None:
+                issues.append({"code": "DRAFT_EVIDENCE_LINK_ID_INVALID", "message": "unpersisted Experiment drafts must use exact field locators, not EvidenceLink IDs"})
+                continue
+            if evidence.evidence_link_field is None:
+                continue
+            links = experiment.evidence if track_ordinal is None else experiment.tracks[track_ordinal - 1].evidence
+            matches = [item for item in links if item.source_key == evidence.source_key and item.field_name == evidence.evidence_link_field]
+            if len(matches) != 1:
+                issues.append({"code": "EVIDENCE_LINK_NOT_EXACT", "message": "measurement evidence must resolve to exactly one draft field link"})
+        return issues
+
+    @staticmethod
+    def _validate_draft_direct_field_value(experiment, subject, measurement, plan):
+        if measurement.authority_kind.value != "DIRECT_OBSERVATION" or subject.governed_field is None or measurement.value_type == "UNAVAILABLE":
+            return []
+        definition = next(item for item in plan["measurement_definitions"] if item["measurement_key"] == measurement.measurement_key)
+        fields = {
+            "display_title": "title", "display_artist": "artist",
+            "explicit_flag": "explicit_flag", "version_or_remaster_text": "version_or_remaster_text",
+        }
+        value_columns = {
+            "BOOLEAN": "boolean_value", "INTEGER": "integer_value", "DECIMAL": "decimal_value",
+            "TEXT": "text_value", "DATE": "date_value", "VOCABULARY_TERM": "vocabulary_term_key",
+        }
+        track = experiment.tracks[subject.track_observed_ordinal - 1]
+        governed = getattr(track, fields[subject.governed_field.value])
+        supplied = getattr(measurement, value_columns[definition["value_type"]])
+        if supplied != governed:
+            return [{"code": "DIRECT_VALUE_CONTRADICTS_FIELD", "message": "direct-observation value differs from the governed placement field"}]
+        return []
+
+    def get_structured_run_evaluation(
+        self, planned_run_id: int
+    ) -> dict[str, object] | None:
+        context = self._read_query(
+            self._studies.get_planned_run_evaluation_context, planned_run_id
+        )
+        if context is None or context["run"].get("realization") is None:
+            return None
+        experiment_id = context["run"]["realization"].get("experiment_id")
+        if experiment_id is None:
+            return {**context, "experiment": None, "constraints": []}
+        experiment = self.get_experiment(int(experiment_id))
+        rows = []
+        for constraint in experiment.get("constraints", []):
+            if constraint.get("study_constraint_definition_id") is None:
+                continue
+            definition = next((item for item in context["constraint_definitions"] if item["id"] == constraint["study_constraint_definition_id"]), None)
+            if definition is None or definition.get("structured_evaluation_plan") is None:
+                continue
+            rows.append({"definition": definition, "aggregate": constraint.get("result"),
+                         "structured": self.get_structured_constraint_evaluation(constraint["id"])})
+        return {**context, "experiment": experiment, "constraints": rows}
+
+    @staticmethod
+    def _structured_draft_projection(draft: ExperimentInput) -> dict[str, object]:
+        projection = draft.model_dump(mode="json")
+        projection["id"] = 0
+        projection["tracks"] = [
+            {**track, "id": ordinal, "observed_ordinal": ordinal}
+            for ordinal, track in enumerate(projection.get("tracks", []), start=1)
+        ]
+        return projection
+
+    @staticmethod
+    def _worksheet_subject(subject: dict[str, object], experiment: dict[str, object]) -> dict[str, object]:
+        track = next((row for row in experiment["tracks"] if row["id"] == subject["experiment_track_id"]), None)
+        return {**subject, "track_observed_ordinal": None if track is None else track["observed_ordinal"],
+                "displayed_context": None if track is None else {
+                    "title": track.get("title"), "artist": track.get("artist"),
+                    "version_or_remaster_text": track.get("version_or_remaster_text"),
+                    "explicit_flag": track.get("explicit_flag"),
+                }}
 
     def record_planned_generation_failure(
         self,

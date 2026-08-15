@@ -9,6 +9,7 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 import pytest
+import playlist_narrative_engine.maestro_workbench.server as workbench_server_module
 
 from playlist_narrative_engine.maestro_workbench.operations import (
     EvidenceStager,
@@ -22,6 +23,7 @@ from playlist_narrative_engine.maestro_workbench.server import (
     STATIC_ROOT,
     resolve_launch_mode,
     startup_lines,
+    workbench_runtime_identity,
 )
 from playlist_narrative_engine.maestro_workbench.track_extraction import (
     DelimitedTextTrackExtractionAdapter,
@@ -700,6 +702,7 @@ function buildEnvironment() {
   element("#build");
   element("#validate");
   element("#ingest");
+  element("#preview-structured-evaluation");
   element("#evidence-files");
   element("#draft-text");
   const draftSources = element("#draft-sources");
@@ -865,6 +868,7 @@ function buildEnvironment() {
   element("#build");
   element("#validate");
   element("#ingest");
+  element("#preview-structured-evaluation");
   element("#evidence-files");
   element("#draft-text", "1 | Track | Artist |");
   const draftSources = element("#draft-sources");
@@ -1024,13 +1028,51 @@ def test_startup_output_identifies_transport_security_mode() -> None:
     trusted = startup_lines(resolve_launch_mode(lan=True, secure=False), 8765, ["192.168.1.7"])
     protected = startup_lines(resolve_launch_mode(lan=True, secure=True), 8765, ["192.168.1.7"])
 
-    assert local == ["Maestro Evidence Workbench", "Mode: localhost", "Open: http://127.0.0.1:8765"]
+    assert local[0:2] == ["Maestro Evidence Workbench", "Mode: localhost"]
+    assert any(line.startswith("Backend source: ") for line in local)
+    assert any(line.startswith("Study contract: ") for line in local)
+    assert any(line.startswith("Studies assets: ") for line in local)
+    assert local[-1] == "Open: http://127.0.0.1:8765"
     assert "WARNING: Trusted LAN mode enabled." in trusted
     assert "This workbench is accessible to devices on your local network." in trusted
     assert trusted[-1] == "http://192.168.1.7:8765"
     assert "Mode: protected LAN" in protected
     assert "Session token generated for this launch." in protected
     assert protected[-1].startswith("http://192.168.1.7:8765/?session=")
+
+
+def test_runtime_identity_is_explicit_and_contract_aware() -> None:
+    first = workbench_runtime_identity(launch_mode="trusted LAN")
+    second = workbench_runtime_identity(launch_mode="trusted LAN")
+
+    assert first["identity_version"] == 1
+    assert first["api_contract_version"] == "p8.1-runtime-identity-v1"
+    assert first["launch_mode"] == "trusted LAN"
+    assert first["backend_module"].endswith("maestro_workbench\\server.py")
+    assert first["static_root"].endswith("maestro_workbench\\static")
+    assert first["study_contract_capabilities"] == [
+        "study.constraint.structured_evaluation_plan",
+        "study.protocol.execution_contract",
+    ]
+    assert len(first["study_contract_sha256"]) == 64
+    assert len(first["studies_assets_sha256"]) == 64
+    assert first["study_contract_sha256"] == second["study_contract_sha256"]
+    assert first["studies_assets_sha256"] == second["studies_assets_sha256"]
+
+
+def test_startup_fails_clearly_when_an_existing_listener_owns_the_port(monkeypatch) -> None:
+    conflict = OSError(10048, "address already in use")
+    conflict.winerror = 10048
+    monkeypatch.setattr(workbench_server_module, "initialize_research_store", lambda _url: None)
+    monkeypatch.setattr(
+        workbench_server_module,
+        "MaestroWorkbenchServer",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(conflict),
+    )
+    monkeypatch.setattr("sys.argv", ["pne-maestro-workbench", "--port", "8765"])
+
+    with pytest.raises(SystemExit, match="port 8765 is already in use.*do not assume it is running this workspace"):
+        workbench_server_module.main()
 
     with pytest.raises(ValueError, match="canonical_identity_established"):
         build_governed_proposal(

@@ -18,6 +18,7 @@ from playlist_narrative_engine.research_store.study_schemas import (
     StudyOperationalAttemptInput,
     StudyRegistrationInput,
     StudyRunDisposition,
+    StructuredStudyEvaluationInput,
 )
 
 
@@ -123,6 +124,15 @@ class WorkbenchOperations:
     def get_protocol(self, study_id_or_key: int | str, version: int) -> dict[str, object] | None:
         return self._service.get_protocol_version(study_id_or_key, version)
 
+    def evaluate_study(self, study_id_or_key: int | str, version: int) -> dict[str, object] | None:
+        return self._service.evaluate_study(study_id_or_key, version)
+
+    def explore_study(self, study_id_or_key: int | str, version: int) -> dict[str, object] | None:
+        return self._service.explore_study(study_id_or_key, version)
+
+    def closeout_study(self, study_id_or_key: int | str, version: int) -> dict[str, object] | None:
+        return self._service.closeout_study(study_id_or_key, version)
+
     def record_operational_attempt(self, planned_run_id: int, proposal: object) -> dict[str, object]:
         draft = StudyOperationalAttemptInput.model_validate(proposal)
         return self._service.record_study_operational_attempt(planned_run_id, draft)
@@ -145,6 +155,46 @@ class WorkbenchOperations:
         realization = self._service.ingest_planned_experiment(planned_run_id, validation.value)
         record = self._service.get_experiment(int(realization["experiment_id"]))
         return {"kind": "experiment", "record_id": realization["experiment_id"], "record": record, "realization": realization}
+
+    def prepare_structured_worksheet(
+        self, planned_run_id: int, proposal: object
+    ) -> dict[str, object]:
+        validation = self._service.validate_experiment(proposal)
+        if not validation.valid:
+            raise ValueError("proposal failed governed schema validation")
+        return self._service.prepare_structured_evaluation_worksheet(
+            planned_run_id, validation.value
+        )
+
+    def preview_structured_evaluation(
+        self, planned_run_id: int, proposal: object, structured: object
+    ) -> dict[str, object]:
+        validation = self._service.validate_experiment(proposal)
+        if not validation.valid:
+            raise ValueError("proposal failed governed schema validation")
+        structured_input = StructuredStudyEvaluationInput.model_validate(structured)
+        return self._service.preview_structured_study_evaluation(
+            planned_run_id, validation.value, structured_input
+        )
+
+    def realize_structured_study_experiment(
+        self, planned_run_id: int, proposal: object, structured: object
+    ) -> dict[str, object]:
+        validation = self._service.validate_experiment(proposal)
+        if not validation.valid:
+            raise ValueError("proposal failed governed schema validation")
+        evidence = self._service.verify_experiment_evidence(validation.value)
+        if not evidence.valid:
+            raise ValueError("proposal failed governed evidence verification")
+        structured_input = StructuredStudyEvaluationInput.model_validate(structured)
+        realization = self._service.realize_structured_study_experiment(
+            planned_run_id, validation.value, structured_input
+        )
+        record = self._service.get_experiment(int(realization["experiment_id"]))
+        return {"kind": "experiment", "record_id": realization["experiment_id"], "record": record, "realization": realization}
+
+    def get_structured_run_evaluation(self, planned_run_id: int) -> dict[str, object] | None:
+        return self._service.get_structured_run_evaluation(planned_run_id)
 
     def _validate(self, kind: str, proposal: object) -> ValidationResult:
         _require_supported_kind(kind)
