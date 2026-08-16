@@ -7,6 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from playlist_narrative_engine.research_store.service import ResearchStoreService
+from playlist_narrative_engine.research_store.study_calculators import calculate_paired_difference
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -64,6 +65,18 @@ def _compile(config):
         capture_output=True, text=True, timeout=15,
     )
     return json.loads(result.stdout)
+
+
+def _compile_error(config):
+    script = (
+        f"const b=require({json.dumps(str(BUILDER))});"
+        f"b.compile({json.dumps(config)}).then(()=>process.exit(0))"
+        ".catch(e=>{console.error(e.message);process.exit(2)});"
+    )
+    return subprocess.run(
+        ["node", "-e", script], cwd=ROOT, check=False,
+        capture_output=True, text=True, timeout=15,
+    )
 
 
 def _compile_without_subtle(config):
@@ -175,6 +188,60 @@ def test_runs_sample_size_applicability_and_sha_order_are_deterministic():
     }
     assert all(item["applicable_constraint_keys"] == [constraints_by_block[item["block_key"]]] for item in protocol["planned_runs"])
     assert len({(item["block_key"], item["condition_key"], item["replicate_number"]) for item in protocol["planned_runs"]}) == 8
+
+
+def test_twenty_replicates_generate_valid_protocol_and_twenty_registered_pairs():
+    config = _config(blockCount=1, replicates=20, seed="twenty-replicate-seed")
+    first = _compile(config)
+    second = _compile(config)
+    assert first == second
+    validation = ResearchStoreService.validate_study_protocol(first)
+    assert validation.valid, validation.issues
+
+    protocol = first["protocol"]
+    runs = protocol["planned_runs"]
+    assert protocol["planned_sample_size"] == 40 == len(runs)
+    assert sorted(item["randomized_ordinal"] for item in runs) == list(range(1, 41))
+    assert len({(item["block_key"], item["condition_key"], item["replicate_number"]) for item in runs}) == 40
+    for condition_key in ("direct", "framed"):
+        assert sorted(item["replicate_number"] for item in runs if item["condition_key"] == condition_key) == list(range(1, 21))
+
+    persisted_shape = deepcopy(protocol)
+    persisted_shape["id"] = 81
+    persisted_shape["registration_hash"] = "test-registration-hash"
+    run_outcomes = {}
+    for run_id, run in enumerate(persisted_shape["planned_runs"], start=1):
+        run["id"] = run_id
+        run["realization"] = {"id": 1000 + run_id}
+        run_outcomes[run_id] = {
+            "execution_state": "AVAILABLE",
+            "derivability_state": "DERIVABLE",
+            "calculation_state": "CALCULATED",
+            "decimal_value": "1" if run["condition_key"] == "direct" else "0",
+        }
+    analysis_plan = deepcopy(persisted_shape["execution_contract"]["analysis_calculation_plans"][0])
+    analysis_plan["id"] = 91
+    analysis_plan["outcome_key"] = persisted_shape["analysis_definitions"][0]["outcome_key"]
+    paired = calculate_paired_difference(analysis_plan, persisted_shape, run_outcomes)
+    assert paired["calculation_state"] == "CALCULATED"
+    assert paired["complete_pair_count"] == 20
+    assert paired["valid_numeric_pair_count"] == 20
+    assert len(paired["pairs"]) == 20
+    assert not paired["invalid_or_incomplete_pairs"]
+
+
+def test_guided_replicate_range_preserves_one_and_two_and_rejects_out_of_range():
+    assert _compile(_config(replicates=1))["protocol"]["planned_sample_size"] == 2
+    assert _compile(_config(replicates=2))["protocol"]["planned_sample_size"] == 4
+    source = BUILDER.read_text(encoding="utf-8")
+    assert "replicates < 1 || replicates > 20" in source
+    html = (STATIC / "studies.html").read_text(encoding="utf-8")
+    options = html[html.index('id="guided-replicates"'):html.index("</select>", html.index('id="guided-replicates"'))]
+    assert [f'value="{value}"' in options for value in range(1, 21)] == [True] * 20
+    for invalid in (0, 21, 1.5):
+        result = _compile_error(_config(replicates=invalid))
+        assert result.returncode == 2
+        assert "Replicates must be an integer from 1 through 20." in result.stderr
 
 
 def test_guided_handoff_preserves_nested_contract_and_never_registers():

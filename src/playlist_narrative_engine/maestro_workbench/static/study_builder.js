@@ -239,7 +239,9 @@
     const blockCount = Number(config.blockCount);
     const replicates = Number(config.replicates);
     if (!Number.isInteger(blockCount) || blockCount < 1 || blockCount > 6) throw new Error("Block count must be between 1 and 6.");
-    if (![1, 2].includes(replicates)) throw new Error("Replicates must be 1 or 2.");
+    if (!Number.isInteger(replicates) || replicates < 1 || replicates > 20) {
+      throw new Error("Replicates must be an integer from 1 through 20.");
+    }
     const blocks = Array.from({length: blockCount}, (_, index) => ({
       block_key: `b${String(index + 1).padStart(2, "0")}`,
       label: `Block ${index + 1}`,

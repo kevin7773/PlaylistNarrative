@@ -543,6 +543,22 @@ def test_evidence_and_prompt_metadata_immediately_precedes_build_prompt_controls
         assert f'id="{field_id}"' in metadata
 
 
+def test_structured_evaluation_immediately_follows_build_and_precedes_read_only_review() -> None:
+    html = (
+        Path(__file__).parents[1]
+        / "src" / "playlist_narrative_engine" / "maestro_workbench" / "static" / "index.html"
+    ).read_text(encoding="utf-8")
+    build = html.index('<button id="build"')
+    build_panel_end = html.index("</section>", build)
+    structured_start = html.index('<section id="structured-evaluation-panel"')
+    structured_end = html.index("</section>", structured_start)
+    review_start = html.index('<section class="panel editor-panel"')
+
+    assert build < build_panel_end < structured_start < structured_end < review_start
+    assert html[build_panel_end + len("</section>"):structured_start].strip() == ""
+    assert html[structured_end + len("</section>"):review_start].strip() == ""
+
+
 def test_readiness_requires_explicit_provenance_for_additional_evidence_links() -> None:
     javascript = (
         Path(__file__).parents[1]
