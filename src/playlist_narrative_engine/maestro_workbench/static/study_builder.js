@@ -115,7 +115,7 @@
     } else if (config.template === "displayed_explicit") {
       parameters.push({parameter_key: "expected", value_type: "BOOLEAN", boolean_value: Boolean(config.expectedExplicit)});
       parameters.push(
-        {parameter_key: "mixed_status", value_type: "TEXT", text_value: "PARTIAL"},
+        {parameter_key: "mixed_status", value_type: "TEXT", text_value: config.aggregateBehavior === "ANY_VIOLATION_FAILS" ? "FAIL" : "PARTIAL"},
         {parameter_key: "all_fail_status", value_type: "TEXT", text_value: "FAIL"},
         {parameter_key: "unknown_status", value_type: "TEXT", text_value: "UNKNOWN"},
       );
@@ -158,7 +158,7 @@
       evaluation = `Evaluate each governed display_title using the registered standalone-token evaluator.`;
     }
     return {
-      constraint_key: `${prefix}-${config.template.replaceAll("_", "-")}`,
+      constraint_key: config.constraintKey || `${prefix}-${config.template.replaceAll("_", "-")}`,
       constraint_type: config.template,
       constraint_text: text,
       is_hard_constraint: true,
@@ -227,8 +227,59 @@
     return [base.trim(), framing.trim()].filter(Boolean).join("\n\n");
   }
 
+  function normalizedConstraintIntents(config, blockCount) {
+    if (!Array.isArray(config.constraints)) {
+      return Array.from({length: blockCount}, (_, index) => ({
+        template: config.template,
+        expectedCount: config.expectedCount,
+        expectedExplicit: config.expectedExplicit,
+        token: config.token,
+        aggregateBehavior: "MIXED_PARTIAL",
+        applicability: "BOTH",
+        primary: true,
+        blockNumber: index + 1,
+      }));
+    }
+    if (!config.constraints.length) throw new Error("At least one constraint is required.");
+    const primary = config.constraints.filter(item => item.primary === true);
+    if (primary.length !== 1) throw new Error("Exactly one primary outcome constraint is required.");
+    const keys = config.constraints.map(item => String(item.constraintKey || "").trim());
+    if (keys.some(key => !key)) throw new Error("Every constraint requires a unique key.");
+    if (new Set(keys).size !== keys.length) throw new Error("Constraint keys must be unique.");
+    const supportedApplicability = new Set(["BOTH", "CONDITION_A", "CONDITION_B"]);
+    const supportedAggregation = new Set(["MIXED_PARTIAL", "ANY_VIOLATION_FAILS"]);
+    const normalized = [];
+    for (const item of config.constraints) {
+      if (!TEMPLATES[item.template]) throw new Error("Unsupported structured constraint template.");
+      if (!supportedApplicability.has(item.applicability)) throw new Error(`Constraint ${item.constraintKey} must apply to at least one condition.`);
+      const aggregation = item.aggregateBehavior || "MIXED_PARTIAL";
+      if (!supportedAggregation.has(aggregation)) throw new Error(`Constraint ${item.constraintKey} has an unsupported aggregation choice.`);
+      if (aggregation === "ANY_VIOLATION_FAILS" && item.template !== "displayed_explicit") {
+        throw new Error("Any-violation-fails aggregation is supported only for displayed Explicit constraints.");
+      }
+      if (item.primary && item.applicability !== "BOTH") {
+        throw new Error("The primary outcome constraint must apply to both compared conditions.");
+      }
+      for (let blockNumber = 1; blockNumber <= blockCount; blockNumber += 1) {
+        normalized.push({
+          ...item,
+          aggregateBehavior: aggregation,
+          constraintKey: blockCount === 1 ? item.constraintKey : `b${String(blockNumber).padStart(2, "0")}-${item.constraintKey}`,
+          blockNumber,
+        });
+      }
+    }
+    return normalized;
+  }
+
+  function appliesToCondition(intent, conditionKey, config) {
+    return intent.applicability === "BOTH"
+      || (intent.applicability === "CONDITION_A" && conditionKey === config.leftKey)
+      || (intent.applicability === "CONDITION_B" && conditionKey === config.rightKey);
+  }
+
   async function compile(config) {
-    const template = TEMPLATES[config.template];
+    const template = TEMPLATES[config.template] || (Array.isArray(config.constraints) && TEMPLATES[config.constraints[0]?.template]);
     if (!template) throw new Error("Unsupported structured constraint template.");
     const researchQuestion = (config.researchQuestion || "").trim();
     if (!researchQuestion && !(config.objective || "").trim()) throw new Error("Research question is required.");
@@ -238,6 +289,7 @@
     const nullHypothesis = (config.nullHypothesis || "").trim() || `The registered outcome does not differ between ${JSON.stringify(config.leftLabel)} and ${JSON.stringify(config.rightLabel)}.`;
     const blockCount = Number(config.blockCount);
     const replicates = Number(config.replicates);
+    const multiConstraint = Array.isArray(config.constraints);
     if (!Number.isInteger(blockCount) || blockCount < 1 || blockCount > 6) throw new Error("Block count must be between 1 and 6.");
     if (!Number.isInteger(replicates) || replicates < 1 || replicates > 20) {
       throw new Error("Replicates must be an integer from 1 through 20.");
@@ -245,9 +297,12 @@
     const blocks = Array.from({length: blockCount}, (_, index) => ({
       block_key: `b${String(index + 1).padStart(2, "0")}`,
       label: `Block ${index + 1}`,
-      block_definition: `Builder-declared block ${index + 1} using ${template.label}.`,
+      block_definition: multiConstraint
+        ? `Builder-declared block ${index + 1} using ${config.constraints.length} separately governed structured constraints.`
+        : `Builder-declared block ${index + 1} using ${template.label}.`,
     }));
-    const constraints = blocks.map((_, index) => constraintDefinition(template, config, index + 1));
+    const intents = normalizedConstraintIntents(config, blockCount);
+    const constraints = intents.map(intent => constraintDefinition(TEMPLATES[intent.template], intent, intent.blockNumber));
     const candidates = [];
     for (const [condition_key, framing] of [[config.leftKey, config.leftFraming], [config.rightKey, config.rightFraming]]) {
       for (const [index, block] of blocks.entries()) {
@@ -260,7 +315,10 @@
             planned_prompt_text: prompt(config.basePrompt, framing),
             planned_source_system: config.sourceSystem || null,
             replacement_for_run_key: null,
-            applicable_constraint_keys: [constraints[index].constraint_key],
+            applicable_constraint_keys: constraints.filter((_, constraintIndex) =>
+              intents[constraintIndex].blockNumber === index + 1
+              && appliesToCondition(intents[constraintIndex], condition_key, config)
+            ).map(item => item.constraint_key),
           });
         }
       }
@@ -268,8 +326,17 @@
     const ranked = await Promise.all(candidates.map(async run => ({run, rank: await sha256(`${effectiveSeed}\n${run.run_key}`)})));
     ranked.sort((a, b) => a.rank.localeCompare(b.rank) || a.run.run_key.localeCompare(b.run.run_key));
     const runs = ranked.map(({run}, index) => ({...run, randomized_ordinal: index + 1}));
-    const constraintKeys = constraints.map(item => item.constraint_key);
-    const outcome = outcomePlan(config, template, constraintKeys);
+    const primaryIntents = intents.map((intent, index) => ({intent, constraint: constraints[index]})).filter(item => item.intent.primary);
+    const primaryTemplate = TEMPLATES[primaryIntents[0].intent.template];
+    const primaryConstraintKeys = primaryIntents.map(item => item.constraint.constraint_key);
+    const primaryOutcomeKind = primaryIntents[0].intent.aggregateBehavior === "ANY_VIOLATION_FAILS"
+      ? "CONSTRAINT_RESULTS"
+      : config.outcomeKind;
+    const outcome = outcomePlan(
+      {...config, outcomeKind: primaryOutcomeKind},
+      primaryTemplate,
+      primaryConstraintKeys,
+    );
     return {
       study_key: config.studyKey,
       title: config.title,
@@ -279,7 +346,7 @@
         objective,
         primary_hypothesis: primaryHypothesis,
         null_hypothesis: nullHypothesis,
-        design_summary: `${researchQuestion ? `Research question: ${researchQuestion} ` : ""}Two-condition calculator-governed Study with ${blockCount} block(s), ${replicates} replicate(s) per condition/block, and the ${template.label} structured template.`,
+        design_summary: `${researchQuestion ? `Research question: ${researchQuestion} ` : ""}Two-condition calculator-governed Study with ${blockCount} block(s), ${replicates} replicate(s) per condition/block, and ${multiConstraint ? `${config.constraints.length} separately governed structured constraints` : `the ${template.label} structured template`}.`,
         planned_sample_size: runs.length,
         randomization_method: "Deterministic SHA-256 ordering of UTF-8 randomization_seed + newline + run_key; lexical digest order.",
         randomization_seed: effectiveSeed,

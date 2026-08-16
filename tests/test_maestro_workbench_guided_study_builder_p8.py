@@ -6,6 +6,8 @@ import subprocess
 from copy import deepcopy
 from pathlib import Path
 
+import pytest
+
 from playlist_narrative_engine.research_store.service import ResearchStoreService
 from playlist_narrative_engine.research_store.study_calculators import calculate_paired_difference
 
@@ -91,6 +93,47 @@ def _compile_without_subtle(config):
         capture_output=True, text=True, timeout=15,
     )
     return json.loads(result.stdout)
+
+
+def _nc3_config(**changes):
+    value = _config(
+        studyKey="NC-3-DRAFT",
+        title="Exact Count Competition With Displayed Explicit Compliance",
+        researchQuestion="Does adding an exact-count requirement reduce displayed no-Explicit compliance?",
+        seed="nc-3-authoring-fixture",
+        leftKey="condition-a",
+        leftLabel="Explicit-only control",
+        rightKey="condition-b",
+        rightLabel="Explicit plus exact-count treatment",
+        basePrompt="Create a playlist of upbeat pop and rock music suitable for listening while doing household chores.",
+        leftFraming="Do not include any tracks tagged Explicit. Use only tracks that are not tagged Explicit.",
+        rightFraming=(
+            "Do not include any tracks tagged Explicit. Use only tracks that are not tagged Explicit.\n\n"
+            "Generate exactly 10 tracks. The playlist must contain 10 tracks total, no more and no fewer."
+        ),
+        blockCount=1,
+        direction="RIGHT_MINUS_LEFT",
+        constraints=[
+            {
+                "constraintKey": "no-explicit",
+                "template": "displayed_explicit",
+                "applicability": "BOTH",
+                "primary": True,
+                "expectedExplicit": False,
+                "aggregateBehavior": "ANY_VIOLATION_FAILS",
+            },
+            {
+                "constraintKey": "exact-count-10",
+                "template": "exact_count",
+                "applicability": "CONDITION_B",
+                "primary": False,
+                "expectedCount": 10,
+                "aggregateBehavior": "MIXED_PARTIAL",
+            },
+        ],
+    )
+    value.update(changes)
+    return value
 
 
 def _portable_digest(value: str, *, without_subtle: bool) -> str:
@@ -230,6 +273,128 @@ def test_twenty_replicates_generate_valid_protocol_and_twenty_registered_pairs()
     assert not paired["invalid_or_incomplete_pairs"]
 
 
+def test_asymmetric_multi_constraint_protocol_compiles_and_validates_authoritatively():
+    draft = _compile(_nc3_config(replicates=1))
+    validation = ResearchStoreService.validate_study_protocol(draft)
+    assert validation.valid, validation.issues
+    protocol = draft["protocol"]
+    definitions = {item["constraint_key"]: item for item in protocol["constraint_definitions"]}
+    assert set(definitions) == {"no-explicit", "exact-count-10"}
+
+    runs = {item["condition_key"]: item for item in protocol["planned_runs"]}
+    assert runs["condition-a"]["applicable_constraint_keys"] == ["no-explicit"]
+    assert runs["condition-b"]["applicable_constraint_keys"] == ["no-explicit", "exact-count-10"]
+    assert runs["condition-a"]["planned_prompt_text"] == (
+        "Create a playlist of upbeat pop and rock music suitable for listening while doing household chores.\n\n"
+        "Do not include any tracks tagged Explicit. Use only tracks that are not tagged Explicit."
+    )
+    assert runs["condition-b"]["planned_prompt_text"] == (
+        "Create a playlist of upbeat pop and rock music suitable for listening while doing household chores.\n\n"
+        "Do not include any tracks tagged Explicit. Use only tracks that are not tagged Explicit.\n\n"
+        "Generate exactly 10 tracks. The playlist must contain 10 tracks total, no more and no fewer."
+    )
+
+    explicit = definitions["no-explicit"]["structured_evaluation_plan"]
+    assert explicit["subject_kind"] == "PLACEMENT_FIELD"
+    assert explicit["subject_field"] == "explicit_flag"
+    assert explicit["subject_selector"] == {"evaluator_key": "selector.all_placements", "evaluator_version": "1"}
+    assert explicit["subject_evaluator"] == {"evaluator_key": "subject.boolean_equals", "evaluator_version": "1"}
+    assert explicit["aggregate_evaluator"] == {"evaluator_key": "aggregate.all_subjects_required", "evaluator_version": "1"}
+    parameters = {item["parameter_key"]: item for item in explicit["parameters"]}
+    assert parameters["expected"]["boolean_value"] is False
+    assert parameters["mixed_status"]["text_value"] == "FAIL"
+    assert parameters["all_fail_status"]["text_value"] == "FAIL"
+    assert parameters["unknown_status"]["text_value"] == "UNKNOWN"
+
+    count = definitions["exact-count-10"]["structured_evaluation_plan"]
+    assert count["subject_kind"] == "RUN"
+    assert count["measurement_definitions"][0]["derivation_key"] == "structural.placement_count"
+    assert count["subject_evaluator"]["evaluator_key"] == "subject.integer_equals"
+    assert count["aggregate_evaluator"]["evaluator_key"] == "aggregate.single_subject"
+    assert next(item for item in count["parameters"] if item["parameter_key"] == "expected")["integer_value"] == 10
+
+    assert len(protocol["outcome_definitions"]) == 1
+    outcome = protocol["execution_contract"]["outcome_calculation_plans"][0]
+    assert outcome["calculator_key"] == "outcome.constraint_status_rate"
+    assert [item["constraint_key"] for item in outcome["constraint_bindings"]] == ["no-explicit"]
+    assert len(protocol["analysis_definitions"]) == 1
+    analysis = protocol["execution_contract"]["analysis_calculation_plans"][0]
+    assert protocol["analysis_definitions"][0]["outcome_key"] == outcome["outcome_key"]
+    assert next(item for item in analysis["parameters"] if item["parameter_key"] == "difference_direction")["text_value"] == "RIGHT_MINUS_LEFT"
+
+
+def test_repeatable_single_constraint_preserves_legacy_template_semantics():
+    for template, extra in (
+        ("exact_count", {"expectedCount": 10}),
+        ("displayed_explicit", {"expectedExplicit": False}),
+        ("lexical_title", {"token": "night"}),
+    ):
+        legacy = _compile(_config(template=template, **extra))
+        repeatable = _compile(_config(constraints=[{
+            "constraintKey": f"b01-{template.replace('_', '-')}",
+            "template": template,
+            "applicability": "BOTH",
+            "primary": True,
+            "aggregateBehavior": "MIXED_PARTIAL",
+            **extra,
+        }]))
+        legacy_definition = legacy["protocol"]["constraint_definitions"][0]
+        repeatable_definition = repeatable["protocol"]["constraint_definitions"][0]
+        assert repeatable_definition["structured_evaluation_plan"] == legacy_definition["structured_evaluation_plan"]
+        assert repeatable["protocol"]["execution_contract"] == legacy["protocol"]["execution_contract"]
+        assert [item["applicable_constraint_keys"] for item in repeatable["protocol"]["planned_runs"]] == [
+            item["applicable_constraint_keys"] for item in legacy["protocol"]["planned_runs"]
+        ]
+
+
+def test_asymmetric_twenty_replicates_preserve_randomization_and_twenty_pairs():
+    first = _compile(_nc3_config(replicates=20))
+    second = _compile(_nc3_config(replicates=20))
+    assert first == second
+    assert ResearchStoreService.validate_study_protocol(first).valid
+    protocol = first["protocol"]
+    assert protocol["planned_sample_size"] == 40
+    assert sorted(item["randomized_ordinal"] for item in protocol["planned_runs"]) == list(range(1, 41))
+    assert len({(item["block_key"], item["condition_key"], item["replicate_number"]) for item in protocol["planned_runs"]}) == 40
+    for condition in ("condition-a", "condition-b"):
+        assert sorted(item["replicate_number"] for item in protocol["planned_runs"] if item["condition_key"] == condition) == list(range(1, 21))
+
+    persisted = deepcopy(protocol)
+    persisted["id"] = 88
+    persisted["registration_hash"] = "fixture"
+    outcomes = {}
+    for run_id, run in enumerate(persisted["planned_runs"], start=1):
+        run["id"] = run_id
+        run["realization"] = {"id": 900 + run_id}
+        outcomes[run_id] = {"execution_state": "AVAILABLE", "derivability_state": "DERIVABLE", "calculation_state": "CALCULATED", "decimal_value": "1"}
+    analysis = deepcopy(persisted["execution_contract"]["analysis_calculation_plans"][0])
+    analysis["id"] = 99
+    analysis["outcome_key"] = persisted["analysis_definitions"][0]["outcome_key"]
+    paired = calculate_paired_difference(analysis, persisted, outcomes)
+    assert paired["complete_pair_count"] == 20
+    assert paired["valid_numeric_pair_count"] == 20
+    assert not paired["invalid_or_incomplete_pairs"]
+
+
+@pytest.mark.parametrize(
+    ("constraints", "message"),
+    [
+        ([], "At least one constraint is required."),
+        ([{"constraintKey": "one", "template": "exact_count", "applicability": "BOTH", "primary": False}], "Exactly one primary outcome constraint is required."),
+        ([{"constraintKey": "one", "template": "exact_count", "applicability": "BOTH", "primary": True}, {"constraintKey": "two", "template": "displayed_explicit", "applicability": "BOTH", "primary": True}], "Exactly one primary outcome constraint is required."),
+        ([{"constraintKey": "one", "template": "displayed_explicit", "applicability": "CONDITION_B", "primary": True}], "The primary outcome constraint must apply to both compared conditions."),
+        ([{"constraintKey": "same", "template": "displayed_explicit", "applicability": "BOTH", "primary": True}, {"constraintKey": "same", "template": "exact_count", "applicability": "CONDITION_B", "primary": False}], "Constraint keys must be unique."),
+        ([{"constraintKey": "one", "template": "displayed_explicit", "applicability": "NONE", "primary": True}], "must apply to at least one condition"),
+        ([{"constraintKey": "one", "template": "exact_count", "applicability": "BOTH", "primary": True, "aggregateBehavior": "ANY_VIOLATION_FAILS"}], "supported only for displayed Explicit constraints"),
+        ([{"constraintKey": "one", "template": "displayed_explicit", "applicability": "BOTH", "primary": True, "aggregateBehavior": "UNSUPPORTED"}], "unsupported aggregation choice"),
+    ],
+)
+def test_multi_constraint_authoring_rejects_invalid_intent(constraints, message):
+    result = _compile_error(_nc3_config(constraints=constraints))
+    assert result.returncode == 2
+    assert message in result.stderr
+
+
 def test_guided_replicate_range_preserves_one_and_two_and_rejects_out_of_range():
     assert _compile(_config(replicates=1))["protocol"]["planned_sample_size"] == 2
     assert _compile(_config(replicates=2))["protocol"]["planned_sample_size"] == 4
@@ -256,6 +421,32 @@ def test_guided_handoff_preserves_nested_contract_and_never_registers():
     html = (STATIC / "studies.html").read_text(encoding="utf-8")
     assert 'id="advanced-technical-json"' in html
     assert "JSON.stringify(draft,null,2)" in script
+
+
+def test_multi_constraint_guided_handoff_preserves_nested_plans_and_applicability():
+    draft = _compile(_nc3_config(replicates=1))
+    protocol = draft["protocol"]
+    assert [item["constraint_key"] for item in protocol["constraint_definitions"]] == ["no-explicit", "exact-count-10"]
+    assert all(item["structured_evaluation_plan"] for item in protocol["constraint_definitions"])
+    assert protocol["execution_contract"]["outcome_calculation_plans"][0]["constraint_bindings"] == [
+        {"constraint_key": "no-explicit", "binding_role": "CONTRIBUTOR", "ordinal": 1}
+    ]
+    script = (STATIC / "studies.js").read_text(encoding="utf-8")
+    assert "const prior=new Map((generatedDraftBase.protocol.constraint_definitions||[])" in script
+    assert "protocol.execution_contract=generatedDraftBase.protocol.execution_contract" in script
+    assert "item.applicable_constraint_keys.join(\", \")" in script
+    assert "/api/studies/register" not in script[script.index("const GUIDED_STEP_LABELS"):script.index("buildGroups();")]
+
+
+def test_multi_constraint_guided_ui_is_intent_oriented():
+    html = (STATIC / "studies.html").read_text(encoding="utf-8")
+    script = (STATIC / "studies.js").read_text(encoding="utf-8")
+    constraint_step = html[html.index('data-guided-step="3"'):html.index('data-guided-step="4"')]
+    assert "Add another rule" in constraint_step
+    assert "which condition it applies to" in constraint_step
+    assert "registry" not in constraint_step.lower()
+    for label in ("Both conditions", "Condition A only", "Condition B only", "Primary comparison rule", "Any violating track fails the playlist"):
+        assert label in script
 
 
 def test_phone_width_progressive_disclosure_is_present():
