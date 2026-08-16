@@ -126,7 +126,7 @@ def evaluate_calculator_governed_study(
         "analysis_definitions": list(protocol["analysis_definitions"]),
         "runs": runs,
         "analyses": analyses,
-        "summary": _calculator_summary(protocol, analyses),
+        "summary": _calculator_summary(protocol, analyses, runs),
         "provenance": {
             "study_id": protocol["study_id"],
             "protocol_version_id": protocol["id"],
@@ -247,7 +247,7 @@ def _calculator_analysis_projection(definition, plan, calculated):
     }
 
 
-def _calculator_summary(protocol, analyses):
+def _calculator_summary(protocol, analyses, runs):
     primary = next(
         (item["outcome_key"] for item in protocol["outcome_definitions"] if item["role"] == "PRIMARY"),
         None,
@@ -261,7 +261,7 @@ def _calculator_summary(protocol, analyses):
         "primary_paired_analysis": primary_analysis,
         "primary_block_comparison": [],
         "replicate_consistency": None,
-        "constraint_result_counts": {},
+        "constraint_result_counts": _constraint_result_counts(runs),
         "disposition_counts": {},
         "metadata_acknowledgment_counts": {},
         "metadata_divergence_counts": {},
@@ -575,13 +575,11 @@ def _condition_summary_analysis(definition, runs):
 def _summary(runs, analyses, outcome_definitions, conditions):
     primary = next((item["outcome_key"] for item in outcome_definitions if item["role"] == "PRIMARY"), None)
     by_condition = defaultdict(list)
-    constraint_counts = Counter()
     for run in runs:
         if primary is not None:
             value = _run_outcome(run, primary)
             if value["status"] == "CALCULATED":
                 by_condition[run["condition_key"]].append(value["value"])
-        constraint_counts.update(item["status"] or "MISSING" for item in run["constraints"])
     primary_analysis = next((item for item in analyses if item["outcome_key"] == primary and item["analysis_key"] != "replicate_consistency"), None)
     metadata_counts = Counter()
     divergence_counts = Counter()
@@ -607,7 +605,7 @@ def _summary(runs, analyses, outcome_definitions, conditions):
         "replicate_consistency": next(
             (item for item in analyses if "replicate" in item["analysis_key"].lower()), None
         ),
-        "constraint_result_counts": dict(sorted(constraint_counts.items())),
+        "constraint_result_counts": _constraint_result_counts(runs),
         "disposition_counts": dict(sorted(Counter(run["realization"]["disposition"] if run["realization"] else "PENDING" for run in runs).items())),
         "metadata_acknowledgment_counts": dict(sorted(metadata_counts.items())),
         "metadata_divergence_counts": dict(sorted(divergence_counts.items())),
@@ -619,6 +617,15 @@ def _summary(runs, analyses, outcome_definitions, conditions):
         ],
         "registered_condition_roles": {item["condition_key"]: item["role"] for item in conditions},
     }
+
+
+def _constraint_result_counts(runs):
+    counts = Counter(
+        constraint["status"] or "MISSING"
+        for run in runs
+        for constraint in run["constraints"]
+    )
+    return dict(sorted(counts.items()))
 
 
 def _condition_keys(conditions):

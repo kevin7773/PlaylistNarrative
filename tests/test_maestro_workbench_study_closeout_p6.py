@@ -32,3 +32,10 @@ def test_closeout_ui_retains_manifest_and_has_no_write_request():
     assert "method:" not in surface
     assert "report_generation.timestamp_semantics" in surface
     assert "deterministic_payload_sha256" in surface
+
+
+def test_closeout_constraint_result_counts_distinguish_absent_projection_from_known_zeroes():
+    script = SCRIPT.read_text(encoding="utf-8")
+    assert 'function constraintResultCounts(values)' in script
+    assert 'values===null||values===undefined?"Not projected":statusCounts(values)' in script
+    assert 'constraintResultCounts(realized.constraint_result_status_totals)' in script

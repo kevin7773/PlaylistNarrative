@@ -178,6 +178,62 @@ def test_future_evaluation_equals_direct_e2_and_retains_provenance(research_sess
     assert projected_analysis["calculator_projection"] == direct_analysis
 
 
+def test_calculator_closeout_counts_persisted_aggregate_results_without_changing_calculators(
+    research_session,
+):
+    from playlist_narrative_engine.research_store.schemas import ExperimentInput
+    from playlist_narrative_engine.research_store.study_schemas import (
+        StructuredStudyEvaluationInput,
+    )
+    from test_maestro_workbench_guided_study_builder_p8 import _compile, _config
+
+    service = ResearchStoreService(ResearchRepository(research_session))
+    proposal = StudyRegistrationInput.model_validate(
+        _compile(_config(blockCount=1, replicates=20, seed="closeout-counts"))
+    )
+    registered = service.register_study(proposal)
+    protocol = registered["registered_protocol"]
+    definition = protocol["constraint_definitions"][0]
+    structured = StructuredStudyEvaluationInput.model_validate({"constraints": [{
+        "study_constraint_definition_id": definition["id"],
+        "subjects": [{"subject_kind": "RUN", "enumeration_ordinal": 1, "measurements": []}],
+    }]})
+    for run in protocol["planned_runs"]:
+        experiment = ExperimentInput.model_validate({
+            "prompt": run["planned_prompt_text"],
+            "source_system": run["planned_source_system"],
+            "tracks": [
+                {"position": position, "title": f"Track {position}", "artist": f"Artist {position}"}
+                for position in range(1, 11)
+            ],
+            "constraints": [{
+                "study_constraint_definition_id": definition["id"],
+                "constraint_type": definition["constraint_type"],
+                "constraint_text": definition["constraint_text"],
+                "is_hard_constraint": definition["is_hard_constraint"],
+            }],
+        })
+        service.realize_structured_study_experiment(run["id"], experiment, structured)
+
+    evaluation = service.evaluate_study(registered["id"], 1)
+    exploration = service.explore_study(registered["id"], 1)
+    closeout = service.closeout_study(registered["id"], 1, generated_at="fixed")
+    analysis = evaluation["analyses"][0]
+
+    assert [item["status"] for run in evaluation["runs"] for item in run["constraints"]] == ["PASS"] * 40
+    assert evaluation["summary"]["constraint_result_counts"] == {"PASS": 40}
+    assert closeout["realized"]["constraint_result_status_totals"] == {"PASS": 40}
+    assert analysis["calculator_projection"]["mean_difference"] == "0"
+    assert analysis["calculator_projection"]["valid_numeric_pair_count"] == 20
+    assert analysis["calculator_projection"]["zero_difference_count"] == 20
+    assert analysis["calculator_projection"]["invalid_or_incomplete_pairs"] == []
+    structured_projection = exploration["structured_evaluation"]
+    assert len(structured_projection["contributors"]) == 40
+    assert structured_projection["status_counts_by_constraint"] == [{
+        "constraint_key": definition["constraint_key"], "status_counts": {"PASS": 40},
+    }]
+
+
 def test_future_matching_legacy_prose_and_keys_cannot_trigger_legacy(research_session):
     document = _future_document()
     document["protocol"]["outcome_definitions"][0].update(
