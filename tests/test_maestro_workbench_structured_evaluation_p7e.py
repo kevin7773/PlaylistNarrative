@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
+from pathlib import Path
+import subprocess
 
 from sqlalchemy import func, select
 
@@ -117,6 +120,14 @@ def test_direct_boolean_and_lexical_field_worksheets_use_exact_governed_values(r
         parameters=boolean_params,
     ))
     experiment = _experiment(protocol, definitions, count=2, explicit=[False, True], evidence=True)
+    worksheet = service.prepare_structured_evaluation_worksheet(
+        protocol["planned_runs"][0]["id"], experiment
+    )
+    registered_measurement = worksheet["constraints"][0]["definition"]["structured_evaluation_plan"]["measurement_definitions"][0]
+    assert worksheet["constraints"][0]["subjects"][0]["governed_field"] == "explicit_flag"
+    assert registered_measurement["authority"] == "DIRECT_OBSERVATION"
+    assert registered_measurement["value_type"] == "BOOLEAN"
+    assert registered_measurement["unavailable_policy"] == "MUST_HAVE_VALUE"
     subjects = [{
         "subject_kind": "PLACEMENT_FIELD", "enumeration_ordinal": ordinal,
         "track_observed_ordinal": ordinal, "governed_field": "explicit_flag",
@@ -401,3 +412,111 @@ def test_proposal_changes_invalidate_structured_preview_before_ingestion():
     assert "structuredPreviewComplete = false" in function_body
     assert "Recalculate the deterministic preview" in function_body
     assert '$("#ingest").disabled = true' in function_body
+
+
+def test_explicit_boolean_direct_observation_is_editable_and_uses_intent_labels():
+    script = Path("src/playlist_narrative_engine/maestro_workbench/static/app.js").read_text(
+        encoding="utf-8"
+    )
+    typed_input = script[script.index("function typedInput"):script.index("function isEditableExplicitObservation")]
+    worksheet = script[script.index("function renderStructuredWorksheet"):script.index("async function loadStructuredWorksheet")]
+    assert 'definition.governed_field === "explicit_flag" ? "Explicit" : "True"' in typed_input
+    assert 'definition.governed_field === "explicit_flag" ? "Not Explicit" : "False"' in typed_input
+    assert 'const locked = measurement.authority === "STRUCTURAL_DERIVATION" || (measurement.authority === "DIRECT_OBSERVATION" && !editableExplicit)' in worksheet
+    assert 'measurement.unavailable_policy === "MAY_BE_UNAVAILABLE"' in worksheet
+    assert 'source.source_type === "SCREENSHOT"' in worksheet
+    assert '<option value="">Select explicitly…</option>' in worksheet
+    assert 'data-editable-explicit="${editableExplicit}"' in worksheet
+
+
+def test_explicit_observation_mutates_only_draft_and_invalidates_validation():
+    script = Path("src/playlist_narrative_engine/maestro_workbench/static/app.js").read_text(
+        encoding="utf-8"
+    )
+    helpers = script[
+        script.index("function isEditableExplicitObservation"):
+        script.index("function renderStructuredWorksheet")
+    ]
+    node_program = f"""
+let invalidations = 0;
+const proposal = {{value: JSON.stringify({{
+  tracks: [
+    {{position: 1, title: 'One', artist: 'Artist', evidence: [{{source_key: 'screen', field_name: 'title'}}]}},
+    {{position: 2, title: 'Two', artist: 'Artist', evidence: []}}
+  ],
+  evidence_sources: [{{source_key: 'screen', source_type: 'SCREENSHOT', source_reference: 'capture'}}]
+}})}};
+function invalidateValidation() {{ invalidations += 1; }}
+{helpers}
+function row(value, source) {{
+  return {{querySelector: selector => selector === '[data-measurement-value]'
+    ? {{value}} : selector === '[data-measurement-source]' ? {{value: source}} : null}};
+}}
+function subject(ordinal) {{ return {{dataset: {{trackOrdinal: String(ordinal)}}}}; }}
+updateExplicitObservationDraft(subject(1), row('true', 'screen'));
+updateExplicitObservationDraft(subject(2), row('false', 'screen'));
+process.stdout.write(JSON.stringify({{draft: JSON.parse(proposal.value), invalidations}}));
+"""
+    completed = subprocess.run(
+        ["node", "-e", node_program], check=True, capture_output=True, text=True
+    )
+    result = json.loads(completed.stdout)
+    tracks = result["draft"]["tracks"]
+    assert tracks[0]["explicit_flag"] is True
+    assert tracks[1]["explicit_flag"] is False
+    assert tracks[0]["evidence"] == [
+        {"source_key": "screen", "field_name": "title"},
+        {"source_key": "screen", "field_name": "explicit_flag",
+         "provenance_type": "DIRECT_OBSERVATION", "support_status": "FULL"},
+    ]
+    assert tracks[1]["evidence"] == [
+        {"source_key": "screen", "field_name": "explicit_flag",
+         "provenance_type": "DIRECT_OBSERVATION", "support_status": "FULL"},
+    ]
+    assert result["invalidations"] == 2
+
+
+def test_missing_direct_boolean_value_or_evidence_keeps_preview_incomplete(research_session):
+    params = [
+        {"parameter_key": "expected", "value_type": "BOOLEAN", "boolean_value": False},
+        {"parameter_key": "mixed_status", "value_type": "TEXT", "text_value": "FAIL"},
+        {"parameter_key": "all_fail_status", "value_type": "TEXT", "text_value": "FAIL"},
+        {"parameter_key": "unknown_status", "value_type": "TEXT", "text_value": "UNKNOWN"},
+    ]
+    service = ResearchStoreService(ResearchRepository(research_session))
+    protocol, definitions = _register(service, _study(
+        "PLACEMENT_FIELD", "explicit_flag", "subject.boolean_equals", "BOOLEAN",
+        evidence_required=True, aggregate="aggregate.all_subjects_required", parameters=params,
+    ))
+    experiment = _experiment(protocol, definitions, count=1, explicit=[False], evidence=True)
+    base = {
+        "measurement_key": "observed", "authority_kind": "DIRECT_OBSERVATION",
+        "value_type": "BOOLEAN", "recorded_by": "operator",
+    }
+    missing_value = StructuredStudyEvaluationInput.model_validate({"constraints": [{
+        "study_constraint_definition_id": definitions["structured"]["id"],
+        "subjects": [{"subject_kind": "PLACEMENT_FIELD", "enumeration_ordinal": 1,
+                      "track_observed_ordinal": 1, "governed_field": "explicit_flag",
+                      "measurements": [{**base, "evidence": [{
+                          "source_key": "screen", "evidence_link_field": "explicit_flag",
+                          "evidence_role": "OBSERVED_VALUE", "provenance_type": "DIRECT_OBSERVATION",
+                          "support_status": "FULL",
+                      }]}]}],
+    }]})
+    without_value = service.preview_structured_study_evaluation(
+        protocol["planned_runs"][0]["id"], experiment, missing_value
+    )
+    assert not without_value["complete"]
+
+    missing_evidence = missing_value.model_dump(mode="python")
+    measurement = missing_evidence["constraints"][0]["subjects"][0]["measurements"][0]
+    measurement["boolean_value"] = False
+    measurement["evidence"] = []
+    without_evidence = service.preview_structured_study_evaluation(
+        protocol["planned_runs"][0]["id"], experiment,
+        StructuredStudyEvaluationInput.model_validate(missing_evidence),
+    )
+    assert not without_evidence["complete"]
+    assert "EVIDENCE_REQUIRED" in {
+        issue["code"] for issue in without_evidence["constraints"][0]["issues"]
+    }
