@@ -216,6 +216,42 @@ def test_outcome_disposition_and_pairing_are_explicit_not_label_inferred():
     assert next(item for item in analysis["parameters"] if item["parameter_key"] == "difference_direction")["text_value"] == "LEFT_MINUS_RIGHT"
 
 
+def test_condition_display_labels_must_be_distinct_without_changing_governed_bindings():
+    rejected = _compile_error(_config(
+        leftLabel="No Explicit constraint only",
+        rightLabel="No Explicit constraint only",
+    ))
+    assert rejected.returncode == 2
+    assert "Condition A and Condition B must have distinct display labels." in rejected.stderr
+
+    draft = _compile(_config(
+        leftLabel="A label that sounds like treatment",
+        rightLabel="A label that sounds like control",
+        direction="RIGHT_MINUS_LEFT",
+    ))
+    assert ResearchStoreService.validate_study_protocol(draft).valid
+    assert draft["protocol"]["execution_contract"]["analysis_calculation_plans"][0]["condition_bindings"] == [
+        {"comparison_role": "LEFT", "condition_key": "direct"},
+        {"comparison_role": "RIGHT", "condition_key": "framed"},
+    ]
+    direction = next(
+        item for item in draft["protocol"]["execution_contract"]["analysis_calculation_plans"][0]["parameters"]
+        if item["parameter_key"] == "difference_direction"
+    )
+    assert direction["text_value"] == "RIGHT_MINUS_LEFT"
+
+
+def test_step_five_renders_fixed_condition_roles_with_display_labels():
+    script = (STATIC / "studies.js").read_text(encoding="utf-8")
+    direction = script[script.index("function directionSummary"):script.index("function refreshConstraintRow")]
+    assert 'const conditionA=`Condition A — ${left}`' in direction
+    assert 'const conditionB=`Condition B — ${right}`' in direction
+    assert '`${conditionB} minus ${conditionA}`' in direction
+    assert '`${conditionA} minus ${conditionB}`' in direction
+    assert "had the higher registered success rate" in direction
+    assert "had the lower registered success rate" in direction
+
+
 def test_runs_sample_size_applicability_and_sha_order_are_deterministic():
     config = _config(blockCount=2, replicates=2)
     first = _compile(config)

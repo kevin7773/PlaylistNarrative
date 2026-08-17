@@ -283,6 +283,9 @@
     if (!template) throw new Error("Unsupported structured constraint template.");
     const researchQuestion = (config.researchQuestion || "").trim();
     if (!researchQuestion && !(config.objective || "").trim()) throw new Error("Research question is required.");
+    if (String(config.leftLabel || "").trim() === String(config.rightLabel || "").trim()) {
+      throw new Error("Condition A and Condition B must have distinct display labels.");
+    }
     const effectiveSeed = (config.seed || "").trim() || `guided-${(await sha256(`${config.studyKey}\n${config.title}\n${researchQuestion}`)).slice(0, 20)}`;
     const objective = (config.objective || "").trim() || `Prospectively evaluate the research question: ${researchQuestion}`;
     const primaryHypothesis = (config.primaryHypothesis || "").trim() || `The registered outcome differs between ${JSON.stringify(config.leftLabel)} and ${JSON.stringify(config.rightLabel)} in the direction defined by the registered analysis.`;
