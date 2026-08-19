@@ -279,6 +279,7 @@ class ResearchStoreService:
                         "constraint_definition_id": definition["id"], "constraint_id": constraint["id"],
                         "experiment_id": experiment["id"], "status": constraint["result"]["status"],
                         "provenance_type": constraint["result"]["provenance_type"],
+                        "source_reason_code": constraint["result"].get("provenance_notes"),
                         "sort_key": [definition["id"], constraint["id"]],
                     })
                 continue
@@ -322,6 +323,10 @@ class ResearchStoreService:
                     "sort_key": [definition["id"], subject["enumeration_ordinal"], subject["id"]],
                 })
         projection = calculate_status_rate(plan, context, inputs, missing, incompatible_reason=incompatible)
+        projection["source_reason_codes"] = sorted({
+            str(item["source_reason_code"]) for item in inputs
+            if item.get("source_reason_code")
+        })
         if plan["calculator_key"] == "outcome.subject_status_rate":
             projection.update(
                 authorized_subject_kinds=plan["subject_kinds"],
@@ -589,9 +594,19 @@ class ResearchStoreService:
                 plan, experiment, definition["id"], self._evaluator_registry
             )
             prepared = validate_measurements(plan, subjects, [], experiment)
+            unique_target = (
+                plan["aggregate_evaluator"]["evaluator_key"] == "aggregate.unique_selected_subject"
+                and plan["aggregate_evaluator"]["evaluator_version"] == "1"
+            )
+            selection_state = (
+                "TARGET_ABSENT" if unique_target and not subjects else
+                "TARGET_AMBIGUOUS" if unique_target and len(subjects) > 1 else
+                "TARGET_FOUND" if unique_target else "ORDINARY_SUBJECT_SET"
+            )
             constraints.append({
                 "definition": definition,
                 "subjects": [self._worksheet_subject(item, experiment) for item in subjects],
+                "selection_state": selection_state,
                 "derived_measurements": [
                     row for row in prepared["measurements"]
                     if row["authority_kind"] == "STRUCTURAL_DERIVATION"

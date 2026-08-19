@@ -153,6 +153,23 @@ ANALYSIS_CALCULATORS = (
             ),
         },
     ),
+    AnalysisCalculatorSpecification(
+        "analysis.paired_difference", "2", "ALL_REGISTERED_PLANNED_RUNS",
+        "PAIRED_DIFFERENCE_SUMMARY", "2",
+        frozenset({("MATCH", "BLOCK"), ("MATCH", "REPLICATE")}),
+        frozenset({"LEFT", "RIGHT"}),
+        {
+            "difference_direction": ParameterSpecification(
+                "TEXT", 1, 1, frozenset({"RIGHT_MINUS_LEFT", "LEFT_MINUS_RIGHT"})
+            ),
+            "pair_completeness": ParameterSpecification(
+                "TEXT", 1, 1, frozenset({"EXCLUDE_NON_NUMERIC_PAIR"})
+            ),
+            "missing_policy": ParameterSpecification(
+                "TEXT", 1, 1, frozenset({"EXCLUDE_PAIR_AND_REPORT"})
+            ),
+        },
+    ),
 )
 
 
@@ -289,13 +306,13 @@ class StudyExecutionRegistry:
             self.analyses.validate(plan)
             if (
                 plan.calculator_key == "analysis.paired_difference"
-                and plan.calculator_version == "1"
+                and plan.calculator_version in {"1", "2"}
             ):
                 bound_conditions = {item.condition_key for item in plan.condition_bindings}
                 registered_conditions = {item.condition_key for item in protocol.conditions}
                 if bound_conditions != registered_conditions:
                     raise ValueError(
-                        "paired_difference/1 LEFT and RIGHT must cover every registered condition"
+                        f"paired_difference/{plan.calculator_version} LEFT and RIGHT must cover every registered condition"
                     )
 
 

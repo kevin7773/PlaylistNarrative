@@ -763,6 +763,29 @@ function updateExplicitObservationDraft(subject, row) {
   invalidateValidation("Direct observation changed. Preview and validate the proposal again before ingestion.");
 }
 
+function updateTargetObservationDraft(subject, row) {
+  const trackOrdinal = Number(subject.dataset.trackOrdinal);
+  if (!trackOrdinal) return;
+  const draft = JSON.parse(proposal.value);
+  const track = draft.tracks?.[trackOrdinal - 1];
+  if (!track) return;
+  const valueControl = row.querySelector("[data-measurement-value]");
+  track.explicit_flag = valueControl.value === "" ? null : valueControl.value === "true";
+  track.evidence = (track.evidence || []).filter(link => link.field_name !== "explicit_flag");
+  row.querySelectorAll("[data-measurement-source]").forEach(control => {
+    const duplicate = (track.evidence || []).some(link =>
+      link.source_key === control.value && link.field_name === control.dataset.evidenceField);
+    if (control.value && !duplicate) track.evidence.push({
+      source_key: control.value,
+      field_name: control.dataset.evidenceField,
+      provenance_type: "DIRECT_OBSERVATION",
+      support_status: "FULL",
+    });
+  });
+  proposal.value = JSON.stringify(draft, null, 2);
+  invalidateValidation("Target observation or identity evidence changed. Preview and validate the proposal again before ingestion.");
+}
+
 function renderStructuredWorksheet() {
   const host = $("#structured-evaluation-constraints");
   const builtProposal = JSON.parse(proposal.value);
@@ -773,7 +796,8 @@ function renderStructuredWorksheet() {
     const authorityPanels = item.subjects.map(subject => {
       const context = subject.displayed_context;
       const identity = subject.subject_kind === "RUN" ? "Run-level subject" : `Placement ${subject.track_observed_ordinal}: ${context?.title || "Untitled"} — ${context?.artist || "Unknown artist"}`;
-      return `<article class="structured-subject" data-structured-subject data-definition-id="${definition.id}" data-ordinal="${subject.enumeration_ordinal}" data-subject-kind="${subject.subject_kind}" data-track-ordinal="${subject.track_observed_ordinal || ""}" data-governed-field="${subject.governed_field || ""}"><h4>${escapeHtml(identity)}</h4>${subject.governed_field ? `<p class="locked-value">Governed field ${escapeHtml(subject.governed_field)}: ${escapeHtml(String(governedFieldValue(subject) ?? "Not supplied"))}</p>` : ""}${plan.measurement_definitions.map(measurement => {
+      const targetSpecific = plan.subject_selector.evaluator_key === "selector.exact_displayed_title_artist";
+      const measurementControls = item.selection_state === "TARGET_AMBIGUOUS" ? '<p class="warning">TARGET_AMBIGUOUS — this placement is retained for audit only. No observation is requested because the registered selector did not identify a unique target.</p>' : plan.measurement_definitions.map(measurement => {
         let autoValue = null;
         if (measurement.authority === "STRUCTURAL_DERIVATION") {
           const derived = item.derived_measurements.find(row => row.subject_key === subject.subject_key && row.measurement_key === measurement.measurement_key);
@@ -790,10 +814,14 @@ function renderStructuredWorksheet() {
         const role = measurement.authority === "EXTERNAL_FACT_VERIFICATION" ? "EXTERNAL_FACT" : measurement.authority === "HUMAN_ASSESSMENT" ? "OPERATOR_JUDGMENT" : "OBSERVED_VALUE";
         const roleControl = measurement.authority === "HUMAN_ASSESSMENT" ? '<label>Judgment evidence role<select data-evidence-role><option value="OPERATOR_JUDGMENT">Operator judgment</option><option value="CORRESPONDENCE">Correspondence judgment</option></select></label>' : '';
         const unavailableControl = measurement.authority !== "STRUCTURAL_DERIVATION" && measurement.unavailable_policy === "MAY_BE_UNAVAILABLE" ? '<label class="unknown-control"><input type="checkbox" data-unavailable> Record UNKNOWN / unavailable</label><label>Unavailable reason<input data-unavailable-reason type="text" disabled></label>' : '';
-        return `<div class="structured-measurement" data-structured-measurement data-key="${escapeHtml(measurement.measurement_key)}" data-authority="${measurement.authority}" data-value-type="${measurement.value_type}" data-evidence-required="${measurement.evidence_required}" data-role="${role}" data-editable-explicit="${editableExplicit}"><strong>${escapeHtml(measurement.measurement_key)}</strong><span class="authority-badge">${escapeHtml(measurement.authority.replaceAll("_", " "))}</span>${measurement.authority === "STRUCTURAL_DERIVATION" ? `<p class="hint">Derived by ${escapeHtml(measurement.derivation_key)}/${escapeHtml(measurement.derivation_version)} from governed Experiment input.</p>` : ""}${typedInput({...measurement, governed_field: subject.governed_field, plan: encodeURIComponent(JSON.stringify(plan))}, autoValue, locked)}${unavailableControl}${roleControl}${measurement.evidence_required ? `<label>Supporting governed evidence<select data-measurement-source><option value="">Select explicitly…</option>${options}</select></label>` : ""}${measurement.authority !== "STRUCTURAL_DERIVATION" ? '<label>Recorded by<input data-recorded-by type="text" value="Workbench operator"></label>' : ''}${measurement.authority === "HUMAN_ASSESSMENT" ? '<p class="warning">HUMAN ASSESSMENT — explicit operator judgment, not direct observation.</p>' : ""}</div>`;
-      }).join("")}<div class="subject-result" data-subject-result>Not calculated</div></article>`;
+        const targetIdentity = targetSpecific ? `<p class="hint">Neutral target-state observation. FAIL means the unique target displayed Explicit; it does not mean Condition A violated its prompt.</p><label>Displayed-title identity evidence<select data-measurement-source data-evidence-field="title" data-evidence-role="SUBJECT_IDENTITY"><option value="">Select explicitly…</option>${options}</select></label><label>Displayed-artist identity evidence<select data-measurement-source data-evidence-field="artist" data-evidence-role="SUBJECT_IDENTITY"><option value="">Select explicitly…</option>${options}</select></label>` : "";
+        const observedEvidence = measurement.evidence_required ? `<label>Observed-value evidence<select data-measurement-source data-evidence-field="${escapeHtml(evidenceField)}" data-evidence-role="OBSERVED_VALUE"><option value="">Select explicitly…</option>${options}</select></label>` : "";
+        return `<div class="structured-measurement" data-structured-measurement data-key="${escapeHtml(measurement.measurement_key)}" data-authority="${measurement.authority}" data-value-type="${measurement.value_type}" data-evidence-required="${measurement.evidence_required}" data-role="${role}" data-editable-explicit="${editableExplicit}" data-target-specific="${targetSpecific}"><strong>${escapeHtml(measurement.measurement_key)}</strong><span class="authority-badge">${escapeHtml(measurement.authority.replaceAll("_", " "))}</span>${measurement.authority === "STRUCTURAL_DERIVATION" ? `<p class="hint">Derived by ${escapeHtml(measurement.derivation_key)}/${escapeHtml(measurement.derivation_version)} from governed Experiment input.</p>` : ""}${typedInput({...measurement, governed_field: subject.governed_field, plan: encodeURIComponent(JSON.stringify(plan))}, autoValue, locked)}${unavailableControl}${roleControl}${targetIdentity}${observedEvidence}${measurement.authority !== "STRUCTURAL_DERIVATION" ? '<label>Recorded by<input data-recorded-by type="text" value="Workbench operator"></label>' : ''}${measurement.authority === "HUMAN_ASSESSMENT" ? '<p class="warning">HUMAN ASSESSMENT — explicit operator judgment, not direct observation.</p>' : ""}</div>`;
+      }).join("");
+      return `<article class="structured-subject" data-structured-subject data-definition-id="${definition.id}" data-ordinal="${subject.enumeration_ordinal}" data-subject-kind="${subject.subject_kind}" data-track-ordinal="${subject.track_observed_ordinal || ""}" data-governed-field="${subject.governed_field || ""}"><h4>${escapeHtml(identity)}</h4>${subject.governed_field ? `<p class="locked-value">Governed field ${escapeHtml(subject.governed_field)}: ${escapeHtml(String(governedFieldValue(subject) ?? "Not supplied"))}</p>` : ""}${measurementControls}<div class="subject-result" data-subject-result>Not calculated</div></article>`;
     }).join("");
-    return `<section class="structured-constraint" data-structured-constraint="${definition.id}"><h3>${escapeHtml(definition.constraint_key)} · ${escapeHtml(definition.constraint_text)}</h3><dl><dt>Evaluation rule</dt><dd>${escapeHtml(definition.evaluation_rule)}</dd><dt>Plan</dt><dd>${escapeHtml(plan.instrumentation_version)}</dd><dt>Subject selector</dt><dd>${escapeHtml(plan.subject_selector.evaluator_key)}/${escapeHtml(plan.subject_selector.evaluator_version)}</dd><dt>Subject evaluator</dt><dd>${escapeHtml(plan.subject_evaluator.evaluator_key)}/${escapeHtml(plan.subject_evaluator.evaluator_version)}</dd><dt>Aggregate evaluator</dt><dd>${escapeHtml(plan.aggregate_evaluator.evaluator_key)}/${escapeHtml(plan.aggregate_evaluator.evaluator_version)}</dd><dt>Completeness</dt><dd>${plan.require_complete_subject_set ? "Complete frozen subject set required" : "Registered partial subject set"}</dd></dl>${authorityPanels}<div class="aggregate-result" data-aggregate-result>Aggregate not calculated</div></section>`;
+    const selectionNotice = item.selection_state === "TARGET_ABSENT" ? '<p class="warning">TARGET_ABSENT — no accepted exact displayed title-and-artist representation was found. No placement or Boolean observation was manufactured.</p>' : item.selection_state === "TARGET_AMBIGUOUS" ? '<p class="warning">TARGET_AMBIGUOUS — multiple exact matches were retained below for audit. No placement was selected.</p>' : "";
+    return `<section class="structured-constraint" data-structured-constraint="${definition.id}"><h3>${escapeHtml(definition.constraint_key)} · ${escapeHtml(definition.constraint_text)}</h3><dl><dt>Evaluation rule</dt><dd>${escapeHtml(definition.evaluation_rule)}</dd><dt>Plan</dt><dd>${escapeHtml(plan.instrumentation_version)}</dd><dt>Subject selector</dt><dd>${escapeHtml(plan.subject_selector.evaluator_key)}/${escapeHtml(plan.subject_selector.evaluator_version)}</dd><dt>Subject evaluator</dt><dd>${escapeHtml(plan.subject_evaluator.evaluator_key)}/${escapeHtml(plan.subject_evaluator.evaluator_version)}</dd><dt>Aggregate evaluator</dt><dd>${escapeHtml(plan.aggregate_evaluator.evaluator_key)}/${escapeHtml(plan.aggregate_evaluator.evaluator_version)}</dd><dt>Completeness</dt><dd>${plan.require_complete_subject_set ? "Complete frozen subject set required" : "Registered partial subject set"}</dd></dl>${selectionNotice}${authorityPanels}<div class="aggregate-result" data-aggregate-result>Aggregate not calculated</div></section>`;
   }).join("");
   host.querySelectorAll("[data-unavailable]").forEach(box => box.addEventListener("change", () => {
     const row = box.closest("[data-structured-measurement]");
@@ -804,7 +832,7 @@ function renderStructuredWorksheet() {
   host.querySelectorAll('[data-editable-explicit="true"]').forEach(row => {
     const subject = row.closest("[data-structured-subject]");
     row.querySelectorAll("[data-measurement-value],[data-measurement-source]").forEach(control =>
-      control.addEventListener("change", () => updateExplicitObservationDraft(subject, row)));
+      control.addEventListener("change", () => row.dataset.targetSpecific === "true" ? updateTargetObservationDraft(subject, row) : updateExplicitObservationDraft(subject, row)));
   });
   host.querySelectorAll("input,select").forEach(control => control.addEventListener("change", () => { structuredPreviewComplete = false; $("#ingest").disabled = true; }));
 }
@@ -834,9 +862,10 @@ function measurementPayload(row, subject) {
     const key = ({BOOLEAN: "boolean_value", INTEGER: "integer_value", DECIMAL: "decimal_value", TEXT: "text_value", DATE: "date_value", VOCABULARY_TERM: "vocabulary_term_key"})[valueType];
     if (value !== "") result[key] = valueType === "BOOLEAN" ? value === "true" : valueType === "INTEGER" ? Number.parseInt(value, 10) : valueType === "DECIMAL" ? Number(value) : value;
   }
-  const source = row.querySelector("[data-measurement-source]")?.value;
-  if (source) result.evidence.push({source_key: source, evidence_link_field: row.dataset.authority === "DIRECT_OBSERVATION" ? evidenceFieldForGovernedField(subject.dataset.governedField) : null,
-    evidence_role: row.querySelector("[data-evidence-role]")?.value || row.dataset.role, provenance_type: row.dataset.authority === "HUMAN_ASSESSMENT" ? "HUMAN_ASSESSMENT" : "DIRECT_OBSERVATION", support_status: "FULL"});
+  row.querySelectorAll("[data-measurement-source]").forEach(control => {
+    if (control.value) result.evidence.push({source_key: control.value, evidence_link_field: control.dataset.evidenceField || (row.dataset.authority === "DIRECT_OBSERVATION" ? evidenceFieldForGovernedField(subject.dataset.governedField) : null),
+      evidence_role: control.dataset.evidenceRole || row.querySelector("[data-evidence-role]")?.value || row.dataset.role, provenance_type: row.dataset.authority === "HUMAN_ASSESSMENT" ? "HUMAN_ASSESSMENT" : "DIRECT_OBSERVATION", support_status: "FULL"});
+  });
   return result;
 }
 

@@ -733,14 +733,15 @@ class StudyRepository:
                         field_or_segment_reference=evidence_input.field_or_segment_reference,
                         notes=evidence_input.notes,
                     ))
-            result = result_by_key[expected["subject_key"]]
-            self.session.add(ConstraintSubjectResult(
-                subject_id=subject.id,
-                status=result["status"],
-                evaluator_key=result["evaluator_key"],
-                evaluator_version=result["evaluator_version"],
-                reason_code=result["reason_code"],
-            ))
+            result = result_by_key.get(expected["subject_key"])
+            if result is not None:
+                self.session.add(ConstraintSubjectResult(
+                    subject_id=subject.id,
+                    status=result["status"],
+                    evaluator_key=result["evaluator_key"],
+                    evaluator_version=result["evaluator_version"],
+                    reason_code=result["reason_code"],
+                ))
             persisted.append(subject)
         self.session.flush()
         return persisted

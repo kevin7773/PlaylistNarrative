@@ -178,6 +178,7 @@ class StudyCalculatorExecutor:
         }
         self.analysis_calculators = analysis_calculators if analysis_calculators is not None else {
             ("analysis.paired_difference", "1"),
+            ("analysis.paired_difference", "2"),
         }
 
     def outcome_available(self, plan: Mapping[str, object]) -> bool:
@@ -198,6 +199,7 @@ def calculate_paired_difference(
         return unavailable_projection(plan["calculator_key"], plan["calculator_version"])
     params = _parameters(plan)
     direction = params["difference_direction"][0]
+    exclusion_version = str(plan["calculator_version"]) == "2"
     conditions = {item["comparison_role"]: item["condition_key"] for item in plan["condition_bindings"]}
     dimension_keys = [item["dimension_key"] for item in sorted(plan["dimensions"], key=lambda item: item["ordinal"])]
     grouped: dict[tuple[object, ...], dict[str, list[dict[str, object]]]] = {}
@@ -234,12 +236,14 @@ def calculate_paired_difference(
             pair["left_outcome"], pair["right_outcome"] = left, right
             if left["execution_state"] == "UNAVAILABLE" or right["execution_state"] == "UNAVAILABLE":
                 return unavailable_projection(plan["calculator_key"], plan["calculator_version"])
-            for member in (left, right):
-                if member["derivability_state"] == "NOT_DERIVABLE": reason = "MEMBER_NOT_DERIVABLE"; break
-                if member["calculation_state"] == "MISSING": reason = "MEMBER_MISSING"; break
-                if member["calculation_state"] == "NOT_CALCULABLE": reason = "MEMBER_NOT_CALCULABLE"; break
+            for role, member in (("LEFT", left), ("RIGHT", right)):
+                source_reasons = sorted(set(member.get("source_reason_codes", [])))
+                suffix = source_reasons[0] if source_reasons else member.get("reason_code")
+                if member["derivability_state"] == "NOT_DERIVABLE": reason = f"{role}_MEMBER_NOT_DERIVABLE" if exclusion_version else "MEMBER_NOT_DERIVABLE"; break
+                if member["calculation_state"] == "MISSING": reason = f"{role}_MEMBER_MISSING" if exclusion_version else "MEMBER_MISSING"; break
+                if member["calculation_state"] == "NOT_CALCULABLE": reason = (f"{role}_{suffix}" if exclusion_version and suffix else f"{role}_MEMBER_NOT_CALCULABLE" if exclusion_version else "MEMBER_NOT_CALCULABLE"); break
                 if member["calculation_state"] != "CALCULATED" or member.get("decimal_value") is None:
-                    reason = "MEMBER_OUTPUT_TYPE_MISMATCH"; break
+                    reason = f"{role}_MEMBER_OUTPUT_TYPE_MISMATCH" if exclusion_version else "MEMBER_OUTPUT_TYPE_MISMATCH"; break
             if reason is None:
                 pair["left_decimal"], pair["right_decimal"] = left["decimal_value"], right["decimal_value"]
                 pair["difference"] = decimal_difference(left["decimal_value"], right["decimal_value"], direction)
@@ -252,9 +256,9 @@ def calculate_paired_difference(
     negative = sum(Decimal(value) < 0 for value in valid_differences)
     zero = sum(Decimal(value) == 0 for value in valid_differences)
     positive = sum(Decimal(value) > 0 for value in valid_differences)
-    reason = invalid[0]["reason_code"] if invalid else ("ZERO_VALID_PAIRS" if not valid_differences else None)
+    reason = ("ZERO_ELIGIBLE_PAIRS" if exclusion_version else "ZERO_VALID_PAIRS") if not valid_differences else (None if exclusion_version else (invalid[0]["reason_code"] if invalid else None))
     return {
-        "projection_type": "PAIRED_DIFFERENCE_SUMMARY", "projection_version": "1",
+        "projection_type": "PAIRED_DIFFERENCE_SUMMARY", "projection_version": "2" if exclusion_version else "1",
         "execution_state": "AVAILABLE", "derivability_state": "DERIVABLE",
         "calculation_state": "NOT_CALCULABLE" if reason else "CALCULATED",
         "reason_code": reason,
@@ -265,6 +269,8 @@ def calculate_paired_difference(
         "condition_bindings": sorted(plan["condition_bindings"], key=lambda item: item["comparison_role"]),
         "difference_direction": direction,
         "registered_population_count": len(protocol["planned_runs"]),
+        "total_registered_pair_count": len(pairs),
+        "eligible_pair_count": len(valid_differences), "excluded_pair_count": len(invalid),
         "complete_pair_count": len(pairs) - len(invalid), "incomplete_pair_count": len(invalid),
         "valid_numeric_pair_count": len(valid_differences),
         "negative_difference_count": negative, "zero_difference_count": zero,

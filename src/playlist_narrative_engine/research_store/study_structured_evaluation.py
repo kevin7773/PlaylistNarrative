@@ -114,6 +114,24 @@ def validate_structured_measurements(
                 issues.append(StructuredEvaluationIssue("VOCABULARY_TERM_UNREGISTERED", subject_key, measurement_key, "term is not in the frozen vocabulary"))
         if definition["evidence_required"] and not item.get("evidence"):
             issues.append(StructuredEvaluationIssue("EVIDENCE_REQUIRED", subject_key, measurement_key, "registered measurement requires governed evidence"))
+        if (
+            plan["subject_selector"]["evaluator_key"] == "selector.exact_displayed_title_artist"
+            and plan["subject_selector"]["evaluator_version"] == "1"
+        ):
+            evidence_pairs = {
+                (str(evidence.get("evidence_role")), evidence.get("evidence_link_field"))
+                for evidence in item.get("evidence", [])
+            }
+            required_pairs = {
+                ("SUBJECT_IDENTITY", "title"),
+                ("SUBJECT_IDENTITY", "artist"),
+                ("OBSERVED_VALUE", "explicit_flag"),
+            }
+            if not required_pairs <= evidence_pairs:
+                issues.append(StructuredEvaluationIssue(
+                    "TARGET_EVIDENCE_INCOMPLETE", subject_key, measurement_key,
+                    "target observation requires exact title and artist identity evidence plus explicit_flag observed-value evidence",
+                ))
     if structural_keys and experiment is None:
         issues.append(StructuredEvaluationIssue("DERIVATION_CONTEXT_MISSING", None, None, "governed Experiment input is required for structural derivation"))
     elif experiment is not None:
@@ -209,6 +227,18 @@ def evaluate_structured_constraint(
     registry: StudyEvaluatorRegistry = DEFAULT_STUDY_EVALUATOR_REGISTRY,
 ) -> dict[str, object]:
     subjects = enumerate_evaluation_subjects(plan, experiment, constraint_id, registry)
+    aggregate_identity = _identity(EvaluatorRole.AGGREGATE_EVALUATOR, plan["aggregate_evaluator"])
+    if aggregate_identity == EvaluatorIdentity(
+        EvaluatorRole.AGGREGATE_EVALUATOR, "aggregate.unique_selected_subject", "1"
+    ) and len(subjects) != 1:
+        aggregate = calculate_aggregate_constraint_result(
+            plan, subjects if len(subjects) > 1 else [],
+            supplied_aggregate_status=supplied_aggregate_status, registry=registry
+        )
+        return {
+            "complete": True, "subjects": subjects, "issues": [], "measurements": [],
+            "subject_results": [], "aggregate_constraint_result": aggregate,
+        }
     validation = validate_structured_measurements(plan, subjects, measurements, experiment)
     if not validation["valid"]:
         return {"complete": False, "subjects": subjects, "issues": validation["issues"], "measurements": validation["measurements"], "subject_results": [], "aggregate_constraint_result": None}

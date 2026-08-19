@@ -38,6 +38,18 @@
       valueType: "TEXT",
       defaultOutcomeInput: "STRUCTURED_SUBJECT_RESULTS",
     }),
+    target_explicit: Object.freeze({
+      label: "Target-specific displayed Explicit observation",
+      subject: "PLACEMENT_FIELD",
+      field: "explicit_flag",
+      interpretation: "FIELD_PREDICATE",
+      selector: ["selector.exact_displayed_title_artist", "1"],
+      evaluator: ["subject.boolean_equals", "1"],
+      aggregate: ["aggregate.unique_selected_subject", "1"],
+      authority: "DIRECT_OBSERVATION",
+      valueType: "BOOLEAN",
+      defaultOutcomeInput: "CONSTRAINT_RESULTS",
+    }),
   });
 
   const ref = ([evaluator_key, evaluator_version]) => ({evaluator_key, evaluator_version});
@@ -103,7 +115,7 @@
       value_type: template.valueType,
       required: true,
       evidence_required: template.authority !== "STRUCTURAL_DERIVATION",
-      unavailable_policy: "MUST_HAVE_VALUE",
+      unavailable_policy: config.template === "target_explicit" ? "MAY_BE_UNAVAILABLE" : "MUST_HAVE_VALUE",
     };
     if (template.derivation) {
       measurement.derivation_key = template.derivation[0];
@@ -119,6 +131,10 @@
         {parameter_key: "all_fail_status", value_type: "TEXT", text_value: "FAIL"},
         {parameter_key: "unknown_status", value_type: "TEXT", text_value: "UNKNOWN"},
       );
+    } else if (config.template === "target_explicit") {
+      parameters.push({parameter_key: "expected", value_type: "BOOLEAN", boolean_value: false});
+      parameters.push({parameter_key: "display_artist", value_type: "TEXT", text_value: config.displayArtist});
+      parameters.push({parameter_key: "match_semantics", value_type: "TEXT", text_value: "EXACT_CODEPOINT_V1"});
     } else {
       parameters.push({parameter_key: "token", value_type: "TEXT", text_value: config.token});
       parameters.push({parameter_key: "case_sensitive", value_type: "BOOLEAN", boolean_value: false});
@@ -139,7 +155,9 @@
       allow_partial_subject_status: false,
       measurement_definitions: [measurement],
       parameters,
-      vocabulary_terms: [],
+      vocabulary_terms: config.template === "target_explicit" ? config.acceptedDisplayTitles.map((title, index) => ({
+        vocabulary_key: "accepted_display_titles", term_key: `title-${index + 1}`, term_definition: title,
+      })) : [],
     };
   }
 
@@ -153,6 +171,9 @@
     } else if (config.template === "displayed_explicit") {
       text = `Every displayed track must have Explicit designation ${config.expectedExplicit ? "present" : "absent"}.`;
       evaluation = `Evaluate each governed displayed explicit_flag against ${Boolean(config.expectedExplicit)}.`;
+    } else if (config.template === "target_explicit") {
+      text = `Observe the displayed Explicit state of the unique placement exactly matching one registered displayed title representation and the registered displayed artist.`;
+      evaluation = `Select exact case-, whitespace-, punctuation-, and Unicode-sensitive displayed title/artist matches without normalization. Code unique non-Explicit as PASS, unique Explicit as FAIL, and absence, ambiguity, or unavailable observation as UNKNOWN.`;
     } else {
       text = `Every displayed track title must contain standalone word ${JSON.stringify(config.token)}.`;
       evaluation = `Evaluate each governed display_title using the registered standalone-token evaluator.`;
@@ -161,7 +182,7 @@
       constraint_key: config.constraintKey || `${prefix}-${config.template.replaceAll("_", "-")}`,
       constraint_type: config.template,
       constraint_text: text,
-      is_hard_constraint: true,
+      is_hard_constraint: config.template !== "target_explicit",
       evaluation_rule: evaluation,
       permitted_result_provenance: "DERIVED_QUERY_RESULT",
       unknown_handling: "UNKNOWN remains UNKNOWN and is governed by the registered outcome policy.",
@@ -199,14 +220,14 @@
     };
   }
 
-  function analysisPlan(config) {
+  function analysisPlan(config, pairwiseExclusion = false) {
     return {
       analysis_key: "paired-compliance-difference",
       calculator_key: "analysis.paired_difference",
-      calculator_version: "1",
+      calculator_version: pairwiseExclusion ? "2" : "1",
       population_scope: "ALL_REGISTERED_PLANNED_RUNS",
       output_shape_key: "PAIRED_DIFFERENCE_SUMMARY",
-      output_shape_version: "1",
+      output_shape_version: pairwiseExclusion ? "2" : "1",
       dimensions: [
         {dimension_role: "MATCH", dimension_key: "BLOCK", ordinal: 1},
         {dimension_role: "MATCH", dimension_key: "REPLICATE", ordinal: 2},
@@ -217,8 +238,8 @@
       ],
       parameters: [
         textParameter("difference_direction", config.direction),
-        textParameter("pair_completeness", "REQUIRED"),
-        textParameter("missing_policy", "NOT_CALCULABLE"),
+        textParameter("pair_completeness", pairwiseExclusion ? "EXCLUDE_NON_NUMERIC_PAIR" : "REQUIRED"),
+        textParameter("missing_policy", pairwiseExclusion ? "EXCLUDE_PAIR_AND_REPORT" : "NOT_CALCULABLE"),
       ],
     };
   }
@@ -256,6 +277,14 @@
       if (!supportedAggregation.has(aggregation)) throw new Error(`Constraint ${item.constraintKey} has an unsupported aggregation choice.`);
       if (aggregation === "ANY_VIOLATION_FAILS" && item.template !== "displayed_explicit") {
         throw new Error("Any-violation-fails aggregation is supported only for displayed Explicit constraints.");
+      }
+      if (item.template === "target_explicit") {
+        const titles = Array.isArray(item.acceptedDisplayTitles) ? item.acceptedDisplayTitles : [];
+        if (!titles.length || titles.some(title => typeof title !== "string" || title.length === 0)) {
+          throw new Error(`Constraint ${item.constraintKey} requires one or more exact displayed title representations.`);
+        }
+        if (new Set(titles).size !== titles.length) throw new Error(`Constraint ${item.constraintKey} exact displayed title representations must be unique.`);
+        if (typeof item.displayArtist !== "string" || item.displayArtist.length === 0) throw new Error(`Constraint ${item.constraintKey} requires an exact displayed artist.`);
       }
       if (item.primary && item.applicability !== "BOTH") {
         throw new Error("The primary outcome constraint must apply to both compared conditions.");
@@ -334,9 +363,11 @@
     const primaryConstraintKeys = primaryIntents.map(item => item.constraint.constraint_key);
     const primaryOutcomeKind = primaryIntents[0].intent.aggregateBehavior === "ANY_VIOLATION_FAILS"
       ? "CONSTRAINT_RESULTS"
+      : primaryIntents[0].intent.template === "target_explicit" ? "CONSTRAINT_RESULTS"
       : config.outcomeKind;
+    const pairwiseExclusion = primaryIntents[0].intent.template === "target_explicit";
     const outcome = outcomePlan(
-      {...config, outcomeKind: primaryOutcomeKind},
+      {...config, outcomeKind: primaryOutcomeKind, unknownPolicy: pairwiseExclusion ? "NOT_CALCULABLE" : config.unknownPolicy},
       primaryTemplate,
       primaryConstraintKeys,
     );
@@ -377,14 +408,14 @@
           analysis_population: "All registered planned runs paired by block and replicate.",
           comparison_definition: "Compare the explicitly bound LEFT and RIGHT conditions.",
           aggregation_rule: "Use the registered paired-difference calculator only.",
-          exclusion_rule: "Required incomplete pairs are NOT_CALCULABLE without imputation.",
+          exclusion_rule: pairwiseExclusion ? "Pairs with a non-numeric member are excluded and reported; zero eligible pairs is NOT_CALCULABLE." : "Required incomplete pairs are NOT_CALCULABLE without imputation.",
           reporting_rule: "Descriptive registered values only; no significance or causal claim.",
         }],
         planned_runs: runs,
         execution_contract: {
           contract_version: "1",
           outcome_calculation_plans: [outcome],
-          analysis_calculation_plans: [analysisPlan(config)],
+          analysis_calculation_plans: [analysisPlan(config, pairwiseExclusion)],
         },
       },
     };
