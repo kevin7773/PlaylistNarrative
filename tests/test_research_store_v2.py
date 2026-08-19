@@ -172,9 +172,9 @@ def test_deterministic_populated_v1_to_v3_migration(tmp_path) -> None:
         connection.execute(text("INSERT INTO experiments VALUES (7, '2026-01-02', 'Prompt', NULL, 'Maestro Beta', 'Title', 'Desc', NULL, 1, 0, NULL, NULL)"))
         connection.execute(text("INSERT INTO tracks VALUES (9, 'Raw', 'Artist', NULL, NULL)"))
         connection.execute(text("INSERT INTO experiment_tracks VALUES (7, 9, 1, 'Raw', 'Artist', NULL, NULL, NULL)"))
-    assert migrate_research_database(engine) == 8
-    assert migrate_research_database(engine) == 8
-    assert get_schema_version(engine) == 8
+    assert migrate_research_database(engine) == 9
+    assert migrate_research_database(engine) == 9
+    assert get_schema_version(engine) == 9
     sessions = make_research_session_factory(engine)
     with sessions() as session:
         result = ResearchRepository(session).get_experiment(7)

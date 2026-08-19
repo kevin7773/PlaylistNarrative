@@ -36,6 +36,7 @@ from playlist_narrative_engine.research_store.service import (
     initialize_research_store,
     open_research_store_service,
 )
+from playlist_narrative_engine.research_store.repository import ResearchRepository
 
 
 def _database_url(tmp_path) -> str:
@@ -1292,6 +1293,52 @@ def test_local_http_surface_stages_validates_and_explicitly_ingests(tmp_path) ->
             inserted = json.load(response)
         assert inserted["record_id"] == 1
         assert inserted["record"]["prompt"] == "Exact prompt"
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+
+
+def test_unexpected_ingest_failure_returns_structured_500_and_durable_traceback(
+    tmp_path, monkeypatch
+) -> None:
+    database_url = _database_url(tmp_path)
+    initialize_research_store(database_url)
+    error_log = tmp_path / "workbench-errors.log"
+
+    def fail_after_parent_flush(self, *args, **kwargs):
+        raise RuntimeError("synthetic persistence failure")
+
+    monkeypatch.setattr(ResearchRepository, "_insert_sources", fail_after_parent_flush)
+    server = MaestroWorkbenchServer(
+        ("127.0.0.1", 0), database_url=database_url,
+        staging_root=tmp_path / "staging", error_log_path=error_log,
+    )
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        request = Request(
+            f"http://127.0.0.1:{server.server_port}/api/ingest",
+            data=json.dumps({
+                "kind": "historical_experiment",
+                "proposal": {"source_system": "Maestro Beta", "tracks": []},
+            }).encode("utf-8"),
+            headers={"Content-Type": "application/json"}, method="POST",
+        )
+        with pytest.raises(HTTPError) as failure:
+            urlopen(request)
+        assert failure.value.code == 500
+        body = json.load(failure.value)
+        assert body["error"] == (
+            "Unexpected Workbench persistence/application failure. No governed write was completed."
+        )
+        assert len(body["request_id"]) == 32
+        logged = error_log.read_text(encoding="utf-8")
+        assert body["request_id"] in logged
+        assert "RuntimeError: synthetic persistence failure" in logged
+        assert "/api/ingest" in logged
+        with open_research_store_service(database_url) as service:
+            assert service.recurring_tracks(limit=1) == []
     finally:
         server.shutdown()
         server.server_close()

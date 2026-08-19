@@ -5,10 +5,19 @@ import subprocess
 from copy import deepcopy
 from pathlib import Path
 
+from sqlalchemy import func, select
+
 from playlist_narrative_engine.research_store.study_calculators import calculate_paired_difference
 from playlist_narrative_engine.research_store.study_evaluator_registry import DEFAULT_STUDY_EVALUATOR_REGISTRY
 from playlist_narrative_engine.research_store.study_protocol import protocol_registration_hash
 from playlist_narrative_engine.research_store.study_schemas import StudyRegistrationInput
+from playlist_narrative_engine.research_store.study_schemas import StructuredStudyEvaluationInput
+from playlist_narrative_engine.research_store.repository import ResearchRepository
+from playlist_narrative_engine.research_store.schemas import ExperimentInput
+from playlist_narrative_engine.research_store.service import ResearchStoreService
+from playlist_narrative_engine.research_store.models import (
+    ConstraintEvaluationMeasurementEvidence, Experiment, StudyRunRealization,
+)
 from playlist_narrative_engine.research_store.study_execution_registry import DEFAULT_STUDY_EXECUTION_REGISTRY
 from playlist_narrative_engine.research_store.study_structured_evaluation import (
     enumerate_evaluation_subjects,
@@ -204,6 +213,64 @@ def test_guided_target_protocol_is_authoritative_roundtrippable_and_hashed():
     assert protocol_registration_hash(draft["study_key"], draft["title"], parsed.protocol) != protocol_registration_hash(
         changed["study_key"], changed["title"], StudyRegistrationInput.model_validate(changed).protocol
     )
+
+
+def test_nc4_shaped_atomic_realization_accepts_field_specific_identity_evidence(research_session):
+    draft = _compile(_builder_config())
+    service = ResearchStoreService(ResearchRepository(research_session))
+    study = service.register_study(StudyRegistrationInput.model_validate(draft))
+    protocol = service.get_protocol_version(study["id"], 1)
+    run = protocol["planned_runs"][0]
+    definitions = {row["constraint_key"]: row for row in protocol["constraint_definitions"]}
+    applicable = [definitions[key] for key in run["applicable_constraint_keys"]]
+    proposal = ExperimentInput.model_validate({
+        "prompt": run["planned_prompt_text"], "source_system": run["planned_source_system"],
+        "tracks": [{
+            "position": 1, "title": "Cake By The Ocean", "artist": "DNCE", "explicit_flag": False,
+            "evidence": [
+                {"source_key": "screen", "field_name": "title"},
+                {"source_key": "screen", "field_name": "artist"},
+                {"source_key": "screen", "field_name": "explicit_flag"},
+            ],
+        }] + [{"position": index, "title": f"Other {index}", "artist": f"Artist {index}"} for index in range(2, 11)],
+        "evidence_sources": [{"source_key": "screen", "source_type": "SCREENSHOT", "source_reference": "screen"}],
+        "constraints": [{
+            "study_constraint_definition_id": row["id"], "constraint_type": row["constraint_type"],
+            "constraint_text": row["constraint_text"], "is_hard_constraint": row["is_hard_constraint"],
+        } for row in applicable],
+    })
+    payload_constraints = []
+    for row in applicable:
+        if row["constraint_key"] == "target-state":
+            payload_constraints.append({
+                "study_constraint_definition_id": row["id"],
+                "subjects": [{
+                    "subject_kind": "PLACEMENT_FIELD", "enumeration_ordinal": 1,
+                    "track_observed_ordinal": 1, "governed_field": "explicit_flag",
+                    "measurements": [{
+                        "measurement_key": "observed", "authority_kind": "DIRECT_OBSERVATION",
+                        "value_type": "BOOLEAN", "boolean_value": False, "recorded_by": "operator",
+                        "evidence": [{
+                            **item, "provenance_type": "DIRECT_OBSERVATION", "support_status": "FULL",
+                        } for item in _measurement({"subject_key": "unused"}, False)["evidence"]],
+                    }],
+                }],
+            })
+        else:
+            payload_constraints.append({
+                "study_constraint_definition_id": row["id"],
+                "subjects": [{"subject_kind": "RUN", "enumeration_ordinal": 1, "measurements": []}],
+            })
+    realized = service.realize_structured_study_experiment(
+        run["id"], proposal,
+        StructuredStudyEvaluationInput.model_validate({"constraints": payload_constraints}),
+    )
+    assert realized["disposition"] == "EXPERIMENT_RECORDED"
+    assert research_session.scalar(select(func.count()).select_from(Experiment)) == 1
+    assert research_session.scalar(select(func.count()).select_from(StudyRunRealization)) == 1
+    roles = list(research_session.scalars(select(ConstraintEvaluationMeasurementEvidence.evidence_role)))
+    assert roles.count("SUBJECT_IDENTITY") == 2
+    assert roles.count("OBSERVED_VALUE") == 1
 
 
 def test_guided_and_worksheet_ui_state_the_scientific_boundary():

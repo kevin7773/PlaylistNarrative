@@ -11,7 +11,7 @@ from playlist_narrative_engine.research_store.models import (
     SchemaVersion, Track, TracklistEvidenceSegment,
 )
 
-CURRENT_SCHEMA_VERSION = 8
+CURRENT_SCHEMA_VERSION = 9
 
 
 def get_schema_version(engine: Engine) -> int:
@@ -502,9 +502,11 @@ def _create_p7_runtime_triggers(connection) -> None:
         "JOIN evidence_links el ON el.id=NEW.evidence_link_id "
         "WHERE m.id=NEW.measurement_id AND s.subject_kind='PLACEMENT_FIELD' AND "
         "(el.experiment_track_id IS NULL OR el.experiment_track_id != s.experiment_track_id OR "
-        "NOT ((s.governed_field='display_title' AND el.field_name='title') OR "
+        "(NEW.evidence_role='SUBJECT_IDENTITY' AND el.field_name NOT IN ('title','artist')) OR "
+        "(NEW.evidence_role!='SUBJECT_IDENTITY' AND NOT ("
+        "(s.governed_field='display_title' AND el.field_name='title') OR "
         "(s.governed_field='display_artist' AND el.field_name='artist') OR "
-        "(s.governed_field=el.field_name)))) "
+        "(s.governed_field=el.field_name))))) "
         "THEN RAISE(ABORT, 'field evidence link does not match evaluation subject') END; "
         "SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM constraint_evaluation_measurements m "
         "JOIN study_constraint_measurement_definitions md ON md.id=m.measurement_definition_id "
@@ -601,6 +603,18 @@ def _migrate_v7_to_v8(engine: Engine) -> None:
         ))
 
 
+def _migrate_v8_to_v9(engine: Engine) -> None:
+    """Permit exact-placement title/artist SUBJECT_IDENTITY evidence."""
+    with engine.begin() as connection:
+        connection.exec_driver_sql(
+            "DROP TRIGGER IF EXISTS constraint_evaluation_evidence_validate_insert"
+        )
+        _create_p7_runtime_triggers(connection)
+        connection.execute(SchemaVersion.__table__.insert().values(
+            version=9, applied_at=datetime.now(timezone.utc)
+        ))
+
+
 def migrate_research_database(engine: Engine) -> int:
     current = get_schema_version(engine)
     if current > CURRENT_SCHEMA_VERSION:
@@ -613,9 +627,9 @@ def migrate_research_database(engine: Engine) -> int:
             _create_study_immutability_triggers(connection)
             _create_p7_runtime_triggers(connection)
             connection.execute(SchemaVersion.__table__.insert().values(
-                version=8, applied_at=datetime.now(timezone.utc)
+                version=9, applied_at=datetime.now(timezone.utc)
             ))
-        return 8
+        return 9
     if current == 1:
         _migrate_v1_to_v2(engine)
         current = 2
@@ -636,5 +650,8 @@ def migrate_research_database(engine: Engine) -> int:
         current = 7
     if current == 7:
         _migrate_v7_to_v8(engine)
-        return 8
+        current = 8
+    if current == 8:
+        _migrate_v8_to_v9(engine)
+        return 9
     return current

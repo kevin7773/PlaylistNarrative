@@ -325,6 +325,47 @@ def test_mismatched_field_link_and_other_experiment_evidence_are_rejected(resear
     research_session.rollback()
 
 
+def test_placement_field_identity_evidence_allows_title_artist_only_on_exact_placement(research_session) -> None:
+    _, _, experiment_id, constraints, track, sources, links, definitions = _setup(research_session)
+    by_field = {link.field_name: link for link in links}
+    subject = _subject(
+        research_session, experiment_id=experiment_id,
+        constraint=constraints["field-constraint"], kind="PLACEMENT_FIELD",
+        track_id=track.id, field="display_title",
+    )
+    observed = _measurement(
+        research_session, subject, definitions["field-constraint"]["observed"],
+        text_value="Track",
+    )
+    research_session.add_all([
+        ConstraintEvaluationMeasurementEvidence(
+            measurement_id=observed.id, evidence_source_id=sources["screenshot"].id,
+            evidence_link_id=by_field[field].id, evidence_role="SUBJECT_IDENTITY",
+            provenance_type="DIRECT_OBSERVATION", support_status="FULL",
+        ) for field in ("title", "artist")
+    ])
+    research_session.commit()
+
+    second_track = research_session.scalar(select(ExperimentTrack).where(
+        ExperimentTrack.experiment_id == experiment_id, ExperimentTrack.id != track.id
+    ))
+    second_artist = EvidenceLink(
+        evidence_source_id=sources["screenshot"].id,
+        experiment_track_id=second_track.id, field_name="artist",
+        provenance_type="DIRECT_OBSERVATION", support_status="FULL",
+    )
+    research_session.add(second_artist)
+    research_session.commit()
+    research_session.add(ConstraintEvaluationMeasurementEvidence(
+        measurement_id=observed.id, evidence_source_id=sources["screenshot"].id,
+        evidence_link_id=second_artist.id, evidence_role="SUBJECT_IDENTITY",
+        provenance_type="DIRECT_OBSERVATION", support_status="FULL",
+    ))
+    with pytest.raises(IntegrityError, match="does not match evaluation subject"):
+        research_session.commit()
+    research_session.rollback()
+
+
 def test_subject_result_storage_is_exact_immutable_and_readable(research_session) -> None:
     service, _, experiment_id, constraints, track, *_ = _setup(research_session)
     subject = _subject(research_session, experiment_id=experiment_id, constraint=constraints["field-constraint"], kind="PLACEMENT_FIELD", track_id=track.id, field="display_title")

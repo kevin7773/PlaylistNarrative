@@ -158,12 +158,15 @@ def test_registered_disposition_policy_is_immutable(research_session):
 
 def test_v7_to_v8_migration_is_additive_and_creates_no_policy_rows(tmp_path):
     engine = make_research_engine(f"sqlite:///{(tmp_path / 'v7.db').as_posix()}")
-    assert migrate_research_database(engine) == 8
+    assert migrate_research_database(engine) == 9
     with engine.begin() as connection:
         connection.exec_driver_sql("DROP TABLE study_outcome_disposition_policies")
-        connection.execute(text("UPDATE schema_version SET version=7 WHERE version=8"))
+        connection.execute(text("DELETE FROM schema_version WHERE version=9"))
+        connection.execute(text(
+            "INSERT INTO schema_version(version, applied_at) VALUES (7, CURRENT_TIMESTAMP)"
+        ))
     assert get_schema_version(engine) == 7
-    assert migrate_research_database(engine) == 8
+    assert migrate_research_database(engine) == 9
     assert "study_outcome_disposition_policies" in inspect(engine).get_table_names()
     factory = make_research_session_factory(engine)
     with factory() as session:

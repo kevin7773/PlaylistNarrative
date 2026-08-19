@@ -9,6 +9,11 @@ import os
 import secrets
 import socket
 import sys
+import tempfile
+import threading
+import traceback
+import uuid
+from datetime import datetime, timezone
 from urllib.parse import quote
 from dataclasses import dataclass
 from http import HTTPStatus
@@ -101,6 +106,7 @@ class MaestroWorkbenchServer(ThreadingHTTPServer):
         access_token: str | None = None,
         launch_mode: str = "unknown",
         screenshot_extractor: ScreenshotExtractor | None = None,
+        error_log_path: Path | None = None,
     ) -> None:
         super().__init__(address, MaestroWorkbenchHandler)
         self.database_url = database_url
@@ -109,6 +115,18 @@ class MaestroWorkbenchServer(ThreadingHTTPServer):
         self.launch_mode = launch_mode
         self.screenshot_extractor = screenshot_extractor
         self.staged_paths: set[str] = set()
+        self.error_log_path = error_log_path or _default_error_log_path()
+        self._error_log_lock = threading.Lock()
+
+    def log_unexpected_exception(self, request_id: str, method: str, path: str) -> None:
+        entry = (
+            f"[{datetime.now(timezone.utc).isoformat()}] request_id={request_id} "
+            f"pid={os.getpid()} method={method} path={path}\n{traceback.format_exc()}\n"
+        )
+        with self._error_log_lock:
+            self.error_log_path.parent.mkdir(parents=True, exist_ok=True)
+            with self.error_log_path.open("a", encoding="utf-8") as stream:
+                stream.write(entry)
 
 
 class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
@@ -292,6 +310,16 @@ class MaestroWorkbenchHandler(BaseHTTPRequestHandler):
             self._send_json(HTTPStatus.BAD_GATEWAY, {"error": str(exc)})
         except (ValueError, json.JSONDecodeError) as exc:
             self._send_json(HTTPStatus.BAD_REQUEST, {"error": str(exc)})
+        except Exception:
+            request_id = uuid.uuid4().hex
+            self.server.log_unexpected_exception(request_id, self.command, path)
+            try:
+                self._send_json(HTTPStatus.INTERNAL_SERVER_ERROR, {
+                    "error": "Unexpected Workbench persistence/application failure. No governed write was completed.",
+                    "request_id": request_id,
+                })
+            except (BrokenPipeError, ConnectionError):
+                pass
 
     def _require_access(self) -> None:
         expected = self.server.access_token
@@ -438,6 +466,15 @@ def _content_type_for(path: Path) -> str:
     return guessed or "application/octet-stream"
 
 
+def _default_error_log_path() -> Path:
+    configured = os.environ.get("PNE_MAESTRO_WORKBENCH_ERROR_LOG")
+    if configured:
+        return Path(configured).expanduser().resolve()
+    local_data = os.environ.get("LOCALAPPDATA")
+    root = Path(local_data) if local_data else Path(tempfile.gettempdir())
+    return root / "PlaylistNarrativeEngine" / "MaestroWorkbench" / "errors.log"
+
+
 def _required_text(document: dict[str, Any], field: str) -> str:
     value = document.get(field)
     if not isinstance(value, str) or not value:
@@ -450,6 +487,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--database-url")
     parser.add_argument("--staging-root", type=Path)
+    parser.add_argument("--error-log", type=Path)
     parser.add_argument(
         "--lan",
         action="store_true",
@@ -536,6 +574,7 @@ def main() -> None:
             staging_root=args.staging_root,
             access_token=mode.access_token,
             launch_mode=mode.name,
+            error_log_path=args.error_log,
         )
     except OSError as exc:
         if getattr(exc, "winerror", None) == 10048 or exc.errno in {48, 98, 10048}:
@@ -548,6 +587,7 @@ def main() -> None:
     identity = workbench_runtime_identity(launch_mode=mode.name)
     for line in startup_lines(mode, server.server_port, addresses, identity):
         print(line)
+    print(f"Unexpected-error log: {server.error_log_path}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

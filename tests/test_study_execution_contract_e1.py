@@ -292,7 +292,7 @@ def test_schema_v8_has_only_protocol_time_execution_tables_and_no_legacy_rows(re
 
 def test_v6_to_v7_migration_is_additive_and_creates_no_legacy_contract(tmp_path):
     engine = make_research_engine(f"sqlite:///{(tmp_path / 'representative-v6.db').as_posix()}")
-    assert migrate_research_database(engine) == 8
+    assert migrate_research_database(engine) == 9
     factory = make_research_session_factory(engine)
     with factory() as session:
         service = _service(session)
@@ -316,12 +316,12 @@ def test_v6_to_v7_migration_is_additive_and_creates_no_legacy_contract(tmp_path)
     with engine.begin() as connection:
         for table in e1_tables:
             connection.exec_driver_sql(f"DROP TABLE {table}")
-        connection.execute(text("DELETE FROM schema_version WHERE version IN (7, 8)"))
+            connection.execute(text("DELETE FROM schema_version WHERE version IN (7, 8, 9)"))
         connection.execute(text(
             "INSERT INTO schema_version(version, applied_at) VALUES (6, CURRENT_TIMESTAMP)"
         ))
     assert get_schema_version(engine) == 6
-    assert migrate_research_database(engine) == 8
+    assert migrate_research_database(engine) == 9
     with engine.connect() as connection:
         assert connection.scalar(text("SELECT COUNT(*) FROM studies")) == 1
         assert connection.scalar(text("SELECT registration_hash FROM study_protocol_versions")) == stored_hash

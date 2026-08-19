@@ -241,7 +241,7 @@ def test_legacy_registration_has_no_implicit_or_default_plan(research_session) -
 
 def test_v5_to_latest_is_additive_and_preserves_existing_governed_rows(tmp_path) -> None:
     engine = make_research_engine(f"sqlite:///{(tmp_path / 'representative-v5.db').as_posix()}")
-    assert migrate_research_database(engine) == 8
+    assert migrate_research_database(engine) == 9
     factory = make_research_session_factory(engine)
     with factory() as session:
         service = ResearchStoreService(ResearchRepository(session))
@@ -292,12 +292,12 @@ def test_v5_to_latest_is_additive_and_preserves_existing_governed_rows(tmp_path)
             "study_constraint_evaluation_plans",
         ):
             connection.exec_driver_sql(f"DROP TABLE {table}")
-        connection.execute(text("DELETE FROM schema_version WHERE version IN (6, 7, 8)"))
+            connection.execute(text("DELETE FROM schema_version WHERE version IN (6, 7, 8, 9)"))
         connection.execute(text(
             "INSERT OR IGNORE INTO schema_version(version, applied_at) VALUES (5, CURRENT_TIMESTAMP)"
         ))
     assert get_schema_version(engine) == 5
-    assert migrate_research_database(engine) == 8
+    assert migrate_research_database(engine) == 9
     with engine.connect() as connection:
         after = {
             table: connection.scalar(text(f"SELECT COUNT(*) FROM {table}"))
