@@ -2,7 +2,7 @@
 
 Phase 5B implements the pure observer proposed by
 [Phase 5A](playlist_journey_evaluation.md). It reads a construction result, the
-journey plan, and the exact construction policy. It never changes the playlist,
+authoritative journey-plan artifact, and the exact construction policy. It never changes the playlist,
 rescans candidates, or invokes scoring and selection.
 
 ## Public interface
@@ -10,6 +10,7 @@ rescans candidates, or invokes scoring and selection.
 `PlaylistJourneyEvaluator.evaluate(...)` returns an immutable
 `EvaluationReport` containing:
 
+- an immutable production-time input binding;
 - evaluation disposition and source construction status;
 - ordered objective and evidence metrics;
 - per-phase diagnostics;
@@ -23,20 +24,27 @@ only frozen nested models and tuples.
 
 ## Serialization contract
 
-Evaluation JSON is a durable public artifact beginning at schema version `1.0`.
+Evaluation JSON is a durable public artifact. Schema version `2.0` adds the
+input binding while preserving every schema-`1.0` metric calculation and
+applicability rule. The binding records the canonical `ConstructionResult`
+digest, exact `JourneyPlanArtifact` identity and digest, and canonical
+`ConstructionPolicy` digest when evaluation occurs. A future finalizer must
+consume this binding rather than reconstruct correspondence from metric values.
+
 The top-level field order is:
 
 1. `schema_version`;
-2. `disposition`;
-3. `construction_status`;
-4. `metrics`;
-5. `phase_diagnostics`;
-6. `transition_series`;
-7. `energy_series`;
-8. `lyrical_distraction_series`;
-9. `discovery_positions`;
-10. `role_positions`;
-11. `issues`.
+2. `input_binding`;
+3. `disposition`;
+4. `construction_status`;
+5. `metrics`;
+6. `phase_diagnostics`;
+7. `transition_series`;
+8. `energy_series`;
+9. `lyrical_distraction_series`;
+10. `discovery_positions`;
+11. `role_positions`;
+12. `issues`.
 
 Enum wire values are lowercase snake-case strings documented by their public
 schema. Unknown fields are rejected.

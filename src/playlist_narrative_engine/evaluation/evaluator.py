@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 from collections.abc import Callable, Sequence
 
 from playlist_narrative_engine.evaluation.schemas import (
@@ -7,6 +8,7 @@ from playlist_narrative_engine.evaluation.schemas import (
     EvaluationDisposition,
     EvaluationIssue,
     EvaluationIssueSeverity,
+    EvaluationInputBinding,
     EvaluationMetric,
     EvaluationReport,
     EvidenceSource,
@@ -15,8 +17,15 @@ from playlist_narrative_engine.evaluation.schemas import (
     RolePositions,
     SeriesPoint,
 )
-from playlist_narrative_engine.journey.schemas import JourneyPlan
+from playlist_narrative_engine.journey.schemas import JourneyPlan, JourneyPlanArtifact
+from playlist_narrative_engine.journey.serialization import serialize_journey_plan_artifact
+from playlist_narrative_engine.sequencing.canonical import (
+    construction_policy_sha256,
+    construction_result_matches_evaluation_inputs,
+    construction_result_sha256,
+)
 from playlist_narrative_engine.sequencing.constructor import (
+    CONSTRUCTION_POLICY_SCHEMA_VERSION,
     ConstructionIssueSeverity,
     ConstructionPolicy,
     ConstructionResult,
@@ -62,16 +71,25 @@ class PlaylistJourneyEvaluator:
         self,
         *,
         construction_result: ConstructionResult,
-        journey_plan: JourneyPlan,
+        journey_plan: JourneyPlanArtifact,
         construction_policy: ConstructionPolicy,
     ) -> EvaluationReport:
+        if not construction_result_matches_evaluation_inputs(
+            construction_result,
+            journey_plan=journey_plan,
+            construction_policy=construction_policy,
+        ):
+            raise ValueError(
+                "evaluation inputs must match construction-time authority"
+            )
+        plan = journey_plan.plan
         tracks = construction_result.tracks
         metrics = self._metrics(
             construction_result,
-            journey_plan,
+            plan,
             construction_policy,
         )
-        phases = self._phase_diagnostics(tracks, journey_plan)
+        phases = self._phase_diagnostics(tracks, plan)
         transition_series = tuple(
             SeriesPoint(
                 position=placement.position,
@@ -113,12 +131,27 @@ class PlaylistJourneyEvaluator:
         )
         issues = self._issues(
             construction_result,
-            journey_plan,
+            plan,
             construction_policy,
             discovery_positions,
         )
         return EvaluationReport(
             schema_version=EVALUATION_SCHEMA_VERSION,
+            input_binding=EvaluationInputBinding(
+                construction_result_schema_version=construction_result.schema_version,
+                construction_result_sha256=construction_result_sha256(
+                    construction_result
+                ),
+                journey_id=journey_plan.journey_id,
+                journey_schema_version=journey_plan.schema_version,
+                journey_artifact_sha256=hashlib.sha256(
+                    serialize_journey_plan_artifact(journey_plan)
+                ).hexdigest(),
+                construction_policy_schema_version=CONSTRUCTION_POLICY_SCHEMA_VERSION,
+                construction_policy_sha256=construction_policy_sha256(
+                    construction_policy
+                ),
+            ),
             disposition=self._disposition(construction_result),
             construction_status=construction_result.summary.status,
             metrics=metrics,

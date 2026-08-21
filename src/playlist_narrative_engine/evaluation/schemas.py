@@ -9,7 +9,7 @@ from playlist_narrative_engine.sequencing.constructor import ConstructionStatus
 from playlist_narrative_engine.sequencing.schemas import TrackRole
 
 
-EVALUATION_SCHEMA_VERSION = "1.0"
+EVALUATION_SCHEMA_VERSION = "2.0"
 
 
 class FrozenEvaluationModel(BaseModel):
@@ -116,8 +116,20 @@ class EvaluationIssue(FrozenEvaluationModel):
     evidence_phases: tuple[str, ...] = ()
 
 
+class EvaluationInputBinding(FrozenEvaluationModel):
+    schema_version: Literal["1.0"] = "1.0"
+    construction_result_schema_version: str
+    construction_result_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    journey_id: str
+    journey_schema_version: str
+    journey_artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    construction_policy_schema_version: str
+    construction_policy_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+
+
 class EvaluationReport(FrozenEvaluationModel):
-    schema_version: Literal["1.0"]
+    schema_version: Literal["2.0"]
+    input_binding: EvaluationInputBinding
     disposition: EvaluationDisposition
     construction_status: ConstructionStatus
     metrics: tuple[EvaluationMetric, ...]

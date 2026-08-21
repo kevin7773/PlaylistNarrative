@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 
 import pytest
 from pydantic import ValidationError
@@ -52,7 +53,9 @@ def candidate(track_id: str, **overrides: object) -> TrackCandidate:
 
 @pytest.fixture
 def journey_plan():
-    return JourneyPlanner().plan_active_focus(ActiveFocusRequest())
+    return journey_artifact(
+        JourneyPlanner().plan_active_focus(ActiveFocusRequest())
+    )
 
 
 @pytest.fixture
@@ -62,7 +65,7 @@ def policy():
 
 def construct(journey_plan, policy, pool, requested_count):
     return SequentialPlaylistConstructor(policy=policy).construct(
-        journey_plan=journey_artifact(journey_plan),
+        journey_plan=journey_plan,
         formed_pool=formed_pool(pool),
         state=ConstructionState(),
         requested_track_count=requested_count,
@@ -151,9 +154,8 @@ def test_empty_complete_claim_is_observed_without_being_trusted(
     journey_plan,
     policy,
 ) -> None:
-    empty = ConstructionResult(
-        formation_trace=formed_pool(()).trace,
-        tracks=(),
+    empty = replace(
+        construct(journey_plan, policy, (), 1),
         summary=ConstructionSummary(
             status=ConstructionStatus.COMPLETE,
             requested_track_count=1,
@@ -192,7 +194,7 @@ def test_resumed_construction_result_is_evaluated_as_complete(
     state = ConstructionState()
     constructor = SequentialPlaylistConstructor(policy=policy)
     authenticated_pool = formed_pool(pool)
-    authenticated_journey = journey_artifact(journey_plan)
+    authenticated_journey = journey_plan
     constructor.construct(
         journey_plan=authenticated_journey,
         formed_pool=authenticated_pool,
@@ -357,9 +359,10 @@ def test_report_json_field_order_and_schema_version_are_stable(
         construction_policy=policy,
     )
     payload = json.loads(report.model_dump_json())
-    assert EVALUATION_SCHEMA_VERSION == "1.0"
+    assert EVALUATION_SCHEMA_VERSION == "2.0"
     assert list(payload) == [
         "schema_version",
+        "input_binding",
         "disposition",
         "construction_status",
         "metrics",
@@ -371,7 +374,7 @@ def test_report_json_field_order_and_schema_version_are_stable(
         "role_positions",
         "issues",
     ]
-    assert payload["schema_version"] == "1.0"
+    assert payload["schema_version"] == "2.0"
     assert payload["disposition"] == "complete_evaluated"
     assert payload["construction_status"] == "complete"
     assert "schema_version" in type(report).model_json_schema()["required"]

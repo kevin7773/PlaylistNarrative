@@ -32,6 +32,11 @@ class ConstructionStatus(StrEnum):
     INFEASIBLE = "infeasible"
 
 
+CONSTRUCTION_BINDING_SCHEMA_VERSION = "1.0"
+CONSTRUCTION_POLICY_SCHEMA_VERSION = "1.0"
+CONSTRUCTION_RESULT_SCHEMA_VERSION = "1.0"
+
+
 class ConstructionIssueSeverity(StrEnum):
     HARD_UNMET = "hard_unmet"
     SOFT_COMPROMISE = "soft_compromise"
@@ -53,6 +58,21 @@ class ConstructionPolicy:
             raise ValueError(
                 "discovery familiarity threshold must be between 0.0 and 1.0"
             )
+
+
+@dataclass(frozen=True)
+class ConstructionInputBinding:
+    schema_version: str
+    journey_id: str
+    journey_schema_version: str
+    journey_artifact_sha256: str
+    formation_parent_schema_version: str
+    formation_parent_sha256: str
+    formation_request_id: str
+    construction_policy_schema_version: str
+    construction_policy_sha256: str
+    initial_state_sha256: str
+    initial_placement_count: int
 
 
 @dataclass(frozen=True)
@@ -120,6 +140,8 @@ class ConstructionSummary:
 
 @dataclass(frozen=True)
 class ConstructionResult:
+    schema_version: str
+    input_binding: ConstructionInputBinding
     formation_trace: CandidateFormationTrace
     tracks: tuple[PlacedTrack, ...]
     summary: ConstructionSummary
@@ -150,6 +172,16 @@ class SequentialPlaylistConstructor:
             formed_pool,
             state,
             requested_track_count,
+        )
+        from playlist_narrative_engine.sequencing.canonical import (
+            create_construction_input_binding,
+        )
+
+        input_binding = create_construction_input_binding(
+            journey_plan=journey_plan,
+            formed_pool=formed_pool,
+            construction_policy=self.policy,
+            initial_state=state,
         )
         if state.formation_trace is None:
             state.formation_trace = formed_pool.trace
@@ -245,7 +277,12 @@ class SequentialPlaylistConstructor:
                     requested_value=requested_track_count,
                 )
             )
-        return self._result(state, requested_track_count, issues)
+        return self._result(
+            state,
+            requested_track_count,
+            issues,
+            input_binding,
+        )
 
     def _validate_request(
         self,
@@ -465,6 +502,7 @@ class SequentialPlaylistConstructor:
         state: ConstructionState,
         requested_track_count: int,
         issues: list[ConstructionIssue],
+        input_binding: ConstructionInputBinding,
     ) -> ConstructionResult:
         achieved = len(state.placed_tracks)
         if achieved == requested_track_count:
@@ -506,6 +544,8 @@ class SequentialPlaylistConstructor:
         if state.formation_trace is None:
             raise AssertionError("construction result requires formation trace")
         return ConstructionResult(
+            schema_version=CONSTRUCTION_RESULT_SCHEMA_VERSION,
+            input_binding=input_binding,
             formation_trace=state.formation_trace,
             tracks=tuple(state.placed_tracks),
             summary=summary,

@@ -16,7 +16,22 @@ repair a playlist.
 - `PlacedTrack` preserves the selector result, assigned phase and role,
   explanations, and any higher-ranked hard-constraint rejections.
 - `ConstructionResult` contains the immutable ordered snapshot, summary, and
-  unmet issues.
+  unmet issues, plus a versioned production-time input binding.
+
+## Production-time lineage
+
+The construction binding records the canonical digest of the exact
+`JourneyPlanArtifact`, the authenticated Candidate Formation parent digest, the
+canonical `ConstructionPolicy` digest, and the canonical pre-call
+`ConstructionState` authority. `ConstructionPolicy` and `ConstructionResult`
+both have deterministic schema-`1.0` canonical JSON representations and SHA-256
+helpers.
+
+Placement order, candidate values, status, issues, and the input binding all
+participate in the construction-result identity. Mutable state does not. For a
+resumed call, the binding records the pre-call state digest and initial
+placement count, distinguishing continuation from a one-shot call without
+adding persistence or changing resumability.
 
 ## Placement loop
 

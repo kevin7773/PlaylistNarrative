@@ -137,16 +137,21 @@ claim precise contour compliance.
 
 ## Evaluation inputs
 
-The future evaluator should accept an immutable evaluation request containing:
+The evaluator accepts immutable authoritative inputs containing:
 
 - `construction_result`: the immutable `ConstructionResult`;
-- `journey_plan`: the exact objective used for construction;
+- `journey_plan`: the exact `JourneyPlanArtifact` used for construction;
 - `construction_policy`: the exact repetition and discovery policy used;
 - optional immutable evaluation thresholds, each named and documented.
 
 The candidate pool and `ConstructionState` are not evaluation inputs. The
 result already contains the placed candidates and decision evidence. Mutable
 construction state must not leak into observation.
+
+The implemented Phase 5B report emits production-time SHA-256 bindings to the
+exact construction result, journey artifact, and construction policy. This
+adds correspondence authority without changing any metric calculation defined
+by this contract.
 
 If scorer-weight provenance or transition profiles later become required, they
 must be added explicitly to construction artifacts. The evaluator must not

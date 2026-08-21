@@ -38,9 +38,13 @@ repository interfaces rather than UI or AI-provider behavior.
   traced ranking envelope with no raw-candidate production path.
 - `journey` (Phase 2): request interpretation and phase allocation.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
-  sequential construction.
+  sequential construction. Each result binds the exact journey artifact,
+  authenticated formed-parent digest, canonical construction policy, and
+  pre-call resumable-state authority used during that construction call.
 - `evaluation` (Phase 5): immutable observation of journey-level construction
-  outcomes without sequence modification.
+  outcomes without sequence modification. Evaluation schema `2.0` binds the
+  exact construction-result, journey-artifact, and construction-policy digests
+  at evaluation time; metric calculations remain unchanged.
 - `refinement` (Phase 6): bounded evidence-driven revision that consumes
   construction and evaluation without redefining either.
 - API/UI (Phase 7): thin adapters over application services.
