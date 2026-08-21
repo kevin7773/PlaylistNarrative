@@ -63,6 +63,11 @@ from playlist_narrative_engine.candidate_formation.integration_schemas import (
 from playlist_narrative_engine.candidate_formation.serialization import (
     serialize_candidate_source_evidence,
 )
+from playlist_narrative_engine.candidate_formation.declarations import (
+    HARD_CONSTRAINT_DECLARATION_SCHEMA_VERSION,
+    HardConstraintDeclarationArtifact,
+    serialize_hard_constraint_declaration,
+)
 
 __all__ = [
     "CANDIDATE_EVIDENCE_SCHEMA_VERSION",
@@ -116,4 +121,7 @@ __all__ = [
     "serialize_candidate_formation",
     "serialize_candidate_source_evidence",
     "serialize_formed_candidate_pool",
+    "HARD_CONSTRAINT_DECLARATION_SCHEMA_VERSION",
+    "HardConstraintDeclarationArtifact",
+    "serialize_hard_constraint_declaration",
 ]

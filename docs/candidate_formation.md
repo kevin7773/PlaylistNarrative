@@ -54,6 +54,37 @@ Candidate Formation Artifact
 Candidate Formation performs no provider access. Acquisition, validation, and
 normalization decisions must finish before evidence crosses this boundary.
 
+The production-oriented authority path is now:
+
+```text
+External authoritative source
+        ↓ future provider adapter (none implemented)
+SourceNeutralAcquisitionResult
+        ├── source receipt and adapter identity/version
+        ├── capability declaration
+        ├── EvidenceSnapshot
+        └── CandidateIdentityMetadataArtifact
+        +
+HardConstraintDeclarationArtifact
+        ↓
+FormationRequestAssembler
+        ↓
+CandidateFormationRequest
+        ↓
+CandidateFormer
+```
+
+`FormationRequestAssembler` performs only exact artifact correspondence and
+lineage checks. It performs no retrieval, prompt parsing, metadata inference,
+scoring, ranking, selection, or sequencing. Prompt and objective prose are not
+constraint authority. Every hard constraint assembled through this path comes
+from an immutable declaration with exact artifact identity, declaration
+version, source type, and source reference.
+
+Direct `CandidateFormationRequest` construction remains available for legacy
+and isolated tests, but it is not the production authority path for a declared
+constraint.
+
 ## Source artifacts
 
 The future immutable request must contain:
@@ -74,6 +105,13 @@ Journey Plan artifact prerequisites, Candidate Formation request, initial
 formation policy, preference derivation rule, output artifact, and deterministic
 formation service are implemented for CF-2.
 
+Candidate identity metadata is a sibling source artifact, not an extension of
+the validated track payload. It preserves exact catalog identity,
+release/version identity, displayed Explicit state, evidence state, and source
+observations where supplied by an authoritative acquisition source. Missing
+metadata records are permitted. A hard constraint that needs absent metadata
+therefore produces `UNKNOWN`; absence is never converted to compliance.
+
 ## Source-artifact correspondence
 
 Before processing individual tracks, Candidate Formation must validate the
@@ -88,6 +126,17 @@ request as one coherent replay context:
   scope;
 - every approved rule must be identified by exact name and version; and
 - artifact identifiers and policy identifiers must be explicit and immutable.
+
+The assembler additionally requires:
+
+- the validated artifact to partition the exact acquired snapshot records and
+  serialized payloads;
+- identity metadata to reference the acquired snapshot;
+- every metadata track identity to exist in the validated track partition;
+- capability claims to agree with metadata evidence states;
+- metadata observations to match the captured source receipt; and
+- authorized constraint-declaration identity/version to match the supplied
+  declaration exactly.
 
 A request-level correspondence failure invalidates the complete formation
 request. It must not produce a partial `CandidateFormationArtifact`, because a

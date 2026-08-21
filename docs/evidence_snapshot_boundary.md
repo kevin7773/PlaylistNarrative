@@ -3,7 +3,8 @@
 - **Status:** Accepted boundary for schema 1.0 track evidence validation
 - **Purpose:** Separate external evidence acquisition from deterministic evidence
   processing
-- **Implementation status:** Snapshot contract only; no acquisition adapters
+- **Implementation status:** Snapshot contract and source-neutral acquisition
+  envelope implemented; no acquisition adapters
 
 ## Boundary
 
@@ -15,12 +16,21 @@ deterministic core begins.
 ```text
 External evidence sources
           ↓
-Evidence acquisition and source-specific adapters
+Future source-specific adapter
           ↓
-Immutable EvidenceSnapshot
+SourceNeutralAcquisitionResult
+  ├── exact source receipt and digest
+  ├── adapter identity and version
+  ├── frozen capability declaration
+  ├── immutable EvidenceSnapshot
+  └── corresponding CandidateIdentityMetadataArtifact
           ↓
 Deterministic TrackEvidenceValidator
 ```
+
+The source-neutral envelope is implemented in `evidence_acquisition`. It is an
+authority and replay contract, not an adapter. No provider-specific acquisition
+implementation exists in the repository.
 
 The validator receives only a snapshot. It has no provider interface and does
 not know how, when, or from where the snapshot was acquired. Source type and
@@ -73,3 +83,21 @@ responses. It must own:
 Acquisition must not be added to `track_evidence`. No provider SDK, network
 client, repository, callback, lazy loader, or live source handle may cross the
 snapshot boundary.
+
+## Metadata authority
+
+An acquisition capability declaration explicitly states whether the exact
+adapter version can authoritatively supply catalog identity, release/version
+identity, and displayed Explicit state. Capability is not inferred from whether
+one response contains a value.
+
+- A supported field may be `measured`, `unavailable`, or `conflicting`.
+- An unsupported field must remain `unsupported`.
+- A measured value requires exact source-receipt observations.
+- Missing displayed Explicit metadata never means `false` or clean.
+- Title suffixes never establish release/version identity.
+- Similar title and artist text never establishes catalog equivalence.
+
+The envelope binds its metadata artifact to the exact snapshot ID and canonical
+snapshot SHA-256. Metadata observations must carry the envelope's exact source
+type and reference.

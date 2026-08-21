@@ -119,6 +119,10 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
     objective_context_evidence: ObjectiveContextEvidenceArtifact
     identity_metadata: CandidateIdentityMetadataArtifact | None = None
     hard_constraints: tuple[CandidateHardConstraint, ...] = ()
+    hard_constraint_declaration_id: str | None = None
+    hard_constraint_declaration_version: str | None = None
+    hard_constraint_declaration_source_type: str | None = None
+    hard_constraint_declaration_source_reference: str | None = None
     policy: CandidateFormationPolicy
 
     @field_validator("request_id")
@@ -165,6 +169,21 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
         keys = tuple(item.constraint_key for item in self.hard_constraints)
         if len(keys) != len(set(keys)):
             raise ValueError("hard constraint keys must be unique")
+        declaration_lineage = (
+            self.hard_constraint_declaration_id,
+            self.hard_constraint_declaration_version,
+            self.hard_constraint_declaration_source_type,
+            self.hard_constraint_declaration_source_reference,
+        )
+        if any(value is not None for value in declaration_lineage) and not all(
+            isinstance(value, str) and value and value == value.strip()
+            for value in declaration_lineage
+        ):
+            raise ValueError("hard constraint declaration lineage must be complete and exact")
+        if self.hard_constraints and not all(value is not None for value in declaration_lineage):
+            raise ValueError("hard constraints require explicit declaration authority")
+        if not self.hard_constraints and any(value is not None for value in declaration_lineage):
+            raise ValueError("constraint declaration lineage requires declared constraints")
         validated_track_ids = {
             record.track_id for record in self.track_validation.validated_records
         }
@@ -175,6 +194,11 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
         ):
             if any(record.track_id not in validated_track_ids for record in artifact.records):
                 raise ValueError("track-scoped evidence contains an unvalidated track identity")
+        if self.identity_metadata is not None and any(
+            record.track_id not in validated_track_ids
+            for record in self.identity_metadata.records
+        ):
+            raise ValueError("candidate identity metadata contains an unvalidated track identity")
         return self
 
 
@@ -490,6 +514,10 @@ class CandidateFormationArtifact(FrozenCandidateEvidenceModel):
     policy_version: str
     preference_rule_name: str
     preference_rule_version: str
+    hard_constraint_declaration_id: str | None = None
+    hard_constraint_declaration_version: str | None = None
+    hard_constraint_declaration_source_type: str | None = None
+    hard_constraint_declaration_source_reference: str | None = None
     ordering_rule: Literal["track_id_utf8_bytes"] = "track_id_utf8_bytes"
     reason_ordering_rule: Literal["cf_0_reason_precedence"] = "cf_0_reason_precedence"
     input_track_ids: tuple[str, ...]
@@ -527,6 +555,17 @@ class CandidateFormationArtifact(FrozenCandidateEvidenceModel):
 
     @model_validator(mode="after")
     def require_complete_deterministic_partition(self) -> CandidateFormationArtifact:
+        declaration_lineage = (
+            self.hard_constraint_declaration_id,
+            self.hard_constraint_declaration_version,
+            self.hard_constraint_declaration_source_type,
+            self.hard_constraint_declaration_source_reference,
+        )
+        if any(value is not None for value in declaration_lineage) and not all(
+            isinstance(value, str) and value and value == value.strip()
+            for value in declaration_lineage
+        ):
+            raise ValueError("formation constraint declaration lineage must be complete")
         expected_ids = tuple(sorted(self.input_track_ids, key=lambda item: item.encode("utf-8")))
         if self.input_track_ids != expected_ids or len(expected_ids) != len(set(expected_ids)):
             raise ValueError("input track IDs must be unique UTF-8 order")

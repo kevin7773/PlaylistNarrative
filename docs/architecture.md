@@ -25,8 +25,10 @@ repository interfaces rather than UI or AI-provider behavior.
   approved rules. Output conditions remain unresolved orientation candidates
   and cannot establish person applicability, diagnosis, membership, or need.
 - Evidence acquisition (external boundary): future source-specific adapters end
-  at an immutable, source-neutral `EvidenceSnapshot`; no adapter belongs to the
-  deterministic core.
+  at an immutable `SourceNeutralAcquisitionResult` containing the exact source
+  receipt, adapter identity/version, capability declaration, source-neutral
+  `EvidenceSnapshot`, and corresponding candidate identity metadata. The
+  contract exists; no provider adapter is implemented.
 - `track_evidence`: deterministic validation and complete partitioning of an
   evidence snapshot without provider access, Candidate Formation, or sequencing.
 - Candidate Formation: CF-0 defines the join, CF-1 supplies immutable source
@@ -61,8 +63,13 @@ flowchart TD
     CU -->|"Clarification required"| C
     O -->|"Orientation artifact"| N["Need Authority Uncertainty - proposed"]
     N -.->|"Future integration"| E["Journey Planning"]
-    E --> G["Evidence Acquisition and Validation"]
-    G --> J["Candidate Formation"]
+    E --> G["Future Provider Adapter"]
+    G --> ACQ["Source-Neutral Acquisition Result"]
+    ACQ --> V["Evidence Validation"]
+    V --> R["Formation Request Assembler"]
+    X["Explicit accepted request declaration"] --> Q["Hard-Constraint Declaration Artifact"]
+    Q --> R
+    R --> J["Candidate Formation"]
     J --> K["Authenticated FormedCandidatePoolView"]
     K --> H["Scoring, Selection, and Sequencing"]
     H --> I["Journey Evaluation"]
@@ -107,6 +114,13 @@ Candidate Formation is the only boundary authorized to construct a
 to immutable evidence or a named versioned derivation rule with recorded inputs.
 Hard exclusions produce withheld entries and never become scoring penalties. See
 [Candidate Formation Contract](candidate_formation.md).
+
+The request assembler is the source-neutral authority join before Candidate
+Formation. It accepts already-governed acquisition, validation, declaration,
+taste, feature, context, objective, journey, and policy artifacts. It cannot
+read free-form prose or call providers. The Maestro Workbench remains a separate
+research-intake system: OCR and draft extraction are not product metadata or
+constraint authority and do not feed this path.
 
 CF-3 makes `FormedCandidatePoolView` the sole production boundary from Candidate
 Formation into selection and construction. It is derived only from a validated

@@ -58,8 +58,19 @@ NON_EXPLICIT = CandidateHardConstraint(
 )
 
 
+def constrained_request(*, metadata_value, constraints=(NON_EXPLICIT,)):
+    return request(
+        identity_metadata=metadata_value,
+        hard_constraints=constraints,
+        hard_constraint_declaration_id="test-constraints",
+        hard_constraint_declaration_version="1.0",
+        hard_constraint_declaration_source_type="test_declaration",
+        hard_constraint_declaration_source_reference="fixture:test-constraints",
+    )
+
+
 def test_known_compliant_candidate_is_retained_with_exact_identity_and_trace() -> None:
-    artifact = CandidateFormer().form(request(identity_metadata=metadata(False), hard_constraints=(NON_EXPLICIT,)))
+    artifact = CandidateFormer().form(constrained_request(metadata_value=metadata(False)))
 
     assert artifact.summary.formed_count == 1
     entry = artifact.formed[0]
@@ -77,7 +88,7 @@ def test_known_compliant_candidate_is_retained_with_exact_identity_and_trace() -
 
 
 def test_known_explicit_candidate_is_withheld_before_ranking() -> None:
-    artifact = CandidateFormer().form(request(identity_metadata=metadata(True), hard_constraints=(NON_EXPLICIT,)))
+    artifact = CandidateFormer().form(constrained_request(metadata_value=metadata(True)))
 
     assert artifact.formed == ()
     withheld = artifact.withheld[0]
@@ -87,7 +98,7 @@ def test_known_explicit_candidate_is_withheld_before_ranking() -> None:
 
 
 def test_unknown_explicit_state_is_not_silently_compliant() -> None:
-    artifact = CandidateFormer().form(request(identity_metadata=metadata(None), hard_constraints=(NON_EXPLICIT,)))
+    artifact = CandidateFormer().form(constrained_request(metadata_value=metadata(None)))
 
     result = artifact.withheld[0].constraint_eligibility[0]
     assert result.state is CandidateEligibilityState.UNKNOWN
@@ -101,7 +112,9 @@ def test_exact_identity_is_case_sensitive_and_ambiguous_family_is_not_collapsed(
         field=CandidateConstraintField.SOURCE_CATALOG_IDENTITY,
         expected_json=json.dumps("catalog:ABC"),
     )
-    artifact = CandidateFormer().form(request(identity_metadata=metadata(False, catalog="catalog:abc"), hard_constraints=(target,)))
+    artifact = CandidateFormer().form(constrained_request(
+        metadata_value=metadata(False, catalog="catalog:abc"), constraints=(target,)
+    ))
 
     assert artifact.formed == ()
     assert artifact.withheld[0].constraint_eligibility[0].state is CandidateEligibilityState.INELIGIBLE
@@ -109,7 +122,7 @@ def test_exact_identity_is_case_sensitive_and_ambiguous_family_is_not_collapsed(
 
 
 def test_no_compliant_candidate_is_explicitly_unsatisfied_not_rankable() -> None:
-    artifact = CandidateFormer().form(request(identity_metadata=metadata(True), hard_constraints=(NON_EXPLICIT,)))
+    artifact = CandidateFormer().form(constrained_request(metadata_value=metadata(True)))
     pool = derive_formed_candidate_pool(artifact)
 
     assert artifact.summary.formed_count == 0
@@ -126,7 +139,7 @@ def test_legacy_request_without_constraints_preserves_existing_meaning() -> None
 
 def test_ranking_preserves_identity_and_constraint_provenance_without_rescoring_it() -> None:
     pool = derive_formed_candidate_pool(CandidateFormer().form(
-        request(identity_metadata=metadata(False), hard_constraints=(NON_EXPLICIT,))
+        constrained_request(metadata_value=metadata(False))
     ))
     ranked = CandidateSelector().select(
         context=JourneyContext.ACTIVE_FOCUS,
@@ -142,9 +155,7 @@ def test_ranking_preserves_identity_and_constraint_provenance_without_rescoring_
 
 
 def test_selected_candidate_exposes_post_selection_validation_and_no_refinement_claim() -> None:
-    formation_request = request(
-        identity_metadata=metadata(False), hard_constraints=(NON_EXPLICIT,)
-    )
+    formation_request = constrained_request(metadata_value=metadata(False))
     pool = derive_formed_candidate_pool(CandidateFormer().form(formation_request))
     result = SequentialPlaylistConstructor().construct(
         journey_plan=formation_request.journey_plan,
