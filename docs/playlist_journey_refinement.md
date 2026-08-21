@@ -93,15 +93,18 @@ The proposed immutable refinement request contains:
 
 - `journey_plan`: the exact journey objective;
 - `construction_policy`: the exact policy used to construct and evaluate;
-- `candidate_pool`: the stable, finite set of eligible `TrackCandidate` objects;
+- `candidate_formation`: the exact authenticated `CandidateFormationArtifact`;
+- `formed_pool`: its exact `FormedCandidatePoolView` projection; raw
+  `TrackCandidate` collections are not an authority boundary;
 - `construction_result`: the source `ConstructionResult`;
-- `evaluation_report`: the source schema-`1.0` `EvaluationReport`;
+- `evaluation_report`: the source schema-versioned `EvaluationReport`;
 - a frozen refinement policy defining permitted operation types and maximum
   changed positions.
 
 Candidate-pool order must not affect the outcome. Track IDs must be unique.
-Every placed track must have an identical candidate record in the pool; the
-refiner must not substitute metadata by matching only an ID.
+Every placed track must resolve to an identical `ELIGIBLE` formed entry under
+the authenticated parent artifact; the refiner must not substitute metadata by
+matching only an ID or accept `UNKNOWN`/`INELIGIBLE` entries.
 
 ### Correspondence validation
 

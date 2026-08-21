@@ -45,8 +45,13 @@ repository interfaces rather than UI or AI-provider behavior.
   outcomes without sequence modification. Evaluation schema `2.0` binds the
   exact construction-result, journey-artifact, and construction-policy digests
   at evaluation time; metric calculations remain unchanged.
-- `refinement` (Phase 6): bounded evidence-driven revision that consumes
-  construction and evaluation without redefining either.
+- `product_artifact`: canonical product-domain finalization of the exact journey,
+  authenticated formed authority, policy, construction, evaluation, and ordered
+  placements. Refinement is honestly recorded as `NOT_PERFORMED`; no refinement
+  algorithm is implemented.
+- `refinement` (future): any bounded evidence-driven revision must consume the
+  authenticated formed authority plus construction and evaluation without
+  redefining them.
 - API/UI (Phase 7): thin adapters over application services.
 - `providers` (Phase 8): optional AI assistance behind a small interface.
 
@@ -77,6 +82,7 @@ flowchart TD
     J --> K["Authenticated FormedCandidatePoolView"]
     K --> H["Scoring, Selection, and Sequencing"]
     H --> I["Journey Evaluation"]
+    I --> P["Canonical Final Product Artifact"]
 ```
 
 Objective Safety evaluates intent before musical work begins. The accepted path
