@@ -9,11 +9,18 @@ from playlist_narrative_engine.candidate_formation.formation_schemas import (
     WITHHOLDING_REASON_PRECEDENCE,
     CandidateFieldEvidence,
     CandidateFieldName,
+    CandidateConstraintEligibility,
+    CandidateConstraintField,
+    CandidateEligibilityReason,
+    CandidateEligibilityState,
     CandidateFormationArtifact,
     CandidateFormationRequest,
     CandidateFormationSummary,
     FormationBasis,
     FormedCandidateEntry,
+    CandidateIdentitySnapshot,
+    CandidateMechanismEvent,
+    CandidateMechanismTrace,
     WithheldCandidateEntry,
     WithholdingReason,
     WithholdingReasonCode,
@@ -66,6 +73,10 @@ class CandidateFormer:
             record.track_id: record
             for record in request.objective_context_evidence.records
         }
+        metadata_by_track = {
+            record.track_id: record
+            for record in (request.identity_metadata.records if request.identity_metadata else ())
+        }
         preference_values = {
             entry.rating: entry.value
             for entry in request.policy.preference_rule.mappings
@@ -84,6 +95,22 @@ class CandidateFormer:
             reasons: list[WithholdingReason] = []
             fields: dict[CandidateFieldName, CandidateFieldEvidence] = {}
             self._catalog_fields(request, track, fields)
+            identity, eligibility = self._identity_and_eligibility(
+                request, track, metadata_by_track.get(track.track_id)
+            )
+            for result in eligibility:
+                if result.state is CandidateEligibilityState.INELIGIBLE:
+                    reasons.append(_reason(
+                        WithholdingReasonCode.HARD_CONSTRAINT_INELIGIBLE,
+                        f"$.hard_constraints.{result.constraint_key}",
+                        request.identity_metadata.artifact_id if request.identity_metadata else request.track_validation.snapshot_id,
+                    ))
+                elif result.state is CandidateEligibilityState.UNKNOWN:
+                    reasons.append(_reason(
+                        WithholdingReasonCode.HARD_CONSTRAINT_UNKNOWN,
+                        f"$.hard_constraints.{result.constraint_key}",
+                        request.identity_metadata.artifact_id if request.identity_metadata else request.track_validation.snapshot_id,
+                    ))
 
             preference = self._preference(
                 request,
@@ -163,6 +190,9 @@ class CandidateFormer:
                     WithheldCandidateEntry(
                         validated_track=track,
                         reasons=ordered_reasons,
+                        identity=identity,
+                        constraint_eligibility=eligibility,
+                        mechanism_trace=self._mechanism_trace(track.track_id, identity, eligibility, retained=False),
                     )
                 )
                 continue
@@ -195,6 +225,9 @@ class CandidateFormer:
                     ordinal=len(formed) + 1,
                     candidate=candidate,
                     field_evidence=tuple(fields[field] for field in CANDIDATE_FIELD_ORDER),
+                    identity=identity,
+                    constraint_eligibility=eligibility,
+                    mechanism_trace=self._mechanism_trace(track.track_id, identity, eligibility, retained=True),
                 )
             )
 
@@ -229,6 +262,101 @@ class CandidateFormer:
                 validated_track_count=len(validated),
                 formed_count=len(formed),
                 withheld_count=len(withheld),
+            ),
+        )
+
+    @staticmethod
+    def _identity_and_eligibility(
+        request: CandidateFormationRequest,
+        track: ValidatedTrackEvidence,
+        metadata: object | None,
+    ) -> tuple[CandidateIdentitySnapshot, tuple[CandidateConstraintEligibility, ...]]:
+        catalog = metadata.source_catalog_identity if metadata is not None else None
+        version = metadata.release_version_identity if metadata is not None else None
+        explicit = metadata.displayed_explicit if metadata is not None else None
+        identity = CandidateIdentitySnapshot(
+            exact_displayed_title=track.title,
+            exact_displayed_artist=track.artist_name,
+            source_catalog_identity=(catalog.value if catalog and catalog.state is EvidenceState.MEASURED else None),
+            release_version_identity=(version.value if version and version.state is EvidenceState.MEASURED else None),
+            displayed_explicit=(explicit.value if explicit and explicit.state is EvidenceState.MEASURED else None),
+            metadata_artifact_id=(request.identity_metadata.artifact_id if request.identity_metadata else None),
+            source_catalog_state=(catalog.state if catalog else None),
+            release_version_state=(version.state if version else None),
+            displayed_explicit_state=(explicit.state if explicit else None),
+            source_catalog_evidence_ids=CandidateFormer._metadata_value(catalog)[1],
+            release_version_evidence_ids=CandidateFormer._metadata_value(version)[1],
+            displayed_explicit_evidence_ids=CandidateFormer._metadata_value(explicit)[1],
+        )
+        actual = {
+            CandidateConstraintField.DISPLAYED_TITLE: (track.title, (track.record_id,)),
+            CandidateConstraintField.DISPLAYED_ARTIST: (track.artist_name, (track.record_id,)),
+            CandidateConstraintField.SOURCE_CATALOG_IDENTITY: CandidateFormer._metadata_value(catalog),
+            CandidateConstraintField.RELEASE_VERSION_IDENTITY: CandidateFormer._metadata_value(version),
+            CandidateConstraintField.DISPLAYED_EXPLICIT: CandidateFormer._metadata_value(explicit),
+        }
+        results: list[CandidateConstraintEligibility] = []
+        for constraint in request.hard_constraints:
+            observed, evidence_ids = actual[constraint.field]
+            expected = json.loads(constraint.expected_json)
+            if observed is None:
+                state = CandidateEligibilityState.UNKNOWN
+                reason = CandidateEligibilityReason.REQUIRED_METADATA_UNKNOWN
+                observed_json = None
+            elif observed == expected and type(observed) is type(expected):
+                state = CandidateEligibilityState.ELIGIBLE
+                reason = (
+                    CandidateEligibilityReason.PROPERTY_MATCH
+                    if constraint.field is CandidateConstraintField.DISPLAYED_EXPLICIT
+                    else CandidateEligibilityReason.EXACT_MATCH
+                )
+                observed_json = _json(observed)
+            else:
+                state = CandidateEligibilityState.INELIGIBLE
+                reason = (
+                    CandidateEligibilityReason.PROPERTY_MISMATCH
+                    if constraint.field is CandidateConstraintField.DISPLAYED_EXPLICIT
+                    else CandidateEligibilityReason.EXACT_MISMATCH
+                )
+                observed_json = _json(observed)
+            results.append(CandidateConstraintEligibility(
+                constraint_key=constraint.constraint_key,
+                field=constraint.field,
+                state=state,
+                reason=reason,
+                expected_json=constraint.expected_json,
+                observed_json=observed_json,
+                source_evidence_ids=evidence_ids,
+            ))
+        return identity, tuple(results)
+
+    @staticmethod
+    def _metadata_value(evidence: object | None) -> tuple[object | None, tuple[str, ...]]:
+        if evidence is None:
+            return None, ()
+        evidence_ids = _evidence_ids(evidence.observations)
+        if evidence.state is not EvidenceState.MEASURED:
+            return None, evidence_ids
+        return evidence.value, evidence_ids
+
+    @staticmethod
+    def _mechanism_trace(
+        track_id: str,
+        identity: CandidateIdentitySnapshot,
+        eligibility: tuple[CandidateConstraintEligibility, ...],
+        *,
+        retained: bool,
+    ) -> CandidateMechanismTrace:
+        return CandidateMechanismTrace(
+            track_id=track_id,
+            identity=identity,
+            eligibility=eligibility,
+            events=(
+                CandidateMechanismEvent.DISCOVERED,
+                CandidateMechanismEvent.IDENTITY_CAPTURED,
+                CandidateMechanismEvent.METADATA_CAPTURED,
+                CandidateMechanismEvent.ELIGIBILITY_EVALUATED,
+                CandidateMechanismEvent.RETAINED if retained else CandidateMechanismEvent.WITHHELD,
             ),
         )
 

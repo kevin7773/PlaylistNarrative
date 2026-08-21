@@ -16,6 +16,10 @@ from playlist_narrative_engine.sequencing.schemas import (
 )
 
 if TYPE_CHECKING:
+    from playlist_narrative_engine.candidate_formation.formation_schemas import (
+        CandidateConstraintEligibility,
+        CandidateIdentitySnapshot,
+    )
     from playlist_narrative_engine.candidate_formation.integration_schemas import (
         CandidateFormationTrace,
         FormedCandidatePoolView,
@@ -29,6 +33,8 @@ class RankedCandidate:
     score_breakdown: ScoreBreakdown
     rank: int
     reasons: tuple[str, ...]
+    identity: CandidateIdentitySnapshot | None = None
+    constraint_eligibility: tuple[CandidateConstraintEligibility, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -95,6 +101,7 @@ class CandidateSelector:
 
         entries = formed_pool.resolve_remaining(remaining_track_ids)
         resolved_candidates = tuple(entry.candidate for entry in entries)
+        entries_by_id = {entry.candidate.track_id: entry for entry in entries}
         canonical_ids = tuple(
             candidate.track_id for candidate in resolved_candidates
         )
@@ -146,6 +153,8 @@ class CandidateSelector:
                 score_breakdown=breakdown,
                 rank=index,
                 reasons=reasons,
+                identity=entries_by_id[candidate.track_id].identity,
+                constraint_eligibility=entries_by_id[candidate.track_id].constraint_eligibility,
             )
             for index, (candidate, score, breakdown, reasons) in enumerate(
                 scored[:top_n], start=1

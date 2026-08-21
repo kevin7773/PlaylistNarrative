@@ -112,6 +112,88 @@ class UnitIntervalEvidence(FrozenCandidateEvidenceModel):
         return self
 
 
+class ExactStringEvidence(FrozenCandidateEvidenceModel):
+    """An exact identity value, or an explicit non-measured state."""
+
+    state: EvidenceState
+    value: str | None = Field(default=None, min_length=1, max_length=1_000)
+    observations: tuple[EvidenceObservation, ...]
+
+    @field_validator("value")
+    @classmethod
+    def require_exact_value(cls, value: str | None) -> str | None:
+        return None if value is None else _require_exact_text(value)
+
+    @field_validator("observations", mode="before")
+    @classmethod
+    def canonicalize_observations(cls, value: Any) -> tuple[object, ...]:
+        return _canonical_order(value, "evidence_id")
+
+    @model_validator(mode="after")
+    def enforce_state_contract(self) -> ExactStringEvidence:
+        _validate_observations(
+            self.state, self.observations, has_resolved_value=self.value is not None
+        )
+        return self
+
+
+class BooleanEvidence(FrozenCandidateEvidenceModel):
+    """A provenance-backed Boolean; absence never means false."""
+
+    state: EvidenceState
+    value: bool | None = None
+    observations: tuple[EvidenceObservation, ...]
+
+    @field_validator("observations", mode="before")
+    @classmethod
+    def canonicalize_observations(cls, value: Any) -> tuple[object, ...]:
+        return _canonical_order(value, "evidence_id")
+
+    @model_validator(mode="after")
+    def enforce_state_contract(self) -> BooleanEvidence:
+        _validate_observations(
+            self.state, self.observations, has_resolved_value=self.value is not None
+        )
+        return self
+
+
+class CandidateIdentityMetadataRecord(FrozenCandidateEvidenceModel):
+    track_id: str = Field(min_length=1, max_length=500)
+    source_catalog_identity: ExactStringEvidence
+    release_version_identity: ExactStringEvidence
+    displayed_explicit: BooleanEvidence
+
+    @field_validator("track_id")
+    @classmethod
+    def require_exact_track_id(cls, value: str) -> str:
+        return _require_exact_text(value)
+
+
+class CandidateIdentityMetadataArtifact(FrozenCandidateEvidenceModel):
+    schema_version: Literal["1.0"] = CANDIDATE_EVIDENCE_SCHEMA_VERSION
+    artifact_kind: Literal["candidate_identity_metadata"] = "candidate_identity_metadata"
+    artifact_id: str = Field(min_length=1, max_length=200)
+    track_snapshot_id: str = Field(min_length=1, max_length=200)
+    records: tuple[CandidateIdentityMetadataRecord, ...]
+
+    @field_validator("artifact_id", "track_snapshot_id")
+    @classmethod
+    def require_exact_identifiers(cls, value: str) -> str:
+        return _require_exact_text(value)
+
+    @field_validator("records", mode="before")
+    @classmethod
+    def canonicalize_records(cls, value: Any) -> tuple[object, ...]:
+        return _canonical_order(value, "track_id")
+
+    @model_validator(mode="after")
+    def enforce_record_order(self) -> CandidateIdentityMetadataArtifact:
+        _require_unique_ordered(
+            tuple(item.track_id for item in self.records), "candidate metadata track identities"
+        )
+        return self
+
+
 class TasteEvidenceRecord(FrozenCandidateEvidenceModel):
     artist_name: str = Field(min_length=1, max_length=200)
     state: EvidenceState
@@ -364,6 +446,7 @@ CandidateSourceEvidenceArtifact = (
     | FamiliarityEvidenceArtifact
     | TrackFeatureEvidenceArtifact
     | ObjectiveContextEvidenceArtifact
+    | CandidateIdentityMetadataArtifact
 )
 
 

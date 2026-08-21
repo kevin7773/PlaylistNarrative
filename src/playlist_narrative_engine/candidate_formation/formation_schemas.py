@@ -7,6 +7,8 @@ from typing import Any, Literal
 from pydantic import Field, field_validator, model_validator
 
 from playlist_narrative_engine.candidate_formation.schemas import (
+    CandidateIdentityMetadataArtifact,
+    EvidenceState,
     FamiliarityEvidenceArtifact,
     FrozenCandidateEvidenceModel,
     LocalTasteEvidenceArtifact,
@@ -115,6 +117,8 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
     familiarity_evidence: FamiliarityEvidenceArtifact
     track_feature_evidence: TrackFeatureEvidenceArtifact
     objective_context_evidence: ObjectiveContextEvidenceArtifact
+    identity_metadata: CandidateIdentityMetadataArtifact | None = None
+    hard_constraints: tuple[CandidateHardConstraint, ...] = ()
     policy: CandidateFormationPolicy
 
     @field_validator("request_id")
@@ -156,6 +160,11 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
             raise ValueError("track-scoped evidence must reference the validated snapshot")
         if self.taste_evidence.profile_id != self.familiarity_evidence.profile_id:
             raise ValueError("taste and familiarity evidence must use one exact profile")
+        if self.identity_metadata is not None and self.identity_metadata.track_snapshot_id != snapshot_id:
+            raise ValueError("candidate identity metadata must reference the validated snapshot")
+        keys = tuple(item.constraint_key for item in self.hard_constraints)
+        if len(keys) != len(set(keys)):
+            raise ValueError("hard constraint keys must be unique")
         validated_track_ids = {
             record.track_id for record in self.track_validation.validated_records
         }
@@ -167,6 +176,118 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
             if any(record.track_id not in validated_track_ids for record in artifact.records):
                 raise ValueError("track-scoped evidence contains an unvalidated track identity")
         return self
+
+
+class CandidateConstraintField(StrEnum):
+    DISPLAYED_TITLE = "displayed_title"
+    DISPLAYED_ARTIST = "displayed_artist"
+    SOURCE_CATALOG_IDENTITY = "source_catalog_identity"
+    RELEASE_VERSION_IDENTITY = "release_version_identity"
+    DISPLAYED_EXPLICIT = "displayed_explicit"
+
+
+class CandidateHardConstraint(FrozenCandidateEvidenceModel):
+    constraint_key: str = Field(min_length=1, max_length=200)
+    field: CandidateConstraintField
+    expected_json: str
+
+    @field_validator("constraint_key")
+    @classmethod
+    def require_exact_key(cls, value: str) -> str:
+        return _exact(value)
+
+    @field_validator("expected_json")
+    @classmethod
+    def require_typed_expected_value(cls, value: str, info: Any) -> str:
+        parsed = json.loads(value, parse_constant=_reject_json_constant)
+        field = info.data.get("field")
+        if field is CandidateConstraintField.DISPLAYED_EXPLICIT:
+            if type(parsed) is not bool:
+                raise ValueError("displayed Explicit constraints require a Boolean")
+        elif not isinstance(parsed, str) or not parsed or parsed != parsed.strip():
+            raise ValueError("identity constraints require an exact nonblank string")
+        return value
+
+
+class CandidateEligibilityState(StrEnum):
+    ELIGIBLE = "ELIGIBLE"
+    INELIGIBLE = "INELIGIBLE"
+    UNKNOWN = "UNKNOWN"
+
+
+class CandidateEligibilityReason(StrEnum):
+    EXACT_MATCH = "EXACT_MATCH"
+    EXACT_MISMATCH = "EXACT_MISMATCH"
+    PROPERTY_MATCH = "PROPERTY_MATCH"
+    PROPERTY_MISMATCH = "PROPERTY_MISMATCH"
+    REQUIRED_METADATA_UNKNOWN = "REQUIRED_METADATA_UNKNOWN"
+
+
+class CandidateConstraintEligibility(FrozenCandidateEvidenceModel):
+    constraint_key: str
+    field: CandidateConstraintField
+    state: CandidateEligibilityState
+    reason: CandidateEligibilityReason
+    expected_json: str
+    observed_json: str | None
+    source_evidence_ids: tuple[str, ...] = ()
+
+    @model_validator(mode="after")
+    def require_decision_consistency(self) -> CandidateConstraintEligibility:
+        expected = json.loads(self.expected_json, parse_constant=_reject_json_constant)
+        if self.state is CandidateEligibilityState.UNKNOWN:
+            if self.observed_json is not None or self.reason is not CandidateEligibilityReason.REQUIRED_METADATA_UNKNOWN:
+                raise ValueError("UNKNOWN eligibility requires an unknown observed value")
+            return self
+        if self.observed_json is None or not self.source_evidence_ids:
+            raise ValueError("decided eligibility requires provenance-backed observed metadata")
+        observed = json.loads(self.observed_json, parse_constant=_reject_json_constant)
+        matches = observed == expected and type(observed) is type(expected)
+        if (self.state is CandidateEligibilityState.ELIGIBLE) != matches:
+            raise ValueError("eligibility state must match exact typed comparison")
+        expected_reason = (
+            CandidateEligibilityReason.PROPERTY_MATCH
+            if matches and self.field is CandidateConstraintField.DISPLAYED_EXPLICIT
+            else CandidateEligibilityReason.EXACT_MATCH
+            if matches
+            else CandidateEligibilityReason.PROPERTY_MISMATCH
+            if self.field is CandidateConstraintField.DISPLAYED_EXPLICIT
+            else CandidateEligibilityReason.EXACT_MISMATCH
+        )
+        if self.reason is not expected_reason:
+            raise ValueError("eligibility reason must match its deterministic comparison")
+        return self
+
+
+class CandidateIdentitySnapshot(FrozenCandidateEvidenceModel):
+    exact_displayed_title: str
+    exact_displayed_artist: str
+    source_catalog_identity: str | None = None
+    release_version_identity: str | None = None
+    displayed_explicit: bool | None = None
+    metadata_artifact_id: str | None = None
+    source_catalog_state: EvidenceState | None = None
+    release_version_state: EvidenceState | None = None
+    displayed_explicit_state: EvidenceState | None = None
+    source_catalog_evidence_ids: tuple[str, ...] = ()
+    release_version_evidence_ids: tuple[str, ...] = ()
+    displayed_explicit_evidence_ids: tuple[str, ...] = ()
+
+
+class CandidateMechanismEvent(StrEnum):
+    DISCOVERED = "CANDIDATE_DISCOVERED"
+    IDENTITY_CAPTURED = "IDENTITY_CAPTURED"
+    METADATA_CAPTURED = "METADATA_CAPTURED"
+    ELIGIBILITY_EVALUATED = "ELIGIBILITY_EVALUATED"
+    RETAINED = "RETAINED_FOR_RANKING"
+    WITHHELD = "WITHHELD_BEFORE_RANKING"
+
+
+class CandidateMechanismTrace(FrozenCandidateEvidenceModel):
+    track_id: str
+    identity: CandidateIdentitySnapshot
+    eligibility: tuple[CandidateConstraintEligibility, ...]
+    events: tuple[CandidateMechanismEvent, ...]
 
 
 class FormationBasis(StrEnum):
@@ -239,6 +360,8 @@ class WithholdingReasonCode(StrEnum):
     DERIVATION_RULE_UNAPPROVED = "DERIVATION_RULE_UNAPPROVED"
     DERIVATION_INPUT_UNAVAILABLE = "DERIVATION_INPUT_UNAVAILABLE"
     DERIVED_VALUE_INVALID = "DERIVED_VALUE_INVALID"
+    HARD_CONSTRAINT_INELIGIBLE = "HARD_CONSTRAINT_INELIGIBLE"
+    HARD_CONSTRAINT_UNKNOWN = "HARD_CONSTRAINT_UNKNOWN"
 
 
 WITHHOLDING_REASON_PRECEDENCE = tuple(WithholdingReasonCode)
@@ -253,6 +376,8 @@ WITHHOLDING_REASON_EXPLANATIONS = {
     WithholdingReasonCode.DERIVATION_RULE_UNAPPROVED: "No approved versioned rule can derive this required field from the supplied evidence.",
     WithholdingReasonCode.DERIVATION_INPUT_UNAVAILABLE: "A required input to an approved derivation rule is unavailable.",
     WithholdingReasonCode.DERIVED_VALUE_INVALID: "An approved derivation rule produced a value outside the field contract.",
+    WithholdingReasonCode.HARD_CONSTRAINT_INELIGIBLE: "Authoritative candidate metadata establishes a hard-constraint violation.",
+    WithholdingReasonCode.HARD_CONSTRAINT_UNKNOWN: "Required candidate metadata is unknown, so hard-constraint compliance is not established.",
 }
 
 
@@ -278,9 +403,17 @@ class FormedCandidateEntry(FrozenCandidateEvidenceModel):
     ordinal: int = Field(gt=0)
     candidate: TrackCandidate
     field_evidence: tuple[CandidateFieldEvidence, ...]
+    identity: CandidateIdentitySnapshot | None = None
+    constraint_eligibility: tuple[CandidateConstraintEligibility, ...] = ()
+    mechanism_trace: CandidateMechanismTrace | None = None
 
     @model_validator(mode="after")
     def require_complete_field_evidence(self) -> FormedCandidateEntry:
+        if any(
+            item.state is not CandidateEligibilityState.ELIGIBLE
+            for item in self.constraint_eligibility
+        ):
+            raise ValueError("formed candidates must satisfy every evaluated hard constraint")
         if tuple(item.field for item in self.field_evidence) != CANDIDATE_FIELD_ORDER:
             raise ValueError("formed fields must have complete documented evidence order")
         for evidence in self.field_evidence:
@@ -299,6 +432,9 @@ class FormedCandidateEntry(FrozenCandidateEvidenceModel):
 class WithheldCandidateEntry(FrozenCandidateEvidenceModel):
     validated_track: ValidatedTrackEvidence
     reasons: tuple[WithholdingReason, ...] = Field(min_length=1)
+    identity: CandidateIdentitySnapshot | None = None
+    constraint_eligibility: tuple[CandidateConstraintEligibility, ...] = ()
+    mechanism_trace: CandidateMechanismTrace | None = None
 
     @model_validator(mode="after")
     def require_fixed_reason_order(self) -> WithheldCandidateEntry:

@@ -75,6 +75,8 @@ class PlacedTrack:
     score_breakdown: ScoreBreakdown
     reasons: tuple[str, ...]
     rejected_candidates: tuple[CandidateRejection, ...] = ()
+    post_selection_validation: str = "FORMED_HARD_ELIGIBILITY_CONFIRMED"
+    refinement_action: str = "NONE"
 
 
 @dataclass
