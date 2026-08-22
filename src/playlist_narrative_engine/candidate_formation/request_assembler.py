@@ -19,7 +19,10 @@ from playlist_narrative_engine.candidate_formation.schemas import (
 from playlist_narrative_engine.evidence_acquisition import (
     SourceNeutralAcquisitionResult,
 )
-from playlist_narrative_engine.journey import JourneyPlanArtifact
+from playlist_narrative_engine.journey import (
+    JourneyPlanArtifact,
+    journey_plan_matches_accepted_objective,
+)
 from playlist_narrative_engine.objective_safety import AcceptedObjectiveArtifact
 from playlist_narrative_engine.track_evidence import TrackEvidenceValidationArtifact
 
@@ -63,6 +66,13 @@ class FormationRequestAssembler:
     """Join governed artifacts without retrieval, inference, or execution."""
 
     def assemble(self, value: FormationRequestAssemblyInput) -> CandidateFormationRequest:
+        if not journey_plan_matches_accepted_objective(
+            value.journey_plan,
+            value.accepted_objective,
+        ):
+            raise ValueError(
+                "Journey Plan must carry exact accepted Objective Safety authority"
+            )
         self._validate_acquisition_correspondence(value)
         declaration = value.hard_constraint_declaration
         return CandidateFormationRequest(

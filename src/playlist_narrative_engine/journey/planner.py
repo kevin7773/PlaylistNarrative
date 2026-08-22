@@ -6,14 +6,54 @@ from playlist_narrative_engine.journey.schemas import (
     FamiliarityAllocation,
     JourneyContext,
     JourneyPlan,
+    JourneyPlanArtifact,
+    JourneyPlanningRequest,
     JourneyPhase,
+    create_journey_planning_input_binding,
+    derive_active_focus_request,
 )
+
+
+class JourneyPlanningInvalidInput(ValueError):
+    """The governed authority chain cannot authorize Journey Planning."""
 
 
 class JourneyPlanner:
     """Translate a validated request into a deterministic listening arc."""
 
+    def plan_authoritative(
+        self,
+        request: JourneyPlanningRequest,
+    ) -> JourneyPlanArtifact:
+        if not isinstance(request, JourneyPlanningRequest):
+            raise JourneyPlanningInvalidInput(
+                "authoritative planning requires a JourneyPlanningRequest"
+            )
+        try:
+            validated = JourneyPlanningRequest.model_validate(
+                request.model_dump(mode="json")
+            )
+            parameters = derive_active_focus_request(validated)
+            plan = self.plan_active_focus(parameters)
+            artifact = JourneyPlanArtifact(
+                journey_id=f"journey-plan:{validated.canonical_sha256}",
+                input_binding=create_journey_planning_input_binding(validated),
+                objective=validated.objective_assessment_request.objective,
+                objective_safety_artifact_id=(
+                    validated.accepted_objective.artifact_id
+                ),
+                plan=plan,
+            )
+            return JourneyPlanArtifact.model_validate(
+                artifact.model_dump(mode="json")
+            )
+        except (TypeError, ValueError) as exc:
+            raise JourneyPlanningInvalidInput(
+                "journey planning authority is invalid or unverifiable"
+            ) from exc
+
     def plan_active_focus(self, request: ActiveFocusRequest) -> JourneyPlan:
+        """Return a non-authoritative deterministic plan calculation."""
         warm_up, sustained, landing = self._phase_durations(
             request.duration_minutes
         )
@@ -60,3 +100,20 @@ class JourneyPlanner:
         landing = max(5, round(total * 0.15))
         sustained = total - warm_up - landing
         return warm_up, sustained, landing
+
+
+def verify_journey_plan_artifact(
+    artifact: JourneyPlanArtifact,
+    *,
+    request: JourneyPlanningRequest,
+) -> bool:
+    if not isinstance(artifact, JourneyPlanArtifact):
+        return False
+    try:
+        validated = JourneyPlanArtifact.model_validate(
+            artifact.model_dump(mode="json")
+        )
+        reproduced = JourneyPlanner().plan_authoritative(request)
+    except (TypeError, ValueError):
+        return False
+    return validated == artifact == reproduced

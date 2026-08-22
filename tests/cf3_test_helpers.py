@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 
+from journey_authority_helpers import journey_authority
+
 from playlist_narrative_engine.candidate_formation import (
     CANDIDATE_FIELD_ORDER,
     CandidateFieldEvidence,
@@ -13,12 +15,7 @@ from playlist_narrative_engine.candidate_formation import (
     FormedCandidatePoolView,
     derive_formed_candidate_pool,
 )
-from playlist_narrative_engine.journey import (
-    ActiveFocusRequest,
-    JourneyPlan,
-    JourneyPlanArtifact,
-    JourneyPlanner,
-)
+from playlist_narrative_engine.journey import JourneyPlan, JourneyPlanArtifact
 from playlist_narrative_engine.objective_assessment import Objective
 from playlist_narrative_engine.sequencing.schemas import TrackCandidate
 
@@ -30,12 +27,10 @@ OBJECTIVE = Objective(
 
 
 def journey_artifact(plan: JourneyPlan | None = None) -> JourneyPlanArtifact:
-    return JourneyPlanArtifact(
-        journey_id="journey-test",
-        objective=OBJECTIVE,
-        objective_safety_artifact_id="accepted-test",
-        plan=plan or JourneyPlanner().plan_active_focus(ActiveFocusRequest()),
-    )
+    artifact = journey_authority(OBJECTIVE)[2]
+    if plan is not None and plan != artifact.plan:
+        raise ValueError("test plan must equal authenticated planning evidence")
+    return artifact
 
 
 def formed_pool(
@@ -54,12 +49,13 @@ def formation_artifact(
         _formed_entry(candidate, ordinal)
         for ordinal, candidate in enumerate(ordered, start=1)
     )
+    journey = journey_artifact()
     return CandidateFormationArtifact(
         request_id="formation-test",
-        accepted_objective_artifact_id="accepted-test",
+        accepted_objective_artifact_id=journey.objective_safety_artifact_id,
         objective_id=OBJECTIVE.objective_id,
         objective_statement=OBJECTIVE.statement,
-        journey_id="journey-test",
+        journey_id=journey.journey_id,
         snapshot_id="snapshot-test",
         profile_id="profile-test",
         taste_evidence_artifact_id="taste-test",

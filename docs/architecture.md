@@ -14,9 +14,10 @@ repository interfaces rather than UI or AI-provider behavior.
 - `objective_assessment`: immutable, pure observation of whether validated
   objective evidence covers the fixed construction-readiness dimensions;
   missing dimensions map only to documented clarification prompts.
-- Objective Safety Boundary: schema `1.0` defines immutable accepted and declined
-  artifacts with fixed reasons and canonical serialization. The provider-neutral
-  safety evaluator and policy execution remain unimplemented.
+- Objective Safety Boundary: schema `2.0` defines immutable accepted and declined
+  artifacts with fixed reasons and canonical serialization. The implemented
+  provider-neutral evaluator is the sole production decision authority for the
+  frozen `pne.objective-safety.playlist-intent/1.0` policy.
 - `crossing_understanding` (CU-1): derives one directional crossing exclusively
   from exact EA-1 authenticated characteristics. Other lived evidence and need
   lineage are preserved without participating in directional reasoning.
@@ -36,7 +37,12 @@ repository interfaces rather than UI or AI-provider behavior.
   preference derivation, and complete formed/withheld partitioning. The accepted
   CF-3 integrates that artifact through an authenticated formed-only view and
   traced ranking envelope with no raw-candidate production path.
-- `journey` (Phase 2): request interpretation and phase allocation.
+- `journey` (Phase 2): a verified accepted Objective Safety result and the exact
+  authenticated Objective Assessment input evidence authorize deterministic
+  phase allocation. `JourneyPlanArtifact` schema `2.0` binds the assessment,
+  safety request, accepted decision, intent and policy lineage, planning values,
+  and resulting plan by canonical SHA-256. Direct schema construction is not a
+  production authority.
 - `sequencing` (Phases 3–4): candidate scoring, selection, and deterministic
   sequential construction. Each result binds the exact journey artifact,
   authenticated formed-parent digest, canonical construction policy, and
@@ -66,12 +72,13 @@ flowchart TD
     A["Objective request"] --> B["Objective Assessment"]
     B -->|"Clarification required"| C["Clarification path"]
     B -->|"Sufficient"| D["Objective Safety Boundary"]
+    D -->|"Accepted objective artifact"| E["Authoritative Journey Planning"]
     D -->|"Accepted objective artifact"| CU["Crossing Understanding"]
     D -->|"Declined objective artifact"| F["Safe response"]
     CU -->|"Understood crossing"| O["Curriculum Orientation"]
     CU -->|"Clarification required"| C
     O -->|"Orientation artifact"| N["Need Authority Uncertainty - proposed"]
-    N -.->|"Future integration"| E["Journey Planning"]
+    N -.->|"Future integration"| E
     E --> G["Future Provider Adapter"]
     G --> ACQ["Source-Neutral Acquisition Result"]
     ACQ --> V["Evidence Validation"]
@@ -86,9 +93,13 @@ flowchart TD
 ```
 
 Objective Safety evaluates intent before musical work begins. The accepted path
-alone reaches Crossing Understanding and later Journey Planning. The declined path is terminal for soundtrack
+alone may authorize Journey Planning. The declined path is terminal for soundtrack
 construction and does not access evidence providers or musical layers. See
 [Objective Safety Boundary](objective_safety.md) for the design contract.
+
+The legacy `pne plan-focus` command is explicitly a non-authoritative planning
+demo. It performs neither Objective Assessment nor Objective Safety and cannot
+produce an authoritative `JourneyPlanArtifact`.
 
 Crossing Understanding implements the first four steps of Penny's listening
 sequence without selecting accompaniment or music. Events and metaphors are

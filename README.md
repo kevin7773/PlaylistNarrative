@@ -98,7 +98,7 @@ Rate or re-rate an artist:
 pne rate "Rush" Love --notes "Reliable work music"
 pne rate "Radiohead" Forbidden
 pne list-artists --rating Unknown
-pne plan-focus --minutes 90 --discovery 20
+pne plan-focus --minutes 90 --discovery 20  # non-authoritative planning demo
 ```
 
 Run tests:

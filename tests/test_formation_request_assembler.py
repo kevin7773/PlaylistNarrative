@@ -76,6 +76,20 @@ def test_assembler_preserves_governed_artifacts_and_declaration_lineage() -> Non
     assert FormationRequestAssembler().assemble(inputs) == request
 
 
+def test_assembler_rejects_substituted_journey_authority() -> None:
+    inputs = assembly_input()
+    substituted = inputs.journey_plan.model_copy(
+        update={"objective_safety_artifact_id": "accepted-substitute"}
+    )
+    untrusted = inputs.model_copy(update={"journey_plan": substituted})
+
+    with pytest.raises(
+        ValueError,
+        match="exact accepted Objective Safety authority",
+    ):
+        FormationRequestAssembler().assemble(untrusted)
+
+
 def test_declaration_expected_value_and_independent_constraints_survive_exactly() -> None:
     second = CandidateHardConstraint(
         constraint_key="exact-title",

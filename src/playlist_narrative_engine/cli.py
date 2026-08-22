@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 
 from playlist_narrative_engine.db import (
     initialize_database,
@@ -27,7 +28,8 @@ def build_parser() -> argparse.ArgumentParser:
     rating.add_argument("--notes")
 
     focus = commands.add_parser(
-        "plan-focus", help="Create a deterministic Active Focus journey"
+        "plan-focus",
+        help="Create a non-authoritative deterministic Active Focus planning demo",
     )
     focus.add_argument("--minutes", type=int, default=90)
     focus.add_argument("--discovery", type=int, default=20)
@@ -59,7 +61,19 @@ def main() -> None:
                 discovery_percent=args.discovery,
             )
             plan = JourneyPlanner().plan_active_focus(request)
-            print(plan.model_dump_json(indent=2))
+            print(
+                json.dumps(
+                    {
+                        "authority": "NON_AUTHORITATIVE_DEMO",
+                        "warning": (
+                            "This utility does not perform Objective Assessment or "
+                            "Objective Safety and does not produce a JourneyPlanArtifact."
+                        ),
+                        "plan": plan.model_dump(mode="json"),
+                    },
+                    indent=2,
+                )
+            )
 
 
 if __name__ == "__main__":

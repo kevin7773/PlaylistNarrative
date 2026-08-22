@@ -15,7 +15,10 @@ from playlist_narrative_engine.candidate_formation.schemas import (
     ObjectiveContextEvidenceArtifact,
     TrackFeatureEvidenceArtifact,
 )
-from playlist_narrative_engine.journey import JourneyPlanArtifact
+from playlist_narrative_engine.journey import (
+    JourneyPlanArtifact,
+    journey_plan_matches_accepted_objective,
+)
 from playlist_narrative_engine.objective_safety import AcceptedObjectiveArtifact
 from playlist_narrative_engine.sequencing.schemas import TrackCandidate
 from playlist_narrative_engine.taste.ratings import Rating
@@ -133,6 +136,13 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
     @model_validator(mode="after")
     def validate_source_correspondence(self) -> CandidateFormationRequest:
         objective = self.accepted_objective.objective
+        if not journey_plan_matches_accepted_objective(
+            self.journey_plan,
+            self.accepted_objective,
+        ):
+            raise ValueError(
+                "Journey Plan must carry exact accepted Objective Safety authority"
+            )
         if self.journey_plan.objective != objective:
             raise ValueError("Journey Plan objective must correspond exactly")
         if (

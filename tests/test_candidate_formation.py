@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from objective_safety_helpers import accepted_objective as bound_accepted_objective
+from journey_authority_helpers import journey_authority
 
 from playlist_narrative_engine.candidate_formation import (
     CANDIDATE_FIELD_ORDER,
@@ -33,11 +33,7 @@ from playlist_narrative_engine.candidate_formation import (
     serialize_candidate_formation,
 )
 from playlist_narrative_engine.evaluation import PlaylistJourneyEvaluator
-from playlist_narrative_engine.journey import (
-    ActiveFocusRequest,
-    JourneyPlanArtifact,
-    JourneyPlanner,
-)
+from playlist_narrative_engine.journey import JourneyPlanArtifact
 from playlist_narrative_engine.objective_assessment import Objective
 from playlist_narrative_engine.objective_safety import AcceptedObjectiveArtifact
 from playlist_narrative_engine.sequencing import (
@@ -128,16 +124,11 @@ def track_validation(
 
 
 def accepted_objective() -> AcceptedObjectiveArtifact:
-    return bound_accepted_objective(OBJECTIVE, artifact_id="accepted-001")
+    return journey_authority(OBJECTIVE)[1]
 
 
 def journey() -> JourneyPlanArtifact:
-    return JourneyPlanArtifact(
-        journey_id="journey-001",
-        objective=OBJECTIVE,
-        objective_safety_artifact_id="accepted-001",
-        plan=JourneyPlanner().plan_active_focus(ActiveFocusRequest()),
-    )
+    return journey_authority(OBJECTIVE)[2]
 
 
 def policy() -> CandidateFormationPolicy:
@@ -229,11 +220,12 @@ def context(
     track_id: str = "track-a",
     context_fit: UnitIntervalEvidence | None = None,
 ) -> ObjectiveContextEvidenceArtifact:
+    authoritative_journey_id = journey().journey_id
     return ObjectiveContextEvidenceArtifact(
         artifact_id="context-001",
         objective_id=OBJECTIVE.objective_id,
         objective_statement=OBJECTIVE.statement,
-        journey_id="journey-001",
+        journey_id=authoritative_journey_id,
         context_id="focused-work",
         track_snapshot_id=SNAPSHOT_ID,
         records=(
@@ -430,7 +422,7 @@ def test_request_fails_closed_on_objective_journey_snapshot_or_profile_mismatch(
     wrong_journey = journey().model_copy(
         update={"objective_safety_artifact_id": "other"}
     )
-    with pytest.raises(ValidationError, match="accepted objective artifact"):
+    with pytest.raises(ValidationError, match="journey artifact authority bindings"):
         request(journey_plan=wrong_journey)
 
     wrong_context = context().model_copy(update={"journey_id": "other"})
