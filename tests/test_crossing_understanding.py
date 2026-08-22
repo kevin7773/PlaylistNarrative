@@ -7,6 +7,8 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
+from objective_safety_helpers import accepted_objective
+
 from playlist_narrative_engine.crossing_understanding import (
     CrossingClaim,
     CrossingClaimBasis,
@@ -46,13 +48,9 @@ def _sha(value: bytes) -> str:
 
 
 def _accepted() -> AcceptedObjectiveArtifact:
-    return AcceptedObjectiveArtifact(
+    return accepted_objective(
+        Objective(objective_id="objective-1", statement="I am beginning an unfamiliar role."),
         artifact_id="safety-1",
-        request_id="safety-request-1",
-        objective=Objective(objective_id="objective-1", statement="I am beginning an unfamiliar role."),
-        safety_policy_id="objective-safety",
-        safety_policy_version="1.0",
-        decision_explanation="The objective may proceed.",
     )
 
 
@@ -193,7 +191,13 @@ def test_withheld_attempt_cannot_be_used_as_crossing_input() -> None:
 def test_exact_parent_digest_and_objective_lineage_are_required() -> None:
     with pytest.raises(ValidationError, match="Evidence Authentication artifact digest"):
         _request(evidence_authentication_sha256="0" * 64)
-    other = _accepted().model_copy(update={"artifact_id": "safety-other"})
+    other = accepted_objective(
+        Objective(
+            objective_id="objective-1",
+            statement="I am beginning an unfamiliar role.",
+        ),
+        artifact_id="safety-other",
+    )
     with pytest.raises(ValidationError, match="objective lineage"):
         _request(
             accepted_objective=other,

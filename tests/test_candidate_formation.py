@@ -7,6 +7,8 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
+from objective_safety_helpers import accepted_objective as bound_accepted_objective
+
 from playlist_narrative_engine.candidate_formation import (
     CANDIDATE_FIELD_ORDER,
     CandidateFormationArtifact,
@@ -126,14 +128,7 @@ def track_validation(
 
 
 def accepted_objective() -> AcceptedObjectiveArtifact:
-    return AcceptedObjectiveArtifact(
-        artifact_id="accepted-001",
-        request_id="safety-request",
-        objective=OBJECTIVE,
-        safety_policy_id="safety-policy",
-        safety_policy_version="1.0",
-        decision_explanation="The objective may proceed.",
-    )
+    return bound_accepted_objective(OBJECTIVE, artifact_id="accepted-001")
 
 
 def journey() -> JourneyPlanArtifact:

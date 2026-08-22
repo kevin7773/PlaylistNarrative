@@ -7,6 +7,8 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
+from objective_safety_helpers import accepted_objective
+
 from playlist_narrative_engine.crossing_understanding import (
     CrossingClaim, CrossingClaimBasis, CrossingClaimRole, CrossingEvidenceObservation,
     CrossingEvidenceState, CrossingUnderstandingBoundary, CrossingUnderstandingRequest,
@@ -36,11 +38,9 @@ def _sha(value: bytes) -> str:
 
 
 def _accepted() -> AcceptedObjectiveArtifact:
-    return AcceptedObjectiveArtifact(
-        artifact_id="safety-1", request_id="safety-request-1",
-        objective=Objective(objective_id="objective-1", statement="I am describing a crossing."),
-        safety_policy_id="objective-safety", safety_policy_version="1.0",
-        decision_explanation="The objective may proceed.",
+    return accepted_objective(
+        Objective(objective_id="objective-1", statement="I am describing a crossing."),
+        artifact_id="safety-1",
     )
 
 

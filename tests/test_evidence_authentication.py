@@ -8,6 +8,8 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
+from objective_safety_helpers import accepted_objective
+
 from playlist_narrative_engine.evidence_authentication import (
     APPROVED_AUTHENTICATION_RULE_SET,
     APPROVED_AUTHENTICATION_RULE_SET_SHA256,
@@ -48,13 +50,9 @@ def _sha256(value: bytes) -> str:
 def _accepted_objective(
     *, statement: str = "I am describing evidence of a life transition."
 ) -> AcceptedObjectiveArtifact:
-    return AcceptedObjectiveArtifact(
+    return accepted_objective(
+        Objective(objective_id="objective-1", statement=statement),
         artifact_id="safety-1",
-        request_id="safety-request-1",
-        objective=Objective(objective_id="objective-1", statement=statement),
-        safety_policy_id="objective-safety",
-        safety_policy_version="1.0",
-        decision_explanation="The objective may proceed.",
     )
 
 
