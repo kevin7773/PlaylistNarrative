@@ -2,6 +2,61 @@
 
 ## Status
 
+### Executable frozen subset
+
+The repository now freezes one implementation-enabling observation-only
+authority chain in `playlist_narrative_engine.source_receipt`:
+
+- acquisition interface
+  `pne.acquisition-interface.ordered-opaque-byte-response/1.1`;
+- capture point
+  `pne.capture-point.pre-interpretation-response-items/1.1`;
+- Source Receipt policy `pne.source-receipt.observation-only/1.1`; and
+- canonical profile `pne.canonical-json.utf8-schema-order/1.0`.
+
+The frozen canonical SHA-256 values are, respectively:
+
+- interface: `3c0fa70094789a07acd596188c6aa2a461b20e2ed1deb49d01740a9bfb8f8de8`;
+- capture point: `0465a499cfcaeb9d9dea2886389038f9ce540489b372663df2875e724a3c5856`;
+- policy: `6dc9164c3413436b582f08d83de154dd954cf2824ccdaa6e3e6d2c7476619e83`;
+  and
+- canonical profile: `469877e55ba0a31728d8db9a26a2b5f604a9bbbf3829dfc2ad8f039984afa3a4`.
+
+Any governed content change requires an explicit successor version and new
+frozen digest; runtime use cannot amend these definitions.
+
+That narrow subset is executable definition authority with canonical SHA-256
+verification. It permits only complete, ordered, opaque-byte observation.
+
+`SourceReceiptProducer.produce_authoritative` now consumes an immutable request
+that binds those exact definitions and produces `SourceReceiptArtifact` schema
+`1.0`. The artifact preserves source identity, complete accounting, ordered
+observation handles, producer-derived item identities, and exact opaque bytes.
+Its receipt identity is derived from canonical receipt-content SHA-256, and
+verification reproduces the complete artifact from the bound request.
+
+This runtime boundary proves request conformance to the frozen receipt contract
+and authoritative producer execution. It does not establish that any provider,
+SDK, transport, adapter, or external implementation conforms to the interface
+or supplied the request.
+
+All generalized registry, provider, adapter, time-authority, access, identity,
+association, interpretation, external-conformance, and acquisition-production
+portions of this document remain provisional.
+
+### Observation-handle accounting
+
+Each interface-exposed item has one opaque, exact, nonblank UTF-8 observation
+handle assigned by the conforming interface at observation time. Its authority
+is request-local to one observation event. Exact code-point equality defines
+handle equality; no normalization is permitted.
+
+Repeated handles in one event are duplicate observation and require rejection
+without a receipt. Equal payload bytes under distinct handles are valid distinct
+items. The handle is preserved in canonical receipt content, but it is not a
+track, catalog, release, metadata, or authoritative receipt-item identity. A
+future producer assigns receipt item IDs only from interface order.
+
 This document is a provisional contract for a receipt-edge authority. It was
 identified while pressure-testing the prerequisites for Prompt Evidence
 Preservation.

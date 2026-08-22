@@ -4,7 +4,9 @@
 - **Purpose:** Separate external evidence acquisition from deterministic evidence
   processing
 - **Implementation status:** Snapshot contract and source-neutral acquisition
-  envelope implemented; no acquisition adapters
+  envelope implemented; observation-only Source Receipt artifact and producer
+  implemented; no conforming source implementation, acquisition producer, or
+  acquisition adapter is implemented
 
 ## Boundary
 
@@ -31,6 +33,13 @@ Deterministic TrackEvidenceValidator
 The source-neutral envelope is implemented in `evidence_acquisition`. It is an
 authority and replay contract, not an adapter. No provider-specific acquisition
 implementation exists in the repository.
+
+The future receipt edge must bind the frozen definitions in
+`playlist_narrative_engine.source_receipt`. Policy v1.1 permits only complete,
+ordered, opaque-byte observation and performs no metadata interpretation. The
+authoritative receipt producer binds those definitions and preserves exact
+opaque observations. This does not establish provider/interface conformance and
+does not produce a `SourceNeutralAcquisitionResult`.
 
 The validator receives only a snapshot. It has no provider interface and does
 not know how, when, or from where the snapshot was acquired. Source type and

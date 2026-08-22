@@ -2,6 +2,28 @@
 
 ## Status
 
+### Executable frozen subset
+
+One source-neutral interface definition is now frozen directly, without a
+general registry:
+
+`pne.acquisition-interface.ordered-opaque-byte-response/1.1`
+
+It authorizes only the claim that one future conforming implementation exposed
+a finite, completely enumerated, interface-ordered sequence of opaque byte
+items. It binds the canonical profile
+`pne.canonical-json.utf8-schema-order/1.0` and explicitly records that no
+conforming implementation is currently established.
+
+Every exposed item consists of one interface-assigned request-local observation
+handle, one bounded opaque byte payload, and one authoritative interface
+position. Handles use exact UTF-8 code-point equality and are not normalized or
+promoted to domain identity.
+
+The generalized acquisition-interface registry, publication authority,
+implementation-conformance boundary, and additional interface definitions
+remain provisional.
+
 This document is a provisional contract for a definition-only governance
 boundary. It follows the no-change authority audit of acquisition-interface and
 capture-point identity required by the Source Receipt Authority contract.

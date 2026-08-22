@@ -2,6 +2,26 @@
 
 ## Status
 
+### Executable frozen subset
+
+One capture-point definition is now frozen directly, without a general
+registry:
+
+`pne.capture-point.pre-interpretation-response-items/1.1`
+
+The logical point is after a complete source response exposes its bounded items
+and before decoding, parsing, normalization, or interpretation. Each observable
+unit is the exact opaque byte sequence within one interface-exposed item
+boundary; interface-local response order is authoritative. No conforming
+runtime implementation is currently established.
+
+The bounded observation also exposes the interface-assigned request-local
+observation handle associated with each payload and position. This handle is
+accounting provenance only and carries no metadata or domain meaning.
+
+The generalized Capture Point Registry, publication and conformance authority,
+and additional capture-point definitions remain provisional.
+
 This document is a provisional contract for a definition-only governance
 boundary. It follows the no-change authority audit of capture-point identity and
 observation-boundary semantics required by Source Receipt Authority.

@@ -29,7 +29,12 @@ repository interfaces rather than UI or AI-provider behavior.
   at an immutable `SourceNeutralAcquisitionResult` containing the exact source
   receipt, adapter identity/version, capability declaration, source-neutral
   `EvidenceSnapshot`, and corresponding candidate identity metadata. The
-  contract exists; no provider adapter is implemented.
+  contract exists; no provider adapter is implemented. One narrow observation-
+  only interface, capture point, receipt policy, and canonical profile are
+  frozen as executable definitions. An observation-only Source Receipt producer
+  now creates canonical request-reproducible receipts, but no conforming source
+  implementation, provider adapter, or source-neutral acquisition producer
+  exists yet.
 - `track_evidence`: deterministic validation and complete partitioning of an
   evidence snapshot without provider access, Candidate Formation, or sequencing.
 - Candidate Formation: CF-0 defines the join, CF-1 supplies immutable source
