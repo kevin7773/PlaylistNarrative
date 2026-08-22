@@ -1,5 +1,9 @@
 """Immutable Objective Safety boundary artifacts."""
 
+from playlist_narrative_engine.objective_safety.evaluator import (
+    ObjectiveSafetyEvaluator,
+    ObjectiveSafetyInvalidInput,
+)
 from playlist_narrative_engine.objective_safety.schemas import (
     OBJECTIVE_INTENT_DECLARATION_SCHEMA_VERSION,
     OBJECTIVE_SAFETY_ACCEPTED_EXPLANATION,
@@ -48,7 +52,9 @@ __all__ = [
     "ObjectiveIntentDeclarationArtifact",
     "ObjectiveIntentEvidenceState",
     "ObjectiveSafetyArtifact",
+    "ObjectiveSafetyEvaluator",
     "ObjectiveSafetyInputBinding",
+    "ObjectiveSafetyInvalidInput",
     "ObjectiveSafetyReason",
     "ObjectiveSafetyReasonCode",
     "ObjectiveSafetyRequest",

@@ -3,7 +3,7 @@
 - **Boundary:** Objective Safety
 - **Policy ID:** `pne.objective-safety.playlist-intent`
 - **Policy version:** `1.0`
-- **Status:** Authoritative implementation specification; evaluator not yet implemented
+- **Status:** Authoritative policy specification; evaluator implemented
 - **Purpose:** Decide whether one sufficiently specified objective may proceed to
   Playlist Narrative Engine Journey Planning.
 
@@ -303,11 +303,11 @@ effective, safe for every use, or accepted by the listener.
 
 ## 8. Construction authority
 
-The future `ObjectiveSafetyEvaluator.evaluate(request, intent_declaration,
-policy)` is the sole production decision boundary; `intent_declaration` is
-explicitly `ObjectiveIntentDeclarationArtifact | None`. It returns the
+`ObjectiveSafetyEvaluator.evaluate(request)` is the sole production decision
+boundary. The exact `ObjectiveIntentDeclarationArtifact | None` and policy
+identity/version/digest are bound inside the request. The evaluator returns the
 appropriate accepted or declined artifact and never exposes an "accept"
-argument.
+argument or caller-supplied result content.
 
 Direct Pydantic construction may remain available for deserialization and test
 fixtures, but constructor success is not production authority. Downstream
@@ -322,7 +322,7 @@ Python constructor inconvenient to call.
 
 ## 9. Verification semantics
 
-A future verifier must:
+The verifier must:
 
 1. validate supported schema and policy versions;
 2. verify canonical digests for policy, request, Objective, assessment, and
@@ -362,9 +362,11 @@ policy 1.0 without changing its semantics:
    envelopes that independent verification recomputes.
 
 Arbitrary objective/context metadata remains lineage-only and cannot carry or
-replace any of these authorities. The production evaluator and sole accepted-
-artifact construction boundary remain intentionally unimplemented; schema
-support and verification do not themselves authorize an objective.
+replace any of these authorities. The production evaluator is the sole product
+code path that constructs accepted or declined results. It validates the exact
+request authority, executes only policy 1.0, constructs an immutable result,
+and independently verifies that result before returning it. Verification alone
+does not create or authorize a result.
 
 ## 11. Implementation conformance
 
