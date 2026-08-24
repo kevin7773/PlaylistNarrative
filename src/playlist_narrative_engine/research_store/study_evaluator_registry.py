@@ -10,6 +10,9 @@ from playlist_narrative_engine.research_store.study_schemas import StudyProtocol
 from playlist_narrative_engine.research_store.study_structural_derivation_registry import (
     DEFAULT_STRUCTURAL_DERIVATION_REGISTRY,
 )
+from playlist_narrative_engine.research_store.study_vocabulary import (
+    verify_finite_vocabulary_plan,
+)
 
 
 class EvaluatorRole(StrEnum):
@@ -62,15 +65,36 @@ def integer_equals(measurements, parameters, _plan):
     return ("PASS", "INTEGER_EQUALS") if value == parameters["expected"] else ("FAIL", "INTEGER_DIFFERS")
 
 
+def _standalone_match(value: str, token: str, *, case_sensitive: bool) -> bool:
+    flags = 0 if case_sensitive else re.IGNORECASE
+    return re.search(rf"(?<![\w]){re.escape(token)}(?![\w])", value, flags) is not None
+
+
 def lexical_standalone_token(measurements, parameters, _plan):
     item = _single_measurement(measurements, "TEXT")
     value = _unknown_or_value(item, "text_value")
     if value is None:
         return "UNKNOWN", "MEASUREMENT_UNAVAILABLE"
     token = parameters["token"]
-    flags = 0 if parameters["case_sensitive"] else re.IGNORECASE
-    matched = re.search(rf"(?<![\w]){re.escape(token)}(?![\w])", value, flags) is not None
+    matched = _standalone_match(value, token, case_sensitive=parameters["case_sensitive"])
     return ("PASS", "STANDALONE_TOKEN_PRESENT") if matched else ("FAIL", "STANDALONE_TOKEN_ABSENT")
+
+
+def lexical_any_vocabulary_member(measurements, parameters, plan):
+    item = _single_measurement(measurements, "TEXT")
+    value = _unknown_or_value(item, "text_value")
+    if value is None:
+        return "UNKNOWN", "MEASUREMENT_UNAVAILABLE"
+    members = verify_finite_vocabulary_plan(plan, parameters)
+    matched = any(
+        _standalone_match(value, member, case_sensitive=parameters["case_sensitive"])
+        for member in members
+    )
+    return (
+        ("PASS", "STANDALONE_VOCABULARY_MEMBER_PRESENT")
+        if matched
+        else ("FAIL", "STANDALONE_VOCABULARY_MEMBER_ABSENT")
+    )
 
 
 def date_inclusive_window(measurements, parameters, _plan):
@@ -187,6 +211,13 @@ GENERIC_EXECUTABLE_EVALUATORS = (
     ExecutableEvaluator(EvaluatorIdentity(EvaluatorRole.SUBJECT_EVALUATOR, "subject.boolean_equals", "1"), frozenset({"RUN", "EXPERIMENT_PLACEMENT", "PLACEMENT_FIELD"}), ("BOOLEAN",), {"expected": "BOOLEAN"}, boolean_equals),
     ExecutableEvaluator(EvaluatorIdentity(EvaluatorRole.SUBJECT_EVALUATOR, "subject.integer_equals", "1"), frozenset({"RUN", "EXPERIMENT_PLACEMENT", "PLACEMENT_FIELD"}), ("INTEGER",), {"expected": "INTEGER"}, integer_equals),
     ExecutableEvaluator(EvaluatorIdentity(EvaluatorRole.SUBJECT_EVALUATOR, "subject.lexical_standalone_token", "1"), frozenset({"PLACEMENT_FIELD"}), ("TEXT",), {"token": "TEXT", "case_sensitive": "BOOLEAN"}, lexical_standalone_token),
+    ExecutableEvaluator(EvaluatorIdentity(EvaluatorRole.SUBJECT_EVALUATOR, "subject.lexical_any_vocabulary_member", "1"), frozenset({"PLACEMENT_FIELD"}), ("TEXT",), {
+        "vocabulary_key": "TEXT", "vocabulary_schema_version": "TEXT",
+        "vocabulary_id": "TEXT", "vocabulary_version": "TEXT",
+        "vocabulary_sha256": "TEXT", "matching_contract_id": "TEXT",
+        "matching_contract_version": "TEXT", "matching_contract_sha256": "TEXT",
+        "case_sensitive": "BOOLEAN",
+    }, lexical_any_vocabulary_member),
     ExecutableEvaluator(EvaluatorIdentity(EvaluatorRole.SUBJECT_EVALUATOR, "subject.date_inclusive_window", "1"), frozenset({"RUN", "EXPERIMENT_PLACEMENT", "PLACEMENT_FIELD"}), ("DATE",), {"start_date": "DATE", "end_date": "DATE"}, date_inclusive_window),
     ExecutableEvaluator(EvaluatorIdentity(EvaluatorRole.SUBJECT_EVALUATOR, "subject.vocabulary_allowed", "1"), frozenset({"RUN", "EXPERIMENT_PLACEMENT", "PLACEMENT_FIELD"}), ("VOCABULARY_TERM",), {"allowed_term": "VOCABULARY_TERM"}, vocabulary_allowed),
     ExecutableEvaluator(EvaluatorIdentity(EvaluatorRole.AGGREGATE_EVALUATOR, "aggregate.single_subject", "1"), frozenset({"RUN", "EXPERIMENT_PLACEMENT", "PLACEMENT_FIELD"}), (), {}, single_subject),
@@ -261,6 +292,17 @@ class StudyEvaluatorRegistry:
             }
             if identities[1].evaluator_key == "subject.lexical_standalone_token" and not values.get("token"):
                 raise ValueError("lexical standalone-token evaluator requires a non-empty token")
+            if identities[1].evaluator_key == "subject.lexical_any_vocabulary_member":
+                verify_finite_vocabulary_plan(
+                    plan.model_dump(mode="json"),
+                    {
+                        item.parameter_key: (
+                            item.boolean_value if item.value_type.value == "BOOLEAN"
+                            else item.text_value
+                        )
+                        for item in plan.parameters
+                    },
+                )
             if identities[1].evaluator_key == "subject.date_inclusive_window" and values["start_date"] > values["end_date"]:
                 raise ValueError("date-window start_date must not follow end_date")
             if identities[2].evaluator_key == "aggregate.all_subjects_required":
