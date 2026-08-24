@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import threading
+from pathlib import Path
 from urllib.request import Request, urlopen
 
 from playlist_narrative_engine.maestro_workbench.server import MaestroWorkbenchServer
@@ -216,3 +217,14 @@ def test_existing_nonstudy_proposal_builder_remains_constraint_optional():
     from playlist_narrative_engine.maestro_workbench.proposal_builder import build_governed_proposal
     proposal = build_governed_proposal("historical_experiment", {"prompt":"Ordinary","tracklist_completeness":"NOT_OBSERVED","tracks":[]}, [])
     assert proposal["constraints"] == []
+
+
+def test_run_queue_exposes_deterministic_operator_execution_packet():
+    script = Path("src/playlist_narrative_engine/maestro_workbench/static/studies.js").read_text(encoding="utf-8")
+
+    assert "Execution and evidence checklist" in script
+    assert "Submit this exact prompt once in a fresh generation." in script
+    assert "Do not regenerate, edit, delete, or substitute the result." in script
+    assert "Array.from(run.planned_prompt_text).length" in script
+    assert "complete ordered tracklist, including playlist boundaries" in script
+    assert "field-specific evidence link" in script
