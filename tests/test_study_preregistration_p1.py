@@ -183,6 +183,31 @@ def test_amendment_creates_visible_immutable_successor(research_session) -> None
     assert service.get_protocol_version(study["id"], 2)["planned_runs"][0]["planned_prompt_text"] == "Return exactly one displayed track."
 
 
+def test_maestro_beta_prompt_limit_is_enforced_prospectively() -> None:
+    proposal = _registration(study_key="PROMPT-LIMIT").model_dump(mode="json")
+    run = proposal["protocol"]["planned_runs"][0]
+    run["planned_prompt_text"] = "x" * 255
+    accepted = ResearchStoreService.validate_study_protocol(proposal)
+    assert accepted.valid
+    assert len(accepted.value.protocol.planned_runs[0].planned_prompt_text) == 255
+
+    run["planned_prompt_text"] = "x" * 256
+    refused = ResearchStoreService.validate_study_protocol(proposal)
+    assert not refused.valid
+    assert "supports at most 255" in refused.issues[0].message
+
+
+def test_prompt_limit_is_source_specific_and_counts_unicode_code_points() -> None:
+    proposal = _registration(study_key="PROMPT-SOURCE").model_dump(mode="json")
+    run = proposal["protocol"]["planned_runs"][0]
+    run["planned_prompt_text"] = chr(0x1F3B5) * 255
+    assert ResearchStoreService.validate_study_protocol(proposal).valid
+
+    run["planned_prompt_text"] = "x" * 256
+    run["planned_source_system"] = "Future Authoritative Source"
+    assert ResearchStoreService.validate_study_protocol(proposal).valid
+
+
 def test_operational_attempts_are_append_only_and_do_not_consume_run(research_session) -> None:
     service = ResearchStoreService(ResearchRepository(research_session))
     _, study, protocol = _registered(service)

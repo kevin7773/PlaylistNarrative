@@ -85,6 +85,10 @@ def test_studies_runtime_identity_handshake_exposes_serving_process_and_contract
         ]
         assert len(identity["study_contract_sha256"]) == 64
         assert len(identity["studies_assets_sha256"]) == 64
+        assert identity["source_system_execution_capabilities"]["Maestro Beta"] == {
+            "max_prompt_characters": 255,
+            "character_counting": "UNICODE_CODE_POINTS",
+        }
         assert headers["Cache-Control"] == "no-store"
     finally:
         app.close()
@@ -228,3 +232,6 @@ def test_run_queue_exposes_deterministic_operator_execution_packet():
     assert "Array.from(run.planned_prompt_text).length" in script
     assert "complete ordered tracklist, including playlist boundaries" in script
     assert "field-specific evidence link" in script
+    assert "SOURCE_LIMIT_BLOCKED" in script
+    assert "No run in this protocol version may be executed or realized." in script
+    assert 'protocolCapability.supported?`<button data-execute=' in script

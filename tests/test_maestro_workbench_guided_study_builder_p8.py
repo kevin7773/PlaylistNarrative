@@ -101,6 +101,7 @@ def _nc3_config(**changes):
         title="Exact Count Competition With Displayed Explicit Compliance",
         researchQuestion="Does adding an exact-count requirement reduce displayed no-Explicit compliance?",
         seed="nc-3-authoring-fixture",
+        sourceSystem="Synthetic Study Test Source",
         leftKey="condition-a",
         leftLabel="Explicit-only control",
         rightKey="condition-b",

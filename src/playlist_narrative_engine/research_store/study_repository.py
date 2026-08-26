@@ -70,6 +70,9 @@ from playlist_narrative_engine.research_store.study_schemas import (
 from playlist_narrative_engine.research_store.study_structured_evaluation import (
     evaluate_structured_constraint,
 )
+from playlist_narrative_engine.research_store.study_source_capabilities import (
+    validate_planned_prompt_execution,
+)
 
 
 class StudyRepository:
@@ -471,6 +474,7 @@ class StudyRepository:
     ) -> dict[str, object]:
         with self.session.begin():
             run = self._registered_open_run(planned_run_id)
+            self._validate_run_execution_capability(run)
             if any(self._definition_plan(item.id) is not None for item in self._run_definitions(run.id)):
                 raise ValueError(
                     "planned run contains STRUCTURED_REQUIRED constraints; "
@@ -496,6 +500,7 @@ class StudyRepository:
     ) -> dict[str, object]:
         with self.session.begin():
             run = self._registered_open_run(planned_run_id)
+            self._validate_run_execution_capability(run)
             definitions = self._run_definitions(run.id)
             structured_definitions = {
                 item.id: item for item in definitions if self._definition_plan(item.id) is not None
@@ -789,6 +794,7 @@ class StudyRepository:
             raise ValueError("generation-failure realization requires a Maestro failure disposition")
         with self.session.begin():
             run = self._registered_open_run(planned_run_id)
+            self._validate_run_execution_capability(run)
             if draft.prompt != run.planned_prompt_text:
                 raise ValueError("generation-failure prompt must exactly match the planned prompt")
             if run.planned_source_system is not None and draft.source_system != run.planned_source_system:
@@ -803,6 +809,19 @@ class StudyRepository:
             self.session.add(realization)
             self.session.flush()
             return self._realization_dict(realization)
+
+    def _validate_run_execution_capability(self, run: StudyPlannedRun) -> None:
+        protocol_runs = self.session.scalars(
+            select(StudyPlannedRun)
+            .where(StudyPlannedRun.protocol_version_id == run.protocol_version_id)
+            .order_by(StudyPlannedRun.randomized_ordinal)
+        )
+        for planned in protocol_runs:
+            validate_planned_prompt_execution(
+                planned.planned_source_system,
+                planned.planned_prompt_text,
+                run_key=planned.run_key,
+            )
 
     def _registered_open_run(self, planned_run_id: int) -> StudyPlannedRun:
         run = self.session.get(StudyPlannedRun, planned_run_id)

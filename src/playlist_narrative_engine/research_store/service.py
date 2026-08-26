@@ -33,6 +33,9 @@ from playlist_narrative_engine.research_store.study_structured_evaluation import
     evaluate_structured_constraint,
     validate_structured_measurements as validate_measurements,
 )
+from playlist_narrative_engine.research_store.study_source_capabilities import (
+    validate_planned_prompt_execution,
+)
 from playlist_narrative_engine.research_store.study_evaluation import (
     evaluate_calculator_governed_study,
     evaluate_registered_study,
@@ -142,22 +145,26 @@ class ResearchStoreService:
     def validate_study_protocol(
         proposal: object,
     ) -> ValidationResult[StudyRegistrationInput]:
-        return _validate(StudyRegistrationInput, proposal)
+        result = _validate(StudyRegistrationInput, proposal)
+        return _validate_protocol_source_capabilities(result)
 
     @staticmethod
     def validate_study_protocol_amendment(
         proposal: object,
     ) -> ValidationResult[StudyProtocolAmendmentInput]:
-        return _validate(StudyProtocolAmendmentInput, proposal)
+        result = _validate(StudyProtocolAmendmentInput, proposal)
+        return _validate_protocol_source_capabilities(result)
 
     def register_study(self, proposal: StudyRegistrationInput) -> dict[str, object]:
         _require_type(proposal, StudyRegistrationInput)
+        _require_protocol_source_capabilities(proposal)
         return self._studies.register_study(proposal)
 
     def register_protocol_amendment(
         self, study_id: int, proposal: StudyProtocolAmendmentInput
     ) -> dict[str, object]:
         _require_type(proposal, StudyProtocolAmendmentInput)
+        _require_protocol_source_capabilities(proposal)
         return self._studies.register_protocol_amendment(study_id, proposal)
 
     def get_study(self, study_id_or_key: int | str) -> dict[str, object] | None:
@@ -585,6 +592,15 @@ class ResearchStoreService:
         )
         if context is None:
             raise ValueError(f"planned run not found: {planned_run_id}")
+        protocol = self.get_protocol_version(
+            context["study_id"], context["protocol_version"]
+        )
+        for run in protocol["planned_runs"]:
+            validate_planned_prompt_execution(
+                run["planned_source_system"],
+                run["planned_prompt_text"],
+                run_key=run["run_key"],
+            )
         experiment = self._structured_draft_projection(experiment_input)
         constraints = []
         for definition in context["constraint_definitions"]:
@@ -1195,6 +1211,38 @@ def _validate(model_type: type[ValidatedValue], proposal: object) -> ValidationR
         )
         return ValidationResult(value=None, issues=issues)
     return ValidationResult(value=value)
+
+
+def _protocol_from_study_input(
+    proposal: StudyRegistrationInput | StudyProtocolAmendmentInput,
+):
+    return proposal.protocol
+
+
+def _require_protocol_source_capabilities(
+    proposal: StudyRegistrationInput | StudyProtocolAmendmentInput,
+) -> None:
+    for run in _protocol_from_study_input(proposal).planned_runs:
+        validate_planned_prompt_execution(
+            run.planned_source_system, run.planned_prompt_text, run_key=run.run_key
+        )
+
+
+def _validate_protocol_source_capabilities(result):
+    if not result.valid:
+        return result
+    try:
+        _require_protocol_source_capabilities(result.value)
+    except ValueError as exc:
+        return ValidationResult(
+            value=None,
+            issues=(ValidationIssue(
+                location=("protocol", "planned_runs"),
+                message=str(exc),
+                issue_type="source_system_execution_capability",
+            ),),
+        )
+    return result
 
 
 def _verify_sources(sources: list[EvidenceSourceInput]) -> EvidenceVerificationResult:

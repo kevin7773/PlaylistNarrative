@@ -46,6 +46,9 @@ from playlist_narrative_engine.research_store.service import (
 )
 from playlist_narrative_engine.research_store.migrations import CURRENT_SCHEMA_VERSION
 from playlist_narrative_engine.research_store.study_schemas import StudyRegistrationInput
+from playlist_narrative_engine.research_store.study_source_capabilities import (
+    source_system_execution_capabilities,
+)
 from playlist_narrative_engine.research_store.study_closeout import (
     closeout_json_bytes,
     closeout_markdown,
@@ -93,6 +96,7 @@ def workbench_runtime_identity(*, launch_mode: str = "unknown") -> dict[str, Any
         "study_contract_capabilities": list(WORKBENCH_CONTRACT_CAPABILITIES),
         "studies_assets_sha256": asset_hasher.hexdigest(),
         "studies_assets": list(asset_names),
+        "source_system_execution_capabilities": source_system_execution_capabilities(),
     }
 
 
