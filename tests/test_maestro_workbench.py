@@ -558,6 +558,10 @@ def test_structured_evaluation_immediately_follows_build_and_precedes_read_only_
     assert build < build_panel_end < structured_start < structured_end < review_start
     assert html[build_panel_end + len("</section>"):structured_start].strip() == ""
     assert html[structured_end + len("</section>"):review_start].strip() == ""
+    structured = html[structured_start:structured_end]
+    assert 'id="structured-worksheet-state"' in structured
+    assert 'id="rebuild-structured-evaluation"' in structured
+    assert "Rebuild worksheet from current proposal" in structured
 
 
 def test_readiness_requires_explicit_provenance_for_additional_evidence_links() -> None:
@@ -720,6 +724,9 @@ function buildEnvironment() {
   element("#validate");
   element("#ingest");
   element("#preview-structured-evaluation");
+  element("#rebuild-structured-evaluation");
+  element("#structured-worksheet-state");
+  element("#structured-evaluation-constraints");
   element("#evidence-files");
   element("#draft-text");
   const draftSources = element("#draft-sources");
@@ -886,6 +893,9 @@ function buildEnvironment() {
   element("#validate");
   element("#ingest");
   element("#preview-structured-evaluation");
+  element("#rebuild-structured-evaluation");
+  element("#structured-worksheet-state");
+  element("#structured-evaluation-constraints");
   element("#evidence-files");
   element("#draft-text", "1 | Track | Artist |");
   const draftSources = element("#draft-sources");

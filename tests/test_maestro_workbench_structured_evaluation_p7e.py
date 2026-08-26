@@ -414,6 +414,122 @@ def test_proposal_changes_invalidate_structured_preview_before_ingestion():
     assert '$("#ingest").disabled = true' in function_body
 
 
+def test_advanced_json_edit_invalidates_worksheet_and_blocks_preview_until_rebuild():
+    script = Path("src/playlist_narrative_engine/maestro_workbench/static/app.js").read_text(
+        encoding="utf-8"
+    )
+    helper = script[
+        script.index("function invalidateStructuredWorksheet"):
+        script.index("function draftWorkflowControls")
+    ]
+    node_program = f"""
+const states = {{}};
+const controls = [{{disabled: false}}, {{disabled: false}}];
+const elements = {{
+  '#ingest': {{disabled: false}},
+  '#preview-structured-evaluation': {{disabled: false}},
+  '#rebuild-structured-evaluation': {{disabled: true}},
+  '#structured-evaluation-constraints': {{querySelectorAll: () => controls}},
+  '#structured-worksheet-state': {{textContent: '', dataset: {{}}}},
+  '#structured-evaluation-preview': {{textContent: '', dataset: {{}}}},
+}};
+const $ = selector => elements[selector];
+const proposal = {{value: '{{"tracks":[]}}'}};
+const plannedRunContext = {{constraints: [{{structured_evaluation_plan: {{}}}}]}};
+let structuredWorksheet = {{constraints: []}};
+let structuredWorksheetProposalSnapshot = 'old proposal';
+let structuredPreviewComplete = true;
+function setLocalStatus(selector, message, state) {{
+  elements[selector].textContent = message;
+  elements[selector].dataset.state = state;
+}}
+{helper}
+invalidateStructuredWorksheet();
+process.stdout.write(JSON.stringify({{
+  worksheet: structuredWorksheet,
+  snapshot: structuredWorksheetProposalSnapshot,
+  previewComplete: structuredPreviewComplete,
+  ingestDisabled: elements['#ingest'].disabled,
+  previewDisabled: elements['#preview-structured-evaluation'].disabled,
+  rebuildDisabled: elements['#rebuild-structured-evaluation'].disabled,
+  staleControlsDisabled: controls.every(control => control.disabled),
+  state: elements['#structured-worksheet-state'].textContent,
+  preview: elements['#structured-evaluation-preview'].textContent,
+}}));
+"""
+    completed = subprocess.run(
+        ["node", "-e", node_program], check=True, capture_output=True, text=True
+    )
+    result = json.loads(completed.stdout)
+    assert result["worksheet"] is None
+    assert result["snapshot"] is None
+    assert result["previewComplete"] is False
+    assert result["ingestDisabled"] and result["previewDisabled"]
+    assert result["rebuildDisabled"] is False
+    assert result["staleControlsDisabled"]
+    assert "Rebuild" in result["state"]
+    assert "Preview blocked" in result["preview"]
+
+    listener = script[script.index('proposal.addEventListener("input"'):]
+    listener = listener[:listener.index("});") + 3]
+    assert "invalidateValidation();" in listener
+    assert "invalidateStructuredWorksheet();" in listener
+    preview = script[
+        script.index("async function previewStructuredEvaluation"):
+        script.index("async function ingestProposal")
+    ]
+    current = script[
+        script.index("function structuredWorksheetIsCurrent"):
+        script.index("function markWorksheetSynchronizedWithProposal")
+    ]
+    assert "structuredWorksheetProposalSnapshot === proposal.value" in current
+    assert "!structuredWorksheetIsCurrent()" in preview
+    assert "invalidateStructuredWorksheet();" in preview
+
+    validation = script[
+        script.index("async function validateProposal"):
+        script.index("function countEvidenceLinks")
+    ]
+    ingestion = script[
+        script.index("async function ingestProposal"):
+        script.index("function addRow", script.index("async function ingestProposal"))
+    ]
+    assert validation.count("!structuredWorksheetIsCurrent()") == 2
+    assert "!structuredPreviewComplete || !structuredWorksheetIsCurrent()" in ingestion
+    assert "Rebuild and preview the structured worksheet" in ingestion
+
+
+def test_rebuilding_worksheet_realigns_with_current_proposal_without_persistence(research_session):
+    params = [
+        {"parameter_key": "expected", "value_type": "BOOLEAN", "boolean_value": False},
+        {"parameter_key": "mixed_status", "value_type": "TEXT", "text_value": "FAIL"},
+        {"parameter_key": "all_fail_status", "value_type": "TEXT", "text_value": "FAIL"},
+        {"parameter_key": "unknown_status", "value_type": "TEXT", "text_value": "UNKNOWN"},
+    ]
+    service = ResearchStoreService(ResearchRepository(research_session))
+    protocol, definitions = _register(service, _study(
+        "PLACEMENT_FIELD", "explicit_flag", "subject.boolean_equals", "BOOLEAN",
+        evidence_required=True, aggregate="aggregate.all_subjects_required",
+        parameters=params,
+    ))
+    original = _experiment(protocol, definitions, count=1, explicit=[False], evidence=True)
+    edited = original.model_copy(update={
+        "tracks": [original.tracks[0].model_copy(update={"explicit_flag": True})]
+    })
+    counts_before = research_session.scalar(select(func.count()).select_from(Experiment))
+
+    original_sheet = service.prepare_structured_evaluation_worksheet(
+        protocol["planned_runs"][0]["id"], original
+    )
+    rebuilt_sheet = service.prepare_structured_evaluation_worksheet(
+        protocol["planned_runs"][0]["id"], edited
+    )
+
+    assert original_sheet["constraints"][0]["subjects"][0]["displayed_context"]["explicit_flag"] is False
+    assert rebuilt_sheet["constraints"][0]["subjects"][0]["displayed_context"]["explicit_flag"] is True
+    assert research_session.scalar(select(func.count()).select_from(Experiment)) == counts_before
+
+
 def test_explicit_boolean_direct_observation_is_editable_and_uses_intent_labels():
     script = Path("src/playlist_narrative_engine/maestro_workbench/static/app.js").read_text(
         encoding="utf-8"
@@ -447,6 +563,7 @@ const proposal = {{value: JSON.stringify({{
   evidence_sources: [{{source_key: 'screen', source_type: 'SCREENSHOT', source_reference: 'capture'}}]
 }})}};
 function invalidateValidation() {{ invalidations += 1; }}
+function markWorksheetSynchronizedWithProposal() {{}}
 {helpers}
 function row(value, source) {{
   return {{querySelector: selector => selector === '[data-measurement-value]'

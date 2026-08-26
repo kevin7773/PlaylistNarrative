@@ -181,8 +181,12 @@
       <span class="step">STUDY</span><h2>Structured Evaluation Worksheet</h2>
       <p class="boundary">Subjects and deterministic results come from the registered protocol. Worksheet entries are an ungoverned browser-local draft until atomic realization.</p>
       <div id="structured-evaluation-status" class="operation-status" aria-live="polite">Build the Experiment proposal to enumerate registered subjects.</div>
+      <div id="structured-worksheet-state" class="operation-status" aria-live="polite">No worksheet is loaded.</div>
       <div id="structured-evaluation-constraints" class="card-list"></div>
-      <button id="preview-structured-evaluation" type="button">Preview deterministic evaluation</button>
+      <div class="button-row">
+        <button id="rebuild-structured-evaluation" type="button" disabled>Rebuild worksheet from current proposal</button>
+        <button id="preview-structured-evaluation" type="button" disabled>Preview deterministic evaluation</button>
+      </div>
       <div id="structured-evaluation-preview" class="operation-status" aria-live="polite">No deterministic preview calculated.</div>
     </section>
 

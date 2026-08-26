@@ -15,6 +15,7 @@ let plannedRunContext = (() => {
   catch (_error) { return null; }
 })();
 let structuredWorksheet = null;
+let structuredWorksheetProposalSnapshot = null;
 let structuredPreviewComplete = false;
 
 const REQUIRED_HISTORICAL_CLAIMS = [
@@ -72,6 +73,27 @@ function invalidateValidation(message = "Proposal changed. Validate again before
   }
   $("#ingest").disabled = true;
   setLocalStatus("#validation-status", message, "idle");
+}
+
+function invalidateStructuredWorksheet(message = "Advanced governed JSON changed. Rebuild the structured worksheet from the current proposal before preview or realization.") {
+  if (!plannedRunContext?.constraints?.some(item => item.structured_evaluation_plan)) return;
+  structuredWorksheet = null;
+  structuredWorksheetProposalSnapshot = null;
+  structuredPreviewComplete = false;
+  $("#ingest").disabled = true;
+  $("#preview-structured-evaluation").disabled = true;
+  $("#rebuild-structured-evaluation").disabled = proposal.value.trim() === "";
+  $("#structured-evaluation-constraints").querySelectorAll("input,select,button").forEach(control => { control.disabled = true; });
+  setLocalStatus("#structured-worksheet-state", message, "error");
+  setLocalStatus("#structured-evaluation-preview", "Preview blocked: the worksheet is stale and has not been reconciled with the edited proposal.", "error");
+}
+
+function structuredWorksheetIsCurrent() {
+  return Boolean(structuredWorksheet && structuredWorksheetProposalSnapshot === proposal.value);
+}
+
+function markWorksheetSynchronizedWithProposal() {
+  if (structuredWorksheet) structuredWorksheetProposalSnapshot = proposal.value;
 }
 
 function draftWorkflowControls() {
@@ -676,7 +698,7 @@ async function validateProposal() {
     if (body.valid) {
       validatedProposalSnapshot = snapshot;
       const requiresStructured = Boolean(plannedRunContext?.constraints.some(item => item.structured_evaluation_plan));
-      $("#ingest").disabled = requiresStructured && !structuredPreviewComplete;
+      $("#ingest").disabled = requiresStructured && (!structuredPreviewComplete || !structuredWorksheetIsCurrent());
       setLocalStatus("#validation-status", "Schema: valid. Evidence files: valid. No writes performed.", "success");
     } else {
       invalidateValidation();
@@ -691,7 +713,8 @@ async function validateProposal() {
   } finally {
     finish();
     $("#ingest").disabled = validatedProposalSnapshot !== proposal.value ||
-      Boolean(plannedRunContext?.constraints.some(item => item.structured_evaluation_plan) && !structuredPreviewComplete);
+      Boolean(plannedRunContext?.constraints.some(item => item.structured_evaluation_plan) &&
+        (!structuredPreviewComplete || !structuredWorksheetIsCurrent()));
   }
 }
 
@@ -760,6 +783,7 @@ function updateExplicitObservationDraft(subject, row) {
     support_status: "FULL",
   });
   proposal.value = JSON.stringify(draft, null, 2);
+  markWorksheetSynchronizedWithProposal();
   invalidateValidation("Direct observation changed. Preview and validate the proposal again before ingestion.");
 }
 
@@ -783,6 +807,7 @@ function updateTargetObservationDraft(subject, row) {
     });
   });
   proposal.value = JSON.stringify(draft, null, 2);
+  markWorksheetSynchronizedWithProposal();
   invalidateValidation("Target observation or identity evidence changed. Preview and validate the proposal again before ingestion.");
 }
 
@@ -839,16 +864,44 @@ function renderStructuredWorksheet() {
 
 async function loadStructuredWorksheet(builtProposal) {
   const panel = $("#structured-evaluation-panel"); panel.hidden = false;
+  const proposalSnapshot = proposal.value;
+  $("#preview-structured-evaluation").disabled = true;
+  $("#rebuild-structured-evaluation").disabled = true;
   setLocalStatus("#structured-evaluation-status", "Enumerating frozen subjects…", "busy");
+  setLocalStatus("#structured-worksheet-state", "Building worksheet from the current proposal…", "busy");
   try {
     const response = await fetch(`/api/study-runs/${plannedRunContext.run_id}/structured-worksheet`, {method: "POST", headers: apiHeaders({"Content-Type": "application/json"}), body: JSON.stringify({proposal: builtProposal})});
-    structuredWorksheet = await readJsonResponse(response, "Structured worksheet");
+    const worksheet = await readJsonResponse(response, "Structured worksheet");
+    if (proposal.value !== proposalSnapshot) {
+      invalidateStructuredWorksheet("The proposal changed while the worksheet was building. Rebuild it from the current proposal before preview or realization.");
+      return;
+    }
+    structuredWorksheet = worksheet;
+    structuredWorksheetProposalSnapshot = proposalSnapshot;
     renderStructuredWorksheet();
+    $("#preview-structured-evaluation").disabled = false;
+    $("#rebuild-structured-evaluation").disabled = true;
     setLocalStatus("#structured-evaluation-status", `${structuredWorksheet.constraints.length} structured constraint worksheet(s) ready. Subjects are read-only.`, "success");
+    setLocalStatus("#structured-worksheet-state", "Worksheet is aligned with the current proposal.", "success");
   } catch (error) {
     structuredWorksheet = null;
+    structuredWorksheetProposalSnapshot = null;
+    $("#preview-structured-evaluation").disabled = true;
+    $("#rebuild-structured-evaluation").disabled = proposal.value.trim() === "";
     setLocalStatus("#structured-evaluation-status", `Structured worksheet unavailable: ${error.message}. The Experiment draft remains intact.`, "error");
+    setLocalStatus("#structured-worksheet-state", "No current worksheet is available. The proposal was not changed.", "error");
   }
+}
+
+async function rebuildStructuredWorksheet() {
+  let currentProposal;
+  try {
+    currentProposal = JSON.parse(proposal.value);
+  } catch (error) {
+    setLocalStatus("#structured-worksheet-state", `Cannot rebuild worksheet: current proposal JSON is invalid (${error.message}).`, "error");
+    return;
+  }
+  await loadStructuredWorksheet(currentProposal);
 }
 
 function measurementPayload(row, subject) {
@@ -882,7 +935,10 @@ function collectStructuredEvaluation() {
 }
 
 async function previewStructuredEvaluation() {
-  if (!structuredWorksheet) return setLocalStatus("#structured-evaluation-preview", "Build the proposal and load the worksheet first.", "error");
+  if (!structuredWorksheetIsCurrent()) {
+    invalidateStructuredWorksheet();
+    return;
+  }
   try {
     const response = await fetch(`/api/study-runs/${plannedRunContext.run_id}/structured-preview`, {method: "POST", headers: apiHeaders({"Content-Type": "application/json"}), body: JSON.stringify({proposal: JSON.parse(proposal.value), structured_evaluation: collectStructuredEvaluation()})});
     const body = await readJsonResponse(response, "Structured preview");
@@ -902,6 +958,12 @@ async function previewStructuredEvaluation() {
 
 async function ingestProposal() {
   if (ingestionActive) return;
+  const requiresStructured = Boolean(plannedRunContext?.constraints.some(item => item.structured_evaluation_plan));
+  if (requiresStructured && (!structuredPreviewComplete || !structuredWorksheetIsCurrent())) {
+    invalidateStructuredWorksheet();
+    setLocalStatus("#ingest-status", "Rebuild and preview the structured worksheet for the current proposal before ingestion.", "error");
+    return;
+  }
   if (!validatedProposalSnapshot || validatedProposalSnapshot !== proposal.value) {
     setLocalStatus("#ingest-status", "Validate the current proposal before ingestion.", "error");
     return;
@@ -1168,6 +1230,7 @@ function updateMode() {
   $("#confirmed-summary").textContent = "No tracklist confirmed.";
   $("#confirmed-summary").classList.remove("confirmed");
   invalidateValidation("Mode changed. Build and validate a new proposal.");
+  invalidateStructuredWorksheet("Mode changed. Build a new proposal before rebuilding the structured worksheet.");
   show("Mode selected. No operation performed.");
   refreshReadiness();
 }
@@ -1262,6 +1325,7 @@ async function renderPersistedStructuredRun() {
     const body = await readJsonResponse(response, "Persisted structured evaluation");
     $("#structured-evaluation-constraints").innerHTML = body.constraints.map(item => `<section class="structured-constraint"><h3>${escapeHtml(item.definition.constraint_key)} · terminal governed evaluation</h3><p class="aggregate-result">${escapeHtml(item.aggregate.status)} — ${escapeHtml(item.aggregate.provenance_notes || "Deterministically aggregated")}</p>${item.structured.subjects.map(subject => `<article class="structured-subject"><strong>${escapeHtml(subject.subject_key)}</strong><p>${escapeHtml(subject.result.status)} — ${escapeHtml(subject.result.reason_code)}</p><details><summary>Persisted provenance</summary><pre>${escapeHtml(JSON.stringify(subject, null, 2))}</pre></details></article>`).join("")}</section>`).join("");
     $("#preview-structured-evaluation").hidden = true;
+    $("#rebuild-structured-evaluation").hidden = true;
     setLocalStatus("#structured-evaluation-status", `Terminal realization read from governed persistence. Experiment ${body.experiment.id}.`, "success");
     setLocalStatus("#structured-evaluation-preview", "Instrumentation classification: STRUCTURED_DERIVABLE. No post-realization edits are available.", "success");
   } catch (error) {
@@ -1296,8 +1360,12 @@ $("#add-link").addEventListener("click", () => addRow("#link-template", "#eviden
 $("#build").addEventListener("click", buildProposal);
 $("#validate").addEventListener("click", validateProposal);
 $("#ingest").addEventListener("click", ingestProposal);
+$("#rebuild-structured-evaluation").addEventListener("click", rebuildStructuredWorksheet);
 $("#preview-structured-evaluation").addEventListener("click", previewStructuredEvaluation);
-proposal.addEventListener("input", () => invalidateValidation());
+proposal.addEventListener("input", () => {
+  invalidateValidation();
+  invalidateStructuredWorksheet();
+});
 $("#prompt").addEventListener("input", () => {
   $("#prompt-attested").checked = false;
   invalidateValidation();
