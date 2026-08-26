@@ -533,7 +533,8 @@ class ResearchStoreService:
         if evaluation is None or not evaluation["completion"]["realized_runs"]:
             return None
         return explore_study(
-            evaluation, self.get_experiment, self.get_structured_constraint_evaluation
+            evaluation, self.get_experiment, self.get_structured_constraint_evaluation,
+            self.get_protocol_version(study_id_or_key, version),
         )
 
     def closeout_study(

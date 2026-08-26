@@ -35,3 +35,12 @@ def test_exploratory_projection_is_technical_detail_not_primary_ui():
     assert "JSON.stringify(exploration,null,2)" in surface
     assert "significant" not in surface.lower()
     assert "causes" not in surface.lower()
+
+
+def test_finite_vocabulary_failure_modes_are_readable_and_remain_exploratory():
+    script = SCRIPT.read_text(encoding="utf-8")
+    assert "function renderFiniteVocabularyFailures" in script
+    assert "Finite-vocabulary field-boundary failures" in script
+    assert "Vocabulary match in displayed artist only" in script
+    assert "Semantic/associative relation remains NOT_DERIVABLE" in script
+    assert "Recurring non-PASS displayed title/artist pairs" in script

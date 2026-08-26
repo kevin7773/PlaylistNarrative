@@ -2,6 +2,10 @@ from __future__ import annotations
 
 from copy import deepcopy
 
+from playlist_narrative_engine.research_store.animal_vocabulary import (
+    ANIMAL_VOCABULARY_TERMS,
+    animal_vocabulary_parameters,
+)
 from playlist_narrative_engine.research_store.study_exploration import explore_study
 
 
@@ -89,3 +93,81 @@ def test_metadata_cross_view_is_descriptive_and_generic():
                for cell in result["metadata_cross_view"]["cells"])
     assert all(cell["contributors"] for cell in result["metadata_cross_view"]["cells"])
     assert result["synopsis"]["label"] == "EXPLORATORY DESCRIPTIVE SUMMARY — NOT A REGISTERED STUDY CONCLUSION"
+
+
+def test_finite_vocabulary_failure_modes_preserve_field_scope_and_ambiguity():
+    plan = {
+        "subject_kind": "PLACEMENT_FIELD",
+        "subject_evaluator": {
+            "evaluator_key": "subject.lexical_any_vocabulary_member",
+            "evaluator_version": "1",
+        },
+        "parameters": list(animal_vocabulary_parameters()),
+        "vocabulary_terms": list(ANIMAL_VOCABULARY_TERMS),
+    }
+    protocol = {
+        "constraint_definitions": [{
+            "id": 19, "constraint_key": "animal-title",
+            "structured_evaluation_plan": plan,
+        }],
+    }
+    constraints = [{
+        "definition_id": 19, "constraint_id": 301,
+        "constraint_result_id": 401, "constraint_key": "animal-title",
+    }]
+    evaluation = {
+        "execution_classification": "CALCULATOR_GOVERNED_EXECUTION",
+        "study_id": 5, "study_key": "FIELD-SCOPE", "protocol_version_id": 7,
+        "protocol_version": 1, "registration_hash": "a" * 64,
+        "runs": [{
+            "planned_run_id": 1, "run_key": "left-r01", "condition_key": "condition-a",
+            "block_key": "b01", "replicate_number": 1, "experiment_id": 201,
+            "constraints": constraints,
+        }],
+    }
+    experiment = {"tracks": [
+        {"id": 1, "title": "Blackbird", "artist": "The Beatles"},
+        {"id": 2, "title": "Hotel California", "artist": "Eagles"},
+        {"id": 3, "title": "Black Math", "artist": "The White Stripes"},
+        {"id": 4, "title": "Obscured", "artist": "A-Ha"},
+    ]}
+    statuses = ("PASS", "FAIL", "FAIL", "UNKNOWN")
+    structured = {
+        "instrumentation_classification": "STRUCTURED_DERIVABLE",
+        "subjects": [{
+            "id": 100 + index, "subject_kind": "PLACEMENT_FIELD",
+            "experiment_track_id": index, "governed_field": "display_title",
+            "enumeration_ordinal": index,
+            "measurements": [{"id": 200 + index, "evidence": []}],
+            "result": {"id": 300 + index, "status": status},
+        } for index, status in enumerate(statuses, 1)],
+    }
+    original_evaluation = deepcopy(evaluation)
+    result = explore_study(
+        evaluation, lambda _: experiment, lambda _: structured, protocol
+    )["finite_vocabulary_field_failure_analysis"]
+
+    combined = next(item for item in result["summaries"] if item["population"] == "COMBINED")
+    assert combined["counts"] == {
+        "LITERAL_TITLE_PASS": 1,
+        "ARTIST_FIELD_SUBSTITUTION": 1,
+        "SEMANTIC_ASSOCIATIVE_RELATION": None,
+        "UNCLASSIFIED_NONMATCH": 1,
+        "UNKNOWN_UNAVAILABLE": 1,
+    }
+    by_title = {item["title"]: item for item in result["classifications"]}
+    assert by_title["Hotel California"]["failure_mode"] == "ARTIST_FIELD_SUBSTITUTION"
+    assert by_title["Black Math"]["failure_mode"] == "UNCLASSIFIED_NONMATCH"
+    assert by_title["Obscured"]["failure_mode"] == "UNKNOWN_UNAVAILABLE"
+    assert result["classification_authority"]["semantic_associative_relation"].startswith("NOT_DERIVABLE")
+    assert evaluation == original_evaluation
+
+
+def test_calculator_exploration_without_protocol_does_not_guess_vocabulary_authority():
+    evaluation = {
+        "execution_classification": "CALCULATOR_GOVERNED_EXECUTION",
+        "study_id": 1, "study_key": "NO-PROTOCOL", "protocol_version_id": 1,
+        "protocol_version": 1, "registration_hash": "b" * 64, "runs": [],
+    }
+    result = explore_study(evaluation, lambda _: None, lambda _: None)
+    assert result["finite_vocabulary_field_failure_analysis"]["status"] == "NOT_DERIVABLE"

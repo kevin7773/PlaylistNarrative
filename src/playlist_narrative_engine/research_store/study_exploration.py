@@ -3,6 +3,10 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from collections.abc import Callable
 
+from playlist_narrative_engine.research_store.study_evaluator_registry import (
+    lexical_any_vocabulary_member,
+)
+
 
 ExperimentReader = Callable[[int], dict[str, object] | None]
 StructuredEvaluationReader = Callable[[int], dict[str, object] | None]
@@ -16,12 +20,15 @@ def _is_exact_count(constraint) -> bool:
 def explore_study(
     evaluation: dict[str, object], experiment_reader: ExperimentReader,
     structured_evaluation_reader: StructuredEvaluationReader | None = None,
+    protocol: dict[str, object] | None = None,
 ) -> dict[str, object]:
     """Build a disposable post-hoc projection from structured governed fields."""
     if evaluation.get("execution_classification") == "CALCULATOR_GOVERNED_EXECUTION":
         if structured_evaluation_reader is None:
             raise ValueError("calculator-governed exploration requires persisted structured-evaluation reads")
-        return _explore_calculator_governed(evaluation, structured_evaluation_reader)
+        return _explore_calculator_governed(
+            evaluation, structured_evaluation_reader, experiment_reader, protocol
+        )
     runs = list(evaluation["runs"])
     condition_roles = dict(evaluation["summary"]["registered_condition_roles"])
     matrix = _constraint_matrix(runs, condition_roles)
@@ -60,7 +67,9 @@ def explore_study(
     }
 
 
-def _explore_calculator_governed(evaluation, structured_evaluation_reader):
+def _explore_calculator_governed(
+    evaluation, structured_evaluation_reader, experiment_reader, protocol
+):
     status_by_constraint = defaultdict(Counter)
     status_by_subject_kind = defaultdict(Counter)
     status_by_population = defaultdict(Counter)
@@ -156,6 +165,9 @@ def _explore_calculator_governed(evaluation, structured_evaluation_reader):
             "RUN subjects are not represented as track-level observations.",
         ],
     }
+    finite_vocabulary_failures = _finite_vocabulary_field_failures(
+        evaluation, protocol, experiment_reader, structured_evaluation_reader
+    )
     return {
         "projection_type": "EXPLORATORY_READ_ONLY_STUDY_ANALYSIS",
         "status": "EXPLORATORY — NOT PREREGISTERED",
@@ -166,6 +178,7 @@ def _explore_calculator_governed(evaluation, structured_evaluation_reader):
         "protocol_version": evaluation["protocol_version"],
         "registration_hash": evaluation["registration_hash"],
         "structured_evaluation": structured,
+        "finite_vocabulary_field_failure_analysis": finite_vocabulary_failures,
         "track_level_analysis": {
             "status": "AVAILABLE_ONLY_AS_REGISTERED_SUBJECTS",
             "reason": "Only persisted P7 subject results are shown; no composite track result is inferred.",
@@ -184,6 +197,168 @@ def _explore_calculator_governed(evaluation, structured_evaluation_reader):
             "persistence": "none; this exploratory projection is disposable and read-only",
             "free_text_parsing": "none",
         },
+    }
+
+
+def _parameter_values(plan):
+    values = {}
+    for item in plan["parameters"]:
+        value_type = item["value_type"]
+        field = {
+            "BOOLEAN": "boolean_value", "INTEGER": "integer_value",
+            "DECIMAL": "decimal_value", "TEXT": "text_value",
+            "DATE": "date_value", "VOCABULARY_TERM": "vocabulary_term_key",
+        }[value_type]
+        values[item["parameter_key"]] = item.get(field)
+    return values
+
+
+def _finite_vocabulary_field_failures(
+    evaluation, protocol, experiment_reader, structured_evaluation_reader
+):
+    """Classify only deterministic field-boundary failures for frozen vocabularies.
+
+    This projection deliberately does not infer semantic or associative relations.
+    An alternate-field match means only that the same registered finite vocabulary
+    matched the governed displayed artist while the registered title subject failed.
+    """
+    if protocol is None:
+        return {
+            "status": "NOT_DERIVABLE",
+            "reason": "The frozen protocol is required to verify finite-vocabulary authority.",
+            "classifications": [],
+        }
+    definitions = {
+        item["id"]: item for item in protocol["constraint_definitions"]
+        if item.get("structured_evaluation_plan") is not None
+    }
+    rows = []
+    for run in evaluation["runs"]:
+        experiment = None
+        tracks_by_id = {}
+        for constraint in run["constraints"]:
+            definition = definitions.get(constraint.get("definition_id"))
+            if definition is None:
+                continue
+            plan = definition["structured_evaluation_plan"]
+            if (
+                plan["subject_kind"] != "PLACEMENT_FIELD"
+                or plan["subject_evaluator"]["evaluator_key"]
+                != "subject.lexical_any_vocabulary_member"
+            ):
+                continue
+            structured = structured_evaluation_reader(int(constraint["constraint_id"]))
+            if structured is None or structured["instrumentation_classification"] != "STRUCTURED_DERIVABLE":
+                continue
+            if experiment is None:
+                experiment = experiment_reader(int(run["experiment_id"]))
+                tracks_by_id = {
+                    item["id"]: item for item in (experiment or {}).get("tracks", [])
+                }
+            parameters = _parameter_values(plan)
+            for subject in structured["subjects"]:
+                result = subject["result"]
+                status = "MISSING" if result is None else result["status"]
+                track = tracks_by_id.get(subject["experiment_track_id"])
+                category = "UNKNOWN_UNAVAILABLE"
+                artist_match = None
+                if status == "PASS":
+                    category = "LITERAL_TITLE_PASS"
+                elif status == "FAIL" and track is not None:
+                    artist_status, _ = lexical_any_vocabulary_member(
+                        [{"registered_value_type": "TEXT", "value_type": "TEXT", "text_value": track["artist"]}],
+                        parameters,
+                        plan,
+                    )
+                    artist_match = artist_status == "PASS"
+                    category = (
+                        "ARTIST_FIELD_SUBSTITUTION"
+                        if artist_match else "UNCLASSIFIED_NONMATCH"
+                    )
+                rows.append({
+                    "planned_run_id": run["planned_run_id"],
+                    "run_key": run["run_key"],
+                    "condition_key": run["condition_key"],
+                    "experiment_id": run["experiment_id"],
+                    "constraint_id": constraint["constraint_id"],
+                    "constraint_result_id": constraint["constraint_result_id"],
+                    "subject_id": subject["id"],
+                    "subject_result_id": None if result is None else result["id"],
+                    "experiment_track_id": subject["experiment_track_id"],
+                    "enumeration_ordinal": subject["enumeration_ordinal"],
+                    "title": None if track is None else track["title"],
+                    "artist": None if track is None else track["artist"],
+                    "registered_title_status": status,
+                    "artist_vocabulary_match": artist_match,
+                    "failure_mode": category,
+                })
+    if not rows:
+        return {
+            "status": "NOT_DERIVABLE",
+            "reason": "No persisted structured finite-vocabulary placement-field results are available.",
+            "classifications": [],
+        }
+    category_order = (
+        "LITERAL_TITLE_PASS", "ARTIST_FIELD_SUBSTITUTION",
+        "SEMANTIC_ASSOCIATIVE_RELATION", "UNCLASSIFIED_NONMATCH",
+        "UNKNOWN_UNAVAILABLE",
+    )
+    conditions = sorted({row["condition_key"] for row in rows})
+    populations = conditions + ["COMBINED"]
+    summaries = []
+    for population in populations:
+        selected = rows if population == "COMBINED" else [
+            row for row in rows if row["condition_key"] == population
+        ]
+        counts = Counter(row["failure_mode"] for row in selected)
+        summaries.append({
+            "population": population,
+            "placement_count": len(selected),
+            "counts": {
+                key: None if key == "SEMANTIC_ASSOCIATIVE_RELATION" else counts[key]
+                for key in category_order
+            },
+            "rates": {
+                key: (
+                    None if key == "SEMANTIC_ASSOCIATIVE_RELATION"
+                    else counts[key] / len(selected) if selected else None
+                )
+                for key in category_order
+            },
+        })
+    recurrence = Counter(
+        (row["title"], row["artist"], row["failure_mode"])
+        for row in rows if row["failure_mode"] != "LITERAL_TITLE_PASS"
+    )
+    recurring = [{
+        "title": key[0], "artist": key[1], "failure_mode": key[2],
+        "appearance_count": count,
+        "condition_counts": dict(sorted(Counter(
+            row["condition_key"] for row in rows
+            if (row["title"], row["artist"], row["failure_mode"]) == key
+        ).items())),
+    } for key, count in sorted(
+        recurrence.items(), key=lambda item: (-item[1], str(item[0][0]), str(item[0][1]))
+    )]
+    return {
+        "status": "EXPLORATORY — NOT PREREGISTERED",
+        "classification_authority": {
+            "literal_title_pass": "Persisted registered subject PASS.",
+            "artist_field_substitution": "Registered title FAIL plus the same frozen vocabulary evaluator returning PASS for the governed displayed artist.",
+            "semantic_associative_relation": "NOT_DERIVABLE; no governed semantic-relation annotation exists.",
+            "unclassified_nonmatch": "Registered title FAIL with no frozen-vocabulary match in the governed displayed artist; semantic association is not inferred.",
+            "unknown_unavailable": "Registered UNKNOWN or missing subject result, or missing governed placement correspondence.",
+        },
+        "summaries": summaries,
+        "recurring_nonpass_title_artist_pairs": recurring,
+        "classifications": sorted(rows, key=lambda item: (
+            item["condition_key"], item["run_key"], item["enumeration_ordinal"]
+        )),
+        "non_claims": [
+            "Artist-field vocabulary matches do not satisfy the registered title constraint.",
+            "No semantic or associative animal relationship is inferred.",
+            "No catalog or recording identity is inferred from displayed title and artist fields.",
+        ],
     }
 
 
