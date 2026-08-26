@@ -756,7 +756,7 @@ function typedInput(definition, value, readOnly = false) {
   }
   const type = definition.value_type === "DATE" ? "date" : definition.value_type === "INTEGER" || definition.value_type === "DECIMAL" ? "number" : "text";
   const step = definition.value_type === "DECIMAL" ? ' step="any"' : "";
-  return `<input ${attrs} type="${type}"${step} value="${value ?? ""}" ${readOnly ? "readonly" : ""}>`;
+  return `<input ${attrs} type="${type}"${step} value="${escapeHtml(String(value ?? ""))}" ${readOnly ? "readonly" : ""}>`;
 }
 
 function isEditableExplicitObservation(measurement, subject) {

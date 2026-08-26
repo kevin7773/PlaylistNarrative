@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from html.parser import HTMLParser
 import json
 from pathlib import Path
 import subprocess
@@ -528,6 +529,92 @@ def test_rebuilding_worksheet_realigns_with_current_proposal_without_persistence
     assert original_sheet["constraints"][0]["subjects"][0]["displayed_context"]["explicit_flag"] is False
     assert rebuilt_sheet["constraints"][0]["subjects"][0]["displayed_context"]["explicit_flag"] is True
     assert research_session.scalar(select(func.count()).select_from(Experiment)) == counts_before
+
+
+def test_rebuilt_text_measurement_round_trips_html_attribute_without_backend_contradiction(
+    research_session,
+):
+    """Screenshot-reviewed titles must survive worksheet DOM construction exactly."""
+    script = Path("src/playlist_narrative_engine/maestro_workbench/static/app.js").read_text(
+        encoding="utf-8"
+    )
+    typed_input = script[
+        script.index("function typedInput"):
+        script.index("function isEditableExplicitObservation")
+    ]
+    escape_html = script[
+        script.index("function escapeHtml"):
+        script.index("function initializeDraftTrackWorkflow")
+    ]
+    governed_title = 'Night "Fox" & Hound <Live>'
+    node_program = f"""
+{escape_html}
+{typed_input}
+process.stdout.write(typedInput({{
+  value_type: 'TEXT', governed_field: 'display_title'
+}}, {json.dumps(governed_title)}, true));
+"""
+    markup = subprocess.run(
+        ["node", "-e", node_program], check=True, capture_output=True, text=True
+    ).stdout
+
+    class InputValueParser(HTMLParser):
+        value = None
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "input":
+                self.value = dict(attrs).get("value")
+
+    parsed = InputValueParser()
+    parsed.feed(markup)
+    assert parsed.value == governed_title
+    pre_fix = InputValueParser()
+    pre_fix.feed(f'<input data-measurement-value type="text" value="{governed_title}" readonly>')
+    assert pre_fix.value != governed_title
+
+    params = [
+        {"parameter_key": "token", "value_type": "TEXT", "text_value": "night"},
+        {"parameter_key": "case_sensitive", "value_type": "BOOLEAN", "boolean_value": False},
+        {"parameter_key": "mixed_status", "value_type": "TEXT", "text_value": "FAIL"},
+        {"parameter_key": "all_fail_status", "value_type": "TEXT", "text_value": "FAIL"},
+        {"parameter_key": "unknown_status", "value_type": "TEXT", "text_value": "UNKNOWN"},
+    ]
+    service = ResearchStoreService(ResearchRepository(research_session))
+    protocol, definitions = _register(service, _study(
+        "PLACEMENT_FIELD", "display_title", "subject.lexical_standalone_token", "TEXT",
+        aggregate="aggregate.all_subjects_required", parameters=params,
+    ))
+    base = _experiment(protocol, definitions, count=1)
+    experiment = base.model_copy(update={
+        "tracks": [base.tracks[0].model_copy(update={"title": governed_title})]
+    })
+    payload = StructuredStudyEvaluationInput.model_validate({"constraints": [{
+        "study_constraint_definition_id": definitions["structured"]["id"],
+        "subjects": [{
+            "subject_kind": "PLACEMENT_FIELD", "enumeration_ordinal": 1,
+            "track_observed_ordinal": 1, "governed_field": "display_title",
+            "measurements": [{
+                "measurement_key": "observed", "authority_kind": "DIRECT_OBSERVATION",
+                "value_type": "TEXT", "text_value": parsed.value,
+                "recorded_by": "Workbench operator",
+            }],
+        }],
+    }]})
+    preview = service.preview_structured_study_evaluation(
+        protocol["planned_runs"][0]["id"], experiment, payload
+    )
+    assert preview["complete"]
+    assert preview["constraints"][0]["subject_results"][0]["status"] == "PASS"
+    pre_fix_payload = payload.model_copy(deep=True)
+    pre_fix_payload.constraints[0].subjects[0].measurements[0].text_value = pre_fix.value
+    contradicted = service.preview_structured_study_evaluation(
+        protocol["planned_runs"][0]["id"], experiment, pre_fix_payload
+    )
+    assert not contradicted["complete"]
+    assert "DIRECT_VALUE_CONTRADICTS_FIELD" in {
+        issue["code"] for issue in contradicted["constraints"][0]["issues"]
+    }
+    assert research_session.scalar(select(func.count()).select_from(Experiment)) == 0
 
 
 def test_explicit_boolean_direct_observation_is_editable_and_uses_intent_labels():
