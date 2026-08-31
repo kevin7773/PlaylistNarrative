@@ -42,9 +42,9 @@ repository interfaces rather than UI or AI-provider behavior.
   preference derivation, and complete formed/withheld partitioning. The accepted
   CF-3 integrates that artifact through an authenticated formed-only view and
   traced ranking envelope with no raw-candidate production path. Candidate
-  Constraint Evaluation v1 is contract-frozen, but its explicit predicate
-  registry and declaration successor are not yet implemented; existing
-  declaration schema `1.0` retains exact typed equality.
+  Constraint Evaluation v1 supplies the contract-frozen explicit predicate
+  registry and declaration schema `2.0`; existing declaration schema `1.0`
+  retains exact typed equality and canonical meaning.
 - `journey` (Phase 2): a verified accepted Objective Safety result and the exact
   authenticated Objective Assessment input evidence authorize deterministic
   phase allocation. `JourneyPlanArtifact` schema `2.0` binds the assessment,

@@ -4,6 +4,7 @@ from pydantic import Field, field_validator, model_validator
 
 from playlist_narrative_engine.candidate_formation.declarations import (
     HardConstraintDeclarationArtifact,
+    serialize_hard_constraint_declaration,
 )
 from playlist_narrative_engine.candidate_formation.formation_schemas import (
     CandidateFormationPolicy,
@@ -41,6 +42,7 @@ class FormationRequestAssemblyInput(FrozenCandidateEvidenceModel):
     hard_constraint_declaration: HardConstraintDeclarationArtifact | None = None
     authorized_declaration_id: str | None = None
     authorized_declaration_version: str | None = None
+    authorized_declaration_sha256: str | None = None
 
     @field_validator("request_id")
     @classmethod
@@ -56,9 +58,16 @@ class FormationRequestAssemblyInput(FrozenCandidateEvidenceModel):
         if declaration is None:
             if any(value is not None for value in authority):
                 raise ValueError("declaration authority requires a declaration artifact")
+            if self.authorized_declaration_sha256 is not None:
+                raise ValueError("declaration digest authority requires a declaration artifact")
             return self
         if authority != (declaration.artifact_id, declaration.declaration_version):
             raise ValueError("authorized declaration identity/version must match exactly")
+        if declaration.schema_version == "1.0":
+            if self.authorized_declaration_sha256 is not None:
+                raise ValueError("schema 1.0 declarations have no successor digest authority")
+        elif self.authorized_declaration_sha256 != declaration.canonical_sha256:
+            raise ValueError("authorized declaration digest must match exactly")
         return self
 
 
@@ -75,7 +84,12 @@ class FormationRequestAssembler:
             )
         self._validate_acquisition_correspondence(value)
         declaration = value.hard_constraint_declaration
+        if declaration is not None:
+            declaration = HardConstraintDeclarationArtifact.model_validate(
+                declaration.model_dump(mode="json")
+            )
         return CandidateFormationRequest(
+            schema_version=("2.0" if declaration and declaration.schema_version == "2.0" else "1.0"),
             request_id=value.request_id,
             accepted_objective=value.accepted_objective,
             journey_plan=value.journey_plan,
@@ -95,6 +109,26 @@ class FormationRequestAssembler:
             ),
             hard_constraint_declaration_source_reference=(
                 declaration.source_reference if declaration else None
+            ),
+            hard_constraint_declaration_schema_version=(
+                declaration.schema_version
+                if declaration and declaration.schema_version == "2.0"
+                else None
+            ),
+            hard_constraint_declaration_sha256=(
+                declaration.canonical_sha256
+                if declaration and declaration.schema_version == "2.0"
+                else None
+            ),
+            hard_constraint_declaration_json=(
+                serialize_hard_constraint_declaration(declaration).decode("utf-8")
+                if declaration and declaration.schema_version == "2.0"
+                else None
+            ),
+            hard_constraint_vocabularies=(
+                declaration.vocabularies
+                if declaration and declaration.schema_version == "2.0"
+                else ()
             ),
             policy=value.policy,
         )

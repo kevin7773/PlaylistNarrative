@@ -23,6 +23,7 @@ from playlist_narrative_engine.candidate_formation.schemas import (
 from playlist_narrative_engine.candidate_formation.formation_schemas import (
     CANDIDATE_FIELD_ORDER,
     CANDIDATE_FORMATION_SCHEMA_VERSION,
+    CANDIDATE_FORMATION_SCHEMA_VERSION_V2,
     WITHHOLDING_REASON_EXPLANATIONS,
     WITHHOLDING_REASON_PRECEDENCE,
     CandidateFieldEvidence,
@@ -65,18 +66,41 @@ from playlist_narrative_engine.candidate_formation.serialization import (
 )
 from playlist_narrative_engine.candidate_formation.declarations import (
     HARD_CONSTRAINT_DECLARATION_SCHEMA_VERSION,
+    HARD_CONSTRAINT_DECLARATION_SCHEMA_VERSION_V2,
     HardConstraintDeclarationArtifact,
+    create_hard_constraint_declaration_v2,
+    hard_constraint_declaration_content_sha256,
     serialize_hard_constraint_declaration,
+)
+from playlist_narrative_engine.candidate_formation.constraint_authority import (
+    CandidateConstraintVocabularyArtifact,
+    EXACT_TYPED_EQUALITY_PREDICATE_ID,
+    FINITE_VOCABULARY_PREDICATE_ID,
+    MATCHING_CONTRACT_ID,
+    MATCHING_CONTRACT_SHA256,
+    MATCHING_CONTRACT_VERSION,
+    PREDICATE_VERSION,
+    create_candidate_constraint_vocabulary,
+    matched_vocabulary_terms,
+    serialize_candidate_constraint_vocabulary,
+    tokenize_text,
+    verify_matching_contract,
+)
+from playlist_narrative_engine.candidate_formation.constraint_evaluator import (
+    evaluate_candidate_constraint,
+    supported_candidate_constraint_predicates,
 )
 
 __all__ = [
     "CANDIDATE_EVIDENCE_SCHEMA_VERSION",
     "CANDIDATE_FIELD_ORDER",
     "CANDIDATE_FORMATION_SCHEMA_VERSION",
+    "CANDIDATE_FORMATION_SCHEMA_VERSION_V2",
     "WITHHOLDING_REASON_EXPLANATIONS",
     "WITHHOLDING_REASON_PRECEDENCE",
     "CandidateFieldEvidence",
     "CandidateConstraintEligibility",
+    "CandidateConstraintVocabularyArtifact",
     "CandidateConstraintField",
     "CandidateEligibilityReason",
     "CandidateEligibilityState",
@@ -123,5 +147,21 @@ __all__ = [
     "serialize_formed_candidate_pool",
     "HARD_CONSTRAINT_DECLARATION_SCHEMA_VERSION",
     "HardConstraintDeclarationArtifact",
+    "HARD_CONSTRAINT_DECLARATION_SCHEMA_VERSION_V2",
+    "EXACT_TYPED_EQUALITY_PREDICATE_ID",
+    "FINITE_VOCABULARY_PREDICATE_ID",
+    "MATCHING_CONTRACT_ID",
+    "MATCHING_CONTRACT_SHA256",
+    "MATCHING_CONTRACT_VERSION",
+    "PREDICATE_VERSION",
+    "create_candidate_constraint_vocabulary",
+    "create_hard_constraint_declaration_v2",
+    "evaluate_candidate_constraint",
+    "hard_constraint_declaration_content_sha256",
+    "matched_vocabulary_terms",
+    "serialize_candidate_constraint_vocabulary",
+    "supported_candidate_constraint_predicates",
+    "tokenize_text",
+    "verify_matching_contract",
     "serialize_hard_constraint_declaration",
 ]

@@ -11,7 +11,6 @@ from playlist_narrative_engine.candidate_formation.formation_schemas import (
     CandidateFieldName,
     CandidateConstraintEligibility,
     CandidateConstraintField,
-    CandidateEligibilityReason,
     CandidateEligibilityState,
     CandidateFormationArtifact,
     CandidateFormationRequest,
@@ -24,6 +23,9 @@ from playlist_narrative_engine.candidate_formation.formation_schemas import (
     WithheldCandidateEntry,
     WithholdingReason,
     WithholdingReasonCode,
+)
+from playlist_narrative_engine.candidate_formation.constraint_evaluator import (
+    evaluate_candidate_constraint,
 )
 from playlist_narrative_engine.candidate_formation.schemas import (
     EvidenceObservation,
@@ -60,6 +62,7 @@ class CandidateFormer:
     """Form reproducible candidates from immutable corresponding evidence."""
 
     def form(self, request: CandidateFormationRequest) -> CandidateFormationArtifact:
+        request = CandidateFormationRequest.model_validate(request.model_dump(mode="json"))
         taste_by_artist = {
             record.artist_name: record for record in request.taste_evidence.records
         }
@@ -234,6 +237,7 @@ class CandidateFormer:
         objective = request.accepted_objective.objective
         input_track_ids = tuple(track.track_id for track in validated)
         return CandidateFormationArtifact(
+            schema_version=request.schema_version,
             request_id=request.request_id,
             accepted_objective_artifact_id=request.accepted_objective.artifact_id,
             objective_id=objective.objective_id,
@@ -259,6 +263,10 @@ class CandidateFormer:
             hard_constraint_declaration_version=request.hard_constraint_declaration_version,
             hard_constraint_declaration_source_type=request.hard_constraint_declaration_source_type,
             hard_constraint_declaration_source_reference=request.hard_constraint_declaration_source_reference,
+            hard_constraint_declaration_schema_version=request.hard_constraint_declaration_schema_version,
+            hard_constraint_declaration_sha256=request.hard_constraint_declaration_sha256,
+            hard_constraint_declaration_json=request.hard_constraint_declaration_json,
+            hard_constraint_vocabularies=request.hard_constraint_vocabularies,
             input_track_ids=input_track_ids,
             formed=tuple(formed),
             withheld=tuple(withheld),
@@ -300,37 +308,24 @@ class CandidateFormer:
             CandidateConstraintField.DISPLAYED_EXPLICIT: CandidateFormer._metadata_value(explicit),
         }
         results: list[CandidateConstraintEligibility] = []
+        declaration_authority = (
+            {
+                "declaration_id": request.hard_constraint_declaration_id,
+                "declaration_schema_version": request.hard_constraint_declaration_schema_version,
+                "declaration_version": request.hard_constraint_declaration_version,
+                "declaration_sha256": request.hard_constraint_declaration_sha256,
+            }
+            if request.schema_version == "2.0"
+            else None
+        )
         for constraint in request.hard_constraints:
             observed, evidence_ids = actual[constraint.field]
-            expected = json.loads(constraint.expected_json)
-            if observed is None:
-                state = CandidateEligibilityState.UNKNOWN
-                reason = CandidateEligibilityReason.REQUIRED_METADATA_UNKNOWN
-                observed_json = None
-            elif observed == expected and type(observed) is type(expected):
-                state = CandidateEligibilityState.ELIGIBLE
-                reason = (
-                    CandidateEligibilityReason.PROPERTY_MATCH
-                    if constraint.field is CandidateConstraintField.DISPLAYED_EXPLICIT
-                    else CandidateEligibilityReason.EXACT_MATCH
-                )
-                observed_json = _json(observed)
-            else:
-                state = CandidateEligibilityState.INELIGIBLE
-                reason = (
-                    CandidateEligibilityReason.PROPERTY_MISMATCH
-                    if constraint.field is CandidateConstraintField.DISPLAYED_EXPLICIT
-                    else CandidateEligibilityReason.EXACT_MISMATCH
-                )
-                observed_json = _json(observed)
-            results.append(CandidateConstraintEligibility(
-                constraint_key=constraint.constraint_key,
-                field=constraint.field,
-                state=state,
-                reason=reason,
-                expected_json=constraint.expected_json,
-                observed_json=observed_json,
+            results.append(evaluate_candidate_constraint(
+                constraint=constraint,
+                observed=observed,
                 source_evidence_ids=evidence_ids,
+                vocabularies=request.hard_constraint_vocabularies,
+                declaration_authority=declaration_authority,
             ))
         return identity, tuple(results)
 

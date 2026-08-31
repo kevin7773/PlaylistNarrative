@@ -86,11 +86,12 @@ and isolated tests, but it is not the production authority path for a declared
 constraint.
 
 The additive [Candidate Constraint Evaluation v1 contract](candidate_constraint_evaluation.md)
-freezes how a future declaration successor may dispatch deterministic,
-versioned predicates against one explicitly governed candidate field. It does
-not implement that successor. Existing declaration schema `1.0` continues to
-mean implicit exact typed equality and retains its original canonical bytes and
-behavior.
+governs how declaration schema `2.0` dispatches deterministic, versioned
+predicates against one explicitly governed candidate field. It does not
+reinterpret prompt prose. The closed evaluator registry implements that
+successor. Existing declaration schema `1.0`
+continues to mean implicit exact typed equality and retains its original
+canonical bytes and behavior.
 
 ## Source artifacts
 

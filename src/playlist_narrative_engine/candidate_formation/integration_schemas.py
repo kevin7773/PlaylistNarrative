@@ -21,7 +21,7 @@ class FrozenIntegrationModel(BaseModel):
 
 class CandidateFormationTrace(FrozenIntegrationModel):
     parent_artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
-    parent_schema_version: Literal["1.0"] = CANDIDATE_FORMATION_SCHEMA_VERSION
+    parent_schema_version: Literal["1.0", "2.0"] = CANDIDATE_FORMATION_SCHEMA_VERSION
     parent_request_id: str
     accepted_objective_artifact_id: str
     objective_id: str

@@ -15,6 +15,16 @@ from playlist_narrative_engine.candidate_formation.schemas import (
     ObjectiveContextEvidenceArtifact,
     TrackFeatureEvidenceArtifact,
 )
+from playlist_narrative_engine.candidate_formation.constraint_authority import (
+    CandidateConstraintVocabularyArtifact,
+    EXACT_TYPED_EQUALITY_PREDICATE_ID,
+    FINITE_VOCABULARY_PREDICATE_ID,
+    MATCHING_CONTRACT_ID,
+    MATCHING_CONTRACT_SHA256,
+    MATCHING_CONTRACT_VERSION,
+    PREDICATE_VERSION,
+    matched_vocabulary_terms,
+)
 from playlist_narrative_engine.journey import (
     JourneyPlanArtifact,
     journey_plan_matches_accepted_objective,
@@ -29,6 +39,7 @@ from playlist_narrative_engine.track_evidence import (
 
 
 CANDIDATE_FORMATION_SCHEMA_VERSION = "1.0"
+CANDIDATE_FORMATION_SCHEMA_VERSION_V2 = "2.0"
 
 
 class CandidateFieldName(StrEnum):
@@ -111,7 +122,7 @@ class CandidateFormationPolicy(FrozenCandidateEvidenceModel):
 
 
 class CandidateFormationRequest(FrozenCandidateEvidenceModel):
-    schema_version: Literal["1.0"] = CANDIDATE_FORMATION_SCHEMA_VERSION
+    schema_version: Literal["1.0", "2.0"] = CANDIDATE_FORMATION_SCHEMA_VERSION
     request_id: str = Field(min_length=1, max_length=200)
     accepted_objective: AcceptedObjectiveArtifact
     journey_plan: JourneyPlanArtifact
@@ -126,6 +137,18 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
     hard_constraint_declaration_version: str | None = None
     hard_constraint_declaration_source_type: str | None = None
     hard_constraint_declaration_source_reference: str | None = None
+    hard_constraint_declaration_schema_version: str | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    hard_constraint_declaration_sha256: str | None = Field(
+        default=None, pattern=r"^[0-9a-f]{64}$", exclude_if=lambda value: value is None
+    )
+    hard_constraint_declaration_json: str | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    hard_constraint_vocabularies: tuple[CandidateConstraintVocabularyArtifact, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
     policy: CandidateFormationPolicy
 
     @field_validator("request_id")
@@ -194,6 +217,44 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
             raise ValueError("hard constraints require explicit declaration authority")
         if not self.hard_constraints and any(value is not None for value in declaration_lineage):
             raise ValueError("constraint declaration lineage requires declared constraints")
+        successor_lineage = (
+            self.hard_constraint_declaration_schema_version,
+            self.hard_constraint_declaration_sha256,
+            self.hard_constraint_declaration_json,
+        )
+        if self.schema_version == "1.0":
+            if any(value is not None for value in successor_lineage) or self.hard_constraint_vocabularies:
+                raise ValueError("schema 1.0 requests cannot carry schema 2.0 constraint authority")
+            if any(item.predicate_id is not None for item in self.hard_constraints):
+                raise ValueError("schema 1.0 constraints retain implicit exact equality")
+        else:
+            if (
+                successor_lineage[0] != "2.0"
+                or not isinstance(successor_lineage[1], str)
+                or not isinstance(successor_lineage[2], str)
+            ):
+                raise ValueError("schema 2.0 constraints require declaration schema and digest")
+            if not self.hard_constraints or any(
+                item.predicate_id is None for item in self.hard_constraints
+            ):
+                raise ValueError("schema 2.0 constraints require explicit predicates")
+            if len(self.hard_constraint_vocabularies) != len({
+                (item.vocabulary_id, item.vocabulary_version)
+                for item in self.hard_constraint_vocabularies
+            }):
+                raise ValueError("constraint vocabularies must have unique identity/version")
+            vocabulary_authority = {
+                (item.vocabulary_id, item.vocabulary_version, item.canonical_sha256)
+                for item in self.hard_constraint_vocabularies
+            }
+            for constraint in self.hard_constraints:
+                if constraint.predicate_id == FINITE_VOCABULARY_PREDICATE_ID and (
+                    constraint.vocabulary_id,
+                    constraint.vocabulary_version,
+                    constraint.vocabulary_sha256,
+                ) not in vocabulary_authority:
+                    raise ValueError("request constraint vocabulary authority must resolve exactly")
+            self._validate_bound_declaration()
         validated_track_ids = {
             record.track_id for record in self.track_validation.validated_records
         }
@@ -211,6 +272,31 @@ class CandidateFormationRequest(FrozenCandidateEvidenceModel):
             raise ValueError("candidate identity metadata contains an unvalidated track identity")
         return self
 
+    def _validate_bound_declaration(self) -> None:
+        from playlist_narrative_engine.candidate_formation.declarations import (
+            HardConstraintDeclarationArtifact,
+            serialize_hard_constraint_declaration,
+        )
+
+        assert self.hard_constraint_declaration_json is not None
+        declaration = HardConstraintDeclarationArtifact.model_validate_json(
+            self.hard_constraint_declaration_json
+        )
+        if declaration.schema_version != "2.0":
+            raise ValueError("bound declaration must use schema 2.0")
+        if serialize_hard_constraint_declaration(declaration).decode("utf-8") != self.hard_constraint_declaration_json:
+            raise ValueError("bound declaration must use canonical serialization")
+        if (
+            declaration.artifact_id != self.hard_constraint_declaration_id
+            or declaration.declaration_version != self.hard_constraint_declaration_version
+            or declaration.source_type != self.hard_constraint_declaration_source_type
+            or declaration.source_reference != self.hard_constraint_declaration_source_reference
+            or declaration.canonical_sha256 != self.hard_constraint_declaration_sha256
+            or declaration.constraints != self.hard_constraints
+            or declaration.vocabularies != self.hard_constraint_vocabularies
+        ):
+            raise ValueError("bound declaration authority must correspond exactly")
+
 
 class CandidateConstraintField(StrEnum):
     DISPLAYED_TITLE = "displayed_title"
@@ -223,7 +309,15 @@ class CandidateConstraintField(StrEnum):
 class CandidateHardConstraint(FrozenCandidateEvidenceModel):
     constraint_key: str = Field(min_length=1, max_length=200)
     field: CandidateConstraintField
-    expected_json: str
+    expected_json: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    predicate_id: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    predicate_version: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    vocabulary_id: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    vocabulary_version: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    vocabulary_sha256: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    matching_contract_id: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    matching_contract_version: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    matching_contract_sha256: str | None = Field(default=None, exclude_if=lambda value: value is None)
 
     @field_validator("constraint_key")
     @classmethod
@@ -233,6 +327,8 @@ class CandidateHardConstraint(FrozenCandidateEvidenceModel):
     @field_validator("expected_json")
     @classmethod
     def require_typed_expected_value(cls, value: str, info: Any) -> str:
+        if value is None:
+            return value
         parsed = json.loads(value, parse_constant=_reject_json_constant)
         field = info.data.get("field")
         if field is CandidateConstraintField.DISPLAYED_EXPLICIT:
@@ -241,6 +337,35 @@ class CandidateHardConstraint(FrozenCandidateEvidenceModel):
         elif not isinstance(parsed, str) or not parsed or parsed != parsed.strip():
             raise ValueError("identity constraints require an exact nonblank string")
         return value
+
+    @model_validator(mode="after")
+    def require_closed_predicate_parameters(self) -> CandidateHardConstraint:
+        predicate = (self.predicate_id, self.predicate_version)
+        vocabulary = (
+            self.vocabulary_id,
+            self.vocabulary_version,
+            self.vocabulary_sha256,
+            self.matching_contract_id,
+            self.matching_contract_version,
+            self.matching_contract_sha256,
+        )
+        if predicate == (None, None):
+            if self.expected_json is None or any(value is not None for value in vocabulary):
+                raise ValueError("legacy constraints require only an exact expected value")
+            return self
+        if predicate == (EXACT_TYPED_EQUALITY_PREDICATE_ID, PREDICATE_VERSION):
+            if self.expected_json is None or any(value is not None for value in vocabulary):
+                raise ValueError("exact equality requires only an exact expected value")
+            return self
+        if predicate == (FINITE_VOCABULARY_PREDICATE_ID, PREDICATE_VERSION):
+            if self.expected_json is not None or not all(isinstance(value, str) and value for value in vocabulary):
+                raise ValueError("finite vocabulary requires complete vocabulary and matching authority")
+            if self.field is CandidateConstraintField.DISPLAYED_EXPLICIT:
+                raise ValueError("finite vocabulary requires a governed text field")
+            return self
+        if None in predicate:
+            raise ValueError("predicate identity/version authority must be complete")
+        return self
 
 
 class CandidateEligibilityState(StrEnum):
@@ -255,6 +380,9 @@ class CandidateEligibilityReason(StrEnum):
     PROPERTY_MATCH = "PROPERTY_MATCH"
     PROPERTY_MISMATCH = "PROPERTY_MISMATCH"
     REQUIRED_METADATA_UNKNOWN = "REQUIRED_METADATA_UNKNOWN"
+    VOCABULARY_MEMBER_MATCH = "VOCABULARY_MEMBER_MATCH"
+    VOCABULARY_MEMBER_NONMATCH = "VOCABULARY_MEMBER_NONMATCH"
+    REQUIRED_FIELD_UNKNOWN = "REQUIRED_FIELD_UNKNOWN"
 
 
 class CandidateConstraintEligibility(FrozenCandidateEvidenceModel):
@@ -262,12 +390,29 @@ class CandidateConstraintEligibility(FrozenCandidateEvidenceModel):
     field: CandidateConstraintField
     state: CandidateEligibilityState
     reason: CandidateEligibilityReason
-    expected_json: str
+    expected_json: str | None
     observed_json: str | None
     source_evidence_ids: tuple[str, ...] = ()
+    declaration_id: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    declaration_schema_version: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    declaration_version: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    declaration_sha256: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    predicate_id: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    predicate_version: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    vocabulary_id: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    vocabulary_version: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    vocabulary_sha256: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    matching_contract_id: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    matching_contract_version: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    matching_contract_sha256: str | None = Field(default=None, exclude_if=lambda value: value is None)
+    matched_terms: tuple[str, ...] = Field(default=(), exclude_if=lambda value: not value)
 
     @model_validator(mode="after")
     def require_decision_consistency(self) -> CandidateConstraintEligibility:
+        if self.predicate_id is not None:
+            return self._require_explicit_predicate_consistency()
+        if self.expected_json is None:
+            raise ValueError("legacy eligibility requires an expected value")
         expected = json.loads(self.expected_json, parse_constant=_reject_json_constant)
         if self.state is CandidateEligibilityState.UNKNOWN:
             if self.observed_json is not None or self.reason is not CandidateEligibilityReason.REQUIRED_METADATA_UNKNOWN:
@@ -291,6 +436,68 @@ class CandidateConstraintEligibility(FrozenCandidateEvidenceModel):
         if self.reason is not expected_reason:
             raise ValueError("eligibility reason must match its deterministic comparison")
         return self
+
+    def _require_explicit_predicate_consistency(self) -> CandidateConstraintEligibility:
+        lineage = (
+            self.declaration_id,
+            self.declaration_schema_version,
+            self.declaration_version,
+            self.declaration_sha256,
+            self.predicate_version,
+        )
+        if not all(isinstance(value, str) and value for value in lineage):
+            raise ValueError("explicit eligibility requires complete declaration authority")
+        if self.predicate_id == EXACT_TYPED_EQUALITY_PREDICATE_ID:
+            if self.expected_json is None or self.matched_terms:
+                raise ValueError("explicit equality eligibility has invalid parameters")
+            expected = json.loads(self.expected_json, parse_constant=_reject_json_constant)
+            if self.state is CandidateEligibilityState.UNKNOWN:
+                if self.observed_json is not None or self.reason is not CandidateEligibilityReason.REQUIRED_METADATA_UNKNOWN:
+                    raise ValueError("UNKNOWN equality eligibility requires unknown authority")
+                return self
+            if self.observed_json is None or not self.source_evidence_ids:
+                raise ValueError("decided equality eligibility requires evidence")
+            observed = json.loads(self.observed_json, parse_constant=_reject_json_constant)
+            matches = observed == expected and type(observed) is type(expected)
+            if (self.state is CandidateEligibilityState.ELIGIBLE) != matches:
+                raise ValueError("explicit equality state contradicts its values")
+            expected_reason = (
+                CandidateEligibilityReason.PROPERTY_MATCH
+                if matches and self.field is CandidateConstraintField.DISPLAYED_EXPLICIT
+                else CandidateEligibilityReason.EXACT_MATCH
+                if matches
+                else CandidateEligibilityReason.PROPERTY_MISMATCH
+                if self.field is CandidateConstraintField.DISPLAYED_EXPLICIT
+                else CandidateEligibilityReason.EXACT_MISMATCH
+            )
+            if self.reason is not expected_reason:
+                raise ValueError("explicit equality reason contradicts its values")
+            return self
+        if self.predicate_id == FINITE_VOCABULARY_PREDICATE_ID:
+            vocabulary = (
+                self.vocabulary_id, self.vocabulary_version, self.vocabulary_sha256,
+                self.matching_contract_id, self.matching_contract_version,
+                self.matching_contract_sha256,
+            )
+            if self.expected_json is not None or not all(isinstance(value, str) and value for value in vocabulary):
+                raise ValueError("vocabulary eligibility requires complete authority")
+            if self.state is CandidateEligibilityState.UNKNOWN:
+                if self.observed_json is not None or self.matched_terms or self.reason is not CandidateEligibilityReason.REQUIRED_FIELD_UNKNOWN:
+                    raise ValueError("UNKNOWN vocabulary eligibility requires unknown authority")
+                return self
+            if self.observed_json is None or not self.source_evidence_ids:
+                raise ValueError("decided vocabulary eligibility requires evidence")
+            has_matches = bool(self.matched_terms)
+            if (self.state is CandidateEligibilityState.ELIGIBLE) != has_matches:
+                raise ValueError("vocabulary state must match recorded matched terms")
+            expected_reason = (
+                CandidateEligibilityReason.VOCABULARY_MEMBER_MATCH
+                if has_matches else CandidateEligibilityReason.VOCABULARY_MEMBER_NONMATCH
+            )
+            if self.reason is not expected_reason:
+                raise ValueError("vocabulary reason must match recorded matched terms")
+            return self
+        raise ValueError("unsupported predicate identity/version")
 
 
 class CandidateIdentitySnapshot(FrozenCandidateEvidenceModel):
@@ -507,7 +714,7 @@ class CandidateFormationSummary(FrozenCandidateEvidenceModel):
 
 
 class CandidateFormationArtifact(FrozenCandidateEvidenceModel):
-    schema_version: Literal["1.0"] = CANDIDATE_FORMATION_SCHEMA_VERSION
+    schema_version: Literal["1.0", "2.0"] = CANDIDATE_FORMATION_SCHEMA_VERSION
     artifact_kind: Literal["candidate_formation"] = "candidate_formation"
     request_id: str
     accepted_objective_artifact_id: str
@@ -528,6 +735,18 @@ class CandidateFormationArtifact(FrozenCandidateEvidenceModel):
     hard_constraint_declaration_version: str | None = None
     hard_constraint_declaration_source_type: str | None = None
     hard_constraint_declaration_source_reference: str | None = None
+    hard_constraint_declaration_schema_version: str | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    hard_constraint_declaration_sha256: str | None = Field(
+        default=None, pattern=r"^[0-9a-f]{64}$", exclude_if=lambda value: value is None
+    )
+    hard_constraint_declaration_json: str | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    hard_constraint_vocabularies: tuple[CandidateConstraintVocabularyArtifact, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
     ordering_rule: Literal["track_id_utf8_bytes"] = "track_id_utf8_bytes"
     reason_ordering_rule: Literal["cf_0_reason_precedence"] = "cf_0_reason_precedence"
     input_track_ids: tuple[str, ...]
@@ -576,6 +795,63 @@ class CandidateFormationArtifact(FrozenCandidateEvidenceModel):
             for value in declaration_lineage
         ):
             raise ValueError("formation constraint declaration lineage must be complete")
+        successor_lineage = (
+            self.hard_constraint_declaration_schema_version,
+            self.hard_constraint_declaration_sha256,
+            self.hard_constraint_declaration_json,
+        )
+        if self.schema_version == "1.0" and (
+            any(value is not None for value in successor_lineage)
+            or self.hard_constraint_vocabularies
+        ):
+            raise ValueError("schema 1.0 artifacts cannot carry schema 2.0 authority")
+        if self.schema_version == "2.0" and (
+            successor_lineage[0] != "2.0"
+            or not isinstance(successor_lineage[1], str)
+            or not isinstance(successor_lineage[2], str)
+        ):
+            raise ValueError("schema 2.0 artifacts require declaration digest authority")
+        if self.schema_version == "2.0":
+            self._validate_bound_declaration()
+        all_entries = (*self.formed, *self.withheld)
+        all_eligibility = tuple(
+            result for entry in all_entries for result in entry.constraint_eligibility
+        )
+        if self.schema_version == "2.0":
+            for result in all_eligibility:
+                if (
+                    result.declaration_id != self.hard_constraint_declaration_id
+                    or result.declaration_version != self.hard_constraint_declaration_version
+                    or result.declaration_schema_version != successor_lineage[0]
+                    or result.declaration_sha256 != successor_lineage[1]
+                ):
+                    raise ValueError("eligibility declaration authority must match formation")
+            vocabulary_authority = {
+                (item.vocabulary_id, item.vocabulary_version, item.canonical_sha256)
+                for item in self.hard_constraint_vocabularies
+            }
+            vocabulary_lookup = {
+                (item.vocabulary_id, item.vocabulary_version, item.canonical_sha256): item
+                for item in self.hard_constraint_vocabularies
+            }
+            for result in all_eligibility:
+                if result.predicate_id == FINITE_VOCABULARY_PREDICATE_ID:
+                    key = (
+                        result.vocabulary_id,
+                        result.vocabulary_version,
+                        result.vocabulary_sha256,
+                    )
+                    if key not in vocabulary_authority:
+                        raise ValueError("eligibility vocabulary authority must match formation")
+                    expected_matches = (
+                        ()
+                        if result.observed_json is None
+                        else matched_vocabulary_terms(
+                            json.loads(result.observed_json), vocabulary_lookup[key]
+                        )
+                    )
+                    if result.matched_terms != expected_matches:
+                        raise ValueError("eligibility matched terms must be reproducible")
         expected_ids = tuple(sorted(self.input_track_ids, key=lambda item: item.encode("utf-8")))
         if self.input_track_ids != expected_ids or len(expected_ids) != len(set(expected_ids)):
             raise ValueError("input track IDs must be unique UTF-8 order")
@@ -659,6 +935,30 @@ class CandidateFormationArtifact(FrozenCandidateEvidenceModel):
         if self.summary != expected_summary:
             raise ValueError("formation summary must match the partitions")
         return self
+
+    def _validate_bound_declaration(self) -> None:
+        from playlist_narrative_engine.candidate_formation.declarations import (
+            HardConstraintDeclarationArtifact,
+            serialize_hard_constraint_declaration,
+        )
+
+        assert self.hard_constraint_declaration_json is not None
+        declaration = HardConstraintDeclarationArtifact.model_validate_json(
+            self.hard_constraint_declaration_json
+        )
+        if declaration.schema_version != "2.0":
+            raise ValueError("bound formation declaration must use schema 2.0")
+        if serialize_hard_constraint_declaration(declaration).decode("utf-8") != self.hard_constraint_declaration_json:
+            raise ValueError("bound formation declaration must be canonical")
+        if (
+            declaration.artifact_id != self.hard_constraint_declaration_id
+            or declaration.declaration_version != self.hard_constraint_declaration_version
+            or declaration.source_type != self.hard_constraint_declaration_source_type
+            or declaration.source_reference != self.hard_constraint_declaration_source_reference
+            or declaration.canonical_sha256 != self.hard_constraint_declaration_sha256
+            or declaration.vocabularies != self.hard_constraint_vocabularies
+        ):
+            raise ValueError("bound formation declaration authority must correspond exactly")
 
 
 def _mapping_rating(value: object) -> str:

@@ -1,7 +1,6 @@
 # Candidate Constraint Evaluation v1 Contract
 
-- **Status:** authority contract frozen; evaluator and schema successor not yet
-  implemented
+- **Status:** authority contract frozen and product evaluator implemented
 - **Contract identity:** `pne.candidate-constraint-evaluation`
 - **Contract version:** `1.0`
 - **Boundary:** deterministic hard eligibility within Candidate Formation
@@ -261,13 +260,13 @@ not execute predicates. Providers may supply source evidence but may not decide
 eligibility. Scoring and sequencing receive only the authenticated formed pool
 and cannot reconsider an `INELIGIBLE` or `UNKNOWN` candidate.
 
-## Implementation gate
+## Implemented boundary
 
-This document freezes authority only. Before evaluator behavior may ship, the
-implementation slice must add and verify the schema `2.0` declaration and
-vocabulary artifacts, the closed registry, canonical digests, successor
-provenance, exact legacy canonicalization tests, matching-profile conformance
-vectors, substitution/tamper tests, and structural no-bypass tests.
+The product implementation supplies the schema `2.0` declaration and vocabulary
+artifacts, closed registry, canonical digests, successor provenance, exact
+legacy canonicalization protection, matching-profile conformance coverage,
+substitution/tamper rejection, and structural no-bypass tests. Schema `1.0`
+remains the default legacy representation and is never rewritten.
 
 No prompt parser, research import, product vocabulary content, fuzzy matcher,
 provider change, scoring change, sequencing change, construction-level

@@ -4,6 +4,7 @@ import hashlib
 
 from playlist_narrative_engine.candidate_formation import (
     CANDIDATE_FORMATION_SCHEMA_VERSION,
+    CANDIDATE_FORMATION_SCHEMA_VERSION_V2,
     CandidateEligibilityState,
     CandidateFormationArtifact,
     FormedCandidateEntry,
@@ -169,7 +170,10 @@ class FinalProductFinalizer:
         report = values["evaluation_report"]
         if journey.schema_version != JOURNEY_PLAN_SCHEMA_VERSION:
             raise ValueError("unsupported journey artifact schema version")
-        if formation.schema_version != CANDIDATE_FORMATION_SCHEMA_VERSION:
+        if formation.schema_version not in {
+            CANDIDATE_FORMATION_SCHEMA_VERSION,
+            CANDIDATE_FORMATION_SCHEMA_VERSION_V2,
+        }:
             raise ValueError("unsupported Candidate Formation schema version")
         if result.schema_version != CONSTRUCTION_RESULT_SCHEMA_VERSION:
             raise ValueError("unsupported construction-result schema version")
