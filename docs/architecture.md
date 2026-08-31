@@ -47,9 +47,12 @@ repository interfaces rather than UI or AI-provider behavior.
   retains exact typed equality and canonical meaning. The
   [Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md)
   contract freezes the future structured-request and approved-definition chain
-  for production declaration authority. Its producer, authorization-evidence
-  prerequisite, first approved product definition, and successor schemas remain
-  unimplemented.
+  for production declaration authority. The dedicated
+  [Objective-Owner Constraint Authorization Evidence v1](objective_owner_constraint_authorization_evidence.md)
+  contract separately freezes the principal, exact-payload, governed-method,
+  and underlying-evidence authority required before a request can be accepted.
+  Both producers, all successor schemas, principal/method infrastructure, and
+  the first approved product definition remain unimplemented.
 - `journey` (Phase 2): a verified accepted Objective Safety result and the exact
   authenticated Objective Assessment input evidence authorize deterministic
   phase allocation. `JourneyPlanArtifact` schema `2.0` binds the assessment,
@@ -96,7 +99,8 @@ flowchart TD
     G --> ACQ["Source-Neutral Acquisition Result"]
     ACQ --> V["Evidence Validation"]
     V --> R["Formation Request Assembler"]
-    D --> X["Accepted structured constraint request"]
+    D --> AU["Future objective-owner constraint authorization"]
+    AU --> X["Accepted structured constraint request"]
     Z["Approved product constraint definition"] --> Q["Future HardConstraintDeclarationProducer"]
     X --> Q
     Q --> Y["Production declaration authority successor"]
@@ -162,8 +166,10 @@ constraint authority and do not feed this path.
 
 For future production declarations, structural validity is not authorization.
 The assembler must independently verify the accepted objective, accepted
-structured request, approved definition, parameters, and producer output under
-[Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md).
+structured request, its exact authorization artifact, approved definition,
+parameters, and producer output under
+[Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md)
+and [Objective-Owner Constraint Authorization Evidence v1](objective_owner_constraint_authorization_evidence.md).
 Direct schema `2.0` construction remains historical/test machinery and cannot
 self-authorize a production constraint.
 

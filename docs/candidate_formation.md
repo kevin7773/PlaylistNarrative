@@ -66,6 +66,7 @@ SourceNeutralAcquisitionResult
         └── CandidateIdentityMetadataArtifact
         +
 Accepted Objective + AcceptedConstraintRequestArtifact
+        + exact verified ConstraintRequestAuthorizationArtifact
         +
 ApprovedCandidateConstraintDefinitionArtifact
         ↓ future HardConstraintDeclarationProducer (not implemented)
@@ -85,11 +86,15 @@ constraint authority. Every hard constraint assembled through this path comes
 from an immutable declaration with exact artifact identity, declaration
 version, and independently verifiable accepted-objective, accepted-request, and
 approved-definition authority. See
-[Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md).
+[Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md)
+and its independent
+[Objective-Owner Constraint Authorization Evidence v1](objective_owner_constraint_authorization_evidence.md)
+prerequisite.
 
-The accepted declaration-authority contract is documentation-only. Its producer,
-first approved product definition, authorization-evidence prerequisite, and
-successor declaration/formation schemas are not implemented. Existing schema
+Both accepted declaration authority and objective-owner constraint
+authorization evidence are documentation-only. Their producers, principal and
+method authorities, first approved product definition, and successor
+declaration/formation/trace/view schemas are not implemented. Existing schema
 `2.0` constructors remain valid for isolated tests and historical verification,
 but their structural validity and caller-supplied authorization strings do not
 authorize a new production constraint.
@@ -160,10 +165,14 @@ The assembler additionally requires:
   declaration exactly.
 
 The future production-authority successor additionally requires exact
-accepted-objective ID/schema/digest, accepted-request ID/version/schema/digest,
-approved-definition ID/version/schema/digest, parameter, and reproduced
-declaration correspondence. Substitution at any of those boundaries invalidates
-the complete request; `source_reference` is not production authorization.
+accepted-objective ID/schema/digest, authorization-artifact ID/schema/digest,
+accepted-request ID/version/schema/digest, approved-definition
+ID/version/schema/digest, parameter, and reproduced declaration correspondence.
+The authorization artifact must independently reproduce an `AUTHORIZED`
+decision for the exact principal authority, objective, action, method, evidence,
+and pre-authorization payload. Substitution at any of those boundaries
+invalidates the complete request; `source_reference` is not production
+authorization.
 
 A request-level correspondence failure invalidates the complete formation
 request. It must not produce a partial `CandidateFormationArtifact`, because a

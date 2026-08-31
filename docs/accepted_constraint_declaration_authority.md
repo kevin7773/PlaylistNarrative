@@ -70,9 +70,11 @@ for another:
 
 ### Positive authority
 
-`AcceptedConstraintRequestArtifact` schema `1.0` is an immutable record that an
-authorized objective owner explicitly accepted one structured product constraint
-request for one exact accepted objective.
+`AcceptedConstraintRequestArtifact` schema `1.0` is an immutable record that one
+structured product constraint request for one exact accepted objective has a
+verified `AUTHORIZED` decision from the dedicated
+[Objective-Owner Constraint Authorization Evidence v1](objective_owner_constraint_authorization_evidence.md)
+boundary.
 
 It must contain, in this canonical field order:
 
@@ -87,35 +89,35 @@ It must contain, in this canonical field order:
 | `accepted_objective_sha256` | SHA-256 of the canonical accepted-objective artifact bytes. |
 | `constraint_definition_id` | Exact selected approved-definition identity. |
 | `constraint_definition_version` | Exact selected approved-definition version. |
+| `constraint_definition_sha256` | SHA-256 of the canonical approved-definition artifact bytes. |
 | `parameters` | One closed typed parameter variant permitted by the selected definition. |
-| `authorization_payload_sha256` | SHA-256 of the exact pre-authorization payload defined below. |
-| `authorization_type` | Exact literal `OBJECTIVE_OWNER_ATTESTATION`. |
-| `authorizing_principal_id` | Exact identity of the principal whose authority is asserted. |
-| `authorization_method_id` | Exact independently governed authorization-method identity. |
-| `authorization_method_version` | Exact authorization-method version. |
-| `authorization_evidence_id` | Exact immutable authorization-evidence artifact identity. |
-| `authorization_evidence_schema_version` | Exact authorization-evidence schema version. |
-| `authorization_evidence_sha256` | SHA-256 binding the exact authorization evidence. |
+| `preauthorization_payload_sha256` | SHA-256 of the exact pre-authorization payload defined below. |
+| `authorization_artifact_id` | Exact `ConstraintRequestAuthorizationArtifact` identity. |
+| `authorization_artifact_schema_version` | Exact authorization-artifact schema version, `1.0`. |
+| `authorization_artifact_sha256` | The authorization artifact's verified canonical SHA-256, computed over its canonical content excluding its digest field. |
 | `canonical_sha256` | SHA-256 of all preceding canonical request content. |
 
 The pre-authorization payload is a canonical object with this exact field order:
 
 1. `authorization_action`, fixed to
    `ACCEPT_PRODUCT_CONSTRAINT_REQUEST`;
-2. `request_id` and `request_version`;
-3. accepted-objective artifact ID, schema version, and digest;
-4. selected constraint-definition ID and version; and
-5. the exact canonical `parameters` variant.
+2. accepted-objective artifact ID, schema version, and digest;
+3. `constraint_request_schema_version`, fixed to `1.0`;
+4. `constraint_request_id` and `constraint_request_version`;
+5. selected constraint-definition ID, version, and digest; and
+6. the exact canonical `parameters` variant.
 
 It uses the same canonical JSON profile as the request. The authorization
-evidence must independently bind the authorizing principal and that exact
+artifact must bind independently governed principal authority, authorization
+method and evidence authority, the exact accepted objective, and that exact
 pre-authorization payload digest. A descriptive user name, session identifier,
-UI event, unchecked boolean, caller assertion, or `source_reference` is not
-authorization evidence.
+UI event, unchecked boolean, caller assertion, hash alone, or
+`source_reference` is not authorization evidence.
 
-The authorization mechanism is an upstream prerequisite. This contract defines
-the correspondence it must prove but does not implement identity,
-authentication, signature verification, UI consent, or account management.
+The authorization mechanism is the independently frozen Objective-Owner
+Constraint Authorization Evidence boundary. Neither contract implements
+identity, authentication, signature verification, UI consent, account
+management, or delegation.
 
 ### Request parameter variants
 
@@ -340,11 +342,16 @@ Before production:
 
 - the exact accepted-objective artifact ID, schema version, and canonical digest
   must equal the request bindings;
-- the request's pre-authorization payload digest must equal the exact payload
-  digest bound by the authorization evidence;
-- the exact definition ID/version must equal the request selection;
-- the exact definition digest must resolve through approved product-definition
-  authority, never through the caller;
+- the request's pre-authorization payload must reproduce exactly from its
+  objective, request, definition, and parameter fields;
+- its digest must equal the exact payload digest bound by a fully verified
+  `AUTHORIZED` `ConstraintRequestAuthorizationArtifact`;
+- the authorization artifact's independently governed principal, method, and
+  evidence authorities must verify under Objective-Owner Constraint
+  Authorization Evidence v1;
+- the exact definition ID/version/digest must equal the request selection and
+  resolve through approved product-definition authority, never through the
+  caller;
 - the parameter variant and every parameter must conform exactly to the
   definition; and
 - applicability must resolve from governed fields without prose inspection.
@@ -356,6 +363,8 @@ producer flag. It receives the exact accepted objective, accepted request,
 approved definition, and produced declaration and requires:
 
 - each artifact and digest to verify independently;
+- the same authorization-artifact identity/schema/digest across accepted
+  request and declaration, with a reproduced `AUTHORIZED` decision;
 - the same objective binding across accepted objective, request, declaration,
   Journey Plan, and other objective-scoped formation inputs;
 - the same request identity/version/digest across request and declaration;
@@ -384,9 +393,9 @@ recoverable:
 
 | Boundary | Minimum recoverable authority |
 | --- | --- |
-| `CandidateFormationRequest` | Exact accepted-objective ID/schema/digest; accepted-request ID/version/schema/digest and canonical bytes or immutable resolver; definition ID/version/schema/digest and canonical bytes or immutable resolver; complete declaration bytes/digest. |
+| `CandidateFormationRequest` | Exact accepted-objective ID/schema/digest; authorization-artifact ID/schema/digest and canonical bytes or immutable resolver; accepted-request ID/version/schema/digest and canonical bytes or immutable resolver; definition ID/version/schema/digest and canonical bytes or immutable resolver; complete declaration bytes/digest. |
 | `CandidateFormationArtifact` | The same authority projection plus the exact parent Formation request identity and canonical digest. |
-| `FormedCandidatePoolView` | Exact Candidate Formation parent schema, request identity, and complete canonical parent digest. Resolution of that immutable parent recovers objective, request, definition, declaration, eligibility, and evidence lineage. |
+| `FormedCandidatePoolView` | Exact Candidate Formation parent schema, request identity, and complete canonical parent digest. Resolution of that immutable parent recovers objective, authorization, request, definition, declaration, eligibility, and evidence lineage. |
 | Final product authority | Exact Candidate Formation constituent schema, identity, and complete canonical digest. Resolution of that immutable constituent recovers the same authority chain. |
 
 The formed-pool view and final product need not duplicate complete request or
@@ -431,11 +440,15 @@ and adding mandatory:
 - producer authority ID `pne.accepted-constraint-declaration-authority`, version
   `1.0`, plus the complete declaration digest.
 
-The future implementation also requires successor Candidate Formation request
-and artifact schemas because adding the new lineage to their existing schema
-`2.0` content would likewise redefine canonical authority. The existing formed-
-pool and final-product schemas may remain unchanged if their parent-resolution
-and complete-digest guarantees are enforced as specified above.
+The future implementation also requires `CandidateFormationRequest` and
+`CandidateFormationArtifact` schema `3.0`, because adding the new lineage to
+their existing schema `2.0` content would redefine canonical authority.
+Successor `CandidateFormationTrace` and `FormedCandidatePoolView` schemas,
+expected `2.0`, are also required: their current parent-schema vocabulary does
+not admit Candidate Formation schema `3.0` without redefining existing bytes.
+The final-product schema shape may remain unchanged if its constituent allowlist
+admits the successor view and exact parent-resolution and complete-digest
+guarantees remain mandatory.
 
 Schema `3.0` is not authorized to change Candidate Constraint Evaluation v1
 predicate identity, matching behavior, result semantics, reason codes, evidence
@@ -445,30 +458,31 @@ successor, not a predicate-semantic successor.
 ## Non-authoritative conformance digest example
 
 The following digest fixture tests only the accepted-request canonical profile.
-The `example.invalid` namespace, zero objective digest, example authorization,
-and selected definition have no product authority and must be rejected by a
-production producer.
+The `example.invalid` namespace and all referenced authorities have no product
+authority and must be rejected by a production producer. The linked
+authorization fixture is defined by Objective-Owner Constraint Authorization
+Evidence v1.
 
 The fixture's canonical pre-authorization payload, shown without a trailing
 newline, is:
 
 ```json
-{"authorization_action":"ACCEPT_PRODUCT_CONSTRAINT_REQUEST","request_id":"example.invalid/request-001","request_version":"1.0","accepted_objective_artifact_id":"example.invalid/objective-001","accepted_objective_schema_version":"2.0","accepted_objective_sha256":"0000000000000000000000000000000000000000000000000000000000000000","constraint_definition_id":"example.invalid/definition-001","constraint_definition_version":"1.0","parameters":{"expected_json":"\"example\""}}
+{"authorization_action":"ACCEPT_PRODUCT_CONSTRAINT_REQUEST","accepted_objective_artifact_id":"example.invalid/objective-001","accepted_objective_schema_version":"2.0","accepted_objective_sha256":"0000000000000000000000000000000000000000000000000000000000000000","constraint_request_schema_version":"1.0","constraint_request_id":"example.invalid/constraint-request-001","constraint_request_version":"1.0","constraint_definition_id":"example.invalid/definition-001","constraint_definition_version":"1.0","constraint_definition_sha256":"1111111111111111111111111111111111111111111111111111111111111111","parameters":{"expected_json":"\"example\""}}
 ```
 
 Its expected SHA-256 is
-`10ab13dd180e1c1203d668e218be456fbc8067bf4543efbb3d20e97f274abf4c`.
+`18a3f54a258b079676040f5b08e79994a92ebfa36ccf931ecceb1456c71edbfa`.
 
 Canonical content, shown without a trailing newline:
 
 ```json
-{"schema_version":"1.0","artifact_kind":"accepted_constraint_request","request_id":"example.invalid/request-001","request_version":"1.0","accepted_objective_artifact_id":"example.invalid/objective-001","accepted_objective_schema_version":"2.0","accepted_objective_sha256":"0000000000000000000000000000000000000000000000000000000000000000","constraint_definition_id":"example.invalid/definition-001","constraint_definition_version":"1.0","parameters":{"expected_json":"\"example\""},"authorization_payload_sha256":"10ab13dd180e1c1203d668e218be456fbc8067bf4543efbb3d20e97f274abf4c","authorization_type":"OBJECTIVE_OWNER_ATTESTATION","authorizing_principal_id":"example.invalid/principal-001","authorization_method_id":"example.invalid/method-001","authorization_method_version":"1.0","authorization_evidence_id":"example.invalid/evidence-001","authorization_evidence_schema_version":"1.0","authorization_evidence_sha256":"1111111111111111111111111111111111111111111111111111111111111111"}
+{"schema_version":"1.0","artifact_kind":"accepted_constraint_request","request_id":"example.invalid/constraint-request-001","request_version":"1.0","accepted_objective_artifact_id":"example.invalid/objective-001","accepted_objective_schema_version":"2.0","accepted_objective_sha256":"0000000000000000000000000000000000000000000000000000000000000000","constraint_definition_id":"example.invalid/definition-001","constraint_definition_version":"1.0","constraint_definition_sha256":"1111111111111111111111111111111111111111111111111111111111111111","parameters":{"expected_json":"\"example\""},"preauthorization_payload_sha256":"18a3f54a258b079676040f5b08e79994a92ebfa36ccf931ecceb1456c71edbfa","authorization_artifact_id":"constraint-request-authorization:sha256:efeec4f2c59a22c7fd9f9eb47232b22b3ac9e7fc81b94d78e73a2c6e805e349c","authorization_artifact_schema_version":"1.0","authorization_artifact_sha256":"5e711443880572fc8587724999adf04120d117395c9c4e287460f191e61567ed"}
 ```
 
 Expected SHA-256:
 
 ```text
-67c7a073781ee9753811e861ac076dbeb36a8859ff2b01832dddabed113f8770
+7fbb910a769cc1ac1c7d6fb027f730681748fc0e21b24667797077e87a60114a
 ```
 
 This example cannot approve a definition, authorize a request, or support a
@@ -494,6 +508,6 @@ This contract does not:
 - read from or write to research, Workbench, Study, or Maestro authority.
 
 Implementation re-entry requires an approved first product constraint definition
-and its approval evidence, an independently verifiable authorization-evidence
-contract, approved successor schema details, and an explicit implementation
-authorization.
+and its approval evidence, approved principal/objective-owner and authorization-
+method authorities under the frozen authorization-evidence contract, approved
+successor schema details, and explicit implementation authorization.
