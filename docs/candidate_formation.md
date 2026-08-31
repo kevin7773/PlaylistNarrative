@@ -85,6 +85,13 @@ Direct `CandidateFormationRequest` construction remains available for legacy
 and isolated tests, but it is not the production authority path for a declared
 constraint.
 
+The additive [Candidate Constraint Evaluation v1 contract](candidate_constraint_evaluation.md)
+freezes how a future declaration successor may dispatch deterministic,
+versioned predicates against one explicitly governed candidate field. It does
+not implement that successor. Existing declaration schema `1.0` continues to
+mean implicit exact typed equality and retains its original canonical bytes and
+behavior.
+
 ## Source artifacts
 
 The future immutable request must contain:
@@ -198,6 +205,12 @@ An exclusion is a hard gate. Candidate Formation must not:
 
 The withheld entry records the applicable exclusion evidence and deterministic
 reason. Candidate Formation does not alter the user's rating or exclusion.
+
+Declared candidate-field constraints are also hard gates. Current schema `1.0`
+uses exact typed equality. The frozen Candidate Constraint Evaluation v1
+contract defines an additive future path for explicit equality and generic
+finite-vocabulary membership without allowing prompt interpretation,
+cross-field satisfaction, or research vocabulary authority.
 
 ## Evidence-state semantics
 

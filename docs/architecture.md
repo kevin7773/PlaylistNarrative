@@ -41,7 +41,10 @@ repository interfaces rather than UI or AI-provider behavior.
   evidence, and CF-2 performs exact correspondence, hard eligibility, versioned
   preference derivation, and complete formed/withheld partitioning. The accepted
   CF-3 integrates that artifact through an authenticated formed-only view and
-  traced ranking envelope with no raw-candidate production path.
+  traced ranking envelope with no raw-candidate production path. Candidate
+  Constraint Evaluation v1 is contract-frozen, but its explicit predicate
+  registry and declaration successor are not yet implemented; existing
+  declaration schema `1.0` retains exact typed equality.
 - `journey` (Phase 2): a verified accepted Objective Safety result and the exact
   authenticated Objective Assessment input evidence authorize deterministic
   phase allocation. `JourneyPlanArtifact` schema `2.0` binds the assessment,
@@ -139,7 +142,8 @@ Candidate Formation is the only boundary authorized to construct a
 `TrackCandidate` from validated source artifacts. Every formed field must trace
 to immutable evidence or a named versioned derivation rule with recorded inputs.
 Hard exclusions produce withheld entries and never become scoring penalties. See
-[Candidate Formation Contract](candidate_formation.md).
+[Candidate Formation Contract](candidate_formation.md) and the
+[Candidate Constraint Evaluation v1 contract](candidate_constraint_evaluation.md).
 
 The request assembler is the source-neutral authority join before Candidate
 Formation. It accepts already-governed acquisition, validation, declaration,
