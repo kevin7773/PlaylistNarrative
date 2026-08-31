@@ -8,6 +8,7 @@ from sqlalchemy import text
 from playlist_narrative_engine.research_store.repository import ResearchRepository
 from playlist_narrative_engine.research_store.schemas import ExperimentInput
 from playlist_narrative_engine.research_store.service import ResearchStoreService
+from playlist_narrative_engine.research_store.study_closeout import closeout_markdown
 from playlist_narrative_engine.research_store.study_schemas import (
     StructuredStudyEvaluationInput,
     StudyRegistrationInput,
@@ -137,8 +138,10 @@ def test_p7f_consumes_e2_and_persisted_p7_without_writes(research_session):
     evaluation = service.evaluate_study(study_id, 1)
     exploration = service.explore_study(study_id, 1)
     closeout = service.closeout_study(study_id, 1, generated_at="fixed")
+    markdown = closeout_markdown(closeout)
     after = research_session.execute(text("SELECT total_changes()" )).scalar_one()
     assert before == after
+    assert "### Registered matched-pair results" in markdown
     assert evaluation["execution_classification"] == "CALCULATOR_GOVERNED_EXECUTION"
     first_run = protocol["planned_runs"][0]
     plans = {item["outcome_key"]: item for item in protocol["execution_contract"]["outcome_calculation_plans"]}

@@ -365,17 +365,60 @@ def closeout_markdown(closeout: dict[str, object]) -> str:
         f"- `{item['analysis_key']}` — **{item['status']}**" + (f": {item['reason']}" if item["reason"] else "")
         for item in evaluation["analyses"]
     )
-    lines.extend(["", "### Block and replicate summaries", ""])
-    lines.extend(
-        f"- {item['block_key']}: paired differences {item['paired_differences']}; mean {item['mean_difference']}"
-        for item in evaluation["summary"]["primary_block_comparison"]
-    )
-    replicate = evaluation["summary"]["replicate_consistency"]
-    if replicate is not None:
+    if evaluation.get("execution_classification") == "CALCULATOR_GOVERNED_EXECUTION":
+        lines.extend(["", "### Registered matched-pair results", ""])
+        paired_analyses = [
+            item for item in evaluation["analyses"]
+            if item["status"] == "CALCULATED"
+            and item.get("calculator_key") == "analysis.paired_difference"
+        ]
+        for analysis in paired_analyses:
+            aggregate = analysis["aggregate"] or {}
+            lines.extend([
+                f"#### `{analysis['analysis_key']}`", "",
+                f"- Outcome: `{analysis['outcome_key']}`",
+                f"- Aggregate mean difference: {aggregate.get('mean_difference')}",
+                f"- Valid numeric pairs: {aggregate.get('valid_numeric_pair_count', 0)}",
+                f"- Direction counts (negative / zero / positive): "
+                f"{aggregate.get('negative_difference_count', 0)} / "
+                f"{aggregate.get('zero_difference_count', 0)} / "
+                f"{aggregate.get('positive_difference_count', 0)}",
+                f"- Excluded pairs: {len(analysis['exclusions'])}", "",
+            ])
+            for pair in analysis["raw_results"]:
+                dimensions = {
+                    item["dimension_key"]: item["value"]
+                    for item in pair.get("dimensions", [])
+                }
+                block = dimensions.get("BLOCK", "not registered")
+                replicate_number = dimensions.get("REPLICATE", "not registered")
+                state = pair.get("pair_state", "UNKNOWN")
+                reason = pair.get("reason_code")
+                suffix = f"; exclusion reason {reason}" if reason else ""
+                lines.append(
+                    f"- Block {block}; replicate {replicate_number}; "
+                    f"LEFT {pair.get('left_decimal')}; RIGHT {pair.get('right_decimal')}; "
+                    f"difference {pair.get('difference')}; state {state}{suffix}"
+                )
+            lines.append("")
+        if not paired_analyses:
+            lines.extend(["No calculated registered paired analysis is available.", ""])
+        lines.extend([
+            "No separately registered replicate-consistency classification exists; none was inferred.",
+            "",
+        ])
+    else:
+        lines.extend(["", "### Block and replicate summaries", ""])
         lines.extend(
-            f"- {item['block_key']}: {item['classification']} ({item['replicate_differences']})"
-            for item in replicate["raw_results"]
+            f"- {item['block_key']}: paired differences {item['paired_differences']}; mean {item['mean_difference']}"
+            for item in evaluation["summary"]["primary_block_comparison"]
         )
+        replicate = evaluation["summary"]["replicate_consistency"]
+        if replicate is not None:
+            lines.extend(
+                f"- {item['block_key']}: {item['classification']} ({item['replicate_differences']})"
+                for item in replicate["raw_results"]
+            )
     lines.extend(["", "### Metadata registered summaries", "",
         f"- Acknowledgment counts: {json.dumps(evaluation['summary']['metadata_acknowledgment_counts'], sort_keys=True)}",
         f"- Construction-divergence counts: {json.dumps(evaluation['summary']['metadata_divergence_counts'], sort_keys=True)}",
@@ -385,10 +428,15 @@ def closeout_markdown(closeout: dict[str, object]) -> str:
         lines.append("No exploratory projection is available.")
     elif "structured_evaluation" in exploration:
         structured = exploration["structured_evaluation"]
+        structured_instance_count = sum(structured["available_population"].values())
+        aggregate_result_count = sum(realized["constraint_result_status_totals"].values())
         lines.extend([
             "**EXPLORATORY DESCRIPTIVE SUMMARY — NOT A REGISTERED STUDY CONCLUSION**", "",
-            f"- Structured subjects inspected: {len(structured['contributors'])}",
-            f"- Instrumentation population: {json.dumps(structured['available_population'], sort_keys=True)}",
+            f"- Persisted structured subjects: {len(structured['contributors'])}",
+            f"- Structured constraint instances: {structured_instance_count} "
+            f"({json.dumps(structured['available_population'], sort_keys=True)})",
+            f"- Aggregate ConstraintResults: {aggregate_result_count} "
+            f"({json.dumps(realized['constraint_result_status_totals'], sort_keys=True)})",
             f"- Track-level boundary: {exploration['track_level_analysis']['status']} — {exploration['track_level_analysis']['reason']}",
             "", "### Structured constraint summaries", "",
         ])
