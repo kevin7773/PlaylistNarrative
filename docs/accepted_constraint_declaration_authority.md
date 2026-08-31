@@ -115,9 +115,13 @@ UI event, unchecked boolean, caller assertion, hash alone, or
 `source_reference` is not authorization evidence.
 
 The authorization mechanism is the independently frozen Objective-Owner
-Constraint Authorization Evidence boundary. Neither contract implements
-identity, authentication, signature verification, UI consent, account
-management, or delegation.
+Constraint Authorization Evidence boundary. Its Penny Local principal,
+prospective objective-owner, and local explicit-confirmation prerequisites are
+defined by [Penny Local Principal Authority v1](penny_local_principal_authority.md),
+[Accepted Objective Owner Authority v1](accepted_objective_owner_authority.md),
+and [Local Explicit Constraint Confirmation Evidence v1](local_explicit_constraint_confirmation_evidence.md).
+None is implemented, and no contract implements real-world identity,
+authentication, signature verification, account management, or delegation.
 
 ### Request parameter variants
 
@@ -508,6 +512,6 @@ This contract does not:
 - read from or write to research, Workbench, Study, or Maestro authority.
 
 Implementation re-entry requires an approved first product constraint definition
-and its approval evidence, approved principal/objective-owner and authorization-
-method authorities under the frozen authorization-evidence contract, approved
-successor schema details, and explicit implementation authorization.
+and its approval evidence, implementation of the frozen principal/objective-
+owner/confirmation authorities, approved successor schema details, and explicit
+implementation authorization.

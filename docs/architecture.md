@@ -51,8 +51,12 @@ repository interfaces rather than UI or AI-provider behavior.
   [Objective-Owner Constraint Authorization Evidence v1](objective_owner_constraint_authorization_evidence.md)
   contract separately freezes the principal, exact-payload, governed-method,
   and underlying-evidence authority required before a request can be accepted.
-  Both producers, all successor schemas, principal/method infrastructure, and
-  the first approved product definition remain unimplemented.
+  Penny Local v1 now supplies contract-frozen, jurisdictionally separate
+  prerequisites for [local principal identity](penny_local_principal_authority.md),
+  [prospective accepted-objective ownership](accepted_objective_owner_authority.md),
+  and [exact-payload explicit confirmation](local_explicit_constraint_confirmation_evidence.md).
+  All three new authority producers and schemas, the successor formation chain,
+  and the first approved product definition remain unimplemented.
 - `journey` (Phase 2): a verified accepted Objective Safety result and the exact
   authenticated Objective Assessment input evidence authorize deterministic
   phase allocation. `JourneyPlanArtifact` schema `2.0` binds the assessment,
@@ -99,7 +103,12 @@ flowchart TD
     G --> ACQ["Source-Neutral Acquisition Result"]
     ACQ --> V["Evidence Validation"]
     V --> R["Formation Request Assembler"]
-    D --> AU["Future objective-owner constraint authorization"]
+    LP["Future Penny Local principal authority"] --> OSUB["Future governed objective submission"]
+    OSUB --> A
+    OSUB --> OW["Future prospective objective-owner authority"]
+    D --> OW
+    OW --> CF["Future exact-payload confirmation evidence"]
+    CF --> AU["Future objective-owner constraint authorization"]
     AU --> X["Accepted structured constraint request"]
     Z["Approved product constraint definition"] --> Q["Future HardConstraintDeclarationProducer"]
     X --> Q

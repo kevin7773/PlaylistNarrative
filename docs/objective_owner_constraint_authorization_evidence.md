@@ -77,9 +77,11 @@ The authorization request must bind both roles independently:
 2. `authorizing_principal_id` and the exact identity, schema version, and digest
    of the authority establishing the principal who performed the later action.
 
-This contract does not define either upstream identity schema. Implementation
-is blocked until product governance selects an independently verifiable
-principal/objective-owner authority that can make those bindings.
+The Penny Local v1 upstream identities are now contract-frozen by
+[Penny Local Principal Authority v1](penny_local_principal_authority.md) and
+[Accepted Objective Owner Authority v1](accepted_objective_owner_authority.md).
+Their schemas, producers, storage, and runtime verification remain
+unimplemented.
 
 ### Relationship and delegation
 
@@ -91,12 +93,11 @@ principal/objective-owner authority that can make those bindings.
   objective owner, delegate, exact accepted objective or permitted scope,
   permitted action, validity rules, and revocation/succession semantics.
 
-Schema `1.0` can represent either relationship, but this freeze approves no
-delegation artifact schema or delegation authority. A `DELEGATE` request is
-therefore unverifiable and fails closed until that independent boundary is
-frozen and implemented. Household membership, shared-account access, agent
-operation, name similarity, or possession of the same device never implies
-delegation.
+Schema `1.0` can represent either relationship, but Penny Local v1 supports
+only `OBJECTIVE_OWNER`. It approves no delegation artifact schema or delegation
+authority. Every `DELEGATE` request therefore fails closed. Household
+membership, shared-account access, agent operation, name similarity, or
+possession of the same device never implies delegation.
 
 ## Exact pre-authorization payload
 
@@ -148,9 +149,12 @@ method definition must prescribe:
 - succession and historical-verification rules.
 
 Method definitions may not contain caller-defined executable behavior. A method
-version change cannot reinterpret an earlier decision. The method registry is
-closed and intentionally empty in this freeze; no OS, account, profile,
-signature, biometric, device, or other identity method is selected.
+version change cannot reinterpret an earlier decision. Penny Local v1 now has
+exactly one contract-frozen method,
+`pne.constraint-authorization.local-explicit-confirmation/1.0`, governed by
+[Local Explicit Constraint Confirmation Evidence v1](local_explicit_constraint_confirmation_evidence.md).
+Its runtime producer and schemas remain unimplemented. No OS, account,
+signature, biometric, device, or delegated method is selected.
 
 Three authorities remain distinct:
 
@@ -407,6 +411,11 @@ Expected evidence SHA-256:
 Its canonical base64 representation is
 `eyJhdXRob3JpemF0aW9uX2FjdGlvbiI6IkFDQ0VQVF9QUk9EVUNUX0NPTlNUUkFJTlRfUkVRVUVTVCIsImF1dGhvcml6ZWQiOnRydWV9`.
 
+This preserved invalid conformance fixture is not confirmation evidence. Its
+bare Boolean has no authorization meaning and cannot satisfy
+`pne.constraint-authorization.local-explicit-confirmation/1.0`; production
+evidence must use the complete frozen confirmation-evidence schema.
+
 Canonical authorization request content, without a trailing newline:
 
 ```json
@@ -431,16 +440,15 @@ Expected artifact SHA-256:
 The approved constraint-definition registry remains intentionally empty. This
 contract does not approve `displayed_explicit=false`, convert taste exclusions
 into candidate equality constraints, promote Animal Vocabulary, or invent any
-other product constraint. It does not approve an authorization method.
+other product constraint. This contract does not itself approve an
+authorization method; the separate local explicit-confirmation contract now
+supplies Penny Local v1's one closed method authority.
 
-Implementation remains blocked on human selection and governance of:
-
-1. an independently verifiable principal/objective-owner authority;
-2. at least one closed authorization method and underlying evidence schema;
-3. whether delegation remains unsupported initially or receives its own future
-   authority contract; and
-4. a legitimate first product constraint definition under separately approved
-   product policy.
+Principal, objective-owner, and one local explicit-confirmation method are now
+contract-frozen, with delegation explicitly unsupported. Implementation remains
+blocked on explicit implementation authorization and a legitimate first product
+constraint definition under separately approved product policy. The approved
+definition registry remains empty.
 
 No prompt parsing, provider/acquisition work, orchestration, Candidate
 Constraint Evaluation change, scoring, sequencing, construction, refinement,
