@@ -44,7 +44,12 @@ repository interfaces rather than UI or AI-provider behavior.
   traced ranking envelope with no raw-candidate production path. Candidate
   Constraint Evaluation v1 supplies the contract-frozen explicit predicate
   registry and declaration schema `2.0`; existing declaration schema `1.0`
-  retains exact typed equality and canonical meaning.
+  retains exact typed equality and canonical meaning. The
+  [Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md)
+  contract freezes the future structured-request and approved-definition chain
+  for production declaration authority. Its producer, authorization-evidence
+  prerequisite, first approved product definition, and successor schemas remain
+  unimplemented.
 - `journey` (Phase 2): a verified accepted Objective Safety result and the exact
   authenticated Objective Assessment input evidence authorize deterministic
   phase allocation. `JourneyPlanArtifact` schema `2.0` binds the assessment,
@@ -91,8 +96,11 @@ flowchart TD
     G --> ACQ["Source-Neutral Acquisition Result"]
     ACQ --> V["Evidence Validation"]
     V --> R["Formation Request Assembler"]
-    X["Explicit accepted request declaration"] --> Q["Hard-Constraint Declaration Artifact"]
-    Q --> R
+    D --> X["Accepted structured constraint request"]
+    Z["Approved product constraint definition"] --> Q["Future HardConstraintDeclarationProducer"]
+    X --> Q
+    Q --> Y["Production declaration authority successor"]
+    Y --> R
     R --> J["Candidate Formation"]
     J --> K["Authenticated FormedCandidatePoolView"]
     K --> H["Scoring, Selection, and Sequencing"]
@@ -151,6 +159,13 @@ taste, feature, context, objective, journey, and policy artifacts. It cannot
 read free-form prose or call providers. The Maestro Workbench remains a separate
 research-intake system: OCR and draft extraction are not product metadata or
 constraint authority and do not feed this path.
+
+For future production declarations, structural validity is not authorization.
+The assembler must independently verify the accepted objective, accepted
+structured request, approved definition, parameters, and producer output under
+[Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md).
+Direct schema `2.0` construction remains historical/test machinery and cannot
+self-authorize a production constraint.
 
 CF-3 makes `FormedCandidatePoolView` the sole production boundary from Candidate
 Formation into selection and construction. It is derived only from a validated

@@ -65,7 +65,11 @@ SourceNeutralAcquisitionResult
         ├── EvidenceSnapshot
         └── CandidateIdentityMetadataArtifact
         +
-HardConstraintDeclarationArtifact
+Accepted Objective + AcceptedConstraintRequestArtifact
+        +
+ApprovedCandidateConstraintDefinitionArtifact
+        ↓ future HardConstraintDeclarationProducer (not implemented)
+Production declaration authority successor
         ↓
 FormationRequestAssembler
         ↓
@@ -79,7 +83,16 @@ lineage checks. It performs no retrieval, prompt parsing, metadata inference,
 scoring, ranking, selection, or sequencing. Prompt and objective prose are not
 constraint authority. Every hard constraint assembled through this path comes
 from an immutable declaration with exact artifact identity, declaration
-version, source type, and source reference.
+version, and independently verifiable accepted-objective, accepted-request, and
+approved-definition authority. See
+[Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md).
+
+The accepted declaration-authority contract is documentation-only. Its producer,
+first approved product definition, authorization-evidence prerequisite, and
+successor declaration/formation schemas are not implemented. Existing schema
+`2.0` constructors remain valid for isolated tests and historical verification,
+but their structural validity and caller-supplied authorization strings do not
+authorize a new production constraint.
 
 Direct `CandidateFormationRequest` construction remains available for legacy
 and isolated tests, but it is not the production authority path for a declared
@@ -145,6 +158,12 @@ The assembler additionally requires:
 - metadata observations to match the captured source receipt; and
 - authorized constraint-declaration identity/version to match the supplied
   declaration exactly.
+
+The future production-authority successor additionally requires exact
+accepted-objective ID/schema/digest, accepted-request ID/version/schema/digest,
+approved-definition ID/version/schema/digest, parameter, and reproduced
+declaration correspondence. Substitution at any of those boundaries invalidates
+the complete request; `source_reference` is not production authorization.
 
 A request-level correspondence failure invalidates the complete formation
 request. It must not produce a partial `CandidateFormationArtifact`, because a

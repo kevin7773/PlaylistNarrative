@@ -271,3 +271,20 @@ remains the default legacy representation and is never rewritten.
 No prompt parser, research import, product vocabulary content, fuzzy matcher,
 provider change, scoring change, sequencing change, construction-level
 constraint, UI, or Study is authorized by this contract.
+
+## Production declaration authority successor
+
+Structural validity under this contract does not establish that an objective
+owner accepted a constraint or that product governance approved its definition.
+The separate
+[Accepted Constraint Declaration Authority v1](accepted_constraint_declaration_authority.md)
+contract freezes that future authority chain.
+
+Existing declaration schemas `1.0` and `2.0`, their canonical bytes, digests,
+predicate behavior, result semantics, and provenance remain unchanged. Because
+schema `2.0` has no accepted-objective, accepted-request, or approved-definition
+bindings, production declaration authority requires an additive schema `3.0`
+lineage successor rather than extending or reinterpreting schema `2.0`. The
+producer and successor are not implemented, no product constraint definition is
+approved, and caller construction of a valid schema `2.0` artifact is not
+production authorization.
