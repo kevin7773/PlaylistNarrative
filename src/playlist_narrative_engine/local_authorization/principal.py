@@ -205,6 +205,36 @@ class LocalPrincipalAuthorityVerifier:
         except (StopIteration, TypeError, ValueError):
             return False
 
+    def verified_lineage_prefix_sha256(
+        self,
+        artifact: LocalPrincipalAuthorityArtifact,
+        *,
+        require_current_tip: bool = False,
+    ) -> str:
+        """Digest the exact verified lineage from its initial artifact to ``artifact``."""
+
+        lineage = self._verified_lineage()
+        ordered = self._lineage_order(lineage)
+        try:
+            index = next(
+                index
+                for index, item in enumerate(ordered)
+                if item.artifact_id == artifact.artifact_id and item == artifact
+            )
+        except StopIteration as exc:
+            raise LocalPrincipalAuthorityInvalidInput(
+                "principal artifact is not exact verified lineage authority"
+            ) from exc
+        if require_current_tip and ordered[-1] != artifact:
+            raise LocalPrincipalAuthorityInvalidInput(
+                "principal artifact is not the current applicable tip"
+            )
+        prefix = [
+            item.model_dump(mode="json")
+            for item in ordered[: index + 1]
+        ]
+        return canonical_sha256(prefix)
+
     def _verified_lineage(self) -> tuple[LocalPrincipalAuthorityArtifact, ...]:
         artifacts = self._repository.artifacts
         if not artifacts:
@@ -279,6 +309,22 @@ class LocalPrincipalAuthorityVerifier:
                 "principal lineage contains disconnected authority"
             )
         return artifacts
+
+    @staticmethod
+    def _lineage_order(
+        artifacts: tuple[LocalPrincipalAuthorityArtifact, ...],
+    ) -> tuple[LocalPrincipalAuthorityArtifact, ...]:
+        initial = next(item for item in artifacts if item.predecessor_artifact_id is None)
+        ordered = [initial]
+        while True:
+            successors = tuple(
+                item
+                for item in artifacts
+                if item.predecessor_artifact_id == ordered[-1].artifact_id
+            )
+            if not successors:
+                return tuple(ordered)
+            ordered.append(successors[0])
 
 
 class LocalPrincipalAuthorityProducer:

@@ -184,6 +184,29 @@ def test_exactly_one_active_principal_and_immutable_successor_lineage() -> None:
         producer.create_successor(initial)
 
 
+def test_verified_principal_lineage_prefix_is_source_neutral_and_historical() -> None:
+    _, producer, initial = _principal_foundation()
+    initial_prefix = producer.verifier.verified_lineage_prefix_sha256(
+        initial,
+        require_current_tip=True,
+    )
+    successor = producer.create_successor(initial)
+
+    assert producer.verifier.verified_lineage_prefix_sha256(initial) == initial_prefix
+    assert producer.verifier.verified_lineage_prefix_sha256(
+        successor,
+        require_current_tip=True,
+    ) != initial_prefix
+    with pytest.raises(LocalPrincipalAuthorityInvalidInput, match="current applicable"):
+        producer.verifier.verified_lineage_prefix_sha256(
+            initial,
+            require_current_tip=True,
+        )
+    substituted = initial.model_copy(update={"principal_id": "substituted"})
+    with pytest.raises(LocalPrincipalAuthorityInvalidInput, match="not exact"):
+        producer.verifier.verified_lineage_prefix_sha256(substituted)
+
+
 def test_principal_schema_forbids_identity_substitution_and_partial_lineage() -> None:
     _, producer, initial = _principal_foundation()
     substituted = initial.model_copy(update={"principal_id": "caller-selected"})

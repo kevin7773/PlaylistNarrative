@@ -1,0 +1,1637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Minor Version</key><integer>1</integer>
+	<key>Date</key><date>2026-09-01T15:11:35Z</date>
+	<key>Application Version</key><string>12.13.10.3</string>
+	<key>Features</key><integer>5</integer>
+	<key>Show Content Ratings</key><true/>
+	<key>Music Folder</key><string>file://localhost/C:/Users/klsma/Music/iTunes/iTunes%20Media/</string>
+	<key>Library Persistent ID</key><string>9C9E2747D29AB9A8</string>
+	<key>Tracks</key>
+	<dict>
+		<key>281</key>
+		<dict>
+			<key>Track ID</key><integer>281</integer>
+			<key>Name</key><string>Black Planet</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6442243</integer>
+			<key>Total Time</key><integer>281887</integer>
+			<key>Track Number</key><integer>1</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:44Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>182</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>60F3F28BD78BD511</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/101-tsom-black_planet.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>287</key>
+		<dict>
+			<key>Track ID</key><integer>287</integer>
+			<key>Name</key><string>Walk Away</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4698919</integer>
+			<key>Total Time</key><integer>204251</integer>
+			<key>Track Number</key><integer>2</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:56:44Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>184</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>AAE98D9D7D6C6BC7</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/102-tsom-walk_away.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>291</key>
+		<dict>
+			<key>Track ID</key><integer>291</integer>
+			<key>Name</key><string>No Time To Cry</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5420826</integer>
+			<key>Total Time</key><integer>239281</integer>
+			<key>Track Number</key><integer>3</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:42Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>181</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>F46BDFB7BDC114B6</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/103-tsom-no_time_to_cry.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>295</key>
+		<dict>
+			<key>Track ID</key><integer>295</integer>
+			<key>Name</key><string>A Rock And A Hard Place</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4909673</integer>
+			<key>Total Time</key><integer>215510</integer>
+			<key>Track Number</key><integer>4</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:34Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>182</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Sort Name</key><string>Rock And A Hard Place</string>
+			<key>Persistent ID</key><string>C3B7B91816E85658</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/104-tsom-a_rock_and_a_hard_place.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>299</key>
+		<dict>
+			<key>Track ID</key><integer>299</integer>
+			<key>Name</key><string>Marian (Version)</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8653584</integer>
+			<key>Total Time</key><integer>343196</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:34Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>201</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>FFA2DE5E1D890887</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/105-tsom-marian_(version).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>303</key>
+		<dict>
+			<key>Track ID</key><integer>303</integer>
+			<key>Name</key><string>First And Last And Always</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6221526</integer>
+			<key>Total Time</key><integer>255268</integer>
+			<key>Track Number</key><integer>6</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:44Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>194</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>3A5E79B199AB7C2A</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/106-tsom-first_and_last_and_always.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>307</key>
+		<dict>
+			<key>Track ID</key><integer>307</integer>
+			<key>Name</key><string>Possession</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6524315</integer>
+			<key>Total Time</key><integer>282148</integer>
+			<key>Track Number</key><integer>7</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:38Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>184</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>A090C919969899C7</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/107-tsom-possession.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>311</key>
+		<dict>
+			<key>Track ID</key><integer>311</integer>
+			<key>Name</key><string>Nine While Nine</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6099690</integer>
+			<key>Total Time</key><integer>250514</integer>
+			<key>Track Number</key><integer>8</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:26Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>194</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>0B3C0301BD41426B</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/108-tsom-nine_while_nine.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>315</key>
+		<dict>
+			<key>Track ID</key><integer>315</integer>
+			<key>Name</key><string>Logic</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7168055</integer>
+			<key>Total Time</key><integer>291578</integer>
+			<key>Track Number</key><integer>9</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:37Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>196</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>A6061DAA40751EA1</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/109-tsom-logic.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>319</key>
+		<dict>
+			<key>Track ID</key><integer>319</integer>
+			<key>Name</key><string>Some Kind Of Stranger</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>First And Last And Always</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9997316</integer>
+			<key>Total Time</key><integer>440346</integer>
+			<key>Track Number</key><integer>10</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:42Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>181</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>7692368007544577</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/110-tsom-some_kind_of_stranger.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>323</key>
+		<dict>
+			<key>Track ID</key><integer>323</integer>
+			<key>Name</key><string>Dominion-Mother Russia</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10430071</integer>
+			<key>Total Time</key><integer>421982</integer>
+			<key>Track Number</key><integer>1</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:47Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>197</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>4DA5D6FF70B304EB</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/201-tsom-dominion-mother_russia.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>327</key>
+		<dict>
+			<key>Track ID</key><integer>327</integer>
+			<key>Name</key><string>Flood I</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9147218</integer>
+			<key>Total Time</key><integer>382484</integer>
+			<key>Track Number</key><integer>2</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:44Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>191</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>445B1297BA58511E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/202-tsom-flood_i.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>331</key>
+		<dict>
+			<key>Track ID</key><integer>331</integer>
+			<key>Name</key><string>Lucretia My Reflection</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6734831</integer>
+			<key>Total Time</key><integer>296672</integer>
+			<key>Track Number</key><integer>3</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:41Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>181</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>EE6DA867E164A114</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/203-tsom-lucretia_my_reflection.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>335</key>
+		<dict>
+			<key>Track ID</key><integer>335</integer>
+			<key>Name</key><string>1959</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5130613</integer>
+			<key>Total Time</key><integer>250566</integer>
+			<key>Track Number</key><integer>4</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:39Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>163</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>B9029BF903861E0E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/204-tsom-1959.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>339</key>
+		<dict>
+			<key>Track ID</key><integer>339</integer>
+			<key>Name</key><string>This Corrosion</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>17265650</integer>
+			<key>Total Time</key><integer>655177</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:35Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>210</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>EF9D56D007A43122</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/205-tsom-this_corrosion.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>343</key>
+		<dict>
+			<key>Track ID</key><integer>343</integer>
+			<key>Name</key><string>Flood II</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>11535400</integer>
+			<key>Total Time</key><integer>406595</integer>
+			<key>Track Number</key><integer>6</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:43Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>226</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>2B5A35EAB111662E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/206-tsom-flood_ii.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>347</key>
+		<dict>
+			<key>Track ID</key><integer>347</integer>
+			<key>Name</key><string>Driven Like The Snow</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9541170</integer>
+			<key>Total Time</key><integer>388022</integer>
+			<key>Track Number</key><integer>7</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:40Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>196</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>DF7C81AB5913CDAA</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/207-tsom-driven_like_the_snow.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>351</key>
+		<dict>
+			<key>Track ID</key><integer>351</integer>
+			<key>Name</key><string>Never Land (A Fragment)</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4029917</integer>
+			<key>Total Time</key><integer>176248</integer>
+			<key>Track Number</key><integer>8</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:46Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>182</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>E94A8EF328466803</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/208-tsom-never_land_(a_fragment).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>355</key>
+		<dict>
+			<key>Track ID</key><integer>355</integer>
+			<key>Name</key><string>Torch</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5064579</integer>
+			<key>Total Time</key><integer>229903</integer>
+			<key>Track Number</key><integer>9</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:45Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>176</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>8967A261EC2CE738</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/209-tsom-torch.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>359</key>
+		<dict>
+			<key>Track ID</key><integer>359</integer>
+			<key>Name</key><string>Colours</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9327893</integer>
+			<key>Total Time</key><integer>438334</integer>
+			<key>Track Number</key><integer>10</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:47Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>170</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>854BFCACC17841EE</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/210-tsom-colours.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>363</key>
+		<dict>
+			<key>Track ID</key><integer>363</integer>
+			<key>Name</key><string>Vision Thing</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Vision Thing</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6466605</integer>
+			<key>Total Time</key><integer>276349</integer>
+			<key>Track Number</key><integer>1</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:34Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>187</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>EF689146C37EFE5E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/301-tsom-vision_thing.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>367</key>
+		<dict>
+			<key>Track ID</key><integer>367</integer>
+			<key>Name</key><string>Ribbons</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Vision Thing</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7826284</integer>
+			<key>Total Time</key><integer>325982</integer>
+			<key>Track Number</key><integer>2</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:28Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>192</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>05FC11B73FF00172</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/302-tsom-ribbons.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>371</key>
+		<dict>
+			<key>Track ID</key><integer>371</integer>
+			<key>Name</key><string>Detonation Boulevard</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Vision Thing</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4859199</integer>
+			<key>Total Time</key><integer>232385</integer>
+			<key>Track Number</key><integer>3</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:31Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>167</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>D2504337C3CB59B5</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/303-tsom-detonation_boulevard.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>375</key>
+		<dict>
+			<key>Track ID</key><integer>375</integer>
+			<key>Name</key><string>Something Fast</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Vision Thing</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6441760</integer>
+			<key>Total Time</key><integer>277080</integer>
+			<key>Track Number</key><integer>4</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:40Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>185</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>D967715106F9FE2F</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/304-tsom-something_fast.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>379</key>
+		<dict>
+			<key>Track ID</key><integer>379</integer>
+			<key>Name</key><string>When You Don't See Me</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Vision Thing</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7616544</integer>
+			<key>Total Time</key><integer>294347</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:38Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>207</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>6C74668DB6E038F9</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/305-tsom-when_you_dont_see_me.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>383</key>
+		<dict>
+			<key>Track ID</key><integer>383</integer>
+			<key>Name</key><string>Doctor Jeep</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Vision Thing</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7317958</integer>
+			<key>Total Time</key><integer>281965</integer>
+			<key>Track Number</key><integer>6</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:41Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>207</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>8A70AA13667D0B67</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/306-tsom-doctor_jeep.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>387</key>
+		<dict>
+			<key>Track ID</key><integer>387</integer>
+			<key>Name</key><string>More</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Vision Thing</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>12942084</integer>
+			<key>Total Time</key><integer>503196</integer>
+			<key>Track Number</key><integer>7</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:42Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>205</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>46B130C3079EAA21</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/307-tsom-more.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>391</key>
+		<dict>
+			<key>Track ID</key><integer>391</integer>
+			<key>Name</key><string>I Was Wrong</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Vision Thing</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9926289</integer>
+			<key>Total Time</key><integer>363885</integer>
+			<key>Track Number</key><integer>8</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:48Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>218</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>AD9E84B719EAEFC1</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/308-tsom-i_was_wrong.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>395</key>
+		<dict>
+			<key>Track ID</key><integer>395</integer>
+			<key>Name</key><string>Alice</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5857995</integer>
+			<key>Total Time</key><integer>214909</integer>
+			<key>Track Number</key><integer>1</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:31Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>218</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>D71FFA053FEF7FD2</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/401-tsom-alice.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>399</key>
+		<dict>
+			<key>Track ID</key><integer>399</integer>
+			<key>Name</key><string>Floorshow</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5959116</integer>
+			<key>Total Time</key><integer>220604</integer>
+			<key>Track Number</key><integer>2</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:40Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>216</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>F6FB6DFE07CC04F0</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/402-tsom-floorshow.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>403</key>
+		<dict>
+			<key>Track ID</key><integer>403</integer>
+			<key>Name</key><string>Phantom</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10720570</integer>
+			<key>Total Time</key><integer>430680</integer>
+			<key>Track Number</key><integer>3</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:48Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>199</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>9C10CA2503733827</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/403-tsom-phantom.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>407</key>
+		<dict>
+			<key>Track ID</key><integer>407</integer>
+			<key>Name</key><string>1969</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4341606</integer>
+			<key>Total Time</key><integer>165407</integer>
+			<key>Track Number</key><integer>4</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:47Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>209</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>7A3D69256A3A988E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/404-tsom-1969.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>411</key>
+		<dict>
+			<key>Track ID</key><integer>411</integer>
+			<key>Name</key><string>Kiss The Carpet</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9088975</integer>
+			<key>Total Time</key><integer>355369</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:44Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>204</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>94F06AFD6A2E81A0</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/405-tsom-kiss_the_carpet.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>415</key>
+		<dict>
+			<key>Track ID</key><integer>415</integer>
+			<key>Name</key><string>Lights</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9098535</integer>
+			<key>Total Time</key><integer>351059</integer>
+			<key>Track Number</key><integer>6</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:31Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>207</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>69EC9292FBDCC681</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/406-tsom-lights.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>419</key>
+		<dict>
+			<key>Track ID</key><integer>419</integer>
+			<key>Name</key><string>Valentine</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7023774</integer>
+			<key>Total Time</key><integer>284290</integer>
+			<key>Track Number</key><integer>7</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:40Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>197</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>2D99375DEB4C1D92</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/407-tsom-valentine.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>423</key>
+		<dict>
+			<key>Track ID</key><integer>423</integer>
+			<key>Name</key><string>Fix</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4619622</integer>
+			<key>Total Time</key><integer>221622</integer>
+			<key>Track Number</key><integer>8</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:26Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>166</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>EF72F8A69AB8F924</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/408-tsom-fix.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>427</key>
+		<dict>
+			<key>Track ID</key><integer>427</integer>
+			<key>Name</key><string>Burn</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7586931</integer>
+			<key>Total Time</key><integer>289645</integer>
+			<key>Track Number</key><integer>9</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:36Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>209</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>0EE1E8261BE7EDC4</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/409-tsom-burn.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>431</key>
+		<dict>
+			<key>Track ID</key><integer>431</integer>
+			<key>Name</key><string>Kiss The Carpet (Reprise)</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>835550</integer>
+			<key>Total Time</key><integer>36075</integer>
+			<key>Track Number</key><integer>10</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:56:13Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>185</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>5F0AFD5DCDD9B5E7</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/410-tsom-kiss_the_carpet_(reprise).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>435</key>
+		<dict>
+			<key>Track ID</key><integer>435</integer>
+			<key>Name</key><string>Temple Of Love (Extended Version)</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>12681074</integer>
+			<key>Total Time</key><integer>462628</integer>
+			<key>Track Number</key><integer>11</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:40Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>219</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>DC3373ABD9C33B19</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/411-tsom-temple_of_love_(extended_version).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>439</key>
+		<dict>
+			<key>Track ID</key><integer>439</integer>
+			<key>Name</key><string>Heartland</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7029890</integer>
+			<key>Total Time</key><integer>287242</integer>
+			<key>Track Number</key><integer>12</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:42Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>195</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>E03F310C74CF7724</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/412-tsom-heartland.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>443</key>
+		<dict>
+			<key>Track ID</key><integer>443</integer>
+			<key>Name</key><string>Gimme Shelter</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9618350</integer>
+			<key>Total Time</key><integer>357041</integer>
+			<key>Track Number</key><integer>13</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:44Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>215</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>C9FD848D77FBE72F</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/413-tsom-gimme_shelter.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>447</key>
+		<dict>
+			<key>Track ID</key><integer>447</integer>
+			<key>Name</key><string>The Damage Done</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4795939</integer>
+			<key>Total Time</key><integer>183353</integer>
+			<key>Track Number</key><integer>14</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:45Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>209</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Sort Name</key><string>Damage Done</string>
+			<key>Persistent ID</key><string>83611001F0344ECD</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/414-tsom-the_damage_done.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>451</key>
+		<dict>
+			<key>Track ID</key><integer>451</integer>
+			<key>Name</key><string>Watch</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4579462</integer>
+			<key>Total Time</key><integer>191921</integer>
+			<key>Track Number</key><integer>15</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:34Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>190</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>79621F597CF5B554</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/415-tsom-watch.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>455</key>
+		<dict>
+			<key>Track ID</key><integer>455</integer>
+			<key>Name</key><string>Home Of The Hit-Men</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>788364</integer>
+			<key>Total Time</key><integer>34690</integer>
+			<key>Track Number</key><integer>16</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:55:43Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>181</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>D4F09AAAB9C266F0</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/416-tsom-home_of_the_hit-men.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>459</key>
+		<dict>
+			<key>Track ID</key><integer>459</integer>
+			<key>Name</key><string>Body Electric</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6755035</integer>
+			<key>Total Time</key><integer>258612</integer>
+			<key>Track Number</key><integer>17</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:45Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>208</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>81C6D3CAD9751811</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/417-tsom-body_electric.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>463</key>
+		<dict>
+			<key>Track ID</key><integer>463</integer>
+			<key>Name</key><string>Adrenochrome</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4569128</integer>
+			<key>Total Time</key><integer>177423</integer>
+			<key>Track Number</key><integer>18</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:45Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>206</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>C04576C8DD1DB4CD</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/418-tsom-adrenochrome.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>467</key>
+		<dict>
+			<key>Track ID</key><integer>467</integer>
+			<key>Name</key><string>Anaconda</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Some Girls Wander By Mistake</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6322438</integer>
+			<key>Total Time</key><integer>246648</integer>
+			<key>Track Number</key><integer>19</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:48Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>205</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>FC6DFADC645C65E7</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/419-tsom-anaconda.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>471</key>
+		<dict>
+			<key>Track ID</key><integer>471</integer>
+			<key>Name</key><string>Under The Gun</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8377577</integer>
+			<key>Total Time</key><integer>343066</integer>
+			<key>Track Number</key><integer>1</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:48Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>195</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>BEF3B9CCDF05D87C</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/501-tsom-under_the_gun.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>475</key>
+		<dict>
+			<key>Track ID</key><integer>475</integer>
+			<key>Name</key><string>Temple Of Love</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10475095</integer>
+			<key>Total Time</key><integer>487653</integer>
+			<key>Track Number</key><integer>2</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:47Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>171</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>5CA3F4212CD794A3</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/502-tsom-temple_of_love.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>479</key>
+		<dict>
+			<key>Track ID</key><integer>479</integer>
+			<key>Name</key><string>Vision Thing</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>12697232</integer>
+			<key>Total Time</key><integer>454556</integer>
+			<key>Track Number</key><integer>3</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:46Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>223</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>41756189EF4B7FC8</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/503-tsom-vision_thing.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>483</key>
+		<dict>
+			<key>Track ID</key><integer>483</integer>
+			<key>Name</key><string>Detonation Boulevard</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5503369</integer>
+			<key>Total Time</key><integer>230556</integer>
+			<key>Track Number</key><integer>4</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:41Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>190</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>9B147E5E9AB973F1</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/504-tsom-detonation_boulevard.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>487</key>
+		<dict>
+			<key>Track ID</key><integer>487</integer>
+			<key>Name</key><string>Doctor Jeep</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4262469</integer>
+			<key>Total Time</key><integer>182909</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:39Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>186</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>DEF4D517FFCEFF97</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/505-tsom-doctor_jeep.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>491</key>
+		<dict>
+			<key>Track ID</key><integer>491</integer>
+			<key>Name</key><string>More</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>13158590</integer>
+			<key>Total Time</key><integer>504555</integer>
+			<key>Track Number</key><integer>6</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:41Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>208</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>CC4113270643E369</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/506-tsom-more.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>495</key>
+		<dict>
+			<key>Track ID</key><integer>495</integer>
+			<key>Name</key><string>Lucretia My Reflection</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>12555810</integer>
+			<key>Total Time</key><integer>524199</integer>
+			<key>Track Number</key><integer>7</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:46Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>191</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>411F46A1537ECF15</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/507-tsom-lucretia_my_reflection.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>499</key>
+		<dict>
+			<key>Track ID</key><integer>499</integer>
+			<key>Name</key><string>Dominion - Mother Russia</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10413207</integer>
+			<key>Total Time</key><integer>423418</integer>
+			<key>Track Number</key><integer>8</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:46Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>196</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>02BFDB5D79FF5055</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/508-tsom-dominion_-_mother_russia.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>503</key>
+		<dict>
+			<key>Track ID</key><integer>503</integer>
+			<key>Name</key><string>This Corrosion</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>16393749</integer>
+			<key>Total Time</key><integer>617717</integer>
+			<key>Track Number</key><integer>9</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:45Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>212</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>84761B93D30767F9</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/509-tsom-this_corrosion.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>507</key>
+		<dict>
+			<key>Track ID</key><integer>507</integer>
+			<key>Name</key><string>No Time To Cry</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4949710</integer>
+			<key>Total Time</key><integer>237923</integer>
+			<key>Track Number</key><integer>10</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:29Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>166</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>6FC4BC1DF3954559</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/510-tsom-no_time_to_cry.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>511</key>
+		<dict>
+			<key>Track ID</key><integer>511</integer>
+			<key>Name</key><string>Walk Away</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4958910</integer>
+			<key>Total Time</key><integer>204042</integer>
+			<key>Track Number</key><integer>11</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:21Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>194</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>C695FAA7F05DC9FB</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/511-tsom-walk_away.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>515</key>
+		<dict>
+			<key>Track ID</key><integer>515</integer>
+			<key>Name</key><string>Body And Soul</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>A Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5392391</integer>
+			<key>Total Time</key><integer>210860</integer>
+			<key>Track Number</key><integer>12</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:37Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>204</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Album</key><string>Slight Case Of Overbombing: Greatest Hits Volume 1</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>9C0D61E78C01F677</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/512-tsom-body_and_soul.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+	</dict>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Name</key><string>000-the_sisters_of_mercy-original_album_series-5cd-2010</string>
+			<key>Description</key><string></string>
+			<key>Playlist ID</key><integer>278</integer>
+			<key>Playlist Persistent ID</key><string>85C5D764BE8FCEFF</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key><integer>281</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>287</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>291</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>295</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>299</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>303</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>307</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>311</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>315</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>319</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>323</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>327</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>331</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>335</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>339</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>343</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>347</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>351</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>355</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>359</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>363</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>367</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>371</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>375</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>379</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>383</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>387</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>391</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>395</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>399</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>403</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>407</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>411</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>415</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>419</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>423</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>427</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>431</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>435</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>439</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>443</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>447</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>451</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>455</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>459</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>463</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>467</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>471</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>475</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>479</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>483</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>487</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>491</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>495</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>499</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>503</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>507</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>511</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>515</integer>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
