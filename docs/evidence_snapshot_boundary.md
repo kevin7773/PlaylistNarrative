@@ -34,6 +34,12 @@ The source-neutral envelope is implemented in `evidence_acquisition`. It is an
 authority and replay contract, not an adapter. No provider-specific acquisition
 implementation exists in the repository.
 
+The documentation-only
+[Penny Local iTunes Windows XML acquisition contract](penny_local_itunes_windows_xml_acquisition.md)
+freezes one source-specific profile and selects a separate immutable authority
+wrapper so this envelope's schema `1.0` and canonical behavior remain unchanged.
+No parser, adapter, intake producer, or wrapper is implemented.
+
 The future receipt edge must bind the frozen definitions in
 `playlist_narrative_engine.source_receipt`. Policy v1.1 permits only complete,
 ordered, opaque-byte observation and performs no metadata interpretation. The

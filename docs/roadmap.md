@@ -37,7 +37,11 @@ engine is now the platform on which Penny's experience vocabulary can grow. See
      exact journey, objective, and accepted-safety-artifact identity.
    - **Evidence Snapshot boundary (contract established):** source-specific
      acquisition terminates at an immutable serialized snapshot; acquisition
-     adapters remain unimplemented and outside the deterministic core.
+     adapters remain unimplemented and outside the deterministic core. Penny
+     Local's first documentation-only source profile is the
+     [iTunes Windows single-playlist XML acquisition contract](penny_local_itunes_windows_xml_acquisition.md);
+     its governed intake, parser, mapping producer, and authority wrapper remain
+     unimplemented.
    - **Track Evidence Validation (implemented):** deterministic schema 1.0
      partitioning of every identifiable snapshot record into validated or
      losslessly rejected evidence.

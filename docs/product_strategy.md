@@ -53,7 +53,9 @@ Penny Local is the product. It:
 - remains local-first;
 - uses deterministic reasoning;
 - keeps the user's data under the user's ownership;
-- connects directly to providers; and
+- connects directly to providers when technically and contractually compatible,
+  and may use narrowly governed provider-documented exports when they preserve
+  exact-byte authority and deterministic replay; and
 - is intended to remain free.
 
 ### Penny Connected (working title)
@@ -82,6 +84,15 @@ intentional soundtrack.
 This boundary preserves user agency, data ownership, deterministic replay, and
 the usefulness of Penny Local independently of a subscription or networked
 service.
+
+Provider-documented exports are not a generic import feature. Each supported
+export requires its own immutable source profile, representative authority,
+explicit non-claims, and deterministic mapping. The initial contract is the
+[Penny Local iTunes Windows XML Playlist Export Acquisition v1](penny_local_itunes_windows_xml_acquisition.md).
+Arbitrary caller-created XML, CSV, M3U, folders, and invented interchange
+formats gain no authority from this source-class decision. Direct integration
+remains preferable whenever it can preserve the same provenance, replay, finite
+universe, and legitimate-use requirements.
 
 ## Product philosophy
 

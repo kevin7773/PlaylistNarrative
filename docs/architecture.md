@@ -34,7 +34,11 @@ repository interfaces rather than UI or AI-provider behavior.
   frozen as executable definitions. An observation-only Source Receipt producer
   now creates canonical request-reproducible receipts, but no conforming source
   implementation, provider adapter, or source-neutral acquisition producer
-  exists yet.
+  exists yet. The documentation-only
+  [Penny Local iTunes Windows XML acquisition contract](penny_local_itunes_windows_xml_acquisition.md)
+  freezes the first source-specific profile, governed local file-selection
+  authority, deterministic mapping, and a separate immutable wrapper around
+  schema `1.0`; it changes no runtime behavior.
 - `track_evidence`: deterministic validation and complete partitioning of an
   evidence snapshot without provider access, Candidate Formation, or sequencing.
 - Candidate Formation: CF-0 defines the join, CF-1 supplies immutable source
