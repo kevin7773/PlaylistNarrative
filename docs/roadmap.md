@@ -92,3 +92,16 @@ engine is now the platform on which Penny's experience vocabulary can grow. See
 
 Future contexts begin only after the Coding / Cloud Operations vertical slice is
 usable end to end.
+
+## Deferred acquisition architecture backlog
+
+The governed iTunes-on-Windows XML acquisition seam is accepted as implemented.
+Do not reopen or modify this seam unless real usage exposes a concrete problem
+that requires one of these deferred architecture changes:
+
+- **Persistent/restart-safe intake authority:** consider a governed durable
+  authority repository only if real usage demonstrates that occurrence-local
+  intake authority must survive process restart.
+- **Stronger semantic verifier independence:** consider separately implemented
+  profile or mapping reconstruction only if real usage exposes a defect that the
+  producer and verifier's shared interpretation cannot detect.
