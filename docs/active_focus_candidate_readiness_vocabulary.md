@@ -1,9 +1,10 @@
 # Active Focus Candidate-Readiness Vocabulary v1
 
-- **Status:** authority contract frozen; implementation not established
+- **Status:** authority contract frozen; readiness-authority definition `1.1` applicable; implementation not established
 - **Vocabulary ID:** `pne.active-focus.candidate-readiness`
 - **Vocabulary version:** `1.0`
 - **Schema version:** `1.0`
+- **Applicable readiness-authority definition:** `pne.candidate-readiness-authority.active-focus/1.1`
 - **Boundary:** category-only manual readiness evidence for one exact Active Focus objective and Journey Plan
 
 ## 1. Purpose and invariant
@@ -242,7 +243,16 @@ timestamp precedence is forbidden. Conflicting simultaneously applicable
 observations fail closed as `conflicting` unless a separately governed
 selection authority chooses one. Recency alone is not a selection rule.
 
-### 3.5 Canonical readiness-authority definition
+### 3.5 Canonical readiness-authority definitions
+
+#### 3.5.1 Superseded definition 1.0
+
+Definition `pne.candidate-readiness-authority.active-focus/1.0` is preserved
+below byte-for-byte because published canonical authority is immutable. It
+incorrectly names `AcceptedObjectiveArtifact/1.0` and
+`JourneyPlanArtifact/1.0`, which do not exist in the protected runtime. It is
+therefore superseded, is not applicable to implementation, and cannot establish
+implementation conformance.
 
 ```json
 {"schema_version":"1.0","definition_kind":"active_focus_candidate_readiness_authority","authority_definition_id":"pne.candidate-readiness-authority.active-focus","authority_definition_version":"1.0","vocabulary_id":"pne.active-focus.candidate-readiness","vocabulary_version":"1.0","vocabulary_sha256":"63bdcf94908d16f8538e1c59e5aed84229627cd68ae6bcb89ebce09b9685be4d","principal_scope":"PENNY_LOCAL_INSTALLATION_CURRENT_TIP_AT_CAPTURE","accepted_objective_schema":"AcceptedObjectiveArtifact/1.0","source_acquisition_authority_schema":"PennyLocalITunesXMLAcquisitionAuthorityArtifact/1.0","acquisition_schema":"SourceNeutralAcquisitionResult/1.0_UNCHANGED","track_validation_schema":"TrackEvidenceValidationArtifact/1.0_UNCHANGED","journey_plan_schema":"JourneyPlanArtifact/1.0","journey_context":"Active Focus","declaration_schema":"ActiveFocusCandidateReadinessDeclaration/1.0","wrapper_schema":"ActiveFocusCandidateReadinessAuthorityArtifact/1.0","producer":"pne.producer.active-focus-candidate-readiness/1.0","verifier":"pne.verifier.active-focus-candidate-readiness/1.0","occurrence_digest":"NUL_DOMAIN_SEPARATED_SHA256/1.0","cf1_outputs":["FamiliarityEvidenceArtifact/1.0","TrackFeatureEvidenceArtifact/1.0","ObjectiveContextEvidenceArtifact/1.0"],"categorical_observation_authority":true,"direct_numeric_capture_authorized":false,"context_fit_reusable":false,"missing_evidence_default_authorized":false,"persistent_restart_safe_authority_established":false,"canonicalization_profile":"pne.canonical-json.utf8-schema-order/1.0"}
@@ -251,8 +261,24 @@ selection authority chooses one. Recency alone is not a selection rule.
 Canonical SHA-256:
 `02b62bc079c9ef912ba6e94ce343e2346e0486a9ba8f34e15a86c52f6c581e7d`.
 
-Matching the definition identity without complete content and digest is not
-readiness-occurrence authority.
+#### 3.5.2 Applicable successor definition 1.1
+
+Definition `1.1` changes only the definition schema/version, adds exact
+predecessor lineage, and corrects the two artifact-schema bindings to the
+existing protected schema `2.0` artifacts. Every other authority and semantic
+boundary is unchanged.
+
+```json
+{"schema_version":"1.1","definition_kind":"active_focus_candidate_readiness_authority","authority_definition_id":"pne.candidate-readiness-authority.active-focus","authority_definition_version":"1.1","predecessor_authority_definition_id":"pne.candidate-readiness-authority.active-focus","predecessor_authority_definition_version":"1.0","predecessor_authority_definition_sha256":"02b62bc079c9ef912ba6e94ce343e2346e0486a9ba8f34e15a86c52f6c581e7d","vocabulary_id":"pne.active-focus.candidate-readiness","vocabulary_version":"1.0","vocabulary_sha256":"63bdcf94908d16f8538e1c59e5aed84229627cd68ae6bcb89ebce09b9685be4d","principal_scope":"PENNY_LOCAL_INSTALLATION_CURRENT_TIP_AT_CAPTURE","accepted_objective_schema":"AcceptedObjectiveArtifact/2.0","source_acquisition_authority_schema":"PennyLocalITunesXMLAcquisitionAuthorityArtifact/1.0","acquisition_schema":"SourceNeutralAcquisitionResult/1.0_UNCHANGED","track_validation_schema":"TrackEvidenceValidationArtifact/1.0_UNCHANGED","journey_plan_schema":"JourneyPlanArtifact/2.0","journey_context":"Active Focus","declaration_schema":"ActiveFocusCandidateReadinessDeclaration/1.0","wrapper_schema":"ActiveFocusCandidateReadinessAuthorityArtifact/1.0","producer":"pne.producer.active-focus-candidate-readiness/1.0","verifier":"pne.verifier.active-focus-candidate-readiness/1.0","occurrence_digest":"NUL_DOMAIN_SEPARATED_SHA256/1.0","cf1_outputs":["FamiliarityEvidenceArtifact/1.0","TrackFeatureEvidenceArtifact/1.0","ObjectiveContextEvidenceArtifact/1.0"],"categorical_observation_authority":true,"direct_numeric_capture_authorized":false,"context_fit_reusable":false,"missing_evidence_default_authorized":false,"persistent_restart_safe_authority_established":false,"canonicalization_profile":"pne.canonical-json.utf8-schema-order/1.0"}
+```
+
+Canonical SHA-256:
+`a90b57643243966aa5ccbeb0ebb045794967b0ae322c74ad57a543ba32e5e6f1`.
+
+Matching an authority-definition identity without its exact applicable version,
+complete canonical content, digest, and predecessor lineage is not
+readiness-occurrence authority. Definition `1.0` remains historical only;
+future implementation must bind definition `1.1` exactly.
 
 ## 4. Manual capture contract
 
