@@ -169,6 +169,11 @@ to immutable evidence or a named versioned derivation rule with recorded inputs.
 Hard exclusions produce withheld entries and never become scoring penalties. See
 [Candidate Formation Contract](candidate_formation.md) and the
 [Candidate Constraint Evaluation v1 contract](candidate_constraint_evaluation.md).
+The first governed manual source for the six missing Active Focus readiness
+dimensions is frozen in the
+[Active Focus Candidate-Readiness Vocabulary v1](active_focus_candidate_readiness_vocabulary.md);
+runtime implementation and a suitable real multi-artist proof input remain
+unestablished.
 
 The request assembler is the source-neutral authority join before Candidate
 Formation. It accepts already-governed acquisition, validation, declaration,
