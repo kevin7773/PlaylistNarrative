@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -205,6 +206,63 @@ def test_verified_principal_lineage_prefix_is_source_neutral_and_historical() ->
     substituted = initial.model_copy(update={"principal_id": "substituted"})
     with pytest.raises(LocalPrincipalAuthorityInvalidInput, match="not exact"):
         producer.verifier.verified_lineage_prefix_sha256(substituted)
+
+
+def test_guarded_current_tip_accepts_exact_tip_and_rejects_stale_tip() -> None:
+    _, producer, initial = _principal_foundation()
+
+    assert producer.verifier.guarded_current_tip(initial, lambda: "accepted") == "accepted"
+    successor = producer.create_successor(initial)
+    with pytest.raises(LocalPrincipalAuthorityInvalidInput, match="current applicable"):
+        producer.verifier.guarded_current_tip(initial, lambda: "must-not-run")
+    assert producer.verifier.guarded_current_tip(successor, lambda: 7) == 7
+    assert producer.verifier.verify(initial)
+
+
+def test_guarded_current_tip_and_succession_share_synchronization_boundary() -> None:
+    _, producer, initial = _principal_foundation()
+    action_entered = threading.Event()
+    release_action = threading.Event()
+    action_completed = threading.Event()
+    succession_started = threading.Event()
+    succession_completed = threading.Event()
+    failures: list[BaseException] = []
+
+    def guarded_acceptance() -> None:
+        try:
+            def action() -> None:
+                action_entered.set()
+                assert release_action.wait(5)
+                action_completed.set()
+
+            producer.verifier.guarded_current_tip(initial, action)
+        except BaseException as exc:  # pragma: no cover - diagnostic capture
+            failures.append(exc)
+
+    def succeed() -> None:
+        try:
+            succession_started.set()
+            producer.create_successor(initial)
+            succession_completed.set()
+        except BaseException as exc:  # pragma: no cover - diagnostic capture
+            failures.append(exc)
+
+    guarded_thread = threading.Thread(target=guarded_acceptance)
+    guarded_thread.start()
+    assert action_entered.wait(5)
+    successor_thread = threading.Thread(target=succeed)
+    successor_thread.start()
+    assert succession_started.wait(5)
+    assert not succession_completed.wait(0.1)
+    release_action.set()
+    guarded_thread.join(5)
+    successor_thread.join(5)
+
+    assert not failures
+    assert action_completed.is_set()
+    assert succession_completed.is_set()
+    assert producer.verifier.verify(initial)
+    assert producer.verifier.resolve_active() != initial
 
 
 def test_principal_schema_forbids_identity_substitution_and_partial_lineage() -> None:

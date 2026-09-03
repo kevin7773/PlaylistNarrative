@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import secrets
-from typing import Literal
+import threading
+from collections.abc import Callable
+from typing import Literal, TypeVar
 
 from pydantic import Field, field_validator, model_validator
 
@@ -23,6 +25,7 @@ LOCAL_PRINCIPAL_REGISTRY_SHA256 = (
 LOCAL_PRINCIPAL_PRODUCER_ID = "pne.local-principal-authority-producer"
 LOCAL_PRINCIPAL_PRODUCER_VERSION = "1.0"
 _PRODUCER_CAPABILITY = object()
+_T = TypeVar("_T")
 
 LOCAL_PRINCIPAL_REGISTRY_CONTENT = {
     "schema_version": "1.0",
@@ -131,39 +134,49 @@ class LocalPrincipalAuthorityRepository:
     """One installation-local immutable principal lineage."""
 
     def __init__(self) -> None:
+        self._synchronization = threading.RLock()
         self._installation_id: str | None = None
         self._artifacts: list[LocalPrincipalAuthorityArtifact] = []
 
     @property
     def artifacts(self) -> tuple[LocalPrincipalAuthorityArtifact, ...]:
-        return tuple(self._artifacts)
+        with self._synchronization:
+            return tuple(self._artifacts)
 
     def _record_initial(
         self, artifact: LocalPrincipalAuthorityArtifact, capability: object
     ) -> None:
-        if capability is not _PRODUCER_CAPABILITY:
-            raise LocalPrincipalAuthorityInvalidInput(
-                "only the principal producer may record authority"
-            )
-        if self._artifacts or self._installation_id is not None:
-            raise LocalPrincipalAuthorityInvalidInput(
-                "installation already has a principal lineage"
-            )
-        self._installation_id = artifact.installation_id
-        self._artifacts.append(artifact)
+        with self._synchronization:
+            if capability is not _PRODUCER_CAPABILITY:
+                raise LocalPrincipalAuthorityInvalidInput(
+                    "only the principal producer may record authority"
+                )
+            if self._artifacts or self._installation_id is not None:
+                raise LocalPrincipalAuthorityInvalidInput(
+                    "installation already has a principal lineage"
+                )
+            self._installation_id = artifact.installation_id
+            self._artifacts.append(artifact)
 
     def _record_successor(
         self, artifact: LocalPrincipalAuthorityArtifact, capability: object
     ) -> None:
-        if capability is not _PRODUCER_CAPABILITY:
-            raise LocalPrincipalAuthorityInvalidInput(
-                "only the principal producer may record authority"
-            )
-        if self._installation_id != artifact.installation_id:
-            raise LocalPrincipalAuthorityInvalidInput(
-                "successor installation authority does not correspond"
-            )
-        self._artifacts.append(artifact)
+        with self._synchronization:
+            if capability is not _PRODUCER_CAPABILITY:
+                raise LocalPrincipalAuthorityInvalidInput(
+                    "only the principal producer may record authority"
+                )
+            if self._installation_id != artifact.installation_id:
+                raise LocalPrincipalAuthorityInvalidInput(
+                    "successor installation authority does not correspond"
+                )
+            self._artifacts.append(artifact)
+
+    def _synchronized_call(self, action: Callable[[], _T]) -> _T:
+        """Run a bounded authority operation under lineage synchronization."""
+
+        with self._synchronization:
+            return action()
 
 
 class LocalPrincipalAuthorityInvalidInput(ValueError):
@@ -234,6 +247,25 @@ class LocalPrincipalAuthorityVerifier:
             for item in ordered[: index + 1]
         ]
         return canonical_sha256(prefix)
+
+    def guarded_current_tip(
+        self,
+        expected: LocalPrincipalAuthorityArtifact,
+        action: Callable[[], _T],
+    ) -> _T:
+        """Compare the exact current tip and act under one repository guard."""
+
+        if not callable(action):
+            raise TypeError("guarded current-tip action must be callable")
+
+        def compare_and_act() -> _T:
+            self.verified_lineage_prefix_sha256(
+                expected,
+                require_current_tip=True,
+            )
+            return action()
+
+        return self._repository._synchronized_call(compare_and_act)
 
     def _verified_lineage(self) -> tuple[LocalPrincipalAuthorityArtifact, ...]:
         artifacts = self._repository.artifacts
@@ -333,40 +365,46 @@ class LocalPrincipalAuthorityProducer:
         self.verifier = LocalPrincipalAuthorityVerifier(repository)
 
     def create_initial(self) -> LocalPrincipalAuthorityArtifact:
-        if self._repository.artifacts:
-            raise LocalPrincipalAuthorityInvalidInput(
-                "installation already has an active principal"
+        def create() -> LocalPrincipalAuthorityArtifact:
+            if self._repository.artifacts:
+                raise LocalPrincipalAuthorityInvalidInput(
+                    "installation already has an active principal"
+                )
+            installation_id = _opaque_id("penny-local-installation")
+            principal_id = _opaque_id("penny-local-principal")
+            artifact = _build_principal_artifact(
+                artifact_id=_opaque_id("local-principal-authority"),
+                installation_id=installation_id,
+                principal_id=principal_id,
             )
-        installation_id = _opaque_id("penny-local-installation")
-        principal_id = _opaque_id("penny-local-principal")
-        artifact = _build_principal_artifact(
-            artifact_id=_opaque_id("local-principal-authority"),
-            installation_id=installation_id,
-            principal_id=principal_id,
-        )
-        self._repository._record_initial(artifact, _PRODUCER_CAPABILITY)
-        if not self.verifier.verify(artifact, require_active=True):
-            raise RuntimeError("principal producer created unverifiable authority")
-        return artifact
+            self._repository._record_initial(artifact, _PRODUCER_CAPABILITY)
+            if not self.verifier.verify(artifact, require_active=True):
+                raise RuntimeError("principal producer created unverifiable authority")
+            return artifact
+
+        return self._repository._synchronized_call(create)
 
     def create_successor(
         self, predecessor: LocalPrincipalAuthorityArtifact
     ) -> LocalPrincipalAuthorityArtifact:
-        active = self.verifier.resolve_active()
-        if predecessor != active:
-            raise LocalPrincipalAuthorityInvalidInput(
-                "successor requires the exact applicable predecessor"
+        def create() -> LocalPrincipalAuthorityArtifact:
+            active = self.verifier.resolve_active()
+            if predecessor != active:
+                raise LocalPrincipalAuthorityInvalidInput(
+                    "successor requires the exact applicable predecessor"
+                )
+            artifact = _build_principal_artifact(
+                artifact_id=_opaque_id("local-principal-authority"),
+                installation_id=active.installation_id,
+                principal_id=_opaque_id("penny-local-principal"),
+                predecessor=active,
             )
-        artifact = _build_principal_artifact(
-            artifact_id=_opaque_id("local-principal-authority"),
-            installation_id=active.installation_id,
-            principal_id=_opaque_id("penny-local-principal"),
-            predecessor=active,
-        )
-        self._repository._record_successor(artifact, _PRODUCER_CAPABILITY)
-        if not self.verifier.verify(artifact, require_active=True):
-            raise RuntimeError("principal producer created unverifiable successor")
-        return artifact
+            self._repository._record_successor(artifact, _PRODUCER_CAPABILITY)
+            if not self.verifier.verify(artifact, require_active=True):
+                raise RuntimeError("principal producer created unverifiable successor")
+            return artifact
+
+        return self._repository._synchronized_call(create)
 
 
 def serialize_local_principal_authority(
