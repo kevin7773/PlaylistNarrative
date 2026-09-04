@@ -5,21 +5,28 @@ from playlist_narrative_engine.itunes_windows_xml_acquisition.canonical import (
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.definitions import (
     CAPABILITY_DECLARATION_SHA256,
+    CAPABILITY_DECLARATION_V11_SHA256,
     MAPPING_DEFINITION_SHA256,
     SOURCE_DEFINITION_SHA256,
+    SOURCE_DEFINITION_V11_SHA256,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.intake import (
     PennyLocalITunesXMLIntakeVerifier,
+    PennyLocalITunesXMLIntakeVerifierV11,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.mapping import (
     map_verified_profile,
+    map_verified_profile_v11,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.profile import (
     verify_frozen_itunes_windows_xml_profile,
+    verify_frozen_itunes_windows_xml_profile_v11,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.schemas import (
     PennyLocalITunesXMLAcquisitionAuthorityArtifact,
+    PennyLocalITunesXMLAcquisitionAuthorityArtifactV11,
     PennyLocalITunesXMLFileSelectionEvidence,
+    PennyLocalITunesXMLFileSelectionEvidenceV11,
 )
 class ITunesWindowsXMLAcquisitionInvalidInput(ValueError):
     pass
@@ -70,4 +77,52 @@ class PennyLocalITunesXMLAcquisitionProducer:
         except (TypeError, ValueError) as exc:
             raise ITunesWindowsXMLAcquisitionInvalidInput(
                 "iTunes Windows XML acquisition failed closed"
+            ) from exc
+
+
+class PennyLocalITunesXMLAcquisitionProducerV11:
+    """Sole producer of the frozen source-specific 1.1 acquisition wrapper."""
+
+    def __init__(self, intake_verifier: PennyLocalITunesXMLIntakeVerifierV11) -> None:
+        self._intake_verifier = intake_verifier
+
+    def produce_authoritative(
+        self,
+        evidence: PennyLocalITunesXMLFileSelectionEvidenceV11,
+    ) -> PennyLocalITunesXMLAcquisitionAuthorityArtifactV11:
+        try:
+            if not isinstance(self._intake_verifier, PennyLocalITunesXMLIntakeVerifierV11):
+                raise ValueError("1.1 acquisition requires the 1.1 intake verifier")
+            if not self._intake_verifier.verify_evidence(evidence):
+                raise ValueError("1.1 file selection evidence does not verify")
+            profile = verify_frozen_itunes_windows_xml_profile_v11(evidence)
+            mapped = map_verified_profile_v11(evidence, profile)
+            artifact_id = "pne.itunes-xml-acquisition-authority/sha256/" + derived_digest(
+                "pne.itunes-xml-acquisition-authority/1.1",
+                evidence.canonical_sha256,
+                evidence.source_receipt_artifact_sha256,
+                SOURCE_DEFINITION_V11_SHA256,
+                MAPPING_DEFINITION_SHA256,
+                CAPABILITY_DECLARATION_V11_SHA256,
+                mapped.source_neutral_acquisition_result_sha256,
+            )
+            return PennyLocalITunesXMLAcquisitionAuthorityArtifactV11(
+                artifact_id=artifact_id,
+                file_selection_evidence=evidence,
+                file_selection_evidence_sha256=evidence.canonical_sha256,
+                library_persistent_id=profile.library_persistent_id,
+                playlist_persistent_id=profile.playlist_persistent_id,
+                ordered_tracks=mapped.ordered_tracks,
+                evidence_snapshot=mapped.evidence_snapshot,
+                evidence_snapshot_sha256=mapped.evidence_snapshot_sha256,
+                identity_metadata=mapped.identity_metadata,
+                identity_metadata_sha256=mapped.identity_metadata_sha256,
+                source_neutral_acquisition_result=mapped.source_neutral_acquisition_result,
+                source_neutral_acquisition_result_sha256=(
+                    mapped.source_neutral_acquisition_result_sha256
+                ),
+            )
+        except (TypeError, ValueError) as exc:
+            raise ITunesWindowsXMLAcquisitionInvalidInput(
+                "iTunes Windows XML 1.1 acquisition failed closed"
             ) from exc

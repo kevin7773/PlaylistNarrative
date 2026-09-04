@@ -1,0 +1,3168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Minor Version</key><integer>1</integer>
+	<key>Date</key><date>2026-09-04T15:56:00Z</date>
+	<key>Application Version</key><string>12.13.10.3</string>
+	<key>Features</key><integer>5</integer>
+	<key>Show Content Ratings</key><true/>
+	<key>Music Folder</key><string>file://localhost/C:/Users/klsma/Music/iTunes/iTunes%20Media/</string>
+	<key>Library Persistent ID</key><string>9C9E2747D29AB9A8</string>
+	<key>Tracks</key>
+	<dict>
+		<key>100</key>
+		<dict>
+			<key>Track ID</key><integer>100</integer>
+			<key>Name</key><string>Dominion-Mother Russia</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10430071</integer>
+			<key>Total Time</key><integer>421982</integer>
+			<key>Track Number</key><integer>1</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:47Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>197</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>4DA5D6FF70B304EB</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/201-tsom-dominion-mother_russia.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>102</key>
+		<dict>
+			<key>Track ID</key><integer>102</integer>
+			<key>Name</key><string>Flood I</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9147218</integer>
+			<key>Total Time</key><integer>382484</integer>
+			<key>Track Number</key><integer>2</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:44Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>191</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>445B1297BA58511E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/202-tsom-flood_i.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>104</key>
+		<dict>
+			<key>Track ID</key><integer>104</integer>
+			<key>Name</key><string>Lucretia My Reflection</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6734831</integer>
+			<key>Total Time</key><integer>296672</integer>
+			<key>Track Number</key><integer>3</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:41Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>181</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>EE6DA867E164A114</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/203-tsom-lucretia_my_reflection.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>106</key>
+		<dict>
+			<key>Track ID</key><integer>106</integer>
+			<key>Name</key><string>1959</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5130613</integer>
+			<key>Total Time</key><integer>250566</integer>
+			<key>Track Number</key><integer>4</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:39Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>163</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>B9029BF903861E0E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/204-tsom-1959.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>108</key>
+		<dict>
+			<key>Track ID</key><integer>108</integer>
+			<key>Name</key><string>This Corrosion</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>17265650</integer>
+			<key>Total Time</key><integer>655177</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:35Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>210</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>EF9D56D007A43122</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/205-tsom-this_corrosion.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>110</key>
+		<dict>
+			<key>Track ID</key><integer>110</integer>
+			<key>Name</key><string>Flood II</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>11535400</integer>
+			<key>Total Time</key><integer>406595</integer>
+			<key>Track Number</key><integer>6</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:43Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>226</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>2B5A35EAB111662E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/206-tsom-flood_ii.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>112</key>
+		<dict>
+			<key>Track ID</key><integer>112</integer>
+			<key>Name</key><string>Driven Like The Snow</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9541170</integer>
+			<key>Total Time</key><integer>388022</integer>
+			<key>Track Number</key><integer>7</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:40Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>196</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>DF7C81AB5913CDAA</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/207-tsom-driven_like_the_snow.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>114</key>
+		<dict>
+			<key>Track ID</key><integer>114</integer>
+			<key>Name</key><string>Never Land (A Fragment)</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4029917</integer>
+			<key>Total Time</key><integer>176248</integer>
+			<key>Track Number</key><integer>8</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:46Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>182</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>E94A8EF328466803</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/208-tsom-never_land_(a_fragment).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>116</key>
+		<dict>
+			<key>Track ID</key><integer>116</integer>
+			<key>Name</key><string>Torch</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5064579</integer>
+			<key>Total Time</key><integer>229903</integer>
+			<key>Track Number</key><integer>9</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:45Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>176</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>8967A261EC2CE738</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/209-tsom-torch.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>118</key>
+		<dict>
+			<key>Track ID</key><integer>118</integer>
+			<key>Name</key><string>Colours</string>
+			<key>Artist</key><string>The Sisters Of Mercy</string>
+			<key>Album</key><string>Floodland</string>
+			<key>Genre</key><string>Gothic Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9327893</integer>
+			<key>Total Time</key><integer>438334</integer>
+			<key>Track Number</key><integer>10</integer>
+			<key>Year</key><integer>2010</integer>
+			<key>Date Modified</key><date>2026-09-01T14:57:47Z</date>
+			<key>Date Added</key><date>2026-09-01T15:10:50Z</date>
+			<key>Bit Rate</key><integer>170</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>Rhino</string>
+			<key>Sort Artist</key><string>Sisters Of Mercy</string>
+			<key>Persistent ID</key><string>854BFCACC17841EE</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/The_Sisters_Of_Mercy-Original_Album_Series-5CD-2010-r36/210-tsom-colours.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>542</key>
+		<dict>
+			<key>Track ID</key><integer>542</integer>
+			<key>Name</key><string>Choosin' Texas</string>
+			<key>Artist</key><string>Ella Langley</string>
+			<key>Album Artist</key><string>Ella Langley</string>
+			<key>Composer</key><string>Ella Langley/Miranda Lambert/Luke Dick/Joybeth Taylor</string>
+			<key>Album</key><string>Choosin' Texas</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9442366</integer>
+			<key>Total Time</key><integer>232280</integer>
+			<key>Track Number</key><integer>1</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:52Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>D9671CFE01078B9A</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/001.%20Ella%20Langley%20-%20Choosin'%20Texas.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>547</key>
+		<dict>
+			<key>Track ID</key><integer>547</integer>
+			<key>Name</key><string>Man I Need</string>
+			<key>Artist</key><string>Olivia Dean</string>
+			<key>Album Artist</key><string>Olivia Dean</string>
+			<key>Composer</key><string>Zach Nahome/Olivia Dean/Tobias Jesso Jr.</string>
+			<key>Album</key><string>Man I Need</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7468686</integer>
+			<key>Total Time</key><integer>184058</integer>
+			<key>Track Number</key><integer>2</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:01Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>87E6BB9A48679DF9</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/002.%20Olivia%20Dean%20-%20Man%20I%20Need.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>550</key>
+		<dict>
+			<key>Track ID</key><integer>550</integer>
+			<key>Name</key><string>I Just Might</string>
+			<key>Artist</key><string>Bruno Mars</string>
+			<key>Album Artist</key><string>Bruno Mars</string>
+			<key>Album</key><string>I Just Might</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8679508</integer>
+			<key>Total Time</key><integer>213028</integer>
+			<key>Track Number</key><integer>3</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:52Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>3FED2B595F411F6E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/003.%20Bruno%20Mars%20-%20I%20Just%20Might.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>553</key>
+		<dict>
+			<key>Track ID</key><integer>553</integer>
+			<key>Name</key><string>Ordinary</string>
+			<key>Artist</key><string>Alex Warren</string>
+			<key>Album Artist</key><string>Alex Warren</string>
+			<key>Album</key><string>Ordinary</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7641855</integer>
+			<key>Total Time</key><integer>187036</integer>
+			<key>Track Number</key><integer>4</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:02Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>B23DF24A37B3AC6A</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/004.%20Alex%20Warren%20-%20Ordinary.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>556</key>
+		<dict>
+			<key>Track ID</key><integer>556</integer>
+			<key>Name</key><string>Golden</string>
+			<key>Artist</key><string>HUNTR/X/EJAE/Audrey Nuna/REI AMI/KPop Demon Hunters Cast</string>
+			<key>Album Artist</key><string>KPop Demon Hunters Cast/HUNTR/X/Saja Boys</string>
+			<key>Composer</key><string>EJAE/Mark Sonnenblick/Joong Gyu Kwak/Yu Han Lee/Hee Dong Nam/JEONG HOON SEO/PARK HONG JUN</string>
+			<key>Album</key><string>KPop Demon Hunters (Soundtrack from the Netflix Film)</string>
+			<key>Genre</key><string>Música asiática</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7947098</integer>
+			<key>Total Time</key><integer>194664</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:04Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>6582EE30B3B96DFE</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/005.%20HUNTRX,%20EJAE,%20Audrey%20Nuna,%20REI%20AMI%20&#38;%20KPop%20Demon%20Hunters%20Cast%20-%20Golden.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>559</key>
+		<dict>
+			<key>Track ID</key><integer>559</integer>
+			<key>Name</key><string>Stateside + Zara Larsson</string>
+			<key>Artist</key><string>PinkPantheress/Zara Larsson</string>
+			<key>Album Artist</key><string>PinkPantheress</string>
+			<key>Composer</key><string>Uzoechi osisioma emenike/Zara Larsson</string>
+			<key>Album</key><string>Fancy Some More?</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7453037</integer>
+			<key>Total Time</key><integer>184816</integer>
+			<key>Track Number</key><integer>6</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:54Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>3B9E49DA762C645E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/006.%20PinkPantheress%20&#38;%20Zara%20Larsson%20-%20Stateside.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>562</key>
+		<dict>
+			<key>Track ID</key><integer>562</integer>
+			<key>Name</key><string>Opalite</string>
+			<key>Artist</key><string>Taylor Swift</string>
+			<key>Album Artist</key><string>Taylor Swift</string>
+			<key>Composer</key><string>Max Martin/Shellback/Taylor Swift</string>
+			<key>Album</key><string>The Life of a Showgirl</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9584977</integer>
+			<key>Total Time</key><integer>235415</integer>
+			<key>Track Number</key><integer>7</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:45Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Life of a Showgirl</string>
+			<key>Persistent ID</key><string>C357427B5BF11802</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/007.%20Taylor%20Swift%20-%20Opalite.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>565</key>
+		<dict>
+			<key>Track ID</key><integer>565</integer>
+			<key>Name</key><string>The Fate of Ophelia</string>
+			<key>Artist</key><string>Taylor Swift</string>
+			<key>Album Artist</key><string>Taylor Swift</string>
+			<key>Composer</key><string>Max Martin/Shellback/Taylor Swift</string>
+			<key>Album</key><string>The Life of a Showgirl</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9214062</integer>
+			<key>Total Time</key><integer>226142</integer>
+			<key>Track Number</key><integer>8</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:54Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Life of a Showgirl</string>
+			<key>Sort Name</key><string>Fate of Ophelia</string>
+			<key>Persistent ID</key><string>4119E60FBFCEA15B</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/008.%20Taylor%20Swift%20-%20The%20Fate%20of%20Ophelia.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>568</key>
+		<dict>
+			<key>Track ID</key><integer>568</integer>
+			<key>Name</key><string>So Easy (To Fall In Love)</string>
+			<key>Artist</key><string>Olivia Dean</string>
+			<key>Album Artist</key><string>Olivia Dean</string>
+			<key>Composer</key><string>John Ryan/Max Wolfgang/Amy Allen/Olivia Dean</string>
+			<key>Album</key><string>The Art of Loving</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6952108</integer>
+			<key>Total Time</key><integer>169064</integer>
+			<key>Track Number</key><integer>9</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:49Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Art of Loving</string>
+			<key>Persistent ID</key><string>2C2BEA27EFEBBB58</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/009.%20Olivia%20Dean%20-%20So%20Easy%20(To%20Fall%20In%20Love).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>571</key>
+		<dict>
+			<key>Track ID</key><integer>571</integer>
+			<key>Name</key><string>American Girls</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon/Tyler Johnson</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8601878</integer>
+			<key>Total Time</key><integer>213498</integer>
+			<key>Track Number</key><integer>10</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:59Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>D65FD9956EC93FB1</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/010.%20Harry%20Styles%20-%20American%20Girls.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>574</key>
+		<dict>
+			<key>Track ID</key><integer>574</integer>
+			<key>Name</key><string>Folded</string>
+			<key>Artist</key><string>Kehlani</string>
+			<key>Album Artist</key><string>Kehlani</string>
+			<key>Album</key><string>Folded</string>
+			<key>Genre</key><string>R&#38;B</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9633544</integer>
+			<key>Total Time</key><integer>238184</integer>
+			<key>Track Number</key><integer>11</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:59Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>CC99233932F44D55</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/011.%20Kehlani%20-%20Folded.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>577</key>
+		<dict>
+			<key>Track ID</key><integer>577</integer>
+			<key>Name</key><string>back to friends</string>
+			<key>Artist</key><string>sombr</string>
+			<key>Album Artist</key><string>sombr</string>
+			<key>Album</key><string>back to friends</string>
+			<key>Genre</key><string>Alternativo;Indie Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8133220</integer>
+			<key>Total Time</key><integer>199105</integer>
+			<key>Track Number</key><integer>12</integer>
+			<key>Year</key><integer>2024</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:36Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>75E3DB43DD8FCD97</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/012.%20sombr%20-%20back%20to%20friends.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>580</key>
+		<dict>
+			<key>Track ID</key><integer>580</integer>
+			<key>Name</key><string>Risk It All</string>
+			<key>Artist</key><string>Bruno Mars</string>
+			<key>Album Artist</key><string>Bruno Mars</string>
+			<key>Album</key><string>The Romantic</string>
+			<key>Genre</key><string>Pop;R&#38;B</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8323195</integer>
+			<key>Total Time</key><integer>204120</integer>
+			<key>Track Number</key><integer>13</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:45Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Romantic</string>
+			<key>Persistent ID</key><string>3AB689F53C0FA2AF</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/013.%20Bruno%20Mars%20-%20Risk%20It%20All.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>583</key>
+		<dict>
+			<key>Track ID</key><integer>583</integer>
+			<key>Name</key><string>DtMF</string>
+			<key>Artist</key><string>Bad Bunny</string>
+			<key>Album Artist</key><string>Bad Bunny</string>
+			<key>Composer</key><string>Benito A. Martinez Ocasio/Roberto Jose Rosado Torres/MARCO DANIEL BORRERO/Scott Dittrich/Tyler Thomas Spry/Benjamin Falik/Hugo Rene Sencion Sanabria</string>
+			<key>Album</key><string>DeBÍ TiRAR MáS FOToS</string>
+			<key>Genre</key><string>Latino</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9717564</integer>
+			<key>Total Time</key><integer>237191</integer>
+			<key>Track Number</key><integer>14</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:53Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>8303570CD8FD1A1D</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/014%20Bad%20Bunny%20-%20DtMF.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>586</key>
+		<dict>
+			<key>Track ID</key><integer>586</integer>
+			<key>Name</key><string>Sleepless in a Hotel Room</string>
+			<key>Artist</key><string>Luke Combs</string>
+			<key>Album Artist</key><string>Luke Combs</string>
+			<key>Composer</key><string>Luke Combs/Jonathan Singleton/Randy Montana</string>
+			<key>Album</key><string>Sleepless in a Hotel Room</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7203803</integer>
+			<key>Total Time</key><integer>177737</integer>
+			<key>Track Number</key><integer>15</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:48Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>14A124B4FB41B275</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/015.%20Luke%20Combs%20-%20Sleepless%20in%20a%20Hotel%20Room.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>589</key>
+		<dict>
+			<key>Track ID</key><integer>589</integer>
+			<key>Name</key><string>Be Her</string>
+			<key>Artist</key><string>Ella Langley</string>
+			<key>Album Artist</key><string>Ella Langley</string>
+			<key>Composer</key><string>Ella Langley/Jordan Schmidt/Smith Ahnquist/Michael Hardy</string>
+			<key>Album</key><string>Be Her</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8825193</integer>
+			<key>Total Time</key><integer>217312</integer>
+			<key>Track Number</key><integer>16</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:03Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>0994D47ADF537880</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/016.%20Ella%20Langley%20-%20Be%20Her.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>592</key>
+		<dict>
+			<key>Track ID</key><integer>592</integer>
+			<key>Name</key><string>WHERE IS MY HUSBAND!</string>
+			<key>Artist</key><string>Raye</string>
+			<key>Album Artist</key><string>Raye</string>
+			<key>Composer</key><string>Raye/Mike Sabath</string>
+			<key>Album</key><string>WHERE IS MY HUSBAND!</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7993388</integer>
+			<key>Total Time</key><integer>196858</integer>
+			<key>Track Number</key><integer>17</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:54Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>94442F51882B4958</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/017.%20Raye%20-%20WHERE%20IS%20MY%20HUSBAND!.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>595</key>
+		<dict>
+			<key>Track ID</key><integer>595</integer>
+			<key>Name</key><string>iloveitiloveitiloveit</string>
+			<key>Artist</key><string>Bella Kay</string>
+			<key>Album Artist</key><string>Bella Kay</string>
+			<key>Album</key><string>iloveitiloveitiloveit</string>
+			<key>Genre</key><string>Alternativo;Pop Indie</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7464180</integer>
+			<key>Total Time</key><integer>183301</integer>
+			<key>Track Number</key><integer>18</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:44Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>87B7C3502558EE2D</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/018.%20Bella%20Kay%20-%20iloveitiloveitiloveit.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>598</key>
+		<dict>
+			<key>Track ID</key><integer>598</integer>
+			<key>Name</key><string>Babydoll</string>
+			<key>Artist</key><string>Dominic Fike</string>
+			<key>Album Artist</key><string>Dominic Fike</string>
+			<key>Composer</key><string>Dominic Fike/Julián Cruz</string>
+			<key>Album</key><string>Don't Forget About Me, Demos</string>
+			<key>Genre</key><string>Alternativo</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>4011294</integer>
+			<key>Total Time</key><integer>98037</integer>
+			<key>Track Number</key><integer>19</integer>
+			<key>Year</key><integer>2018</integer>
+			<key>Date Modified</key><date>2026-09-04T15:51:40Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>F9CFA8A6F02EBB8D</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/019.%20Dominic%20Fike%20-%20Babydoll.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>601</key>
+		<dict>
+			<key>Track ID</key><integer>601</integer>
+			<key>Name</key><string>Porch Light</string>
+			<key>Artist</key><string>Noah Kahan</string>
+			<key>Album Artist</key><string>Noah Kahan</string>
+			<key>Composer</key><string>Noah Kahan/Aaron Dessner</string>
+			<key>Album</key><string>Porch Light</string>
+			<key>Genre</key><string>Alternativo</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10610172</integer>
+			<key>Total Time</key><integer>262791</integer>
+			<key>Track Number</key><integer>20</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:57Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>C0B4C9476E129AE2</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/020.%20Noah%20Kahan%20-%20Porch%20Light.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>604</key>
+		<dict>
+			<key>Track ID</key><integer>604</integer>
+			<key>Name</key><string>E85</string>
+			<key>Artist</key><string>Don Toliver</string>
+			<key>Album Artist</key><string>Don Toliver</string>
+			<key>Album</key><string>OCTANE</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6181904</integer>
+			<key>Total Time</key><integer>153234</integer>
+			<key>Track Number</key><integer>21</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:49Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>656020E809691AB5</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/021.%20Don%20Toliver%20-%20E85.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>607</key>
+		<dict>
+			<key>Track ID</key><integer>607</integer>
+			<key>Name</key><string>Aperture</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon</string>
+			<key>Album</key><string>Aperture</string>
+			<key>Genre</key><string>Alternativo;Dance;Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>12533755</integer>
+			<key>Total Time</key><integer>311797</integer>
+			<key>Track Number</key><integer>22</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:51Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>5D54294A82803CB5</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/022.%20Harry%20Styles%20-%20Aperture.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>610</key>
+		<dict>
+			<key>Track ID</key><integer>610</integer>
+			<key>Name</key><string>Be By You</string>
+			<key>Artist</key><string>Luke Combs</string>
+			<key>Album Artist</key><string>Luke Combs</string>
+			<key>Composer</key><string>Dan Alley/Sam Banks/Nick walsh</string>
+			<key>Album</key><string>Be By You</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8003073</integer>
+			<key>Total Time</key><integer>197720</integer>
+			<key>Track Number</key><integer>23</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:52Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>07F72FCA653E1AA4</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/023.%20Luke%20Combs%20-%20Be%20By%20You.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>613</key>
+		<dict>
+			<key>Track ID</key><integer>613</integer>
+			<key>Name</key><string>YUKON</string>
+			<key>Artist</key><string>Justin Bieber</string>
+			<key>Album Artist</key><string>Justin Bieber</string>
+			<key>Composer</key><string>Carter Lang/Dylan Wiggins/Daniel Chetrit/Justin Bieber/Dijon Duenas/Tauheed Epps/David White/John Madara/Kejuan Waliek Muchita/Marshall Mathers/Robert M. Crawford</string>
+			<key>Album</key><string>SWAG</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6584199</integer>
+			<key>Total Time</key><integer>163944</integer>
+			<key>Track Number</key><integer>24</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:42Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>9990FC50DD621FC7</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/024.%20Justin%20Bieber%20-%20YUKON.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>616</key>
+		<dict>
+			<key>Track ID</key><integer>616</integer>
+			<key>Name</key><string>Dracula</string>
+			<key>Artist</key><string>Tame Impala</string>
+			<key>Album Artist</key><string>Tame Impala</string>
+			<key>Composer</key><string>Kevin Parker/Sarah Aarons</string>
+			<key>Album</key><string>Deadbeat</string>
+			<key>Genre</key><string>Alternativo;Pop Indie;Indie Rock;Dance</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8315522</integer>
+			<key>Total Time</key><integer>205374</integer>
+			<key>Track Number</key><integer>25</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:57Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>A88855F67A21357D</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/025.%20Tame%20Impala%20-%20Dracula.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>619</key>
+		<dict>
+			<key>Track ID</key><integer>619</integer>
+			<key>Name</key><string>Body</string>
+			<key>Artist</key><string>Don Toliver</string>
+			<key>Album Artist</key><string>Don Toliver</string>
+			<key>Album</key><string>OCTANE</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6285351</integer>
+			<key>Total Time</key><integer>155820</integer>
+			<key>Track Number</key><integer>26</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:59Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>D1051BBBC5983AD1</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/026.%20Don%20Toliver%20-%20Body.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>622</key>
+		<dict>
+			<key>Track ID</key><integer>622</integer>
+			<key>Name</key><string>Homewrecker</string>
+			<key>Artist</key><string>sombr</string>
+			<key>Album Artist</key><string>sombr</string>
+			<key>Album</key><string>Homewrecker</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8494870</integer>
+			<key>Total Time</key><integer>209136</integer>
+			<key>Track Number</key><integer>27</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:28Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>23AE149DD925C9D6</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/027.%20sombr%20-%20Homewrecker.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>625</key>
+		<dict>
+			<key>Track ID</key><integer>625</integer>
+			<key>Name</key><string>Die On This Hill</string>
+			<key>Artist</key><string>SIENNA SPIRO</string>
+			<key>Album Artist</key><string>SIENNA SPIRO</string>
+			<key>Composer</key><string>Omer Fedi/Michael Pollack/SIENNA SPIRO</string>
+			<key>Album</key><string>Die On This Hill</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8759195</integer>
+			<key>Total Time</key><integer>217077</integer>
+			<key>Track Number</key><integer>28</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:39Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>AB449C285E5CEECB</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/028.%20SIENNA%20SPIRO%20-%20Die%20On%20This%20Hill.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>628</key>
+		<dict>
+			<key>Track ID</key><integer>628</integer>
+			<key>Name</key><string>The Great Divide</string>
+			<key>Artist</key><string>Noah Kahan</string>
+			<key>Album Artist</key><string>Noah Kahan</string>
+			<key>Composer</key><string>Noah Kahan/Gabe Simon</string>
+			<key>Album</key><string>The Great Divide</string>
+			<key>Genre</key><string>Alternativo</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>12819103</integer>
+			<key>Total Time</key><integer>318014</integer>
+			<key>Track Number</key><integer>29</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:58Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Great Divide</string>
+			<key>Sort Name</key><string>Great Divide</string>
+			<key>Persistent ID</key><string>251291F66368F1EA</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/029.%20Noah%20Kahan%20-%20The%20Great%20Divide.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>631</key>
+		<dict>
+			<key>Track ID</key><integer>631</integer>
+			<key>Name</key><string>Amen</string>
+			<key>Artist</key><string>Shaboozey/Jelly Roll</string>
+			<key>Album Artist</key><string>Shaboozey/Jelly Roll</string>
+			<key>Composer</key><string>Collins Obinna Chibueze/Jackson Foote/Sean Cook/Jason Deford/Seth Ennis/Jordan Gray/Kevin Powers/Nevin Sastry/Danny Majic</string>
+			<key>Album</key><string>Amen</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8033072</integer>
+			<key>Total Time</key><integer>197459</integer>
+			<key>Track Number</key><integer>30</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:56Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>618D48BD91FF1238</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/030.%20Shaboozey%20&#38;%20Jelly%20Roll%20-%20Amen.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>634</key>
+		<dict>
+			<key>Track ID</key><integer>634</integer>
+			<key>Name</key><string>The Fall</string>
+			<key>Artist</key><string>Cody Johnson</string>
+			<key>Album Artist</key><string>Cody Johnson</string>
+			<key>Album</key><string>Leather Deluxe Edition</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8053081</integer>
+			<key>Total Time</key><integer>197694</integer>
+			<key>Track Number</key><integer>31</integer>
+			<key>Year</key><integer>2024</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:27Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Name</key><string>Fall</string>
+			<key>Persistent ID</key><string>306917E789FEB4CA</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/031.%20Cody%20Johnson%20-%20The%20Fall.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>637</key>
+		<dict>
+			<key>Track ID</key><integer>637</integer>
+			<key>Name</key><string>What You Saying</string>
+			<key>Artist</key><string>Lil Uzi Vert</string>
+			<key>Album Artist</key><string>Lil Uzi Vert</string>
+			<key>Composer</key><string>Symere Woods/Mohamed Camara/Pascal Boniani Koeu/Karim Deneyer/Adila Sedraia</string>
+			<key>Album</key><string>What You Saying</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5353090</integer>
+			<key>Total Time</key><integer>131787</integer>
+			<key>Track Number</key><integer>32</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:47Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>3D91471637345694</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/032.%20Lil%20Uzi%20Vert%20-%20What%20You%20Saying.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>640</key>
+		<dict>
+			<key>Track ID</key><integer>640</integer>
+			<key>Name</key><string>FEVER DREAM</string>
+			<key>Artist</key><string>Alex Warren</string>
+			<key>Album Artist</key><string>Alex Warren</string>
+			<key>Album</key><string>FEVER DREAM</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6270641</integer>
+			<key>Total Time</key><integer>153495</integer>
+			<key>Track Number</key><integer>33</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:57Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>E60948D1D335F4E8</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/033.%20Alex%20Warren%20-%20FEVER%20DREAM.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>643</key>
+		<dict>
+			<key>Track ID</key><integer>643</integer>
+			<key>Name</key><string>TIT FOR TAT</string>
+			<key>Artist</key><string>Tate McRae</string>
+			<key>Album Artist</key><string>Tate McRae</string>
+			<key>Composer</key><string>Ryan Tedder/Tate McRae/Grant Boutin/Julia Michaels</string>
+			<key>Album</key><string>TIT FOR TAT</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7144441</integer>
+			<key>Total Time</key><integer>176013</integer>
+			<key>Track Number</key><integer>34</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:04Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>B9CFED724B3E3410</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/034.%20Tate%20McRae%20-%20TIT%20FOR%20TAT.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>646</key>
+		<dict>
+			<key>Track ID</key><integer>646</integer>
+			<key>Name</key><string>Coming Up Roses</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10018748</integer>
+			<key>Total Time</key><integer>248920</integer>
+			<key>Track Number</key><integer>35</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:56Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>E2F207B2AD204B30</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/035.%20Harry%20Styles%20-%20Coming%20Up%20Roses.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>649</key>
+		<dict>
+			<key>Track ID</key><integer>649</integer>
+			<key>Name</key><string>LET 'EM KNOW</string>
+			<key>Artist</key><string>T.I.</string>
+			<key>Album Artist</key><string>T.I.</string>
+			<key>Composer</key><string>Pharrell Williams/Clifford Harris</string>
+			<key>Album</key><string>LET 'EM KNOW</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7325026</integer>
+			<key>Total Time</key><integer>179983</integer>
+			<key>Track Number</key><integer>36</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:01Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>62A551D868D899E3</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/036.%20T.I.%20-%20LET%20'EM%20KNOW.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>652</key>
+		<dict>
+			<key>Track ID</key><integer>652</integer>
+			<key>Name</key><string>Lush Life</string>
+			<key>Artist</key><string>Zara Larsson</string>
+			<key>Album Artist</key><string>Zara Larsson</string>
+			<key>Composer</key><string>Emanuel Abrahamsson/Mack/Linnea Sodahl/Fridolin Walcher/Christoph Bauss/Iman Conta Hulten</string>
+			<key>Album</key><string>So Good</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8562796</integer>
+			<key>Total Time</key><integer>201195</integer>
+			<key>Track Number</key><integer>37</integer>
+			<key>Year</key><integer>2017</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:55Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>72B69632036A4453</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/037.%20Zara%20Larsson%20-%20Lush%20Life.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>655</key>
+		<dict>
+			<key>Track ID</key><integer>655</integer>
+			<key>Name</key><string>It Depends (feat. Bryson Tiller)</string>
+			<key>Artist</key><string>Chris Brown/Bryson Tiller</string>
+			<key>Album Artist</key><string>Chris Brown/Bryson Tiller</string>
+			<key>Composer</key><string>Chris Brown/Bryson Tiller/Ephrem Lopez Jr./Nico Baran/Usher Raymond IV/Jermaine Dupri/Brian Casey/Manuel Seal/Dewain Whitmore Jr./Ant Clemons/Elliott Trent/Ryan Press</string>
+			<key>Album</key><string>It Depends (feat. Bryson Tiller)</string>
+			<key>Genre</key><string>R&#38;B</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>11098095</integer>
+			<key>Total Time</key><integer>271934</integer>
+			<key>Track Number</key><integer>38</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:11Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>A81ABBAD89C7C121</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/038.%20Chris%20Brown%20-%20It%20Depends%20(feat.%20Bryson%20Tiller).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>658</key>
+		<dict>
+			<key>Track ID</key><integer>658</integer>
+			<key>Name</key><string>Midnight Sun</string>
+			<key>Artist</key><string>Zara Larsson</string>
+			<key>Album Artist</key><string>Zara Larsson</string>
+			<key>Composer</key><string>Zara Larsson/Helena Gao/Uzoechi Emenike/Margo Wildman</string>
+			<key>Album</key><string>Midnight Sun</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7749058</integer>
+			<key>Total Time</key><integer>189962</integer>
+			<key>Track Number</key><integer>39</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:10Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>F2467517CDF9C074</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/039.%20Zara%20Larsson%20-%20Midnight%20Sun.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>661</key>
+		<dict>
+			<key>Track ID</key><integer>661</integer>
+			<key>Name</key><string>White Keys</string>
+			<key>Artist</key><string>Dominic Fike</string>
+			<key>Album Artist</key><string>Dominic Fike</string>
+			<key>Composer</key><string>John Cunningham/Dominic Fike</string>
+			<key>Album</key><string>White Keys</string>
+			<key>Genre</key><string>Alternativo</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5880473</integer>
+			<key>Total Time</key><integer>144169</integer>
+			<key>Track Number</key><integer>40</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:01Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>8C5FE72CCC2C1ABE</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/040.%20Dominic%20Fike%20-%20White%20Keys.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>664</key>
+		<dict>
+			<key>Track ID</key><integer>664</integer>
+			<key>Name</key><string>Ready, Steady, Go!</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon/Tyler Johnson</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6480743</integer>
+			<key>Total Time</key><integer>160470</integer>
+			<key>Track Number</key><integer>41</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:45Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>B75387DCB5B08B7B</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/041.%20Harry%20Styles%20-%20Ready,%20Steady,%20Go!.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>667</key>
+		<dict>
+			<key>Track ID</key><integer>667</integer>
+			<key>Name</key><string>Taste Back</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon/Tyler Johnson</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8931013</integer>
+			<key>Total Time</key><integer>221727</integer>
+			<key>Track Number</key><integer>42</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:59Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>6381156AD287EBCA</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/042.%20Harry%20Styles%20-%20Taste%20Back.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>670</key>
+		<dict>
+			<key>Track ID</key><integer>670</integer>
+			<key>Name</key><string>The Visitor</string>
+			<key>Artist</key><string>SIENNA SPIRO</string>
+			<key>Album Artist</key><string>SIENNA SPIRO</string>
+			<key>Composer</key><string>Omer Fedi/Michael Pollack/SIENNA SPIRO</string>
+			<key>Album</key><string>The Visitor</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9226108</integer>
+			<key>Total Time</key><integer>228963</integer>
+			<key>Track Number</key><integer>43</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:55Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Visitor</string>
+			<key>Sort Name</key><string>Visitor</string>
+			<key>Persistent ID</key><string>BBEADC7FB8BE6517</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/043.%20SIENNA%20SPIRO%20-%20The%20Visitor.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>673</key>
+		<dict>
+			<key>Track ID</key><integer>673</integer>
+			<key>Name</key><string>Brunette</string>
+			<key>Artist</key><string>Tucker Wetmore</string>
+			<key>Album Artist</key><string>Tucker Wetmore</string>
+			<key>Composer</key><string>Chris LaCorte/Chase McGill/Josh Miller/Blake Pendergrass</string>
+			<key>Album</key><string>What Not To</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5798834</integer>
+			<key>Total Time</key><integer>139232</integer>
+			<key>Track Number</key><integer>44</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:02Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>77F8F6BF657D70E3</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/044.%20Tucker%20Wetmore%20-%20Brunette.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>676</key>
+		<dict>
+			<key>Track ID</key><integer>676</integer>
+			<key>Name</key><string>Motion Party</string>
+			<key>Artist</key><string>Bossman Dlow</string>
+			<key>Album Artist</key><string>Bossman Dlow</string>
+			<key>Composer</key><string>Devante McCreary/Evan Huang/Dion Davenport/Darryon Bunton/Tyreece Faison</string>
+			<key>Album</key><string>Motion Party</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>3937082</integer>
+			<key>Total Time</key><integer>95895</integer>
+			<key>Track Number</key><integer>45</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:30Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>51340F4B5293694E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/045.%20Bossman%20Dlow%20-%20Motion%20Party.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>679</key>
+		<dict>
+			<key>Track ID</key><integer>679</integer>
+			<key>Name</key><string>Days Like These</string>
+			<key>Artist</key><string>Luke Combs</string>
+			<key>Album Artist</key><string>Luke Combs</string>
+			<key>Composer</key><string>Luke Combs/Brent Cobb/Aaron Raitiere</string>
+			<key>Album</key><string>The Prequel</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8981547</integer>
+			<key>Total Time</key><integer>221884</integer>
+			<key>Track Number</key><integer>46</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:28Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Prequel</string>
+			<key>Persistent ID</key><string>C8B6E1B745C70F5B</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/046.%20Luke%20Combs%20-%20Days%20Like%20These.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>682</key>
+		<dict>
+			<key>Track ID</key><integer>682</integer>
+			<key>Name</key><string>McArthur</string>
+			<key>Artist</key><string>Hardy/Eric Church/Morgan Wallen/Tim McGraw</string>
+			<key>Album Artist</key><string>Hardy/Eric Church/Morgan Wallen/Tim McGraw</string>
+			<key>Composer</key><string>Michael Hardy/Chase McGill/Jameson Rodgers/Josh Thompson</string>
+			<key>Album</key><string>McArthur</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9416774</integer>
+			<key>Total Time</key><integer>231601</integer>
+			<key>Track Number</key><integer>47</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:36Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>30D99DDE3AF67854</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/047.%20Hardy,%20Eric%20Church,%20Morgan%20Wallen%20&#38;%20Tim%20McGraw%20-%20McArthur.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>685</key>
+		<dict>
+			<key>Track ID</key><integer>685</integer>
+			<key>Name</key><string>POP DAT THANG</string>
+			<key>Artist</key><string>DaBaby</string>
+			<key>Album Artist</key><string>DaBaby</string>
+			<key>Composer</key><string>Tobias Wincorn/Vaughn Oliver/JONATHAN LYNDALE Kirk/Anthony L Mosley/Adam Gamble</string>
+			<key>Album</key><string>POP DAT THANG</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5601324</integer>
+			<key>Total Time</key><integer>138318</integer>
+			<key>Track Number</key><integer>48</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:00Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>BA0E4A705D26D128</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/048.%20DaBaby%20-%20POP%20DAT%20THANG.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>688</key>
+		<dict>
+			<key>Track ID</key><integer>688</integer>
+			<key>Name</key><string>Change My Mind</string>
+			<key>Artist</key><string>Riley Green</string>
+			<key>Album Artist</key><string>Riley Green</string>
+			<key>Composer</key><string>Riley Green/Erik Dylan/Randy Montana</string>
+			<key>Album</key><string>Don't Mind If I Do</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8059021</integer>
+			<key>Total Time</key><integer>199601</integer>
+			<key>Track Number</key><integer>49</integer>
+			<key>Year</key><integer>2024</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:59Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>81F7B23FB5FA7EAF</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/049.%20Riley%20Green%20-%20Change%20My%20Mind.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>691</key>
+		<dict>
+			<key>Track ID</key><integer>691</integer>
+			<key>Name</key><string>CHANEL</string>
+			<key>Artist</key><string>Tyla</string>
+			<key>Album Artist</key><string>Tyla</string>
+			<key>Composer</key><string>Bibi Bourelly/Ian Kirkpatrick/Richard Olowaranta Mbu Isong/Douglas Ford</string>
+			<key>Album</key><string>CHANEL</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7629804</integer>
+			<key>Total Time</key><integer>188133</integer>
+			<key>Track Number</key><integer>50</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:50Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>D3EDFBA6110BD93D</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/050.%20Tyla%20-%20CHANEL.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>694</key>
+		<dict>
+			<key>Track ID</key><integer>694</integer>
+			<key>Name</key><string>I Ain't Comin' Back</string>
+			<key>Artist</key><string>Morgan Wallen/Post Malone</string>
+			<key>Album Artist</key><string>Morgan Wallen/Post Malone</string>
+			<key>Composer</key><string>Morgan Wallen/Louis Bell/Michael Hardy/Austin Post/Ernest Keith Smith/Ryan Vojtesak</string>
+			<key>Album</key><string>I Ain't Comin' Back</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7180292</integer>
+			<key>Total Time</key><integer>175333</integer>
+			<key>Track Number</key><integer>51</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:58Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>86AC14CAF0742BFD</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/051.%20Morgan%20Wallen%20-%20I%20Ain't%20Comin'%20Back.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>697</key>
+		<dict>
+			<key>Track ID</key><integer>697</integer>
+			<key>Name</key><string>When Did You Get Hot?</string>
+			<key>Artist</key><string>Sabrina Carpenter</string>
+			<key>Album Artist</key><string>Sabrina Carpenter</string>
+			<key>Composer</key><string>Jack Antonoff/John Ryan/Sabrina Carpenter/Amy Allen</string>
+			<key>Album</key><string>Man’s Best Friend</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5985305</integer>
+			<key>Total Time</key><integer>145475</integer>
+			<key>Track Number</key><integer>52</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:48Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>2982D5C2E8584C9B</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/052.%20Sabrina%20Carpenter%20-%20When%20Did%20You%20Get%20Hot_.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>700</key>
+		<dict>
+			<key>Track ID</key><integer>700</integer>
+			<key>Name</key><string>Raindance</string>
+			<key>Artist</key><string>Dave/Tems</string>
+			<key>Album Artist</key><string>Dave</string>
+			<key>Composer</key><string>Dave/Tems/Jo Caleb/Kyle Evans/Jonny Leslie</string>
+			<key>Album</key><string>The Boy Who Played the Harp</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8843802</integer>
+			<key>Total Time</key><integer>219820</integer>
+			<key>Track Number</key><integer>53</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:48Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Boy Who Played the Harp</string>
+			<key>Persistent ID</key><string>07EDFF6EC9D2FD12</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/053.%20Dave%20-%20Raindance.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>703</key>
+		<dict>
+			<key>Track ID</key><integer>703</integer>
+			<key>Name</key><string>Pop</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon/Tyler Johnson</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8705301</integer>
+			<key>Total Time</key><integer>216084</integer>
+			<key>Track Number</key><integer>54</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:51Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>A42EB18A6C2E25A3</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/054.%20Harry%20Styles%20-%20Pop.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>706</key>
+		<dict>
+			<key>Track ID</key><integer>706</integer>
+			<key>Name</key><string>Dry Spell</string>
+			<key>Artist</key><string>Kacey Musgraves</string>
+			<key>Album Artist</key><string>Kacey Musgraves</string>
+			<key>Composer</key><string>Kacey Musgraves/Luke Laird/Shane McAnally/Josh Osborne</string>
+			<key>Album</key><string>Dry Spell</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7988111</integer>
+			<key>Total Time</key><integer>197746</integer>
+			<key>Track Number</key><integer>55</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:24Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>2E0FA198A622CD96</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/055.%20Kacey%20Musgraves%20-%20Dry%20Spell.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>709</key>
+		<dict>
+			<key>Track ID</key><integer>709</integer>
+			<key>Name</key><string>Dandelion</string>
+			<key>Artist</key><string>Ella Langley</string>
+			<key>Album Artist</key><string>Ella Langley</string>
+			<key>Composer</key><string>Ella Langley/Austin Goodloe/Joybeth Taylor/Brett Tyler</string>
+			<key>Album</key><string>Dandelion</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9772925</integer>
+			<key>Total Time</key><integer>241005</integer>
+			<key>Track Number</key><integer>56</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:03Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>1B34548C68387487</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/056.%20Ella%20Langley%20-%20Dandelion.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>712</key>
+		<dict>
+			<key>Track ID</key><integer>712</integer>
+			<key>Name</key><string>Are You Listening Yet?</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon/Tyler Johnson</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7760751</integer>
+			<key>Total Time</key><integer>192470</integer>
+			<key>Track Number</key><integer>57</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:46Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>EEE64CB153F59D14</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/057.%20Harry%20Styles%20-%20Are%20You%20Listening%20Yet_.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>715</key>
+		<dict>
+			<key>Track ID</key><integer>715</integer>
+			<key>Name</key><string>Dance No More</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Kid Harpoon/Harry Styles</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7859986</integer>
+			<key>Total Time</key><integer>194951</integer>
+			<key>Track Number</key><integer>58</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:49Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>27B879D812B1AFAB</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/058.%20Harry%20Styles%20-%20Dance%20No%20More.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>718</key>
+		<dict>
+			<key>Track ID</key><integer>718</integer>
+			<key>Name</key><string>Elizabeth Taylor</string>
+			<key>Artist</key><string>Taylor Swift</string>
+			<key>Album Artist</key><string>Taylor Swift</string>
+			<key>Composer</key><string>Max Martin/Shellback/Taylor Swift</string>
+			<key>Album</key><string>The Life of a Showgirl</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8502181</integer>
+			<key>Total Time</key><integer>208352</integer>
+			<key>Track Number</key><integer>59</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:34Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Life of a Showgirl</string>
+			<key>Persistent ID</key><string>32DB268729042398</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/059.%20Taylor%20Swift%20-%20Elizabeth%20Taylor.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>721</key>
+		<dict>
+			<key>Track ID</key><integer>721</integer>
+			<key>Name</key><string>The Waiting Game</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon/Tyler Johnson</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6863172</integer>
+			<key>Total Time</key><integer>170031</integer>
+			<key>Track Number</key><integer>60</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:29Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Name</key><string>Waiting Game</string>
+			<key>Persistent ID</key><string>19C12103DF80066D</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/060.%20Harry%20Styles%20-%20The%20Waiting%20Game.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>724</key>
+		<dict>
+			<key>Track ID</key><integer>724</integer>
+			<key>Name</key><string>Beautiful Things</string>
+			<key>Artist</key><string>Megan Moroney</string>
+			<key>Album Artist</key><string>Megan Moroney</string>
+			<key>Composer</key><string>Megan Moroney/Connie Harrington/Jessie Jo Dillon/Jessi Alexander</string>
+			<key>Album</key><string>Beautiful Things</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9543728</integer>
+			<key>Total Time</key><integer>235598</integer>
+			<key>Track Number</key><integer>61</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:52Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>01E416E4D7A24221</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/061.%20Megan%20Moroney%20-%20Beautiful%20Things.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>727</key>
+		<dict>
+			<key>Track ID</key><integer>727</integer>
+			<key>Name</key><string>Wish I Didn't</string>
+			<key>Artist</key><string>Megan Moroney</string>
+			<key>Album Artist</key><string>Megan Moroney</string>
+			<key>Composer</key><string>Megan Moroney/Hillary Lindsey/Emily Weisband/Luke Laird</string>
+			<key>Album</key><string>Cloud 9</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8485449</integer>
+			<key>Total Time</key><integer>209554</integer>
+			<key>Track Number</key><integer>62</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:03Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>7946B6D5F8B75126</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/062.%20Megan%20Moroney%20-%20Wish%20I%20Didn't.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>730</key>
+		<dict>
+			<key>Track ID</key><integer>730</integer>
+			<key>Name</key><string>Carla's Song</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10211005</integer>
+			<key>Total Time</key><integer>253727</integer>
+			<key>Track Number</key><integer>63</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:02Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>44CC6A597307498B</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/063.%20Harry%20Styles%20-%20Carla's%20Song.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>733</key>
+		<dict>
+			<key>Track ID</key><integer>733</integer>
+			<key>Name</key><string>In My Room</string>
+			<key>Artist</key><string>Julia Wolf</string>
+			<key>Album Artist</key><string>Julia Wolf</string>
+			<key>Composer</key><string>Steph Jones/Julia Capello/Nicholas Stephen Bergere</string>
+			<key>Album</key><string>In My Room</string>
+			<key>Genre</key><string>Alternativo</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6804437</integer>
+			<key>Total Time</key><integer>163944</integer>
+			<key>Track Number</key><integer>64</integer>
+			<key>Year</key><integer>2024</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:47Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>B79C6DDF4D90CA36</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/064.%20Julia%20Wolf%20-%20In%20My%20Room.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>736</key>
+		<dict>
+			<key>Track ID</key><integer>736</integer>
+			<key>Name</key><string>Ain't A Bad Life</string>
+			<key>Artist</key><string>Thomas Rhett/Jordan Davis</string>
+			<key>Album Artist</key><string>Thomas Rhett</string>
+			<key>Composer</key><string>Mark Trussell/Thomas Rhett/John Byron/Ashley Gorley/Blake Pendergrass</string>
+			<key>Album</key><string>About A Woman (Deluxe)</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7658042</integer>
+			<key>Total Time</key><integer>187977</integer>
+			<key>Track Number</key><integer>65</integer>
+			<key>Year</key><integer>2024</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:24Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>B236EFDD11D0F3AD</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/065.%20Thomas%20Rhett%20-%20Ain't%20A%20Bad%20Life.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>739</key>
+		<dict>
+			<key>Track ID</key><integer>739</integer>
+			<key>Name</key><string>What He'll Never Have</string>
+			<key>Artist</key><string>Dylan Scott</string>
+			<key>Album Artist</key><string>Dylan Scott</string>
+			<key>Composer</key><string>Dylan Scott/Logan Robinson/Ricky Rowton/Robbie Gatlin</string>
+			<key>Album</key><string>Livin' My Best Life (Still)</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6248779</integer>
+			<key>Total Time</key><integer>153965</integer>
+			<key>Track Number</key><integer>66</integer>
+			<key>Year</key><integer>2022</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:39Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>510D63C1CF4F94A7</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/066.%20Dylan%20Scott%20-%20What%20He'll%20Never%20Have.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>742</key>
+		<dict>
+			<key>Track ID</key><integer>742</integer>
+			<key>Name</key><string>Season 2 Weight Loss</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon/Tyler Johnson</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9246592</integer>
+			<key>Total Time</key><integer>229616</integer>
+			<key>Track Number</key><integer>67</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:45Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>1CD0F604F340BA34</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/067.%20Harry%20Styles%20-%20Season%202%20Weight%20Loss.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>745</key>
+		<dict>
+			<key>Track ID</key><integer>745</integer>
+			<key>Name</key><string>Say Why</string>
+			<key>Artist</key><string>Zach Bryan</string>
+			<key>Album Artist</key><string>Zach Bryan</string>
+			<key>Album</key><string>With Heaven On Top</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6032889</integer>
+			<key>Total Time</key><integer>144039</integer>
+			<key>Track Number</key><integer>68</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:00Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>98A9365199ECD828</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/068.%20Zach%20Bryan%20-%20Say%20Why.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>748</key>
+		<dict>
+			<key>Track ID</key><integer>748</integer>
+			<key>Name</key><string>Turn This Truck Around</string>
+			<key>Artist</key><string>Jordan Davis</string>
+			<key>Album Artist</key><string>Jordan Davis</string>
+			<key>Composer</key><string>Jordan Davis/Devin Dawson/Jake Mitchell/Josh Thompson</string>
+			<key>Album</key><string>Turn This Truck Around</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8299313</integer>
+			<key>Total Time</key><integer>204068</integer>
+			<key>Track Number</key><integer>69</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:38Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>D82F4328A2C2E2AC</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/069.%20Jordan%20Davis%20-%20Turn%20This%20Truck%20Around.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>751</key>
+		<dict>
+			<key>Track ID</key><integer>751</integer>
+			<key>Name</key><string>Travelin' Soldier</string>
+			<key>Artist</key><string>Cody Johnson</string>
+			<key>Album Artist</key><string>Cody Johnson</string>
+			<key>Composer</key><string>Bruce Robison</string>
+			<key>Album</key><string>Travelin' Soldier</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10307227</integer>
+			<key>Total Time</key><integer>255529</integer>
+			<key>Track Number</key><integer>70</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:56Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>56E00EEF00BD8D4E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/070.%20Cody%20Johnson%20-%20Travelin'%20Soldier.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>754</key>
+		<dict>
+			<key>Track ID</key><integer>754</integer>
+			<key>Name</key><string>Time’s Ticking (Solo Version)</string>
+			<key>Artist</key><string>Justin Moore</string>
+			<key>Album Artist</key><string>Justin Moore</string>
+			<key>Composer</key><string>Jeremy Stover/Justin Moore/Will Bundy/Randy Montana</string>
+			<key>Album</key><string>Time's Ticking (Solo Version)</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7420778</integer>
+			<key>Total Time</key><integer>181028</integer>
+			<key>Track Number</key><integer>71</integer>
+			<key>Year</key><integer>2024</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:43Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>2249F3470A9619E7</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/071.%20Justin%20Moore%20-%20Time%E2%80%99s%20Ticking%20(Solo%20Version).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>757</key>
+		<dict>
+			<key>Track ID</key><integer>757</integer>
+			<key>Name</key><string>Ends of the Earth</string>
+			<key>Artist</key><string>Ty Myers</string>
+			<key>Album Artist</key><string>Ty Myers</string>
+			<key>Composer</key><string>Ty Myers</string>
+			<key>Album</key><string>Ends of the Earth</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10964311</integer>
+			<key>Total Time</key><integer>269897</integer>
+			<key>Track Number</key><integer>72</integer>
+			<key>Year</key><integer>2024</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:52Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>163141A7EF2F1D5F</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/072.%20Ty%20Myers%20-%20Ends%20of%20the%20Earth.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>760</key>
+		<dict>
+			<key>Track ID</key><integer>760</integer>
+			<key>Name</key><string>Zoo</string>
+			<key>Artist</key><string>Shakira/Dream Ami</string>
+			<key>Album Artist</key><string>Shakira/Dream Ami</string>
+			<key>Composer</key><string>Blake Slatkin/Shakira/Ed Sheeran</string>
+			<key>Album</key><string>Zoo (From "Zootopia 2"/Japanese Single Version)</string>
+			<key>Genre</key><string>Películas/Juegos;Bandas sonoras</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7777916</integer>
+			<key>Total Time</key><integer>190876</integer>
+			<key>Track Number</key><integer>73</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:31Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>47B967014D6881FC</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/073.%20Shakira%20-%20Zoo.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>763</key>
+		<dict>
+			<key>Track ID</key><integer>763</integer>
+			<key>Name</key><string>butterflies.</string>
+			<key>Artist</key><string>Brent Faiyaz</string>
+			<key>Album Artist</key><string>Brent Faiyaz</string>
+			<key>Composer</key><string>Benjamin Levin/Christopher Brent Wood/Magnus August Höiberg</string>
+			<key>Album</key><string>Icon</string>
+			<key>Genre</key><string>R&#38;B</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>10009851</integer>
+			<key>Total Time</key><integer>248372</integer>
+			<key>Track Number</key><integer>74</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:44Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>81777F6A23ACE929</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/074.%20Brent%20Faiyaz%20-%20butterflies.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>766</key>
+		<dict>
+			<key>Track ID</key><integer>766</integer>
+			<key>Name</key><string>Breathe</string>
+			<key>Artist</key><string>Malcolm Todd</string>
+			<key>Album Artist</key><string>Malcolm Todd</string>
+			<key>Composer</key><string>Malcolm Hobert/Jonah Cochran/Jasper Harris/Charlie Ziman/Matthew Castellanos/Blake Slatkin</string>
+			<key>Album</key><string>Breathe</string>
+			<key>Genre</key><string>Alternativo</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7196572</integer>
+			<key>Total Time</key><integer>176483</integer>
+			<key>Track Number</key><integer>75</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:40Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>485C19BB0E264132</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/075.%20Malcolm%20Todd%20-%20Breathe.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>769</key>
+		<dict>
+			<key>Track ID</key><integer>769</integer>
+			<key>Name</key><string>Watching Us</string>
+			<key>Artist</key><string>Wale &#38; Leon Thomas</string>
+			<key>Album Artist</key><string>Wale</string>
+			<key>Composer</key><string>Mike Hector/Nile Hargrove/Olubowale Victor Akintimehin/Leon Thomas/Rob Gueringer/David Phelps</string>
+			<key>Album</key><string>everything is a lot.</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9336855</integer>
+			<key>Total Time</key><integer>229172</integer>
+			<key>Track Number</key><integer>76</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:01Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>AE8274761A9A6B29</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/076.%20Wale%20&#38;%20Leon%20Thomas%20-%20Watching%20Us.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>772</key>
+		<dict>
+			<key>Track ID</key><integer>772</integer>
+			<key>Name</key><string>Rein Me In</string>
+			<key>Artist</key><string>Sam Fender &#38; Olivia Dean</string>
+			<key>Album Artist</key><string>Sam Fender/Olivia Dean</string>
+			<key>Composer</key><string>Sam Fender/Olivia Dean/Max Wolfgang</string>
+			<key>Album</key><string>Rein Me In</string>
+			<key>Genre</key><string>Alternativo</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>13722498</integer>
+			<key>Total Time</key><integer>339487</integer>
+			<key>Track Number</key><integer>77</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:42Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>CDAB15883C177585</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/077.%20Sam%20Fender%20&#38;%20Olivia%20Dean%20-%20Rein%20Me%20In.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>775</key>
+		<dict>
+			<key>Track ID</key><integer>775</integer>
+			<key>Name</key><string>Wedding Dress</string>
+			<key>Artist</key><string>Megan Moroney</string>
+			<key>Album Artist</key><string>Megan Moroney</string>
+			<key>Composer</key><string>Megan Moroney/Ben Williams/Colin Healy</string>
+			<key>Album</key><string>Cloud 9</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9331797</integer>
+			<key>Total Time</key><integer>230713</integer>
+			<key>Track Number</key><integer>78</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:04Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>3245B469F318B62E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/078.%20Megan%20Moroney%20-%20Wedding%20Dress.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>778</key>
+		<dict>
+			<key>Track ID</key><integer>778</integer>
+			<key>Name</key><string>Secondhand (feat. Rema)</string>
+			<key>Artist</key><string>Don Toliver/Rema</string>
+			<key>Album Artist</key><string>Don Toliver</string>
+			<key>Album</key><string>OCTANE</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9122280</integer>
+			<key>Total Time</key><integer>226742</integer>
+			<key>Track Number</key><integer>79</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:06Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>3D47968DEC6EEFCB</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/079.%20Don%20Toliver%20-%20Secondhand%20(feat.%20Rema).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>781</key>
+		<dict>
+			<key>Track ID</key><integer>781</integer>
+			<key>Name</key><string>Plastic Cigarette</string>
+			<key>Artist</key><string>Zach Bryan</string>
+			<key>Album Artist</key><string>Zach Bryan</string>
+			<key>Album</key><string>With Heaven On Top</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7705793</integer>
+			<key>Total Time</key><integer>185861</integer>
+			<key>Track Number</key><integer>80</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:55Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>E973DE37EB6549AB</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/080.%20Zach%20Bryan%20-%20Plastic%20Cigarette.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>784</key>
+		<dict>
+			<key>Track ID</key><integer>784</integer>
+			<key>Name</key><string>Mrs. Trendsetter</string>
+			<key>Artist</key><string>Lil Baby</string>
+			<key>Album Artist</key><string>Lil Baby</string>
+			<key>Composer</key><string>Dominique Jones/June James/Honolta Bea Bikoï/Zeus Negrete</string>
+			<key>Album</key><string>The Leaks</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6122813</integer>
+			<key>Total Time</key><integer>148924</integer>
+			<key>Track Number</key><integer>81</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:22Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Sort Album</key><string>Leaks</string>
+			<key>Persistent ID</key><string>1D43D3A19C30CBF4</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/081.%20Lil%20Baby%20-%20Mrs.%20Trendsetter.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>787</key>
+		<dict>
+			<key>Track ID</key><integer>787</integer>
+			<key>Name</key><string>Who Knows</string>
+			<key>Artist</key><string>Daniel Caesar</string>
+			<key>Album Artist</key><string>Daniel Caesar</string>
+			<key>Composer</key><string>Matthew Burnett/Romil Hemnani/Alex O'Connor/Ashton Simmonds/Dylan Wiggins/Mustafa Ahmed/Justin Vernon</string>
+			<key>Album</key><string>Son Of Spergy</string>
+			<key>Genre</key><string>R&#38;B</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9095858</integer>
+			<key>Total Time</key><integer>226351</integer>
+			<key>Track Number</key><integer>82</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:58Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>A1C7B239F4FC9CFC</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/082.%20Daniel%20Caesar%20-%20Who%20Knows.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>790</key>
+		<dict>
+			<key>Track ID</key><integer>790</integer>
+			<key>Name</key><string>ATM</string>
+			<key>Artist</key><string>Don Toliver</string>
+			<key>Album Artist</key><string>Don Toliver</string>
+			<key>Album</key><string>OCTANE</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7283227</integer>
+			<key>Total Time</key><integer>180767</integer>
+			<key>Track Number</key><integer>83</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:50Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>65AA92EAB7BBA1D9</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/083.%20Don%20Toliver%20-%20ATM.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>793</key>
+		<dict>
+			<key>Track ID</key><integer>793</integer>
+			<key>Name</key><string>All I Did Was Dream of You</string>
+			<key>Artist</key><string>beabadoobee/The Marías</string>
+			<key>Album Artist</key><string>beabadoobee/The Marías</string>
+			<key>Composer</key><string>Beatrice Laus/Alessandro Buccellati/Maria Zardoya/Josh Conway/Gianluca Buccellati</string>
+			<key>Album</key><string>All I Did Was Dream of You</string>
+			<key>Genre</key><string>Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9075186</integer>
+			<key>Total Time</key><integer>223843</integer>
+			<key>Track Number</key><integer>84</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:38Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>DE2F4CCB3D960713</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/084.%20beabadoobee%20-%20All%20I%20Did%20Was%20Dream%20of%20You.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>796</key>
+		<dict>
+			<key>Track ID</key><integer>796</integer>
+			<key>Name</key><string>Woman</string>
+			<key>Artist</key><string>Kane Brown</string>
+			<key>Album Artist</key><string>Kane Brown</string>
+			<key>Composer</key><string>Kane Brown/John Byron/Ashley Gorley/Ben Johnson/Taylor Phillips</string>
+			<key>Album</key><string>Woman</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6859451</integer>
+			<key>Total Time</key><integer>166791</integer>
+			<key>Track Number</key><integer>85</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:37Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>4A4187C8FEB0BF77</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/085.%20Kane%20Brown%20-%20Woman.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>799</key>
+		<dict>
+			<key>Track ID</key><integer>799</integer>
+			<key>Name</key><string>FDO</string>
+			<key>Artist</key><string>Pooh Shiesty</string>
+			<key>Album Artist</key><string>Pooh Shiesty</string>
+			<key>Album</key><string>FDO</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>12915857</integer>
+			<key>Total Time</key><integer>319268</integer>
+			<key>Track Number</key><integer>86</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:00Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>B7BBCF40B86D8513</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/086.%20Pooh%20Shiesty%20-%20FDO.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>802</key>
+		<dict>
+			<key>Track ID</key><integer>802</integer>
+			<key>Name</key><string>Paint By Numbers</string>
+			<key>Artist</key><string>Harry Styles</string>
+			<key>Album Artist</key><string>Harry Styles</string>
+			<key>Composer</key><string>Harry Styles/Kid Harpoon/Tyler Johnson</string>
+			<key>Album</key><string>Kiss All The Time. Disco, Occasionally.</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5944708</integer>
+			<key>Total Time</key><integer>147069</integer>
+			<key>Track Number</key><integer>87</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:47Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>DF738AAD7801AB63</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/087.%20Harry%20Styles%20-%20Paint%20By%20Numbers.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>805</key>
+		<dict>
+			<key>Track ID</key><integer>805</integer>
+			<key>Name</key><string>Tiramisu</string>
+			<key>Artist</key><string>Don Toliver</string>
+			<key>Album Artist</key><string>Don Toliver</string>
+			<key>Album</key><string>OCTANE</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5613490</integer>
+			<key>Total Time</key><integer>139023</integer>
+			<key>Track Number</key><integer>88</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:02Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>0E034A92FBEB5BEC</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/088.%20Don%20Toliver%20-%20Tiramisu.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>808</key>
+		<dict>
+			<key>Track ID</key><integer>808</integer>
+			<key>Name</key><string>You Stole The Show</string>
+			<key>Artist</key><string>SIENNA SPIRO</string>
+			<key>Album Artist</key><string>SIENNA SPIRO</string>
+			<key>Composer</key><string>SIENNA SPIRO/Mary Weitz/Jakob Rabitsch</string>
+			<key>Album</key><string>You Stole The Show</string>
+			<key>Genre</key><string>Pop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8411029</integer>
+			<key>Total Time</key><integer>207255</integer>
+			<key>Track Number</key><integer>89</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:53Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>1CD015F59FAD9B04</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/089.%20SIENNA%20SPIRO%20-%20You%20Stole%20The%20Show.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>811</key>
+		<dict>
+			<key>Track ID</key><integer>811</integer>
+			<key>Name</key><string>I Ain't No Cowboy</string>
+			<key>Artist</key><string>Luke Combs</string>
+			<key>Album Artist</key><string>Luke Combs</string>
+			<key>Composer</key><string>Luke Combs/Cody Johnson/Jake Mears</string>
+			<key>Album</key><string>I Ain't No Cowboy</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7818044</integer>
+			<key>Total Time</key><integer>193097</integer>
+			<key>Track Number</key><integer>90</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:39Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>6E949E629E5E11BC</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/090.%20Luke%20Combs%20-%20I%20Ain't%20No%20Cowboy.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>814</key>
+		<dict>
+			<key>Track ID</key><integer>814</integer>
+			<key>Name</key><string>Trade Places</string>
+			<key>Artist</key><string>Jack Harlow</string>
+			<key>Album Artist</key><string>Jack Harlow</string>
+			<key>Album</key><string>Monica</string>
+			<key>Genre</key><string>R&#38;B</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7397981</integer>
+			<key>Total Time</key><integer>183040</integer>
+			<key>Track Number</key><integer>91</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:59Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>AAA441A77B5E3BB0</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/091.%20Jack%20Harlow%20-%20Trade%20Places.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>817</key>
+		<dict>
+			<key>Track ID</key><integer>817</integer>
+			<key>Name</key><string>Earrings</string>
+			<key>Artist</key><string>Malcolm Todd</string>
+			<key>Album Artist</key><string>Malcolm Todd</string>
+			<key>Composer</key><string>Malcolm Hobert</string>
+			<key>Album</key><string>Sweet Boy</string>
+			<key>Genre</key><string>Alternativo</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6227051</integer>
+			<key>Total Time</key><integer>151562</integer>
+			<key>Track Number</key><integer>92</integer>
+			<key>Year</key><integer>2024</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:13Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>216791994DDE2199</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/092.%20Malcolm%20Todd%20-%20Earrings.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>820</key>
+		<dict>
+			<key>Track ID</key><integer>820</integer>
+			<key>Name</key><string>4 Raws</string>
+			<key>Artist</key><string>EsDeeKid</string>
+			<key>Album Artist</key><string>EsDeeKid</string>
+			<key>Composer</key><string>EsDeeKid/Harley Riecansky</string>
+			<key>Album</key><string>Rebel</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5933412</integer>
+			<key>Total Time</key><integer>146729</integer>
+			<key>Track Number</key><integer>93</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:51:57Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>C33B8487A858218F</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/093.%20EsDeeKid%20-%204%20Raws.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>823</key>
+		<dict>
+			<key>Track ID</key><integer>823</integer>
+			<key>Name</key><string>Ever Since U Left Me (I Went Deaf)</string>
+			<key>Artist</key><string>French Montana &#38; Max B</string>
+			<key>Album Artist</key><string>French Montana/Max B</string>
+			<key>Composer</key><string>Karim Kharbouch/Charles Wingate/H.W. CASEY/Johnny Goldstein/Akil "worldwidefresh" King</string>
+			<key>Album</key><string>Coke Wave 3.5: Narcos</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5712259</integer>
+			<key>Total Time</key><integer>136411</integer>
+			<key>Track Number</key><integer>94</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:53Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>30DAC94CFCFA7CA4</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/094.%20French%20Montana%20&#38;%20Max%20B%20-%20Ever%20Since%20U%20Left%20Me%20(I%20Went%20Deaf).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>826</key>
+		<dict>
+			<key>Track ID</key><integer>826</integer>
+			<key>Name</key><string>I Thought I Saw Your Face Today</string>
+			<key>Artist</key><string>She &#38; Him</string>
+			<key>Album Artist</key><string>She &#38; Him</string>
+			<key>Composer</key><string>Zooey Deschanel</string>
+			<key>Album</key><string>Volume One</string>
+			<key>Genre</key><string>Alternativo;Rock</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6928172</integer>
+			<key>Total Time</key><integer>170396</integer>
+			<key>Track Number</key><integer>95</integer>
+			<key>Year</key><integer>2008</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:57Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>039212274BDE5A86</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/095.%20She%20&#38;%20Him%20-%20I%20Thought%20I%20Saw%20Your%20Face%20Today.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>829</key>
+		<dict>
+			<key>Track ID</key><integer>829</integer>
+			<key>Name</key><string>daño</string>
+			<key>Artist</key><string>Peso Pluma/Tito Double P</string>
+			<key>Album Artist</key><string>Peso Pluma/Tito Double P</string>
+			<key>Composer</key><string>jose manuel osorio chavez/Hassan Emilio Kabande Laija</string>
+			<key>Album</key><string>DINASTÍA</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>8035338</integer>
+			<key>Total Time</key><integer>197067</integer>
+			<key>Track Number</key><integer>96</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:00Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>B9C9C7F8126DAAAB</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/096.%20Peso%20Pluma%20-%20da%C3%B1o.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>832</key>
+		<dict>
+			<key>Track ID</key><integer>832</integer>
+			<key>Name</key><string>STAY HERE 4 LIFE (feat. Brent Faiyaz)</string>
+			<key>Artist</key><string>A$AP Rocky/Brent Faiyaz</string>
+			<key>Album Artist</key><string>A$AP Rocky</string>
+			<key>Composer</key><string>Rakim Mayers/Christopher Wood/Chauncey Alexander Hollis/Luke Fenton/Larrance Dopson/Stephen Lee Bruner/Kenyatta Lee Frazier Jr./Clif Shayne</string>
+			<key>Album</key><string>Don't Be Dumb</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>14036810</integer>
+			<key>Total Time</key><integer>346148</integer>
+			<key>Track Number</key><integer>97</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:53:03Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>6E163E83B548DE7E</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/097.%20A$AP%20Rocky%20-%20STAY%20HERE%204%20LIFE%20(feat.%20Brent%20Faiyaz).mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>835</key>
+		<dict>
+			<key>Track ID</key><integer>835</integer>
+			<key>Name</key><string>Don't We</string>
+			<key>Artist</key><string>Morgan Wallen</string>
+			<key>Album Artist</key><string>Morgan Wallen</string>
+			<key>Composer</key><string>Morgan Wallen/Ryan Vojtesak/Ashley Gorley/Rocky Block/Blake Pendergrass/John Byron</string>
+			<key>Album</key><string>I’m The Problem</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>7829493</integer>
+			<key>Total Time</key><integer>191503</integer>
+			<key>Track Number</key><integer>98</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:54Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>9DB09C73542C15AE</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/098.%20Morgan%20Wallen%20-%20Don't%20We.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>838</key>
+		<dict>
+			<key>Track ID</key><integer>838</integer>
+			<key>Name</key><string>BOO</string>
+			<key>Artist</key><string>H3adband</string>
+			<key>Album Artist</key><string>H3adband</string>
+			<key>Composer</key><string>Jordan Randall</string>
+			<key>Album</key><string>BOO</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5709093</integer>
+			<key>Total Time</key><integer>138736</integer>
+			<key>Track Number</key><integer>99</integer>
+			<key>Year</key><integer>2025</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:25Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>4C052293919D1E55</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/099.%20H3adband%20-%20BOO.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+		<key>841</key>
+		<dict>
+			<key>Track ID</key><integer>841</integer>
+			<key>Name</key><string>Call Back</string>
+			<key>Artist</key><string>Don Toliver</string>
+			<key>Album Artist</key><string>Don Toliver</string>
+			<key>Album</key><string>OCTANE</string>
+			<key>Genre</key><string>Rap/Hip Hop</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5008498</integer>
+			<key>Total Time</key><integer>123898</integer>
+			<key>Track Number</key><integer>100</integer>
+			<key>Year</key><integer>2026</integer>
+			<key>Date Modified</key><date>2026-09-04T15:52:41Z</date>
+			<key>Date Added</key><date>2026-09-04T15:54:50Z</date>
+			<key>Bit Rate</key><integer>320</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Comments</key><string>https://pirateriders.org/</string>
+			<key>Artwork Count</key><integer>1</integer>
+			<key>Persistent ID</key><string>831907BBCC05F477</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/D:/share/Billboard%20Hot%20100%20Singles%20Chart%20(28.03.2026)/100.%20Don%20Toliver%20-%20Call%20Back.mp3</string>
+			<key>File Folder Count</key><integer>-1</integer>
+			<key>Library Folder Count</key><integer>-1</integer>
+		</dict>
+	</dict>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Name</key><string>Billboard 100</string>
+			<key>Description</key><string></string>
+			<key>Playlist ID</key><integer>1317</integer>
+			<key>Playlist Persistent ID</key><string>7DAE659201FEA875</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key><integer>736</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>793</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>631</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>607</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>568</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>577</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>610</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>589</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>724</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>838</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>700</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>766</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>691</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>542</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>727</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>775</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>823</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>709</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>616</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>583</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>625</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>829</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>832</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>598</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>688</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>706</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>757</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>769</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>559</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>799</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>640</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>574</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>628</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>622</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>694</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>811</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>550</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>835</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>763</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>595</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>733</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>655</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>571</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>646</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>664</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>667</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>703</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>712</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>715</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>721</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>730</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>742</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>802</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>556</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>784</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>634</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>649</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>562</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>565</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>718</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>739</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>547</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>697</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>682</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>658</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>814</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>676</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>604</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>619</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>778</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>790</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>805</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>841</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>553</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>685</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>601</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>679</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>820</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>772</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>580</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>586</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>652</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>787</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>613</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>817</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>754</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>643</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>751</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>748</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>670</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>826</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>673</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>637</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>592</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>661</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>745</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>781</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>796</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>808</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>760</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>100</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>102</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>104</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>106</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>108</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>110</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>112</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>114</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>116</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>118</integer>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

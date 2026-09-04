@@ -2,19 +2,25 @@
 
 from playlist_narrative_engine.itunes_windows_xml_acquisition.definitions import (
     ACQUISITION_AUTHORITY_SHA256,
+    ACQUISITION_AUTHORITY_V11_SHA256,
     CAPABILITY_DECLARATION_SHA256,
+    CAPABILITY_DECLARATION_V11_SHA256,
     MAPPING_DEFINITION_SHA256,
     SOURCE_DEFINITION_SHA256,
+    SOURCE_DEFINITION_V11_SHA256,
     verify_frozen_definitions,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.intake import (
     ITunesWindowsXMLIntakeInvalidInput,
     PennyLocalITunesXMLIntakeVerifier,
+    PennyLocalITunesXMLIntakeVerifierV11,
     PennyLocalITunesXMLIntakeProducer,
+    PennyLocalITunesXMLIntakeProducerV11,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.producer import (
     ITunesWindowsXMLAcquisitionInvalidInput,
     PennyLocalITunesXMLAcquisitionProducer,
+    PennyLocalITunesXMLAcquisitionProducerV11,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.profile import (
     FrozenSourceProfileError,
@@ -22,42 +28,64 @@ from playlist_narrative_engine.itunes_windows_xml_acquisition.profile import (
     PlistStructureError,
     XMLSafetyError,
     verify_frozen_itunes_windows_xml_profile,
+    verify_frozen_itunes_windows_xml_profile_v11,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.schemas import (
     PennyLocalITunesXMLAcquisitionAuthorityArtifact,
+    PennyLocalITunesXMLAcquisitionAuthorityArtifactV11,
     PennyLocalITunesXMLFileSelectionEvidence,
+    PennyLocalITunesXMLFileSelectionEvidenceV11,
     PennyLocalITunesXMLIntakeRequest,
+    PennyLocalITunesXMLIntakeRequestV11,
     SourceReceiptImplementationConformanceArtifact,
     serialize_acquisition_authority,
+    serialize_acquisition_authority_v11,
     serialize_file_selection_evidence,
+    serialize_file_selection_evidence_v11,
     serialize_intake_request,
+    serialize_intake_request_v11,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.verifier import (
     PennyLocalITunesXMLAcquisitionVerifier,
+    PennyLocalITunesXMLAcquisitionVerifierV11,
 )
 
 __all__ = [
     "ACQUISITION_AUTHORITY_SHA256",
+    "ACQUISITION_AUTHORITY_V11_SHA256",
     "CAPABILITY_DECLARATION_SHA256",
+    "CAPABILITY_DECLARATION_V11_SHA256",
     "FrozenSourceProfileError",
     "ITunesWindowsXMLAcquisitionInvalidInput",
     "ITunesWindowsXMLIntakeInvalidInput",
     "ITunesWindowsXMLProfileError",
     "MAPPING_DEFINITION_SHA256",
     "PennyLocalITunesXMLAcquisitionAuthorityArtifact",
+    "PennyLocalITunesXMLAcquisitionAuthorityArtifactV11",
     "PennyLocalITunesXMLAcquisitionProducer",
+    "PennyLocalITunesXMLAcquisitionProducerV11",
     "PennyLocalITunesXMLAcquisitionVerifier",
+    "PennyLocalITunesXMLAcquisitionVerifierV11",
     "PennyLocalITunesXMLFileSelectionEvidence",
+    "PennyLocalITunesXMLFileSelectionEvidenceV11",
     "PennyLocalITunesXMLIntakeProducer",
+    "PennyLocalITunesXMLIntakeProducerV11",
     "PennyLocalITunesXMLIntakeVerifier",
+    "PennyLocalITunesXMLIntakeVerifierV11",
     "PennyLocalITunesXMLIntakeRequest",
+    "PennyLocalITunesXMLIntakeRequestV11",
     "PlistStructureError",
     "SOURCE_DEFINITION_SHA256",
+    "SOURCE_DEFINITION_V11_SHA256",
     "SourceReceiptImplementationConformanceArtifact",
     "XMLSafetyError",
     "serialize_acquisition_authority",
+    "serialize_acquisition_authority_v11",
     "serialize_file_selection_evidence",
+    "serialize_file_selection_evidence_v11",
     "serialize_intake_request",
+    "serialize_intake_request_v11",
     "verify_frozen_definitions",
     "verify_frozen_itunes_windows_xml_profile",
+    "verify_frozen_itunes_windows_xml_profile_v11",
 ]

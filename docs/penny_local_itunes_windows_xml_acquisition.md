@@ -94,6 +94,104 @@ Changing any content requires source-definition succession. Matching the ID and
 version strings without the complete content and digest is substitution, not
 authority.
 
+## Source-profile successor 1.1
+
+Source definition `pne.source-definition.itunes-windows-xml-single-playlist/1.1`
+is the applicable successor profile for later implementation. Source definition
+`1.0` above remains immutable, valid for its original governed behavior, and is
+not widened by this successor. A later runtime must keep the `1.0` path callable
+and must continue to reject inputs, including the supplied heterogeneous export,
+that do not conform to `1.0`.
+
+Version `1.1` preserves every `1.0` rule except these four evidence-backed
+changes:
+
+1. XML's five predefined entities remain permitted under the `1.0` rules, and
+   the exact lexical character reference `&#38;` is additionally permitted.
+2. `Genre` moves from required to optional.
+3. `Sort Artist` moves from required to optional.
+4. `Album Artist`, `Composer`, and `Artwork Count` become explicitly permitted
+   optional track fields.
+
+The permitted `&#38;` reference decodes normally to U+0026 in parsed scalar
+content. The original Source Receipt bytes remain unchanged. No other numeric
+character-reference spelling is equivalent or accepted: `&#x26;`, `&#038;`, and
+every other numeric character reference fail. Entity declarations, internal
+subsets, external entities, schema loading, XInclude, network resolution, and
+filesystem resolution remain forbidden.
+
+When present, `Genre`, `Sort Artist`, `Album Artist`, and `Composer` must each
+be an exact nonblank plist string. Their decoded values are not trimmed,
+case-folded, normalized, aliased, tokenized, or semantically interpreted.
+Absence remains absence: `Genre` is not defaulted or inferred, and `Sort Artist`
+is not derived from `Artist`. `Album Artist` and `Composer` establish profile
+conformance only and grant no identity, genre, artist, album, mapping, or other
+downstream semantic authority. When present, `Artwork Count` must be the
+canonical plist integer `1`; it is observed conformance only and does not
+authorize general positive artwork counts. Every unlisted track field remains
+rejected.
+
+All other `1.0` boundaries remain exact, including native-picker-only production
+intake, one complete opaque Source Receipt item captured before parsing, strict
+UTF-8, the exact inert DOCTYPE, recursive duplicate-key rejection, canonical
+booleans and integers, semantic UTC dates, iTunes Windows `12.13.10.3`, the
+closed top-level structure, exactly one ordinary playlist, local MPEG/File
+tracks, absolute `file://localhost/` Windows-drive locations, complete unique
+playlist membership and order, source-scoped identity, exact millisecond
+duration, and no media-file or network access. Filename, selected-byte digest,
+playlist name, track count, artist, album, and genre values remain
+fixture-independent.
+
+### Frozen source-definition 1.1 content
+
+Canonical content is compact UTF-8 JSON in the displayed field order, with no
+trailing newline:
+
+```json
+{"schema_version":"1.1","definition_kind":"itunes_windows_xml_single_playlist_source","source_definition_id":"pne.source-definition.itunes-windows-xml-single-playlist","source_definition_version":"1.1","predecessor_source_definition_id":"pne.source-definition.itunes-windows-xml-single-playlist","predecessor_source_definition_version":"1.0","predecessor_source_definition_sha256":"16f168247d595419712b62eca8b62431ff38bb77948804560afe4a14268bb57e","application":"iTunes","platform":"Windows","application_version":"12.13.10.3","export_workflow":"FILE_LIBRARY_EXPORT_PLAYLIST_XML","byte_capture":"ONE_COMPLETE_OPAQUE_ITEM_BEFORE_INTERPRETATION","xml":{"version":"1.0","encoding":"UTF-8","bom_permitted":false,"doctype_public_id":"-//Apple Computer//DTD PLIST 1.0//EN","doctype_system_id":"http://www.apple.com/DTDs/PropertyList-1.0.dtd","internal_subset_permitted":false,"external_resolution":false,"permitted_character_references":["&#38;"],"permitted_plist_types":["dict","array","key","string","integer","date","true"],"duplicate_dict_keys":"REJECT_RECURSIVELY"},"plist_version":"1.0","top_level_fields":[{"key":"Major Version","type":"integer","rule":"EXACT_1"},{"key":"Minor Version","type":"integer","rule":"EXACT_1"},{"key":"Date","type":"date","rule":"UTC_SECOND_Z_OBSERVED_ONLY"},{"key":"Application Version","type":"string","rule":"EXACT_12.13.10.3"},{"key":"Features","type":"integer","rule":"EXACT_5_OBSERVED_ONLY"},{"key":"Show Content Ratings","type":"true","rule":"OBSERVED_ONLY_NO_EXPLICIT_AUTHORITY"},{"key":"Music Folder","type":"string","rule":"ABSOLUTE_FILE_LOCALHOST_WINDOWS_DRIVE_URI_OBSERVED_ONLY"},{"key":"Library Persistent ID","type":"string","rule":"UPPER_HEX_16"},{"key":"Tracks","type":"dict","rule":"FINITE_COMPLETE_TRACK_DICTIONARY"},{"key":"Playlists","type":"array","rule":"EXACTLY_ONE_ORDINARY_PLAYLIST"}],"playlist_fields":[{"key":"Name","type":"string","rule":"NONBLANK"},{"key":"Description","type":"string","rule":"EXACT_SOURCE_VALUE"},{"key":"Playlist ID","type":"integer","rule":"POSITIVE"},{"key":"Playlist Persistent ID","type":"string","rule":"UPPER_HEX_16"},{"key":"All Items","type":"true","rule":"EXACT_TRUE"},{"key":"Playlist Items","type":"array","rule":"SOLE_COMPLETE_UNIQUE_ORDER_AUTHORITY"}],"playlist_item":"DICT_WITH_EXACTLY_ONE_POSITIVE_INTEGER_TRACK_ID","track_required_fields":["Track ID:POSITIVE_INTEGER_MATCHING_CANONICAL_DICTIONARY_KEY","Name:NONBLANK_STRING","Artist:NONBLANK_STRING","Album:NONBLANK_STRING","Kind:EXACT_MPEG_AUDIO_FILE","Size:POSITIVE_INTEGER","Total Time:POSITIVE_INTEGER","Track Number:POSITIVE_INTEGER","Year:POSITIVE_INTEGER","Date Modified:UTC_SECOND_Z_DATE","Date Added:UTC_SECOND_Z_DATE","Bit Rate:POSITIVE_INTEGER","Sample Rate:POSITIVE_INTEGER","Comments:NONBLANK_STRING","Persistent ID:UPPER_HEX_16","Track Type:EXACT_FILE","Location:ABSOLUTE_FILE_LOCALHOST_WINDOWS_DRIVE_URI","File Folder Count:EXACT_NEGATIVE_1","Library Folder Count:EXACT_NEGATIVE_1"],"track_optional_fields":["Sort Album:NONBLANK_STRING","Sort Name:NONBLANK_STRING","Genre:NONBLANK_STRING_EXACT_SOURCE_VALUE_IF_PRESENT","Sort Artist:NONBLANK_STRING_EXACT_SOURCE_VALUE_IF_PRESENT","Album Artist:NONBLANK_STRING_CONFORMANCE_ONLY_IF_PRESENT","Composer:NONBLANK_STRING_CONFORMANCE_ONLY_IF_PRESENT","Artwork Count:CANONICAL_INTEGER_EXACT_1_OBSERVED_CONFORMANCE_ONLY_IF_PRESENT"],"membership":"EVERY_TOP_LEVEL_TRACK_REFERENCED_EXACTLY_ONCE_IN_PLAYLIST_ARRAY_ORDER","track_identity":"LIBRARY_PERSISTENT_ID_PLUS_TRACK_PERSISTENT_ID","media_file_access":false,"nonclaims":["APPLE_AUTHORSHIP","PRE_INTAKE_INTEGRITY","EXPORT_FRESHNESS","CURRENT_PROVIDER_OR_LIBRARY_STATE","PROVIDER_AUTHENTICATION","MEDIA_FILE_CORRESPONDENCE"],"canonicalization_profile":"pne.canonical-json.utf8-schema-order/1.0"}
+```
+
+Canonical SHA-256:
+`1e14e22641d0d9dc65b0cfe06544e0afc70111a15bd69ee9dc634d7b2dbe1fa9`.
+
+### Required later-runtime authority succession
+
+No existing `1.0` runtime binding may be widened in place. A conforming later
+implementation of source profile `1.1` requires parallel successors for:
+
+- `pne.adapter.itunes-windows-xml-single-playlist/1.1`;
+- `pne.source-capability.itunes-windows-xml-single-playlist/1.1`, changing only
+  what its adapter-version binding requires;
+- `PennyLocalITunesXMLIntakeRequest/1.1`;
+- `PennyLocalITunesXMLFileSelectionEvidence/1.1`;
+- `pne.acquisition-authority.itunes-windows-xml-single-playlist/1.1` and its
+  `PennyLocalITunesXMLAcquisitionAuthorityArtifact/1.1` wrapper;
+- `pne.producer.penny-local-itunes-xml-intake/1.1`;
+- `pne.producer.itunes-windows-xml-acquisition-authority/1.1`; and
+- `pne.verifier.itunes-windows-xml-acquisition-authority/1.1`.
+
+The Source Receipt policy and implementation, local-principal authority,
+`pne.source-mapping.itunes-windows-xml-track-evidence/1.0`,
+`SourceNeutralAcquisitionResult/1.0`, source-scoped identity derivation,
+millisecond-duration semantics, and playlist-order semantics remain unchanged.
+`SourceReceiptImplementationConformanceArtifact/1.0` and its producer/verifier
+identities also remain unchanged because the native-picker capture mechanism
+and Source Receipt conformance claim do not change.
+The later `1.1` producer and verifier must bind the complete new definition and
+digest; possession of a `1.0` artifact or substitution of only a version string
+cannot authorize `1.1` behavior.
+
+### Future genre-evidence consequence
+
+No runtime genre authority exists in this tranche. A future source-relative
+genre-evidence artifact must distinguish a present `Genre` field with its exact
+decoded source value from an absent `Genre` field. It must not require every
+acquired track to contain `Genre`, invent a blank or default value, infer genre,
+define a taxonomy or semantic mapping, establish requested-genre eligibility,
+create cross-source correspondence, or authorize Maestro classification. The
+earlier all-tracks genre-observation completeness rule is superseded only as a
+proposed design assumption.
+
 ## Governed file selection and immutable intake
 
 ### Intake request schema 1.0

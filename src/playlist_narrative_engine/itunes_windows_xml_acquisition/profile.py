@@ -12,6 +12,7 @@ from playlist_narrative_engine.itunes_windows_xml_acquisition.canonical import (
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.schemas import (
     PennyLocalITunesXMLFileSelectionEvidence,
+    PennyLocalITunesXMLFileSelectionEvidenceV11,
 )
 
 
@@ -57,6 +58,27 @@ class VerifiedITunesWindowsXMLProfile(FrozenModel):
     library_persistent_id: str
     playlist_persistent_id: str
     tracks_by_correspondence_id: dict[int, ProfileTrack]
+    playlist_track_ids: tuple[int, ...]
+
+
+class ProfileTrackV11(FrozenModel):
+    track_id_correspondence: int
+    persistent_id: str
+    name: str
+    artist: str
+    total_time_milliseconds: int
+    location: str
+    genre: str | None = None
+    sort_artist: str | None = None
+    album_artist: str | None = None
+    composer: str | None = None
+    artwork_count: int | None = None
+
+
+class VerifiedITunesWindowsXMLProfileV11(FrozenModel):
+    library_persistent_id: str
+    playlist_persistent_id: str
+    tracks_by_correspondence_id: dict[int, ProfileTrackV11]
     playlist_track_ids: tuple[int, ...]
 
 
@@ -117,6 +139,14 @@ _TRACK_REQUIRED = {
     "Library Folder Count",
 }
 _TRACK_OPTIONAL = {"Sort Album", "Sort Name"}
+_TRACK_REQUIRED_V11 = _TRACK_REQUIRED - {"Genre", "Sort Artist"}
+_TRACK_OPTIONAL_V11 = _TRACK_OPTIONAL | {
+    "Genre",
+    "Sort Artist",
+    "Album Artist",
+    "Composer",
+    "Artwork Count",
+}
 
 
 def verify_frozen_itunes_windows_xml_profile(
@@ -131,7 +161,26 @@ def verify_frozen_itunes_windows_xml_profile(
     return _verify_plist_profile(root)
 
 
-def _parse_xml_safely(payload: bytes) -> _XMLNode:
+def verify_frozen_itunes_windows_xml_profile_v11(
+    evidence: PennyLocalITunesXMLFileSelectionEvidenceV11,
+) -> VerifiedITunesWindowsXMLProfileV11:
+    if not isinstance(evidence, PennyLocalITunesXMLFileSelectionEvidenceV11):
+        raise FrozenSourceProfileError("profile 1.1 verification requires 1.1 selection evidence")
+    receipt = evidence.source_receipt
+    if len(receipt.items) != 1 or receipt.items[0].item_id != "item-000001":
+        raise FrozenSourceProfileError("profile requires one exact receipt item")
+    root = _parse_xml_safely(
+        receipt.items[0].payload,
+        permitted_character_references=frozenset({"&#38;"}),
+    )
+    return _verify_plist_profile_v11(root)
+
+
+def _parse_xml_safely(
+    payload: bytes,
+    *,
+    permitted_character_references: frozenset[str] = frozenset(),
+) -> _XMLNode:
     if payload.startswith(b"\xef\xbb\xbf"):
         raise XMLSafetyError("UTF-8 BOM is forbidden")
     try:
@@ -148,7 +197,11 @@ def _parse_xml_safely(payload: bytes) -> _XMLNode:
     forbidden = ("<!DOCTYPE", "<!ENTITY", "<![", "<?", "<!--", "<xi:", "xsi:")
     if any(token in remainder for token in forbidden):
         raise XMLSafetyError("unsupported XML construct")
-    if any(match.group(1) not in _ALLOWED_ENTITIES for match in _ENTITY.finditer(text)):
+    if any(
+        match.group(1) not in _ALLOWED_ENTITIES
+        and match.group(0) not in permitted_character_references
+        for match in _ENTITY.finditer(text)
+    ):
         raise XMLSafetyError("unsupported entity reference")
 
     parser = xml.parsers.expat.ParserCreate("UTF-8")
@@ -219,6 +272,27 @@ def _parse_xml_safely(payload: bytes) -> _XMLNode:
 
 
 def _verify_plist_profile(root: _XMLNode) -> VerifiedITunesWindowsXMLProfile:
+    return _verify_plist_profile_version(
+        root,
+        track_parser=_track,
+        result_type=VerifiedITunesWindowsXMLProfile,
+    )
+
+
+def _verify_plist_profile_v11(root: _XMLNode) -> VerifiedITunesWindowsXMLProfileV11:
+    return _verify_plist_profile_version(
+        root,
+        track_parser=_track_v11,
+        result_type=VerifiedITunesWindowsXMLProfileV11,
+    )
+
+
+def _verify_plist_profile_version(
+    root: _XMLNode,
+    *,
+    track_parser: Any,
+    result_type: Any,
+) -> Any:
     if root.name != "plist" or root.attributes != {"version": "1.0"}:
         raise PlistStructureError("plist 1.0 envelope is required")
     _require_container_content(root, "plist")
@@ -240,12 +314,12 @@ def _verify_plist_profile(root: _XMLNode) -> VerifiedITunesWindowsXMLProfile:
     track_pairs = _dict(tracks_node)
     if not track_pairs:
         raise FrozenSourceProfileError("track dictionary must be nonempty")
-    parsed_tracks: dict[int, ProfileTrack] = {}
+    parsed_tracks: dict[int, Any] = {}
     persistent_ids: set[str] = set()
     for dictionary_key, track_node in track_pairs.items():
         if not _POSITIVE_KEY.fullmatch(dictionary_key) or track_node.name != "dict":
             raise FrozenSourceProfileError("track dictionary key must be canonical positive integer")
-        track = _track(dictionary_key, _dict(track_node))
+        track = track_parser(dictionary_key, _dict(track_node))
         if track.persistent_id in persistent_ids:
             raise FrozenSourceProfileError("track persistent identities must be unique")
         persistent_ids.add(track.persistent_id)
@@ -280,7 +354,7 @@ def _verify_plist_profile(root: _XMLNode) -> VerifiedITunesWindowsXMLProfile:
         raise FrozenSourceProfileError("duplicate playlist membership is forbidden")
     if set(references) != set(parsed_tracks):
         raise FrozenSourceProfileError("playlist must represent every top-level track exactly once")
-    return VerifiedITunesWindowsXMLProfile(
+    return result_type(
         library_persistent_id=library_id,
         playlist_persistent_id=playlist_id,
         tracks_by_correspondence_id=parsed_tracks,
@@ -319,6 +393,64 @@ def _track(dictionary_key: str, values: dict[str, _XMLNode]) -> ProfileTrack:
         total_time_milliseconds=_integer(values, "Total Time", positive=True),
         location=location,
     )
+
+
+def _track_v11(dictionary_key: str, values: dict[str, _XMLNode]) -> ProfileTrackV11:
+    _exact_keys(values, _TRACK_REQUIRED_V11, "track", optional=_TRACK_OPTIONAL_V11)
+    track_id = _integer(values, "Track ID", positive=True)
+    if str(track_id) != dictionary_key:
+        raise FrozenSourceProfileError("Track ID must match its dictionary key")
+    for name in ("Name", "Artist", "Album", "Comments"):
+        _scalar(values, name, "string", nonblank=True)
+    optional_strings = (
+        "Genre",
+        "Sort Artist",
+        "Sort Album",
+        "Sort Name",
+        "Album Artist",
+        "Composer",
+    )
+    for name in optional_strings:
+        if name in values:
+            _scalar(values, name, "string", nonblank=True)
+    if "Artwork Count" in values:
+        _integer(values, "Artwork Count", exact=1)
+    if _scalar(values, "Kind", "string") != "MPEG audio file":
+        raise FrozenSourceProfileError("unsupported media Kind")
+    if _scalar(values, "Track Type", "string") != "File":
+        raise FrozenSourceProfileError("unsupported Track Type")
+    for name in ("Size", "Total Time", "Track Number", "Year", "Bit Rate", "Sample Rate"):
+        _integer(values, name, positive=True)
+    _integer(values, "File Folder Count", exact=-1)
+    _integer(values, "Library Folder Count", exact=-1)
+    for name in ("Date Modified", "Date Added"):
+        _utc_date(values, name)
+    persistent_id = _scalar(values, "Persistent ID", "string", pattern=_HEX_16)
+    location = _scalar(values, "Location", "string")
+    _file_uri(location)
+    return ProfileTrackV11(
+        track_id_correspondence=track_id,
+        persistent_id=persistent_id,
+        name=_scalar(values, "Name", "string", nonblank=True),
+        artist=_scalar(values, "Artist", "string", nonblank=True),
+        total_time_milliseconds=_integer(values, "Total Time", positive=True),
+        location=location,
+        genre=_optional_scalar(values, "Genre"),
+        sort_artist=_optional_scalar(values, "Sort Artist"),
+        album_artist=_optional_scalar(values, "Album Artist"),
+        composer=_optional_scalar(values, "Composer"),
+        artwork_count=(
+            _integer(values, "Artwork Count", exact=1)
+            if "Artwork Count" in values
+            else None
+        ),
+    )
+
+
+def _optional_scalar(values: dict[str, _XMLNode], key: str) -> str | None:
+    if key not in values:
+        return None
+    return _scalar(values, key, "string", nonblank=True)
 
 
 def _dict(node: _XMLNode) -> dict[str, _XMLNode]:

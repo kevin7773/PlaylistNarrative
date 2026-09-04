@@ -12,6 +12,7 @@ from playlist_narrative_engine.candidate_formation import (
     serialize_candidate_source_evidence,
 )
 from playlist_narrative_engine.evidence_acquisition import (
+    SourceCapabilityDeclaration,
     SourceNeutralAcquisitionResult,
     serialize_acquisition_result,
     serialize_evidence_snapshot,
@@ -24,18 +25,24 @@ from playlist_narrative_engine.itunes_windows_xml_acquisition.canonical import (
 from playlist_narrative_engine.itunes_windows_xml_acquisition.definitions import (
     ADAPTER_ID,
     ADAPTER_VERSION,
+    ADAPTER_VERSION_V11,
     CAPABILITY_DECLARATION,
     CAPABILITY_DECLARATION_SHA256,
+    CAPABILITY_DECLARATION_V11,
+    CAPABILITY_DECLARATION_V11_SHA256,
     MAPPING_DEFINITION_SHA256,
     SOURCE_DEFINITION_SHA256,
+    SOURCE_DEFINITION_V11_SHA256,
     SOURCE_TYPE,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.profile import (
     VerifiedITunesWindowsXMLProfile,
+    VerifiedITunesWindowsXMLProfileV11,
 )
 from playlist_narrative_engine.itunes_windows_xml_acquisition.schemas import (
     OrderedTrackAuthority,
     PennyLocalITunesXMLFileSelectionEvidence,
+    PennyLocalITunesXMLFileSelectionEvidenceV11,
 )
 from playlist_narrative_engine.track_evidence import (
     EvidenceSnapshot,
@@ -57,13 +64,47 @@ def map_verified_profile(
     evidence: PennyLocalITunesXMLFileSelectionEvidence,
     profile: VerifiedITunesWindowsXMLProfile,
 ) -> DeterministicMappingResult:
+    return _map_verified_profile(
+        evidence,
+        profile,
+        source_definition_sha256=SOURCE_DEFINITION_SHA256,
+        capability_declaration=CAPABILITY_DECLARATION,
+        capability_declaration_sha256=CAPABILITY_DECLARATION_SHA256,
+        adapter_version=ADAPTER_VERSION,
+    )
+
+
+def map_verified_profile_v11(
+    evidence: PennyLocalITunesXMLFileSelectionEvidenceV11,
+    profile: VerifiedITunesWindowsXMLProfileV11,
+) -> DeterministicMappingResult:
+    return _map_verified_profile(
+        evidence,
+        profile,
+        source_definition_sha256=SOURCE_DEFINITION_V11_SHA256,
+        capability_declaration=CAPABILITY_DECLARATION_V11,
+        capability_declaration_sha256=CAPABILITY_DECLARATION_V11_SHA256,
+        adapter_version=ADAPTER_VERSION_V11,
+    )
+
+
+def _map_verified_profile(
+    evidence: PennyLocalITunesXMLFileSelectionEvidence
+    | PennyLocalITunesXMLFileSelectionEvidenceV11,
+    profile: VerifiedITunesWindowsXMLProfile | VerifiedITunesWindowsXMLProfileV11,
+    *,
+    source_definition_sha256: str,
+    capability_declaration: SourceCapabilityDeclaration,
+    capability_declaration_sha256: str,
+    adapter_version: str,
+) -> DeterministicMappingResult:
     receipt = evidence.source_receipt
     receipt_sha256 = evidence.source_receipt_artifact_sha256
     source_reference = f"source-receipt:{receipt.receipt_id}/item:item-000001"
     snapshot_id = "pne.evidence-snapshot/sha256/" + derived_digest(
         "pne.evidence-snapshot/1.0",
         receipt_sha256,
-        SOURCE_DEFINITION_SHA256,
+        source_definition_sha256,
         MAPPING_DEFINITION_SHA256,
     )
     ordered: list[OrderedTrackAuthority] = []
@@ -164,7 +205,7 @@ def map_verified_profile(
     metadata_id = "pne.candidate-identity-metadata/sha256/" + derived_digest(
         "pne.candidate-identity-metadata/1.0",
         snapshot_sha256,
-        CAPABILITY_DECLARATION_SHA256,
+        capability_declaration_sha256,
     )
     metadata = CandidateIdentityMetadataArtifact(
         artifact_id=metadata_id,
@@ -175,9 +216,9 @@ def map_verified_profile(
     acquisition_id = "pne.source-neutral-acquisition/sha256/" + derived_digest(
         "pne.source-neutral-acquisition/1.0",
         receipt_sha256,
-        SOURCE_DEFINITION_SHA256,
+        source_definition_sha256,
         MAPPING_DEFINITION_SHA256,
-        CAPABILITY_DECLARATION_SHA256,
+        capability_declaration_sha256,
         snapshot_sha256,
         metadata_sha256,
     )
@@ -188,8 +229,8 @@ def map_verified_profile(
         source_type=SOURCE_TYPE,
         source_reference=source_reference,
         adapter_id=ADAPTER_ID,
-        adapter_version=ADAPTER_VERSION,
-        capability_declaration=CAPABILITY_DECLARATION,
+        adapter_version=adapter_version,
+        capability_declaration=capability_declaration,
         evidence_snapshot=snapshot,
         evidence_snapshot_sha256=snapshot_sha256,
         identity_metadata=metadata,
