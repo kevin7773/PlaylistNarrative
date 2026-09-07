@@ -8,6 +8,9 @@ repository interfaces rather than UI or AI-provider behavior.
 
 ## Layer boundaries
 
+- [Penny recording identity and MusicBrainz correspondence boundary](penny_recording_identity_musicbrainz_correspondence.md):
+  frozen source-neutral identity boundaries; positive correspondence rules and
+  production admission/acquisition authority remain prospective.
 - `taste`: rating vocabulary, preference policy, repositories, and services.
 - `elicitation`: immutable, closed-world questionnaire seed artifacts derived
   only from explicit supplied evidence and approved fixed local rules.
