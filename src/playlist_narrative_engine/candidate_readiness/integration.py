@@ -10,6 +10,10 @@ from .verifier import (
     ActiveFocusCandidateReadinessVerifier,
     VerifiedActiveFocusCandidateReadiness,
 )
+from .verifier_v11 import (
+    ActiveFocusCandidateReadinessVerifierV11,
+    VerifiedActiveFocusCandidateReadinessV11,
+)
 
 
 class GuardedActiveFocusCandidateFormationBridge:
@@ -55,6 +59,67 @@ class GuardedActiveFocusCandidateFormationBridge:
         self,
         *,
         verified_readiness: VerifiedActiveFocusCandidateReadiness,
+        request_id: str,
+    ):
+        return CandidateFormer().form(
+            self.assemble(
+                verified_readiness=verified_readiness,
+                request_id=request_id,
+            )
+        )
+
+
+class GuardedActiveFocusCandidateFormationBridgeV11:
+    """Guarded bridge for the coordinated readiness/acquisition 1.1 chain."""
+
+    def __init__(
+        self,
+        verifier: ActiveFocusCandidateReadinessVerifierV11,
+        *,
+        accepted_objective: AcceptedObjectiveArtifact,
+        journey_plan: JourneyPlanArtifact,
+    ) -> None:
+        if type(verifier) is not ActiveFocusCandidateReadinessVerifierV11:
+            raise TypeError("the concrete governed readiness 1.1 verifier is required")
+        self._verifier = verifier
+        self._accepted_objective = accepted_objective
+        self._journey_plan = journey_plan
+
+    def assemble(
+        self,
+        *,
+        verified_readiness: VerifiedActiveFocusCandidateReadinessV11,
+        request_id: str,
+    ) -> CandidateFormationRequest:
+        occurrence = self._verifier.recover_verified(verified_readiness)
+        if (
+            occurrence.accepted_objective is not self._accepted_objective
+            or occurrence.journey_plan is not self._journey_plan
+        ):
+            raise ValueError(
+                "verified readiness does not match the bound objective and journey"
+            )
+        return FormationRequestAssembler().assemble(
+            FormationRequestAssemblyInput(
+                request_id=request_id,
+                accepted_objective=occurrence.accepted_objective,
+                journey_plan=occurrence.journey_plan,
+                acquisition=(
+                    occurrence.acquisition_authority.source_neutral_acquisition_result
+                ),
+                track_validation=occurrence.track_validation,
+                taste_evidence=occurrence.local_taste_evidence,
+                familiarity_evidence=occurrence.familiarity_evidence,
+                track_feature_evidence=occurrence.track_feature_evidence,
+                objective_context_evidence=occurrence.objective_context_evidence,
+                policy=active_focus_candidate_formation_policy(),
+            )
+        )
+
+    def form(
+        self,
+        *,
+        verified_readiness: VerifiedActiveFocusCandidateReadinessV11,
         request_id: str,
     ):
         return CandidateFormer().form(

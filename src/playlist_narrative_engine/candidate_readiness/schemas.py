@@ -15,7 +15,10 @@ from playlist_narrative_engine.candidate_formation import (
     ObjectiveContextEvidenceArtifact,
     TrackFeatureEvidenceArtifact,
 )
-from playlist_narrative_engine.itunes_windows_xml_acquisition import PennyLocalITunesXMLAcquisitionAuthorityArtifact
+from playlist_narrative_engine.itunes_windows_xml_acquisition import (
+    PennyLocalITunesXMLAcquisitionAuthorityArtifact,
+    PennyLocalITunesXMLAcquisitionAuthorityArtifactV11,
+)
 from playlist_narrative_engine.journey import JourneyPlanArtifact
 from playlist_narrative_engine.local_authorization import LocalPrincipalAuthorityArtifact
 from playlist_narrative_engine.objective_safety import AcceptedObjectiveArtifact
@@ -166,6 +169,17 @@ class ActiveFocusCandidateReadinessAuthorityArtifact(FrozenReadinessModel):
         return self
 
 
+class ActiveFocusCandidateReadinessAuthorityArtifactV11(
+    ActiveFocusCandidateReadinessAuthorityArtifact
+):
+    schema_version: Literal["1.1"] = "1.1"
+    acquisition_authority: PennyLocalITunesXMLAcquisitionAuthorityArtifactV11
+    authority_definition_version: Literal["1.2"] = "1.2"
+    authority_definition_sha256: Literal[
+        "6d18b572ebbcd984b431440ce039bcf58a1736ccfd39cf66f7a7c3b9b897f5ba"
+    ]
+
+
 def _field(item: object, name: str) -> str:
     value = item.get(name) if isinstance(item, dict) else getattr(item, name, "")
     return value if isinstance(value, str) else ""
@@ -255,6 +269,88 @@ def _bind_occurrence_recorder(
                 raise ValueError("readiness producer authority is unavailable")
             if artifact.artifact_id in current.records:
                 raise ValueError("readiness occurrence identity already exists")
+            current.records[artifact.artifact_id] = (artifact, object())
+            repository._artifacts.append(artifact)
+
+    return record
+
+
+class _OccurrenceStateV11:
+    def __init__(self) -> None:
+        self.owner: object | None = None
+        self.records: dict[
+            str, tuple[ActiveFocusCandidateReadinessAuthorityArtifactV11, object]
+        ] = {}
+
+
+_OCCURRENCE_STATES_V11: weakref.WeakKeyDictionary[
+    CandidateReadinessOccurrenceRepositoryV11, _OccurrenceStateV11
+] = weakref.WeakKeyDictionary()
+_BOUND_OCCURRENCE_PRODUCERS_V11: weakref.WeakKeyDictionary[
+    object, CandidateReadinessOccurrenceRepositoryV11
+] = weakref.WeakKeyDictionary()
+
+
+class CandidateReadinessOccurrenceRepositoryV11:
+    __slots__ = ("_artifacts", "__weakref__")
+
+    def __init__(self) -> None:
+        self._artifacts: list[ActiveFocusCandidateReadinessAuthorityArtifactV11] = []
+        with _OCCURRENCE_STATES_LOCK:
+            _OCCURRENCE_STATES_V11[self] = _OccurrenceStateV11()
+
+    @property
+    def artifacts(
+        self,
+    ) -> tuple[ActiveFocusCandidateReadinessAuthorityArtifactV11, ...]:
+        return tuple(self._artifacts)
+
+    def _recover_authoritative(
+        self,
+        artifact: ActiveFocusCandidateReadinessAuthorityArtifactV11,
+    ) -> ActiveFocusCandidateReadinessAuthorityArtifactV11 | None:
+        with _OCCURRENCE_STATES_LOCK:
+            state = _OCCURRENCE_STATES_V11.get(self)
+            if state is None:
+                return None
+            recorded = state.records.get(artifact.artifact_id)
+            if recorded is None or recorded[0] is not artifact:
+                return None
+            return recorded[0]
+
+    def _authoritative_artifacts(
+        self,
+    ) -> tuple[ActiveFocusCandidateReadinessAuthorityArtifactV11, ...]:
+        with _OCCURRENCE_STATES_LOCK:
+            state = _OCCURRENCE_STATES_V11.get(self)
+            if state is None:
+                return ()
+            return tuple(record[0] for record in state.records.values())
+
+
+def _bind_occurrence_recorder_v11(
+    repository: CandidateReadinessOccurrenceRepositoryV11,
+    owner: object,
+) -> Callable[[ActiveFocusCandidateReadinessAuthorityArtifactV11], None]:
+    from .producer_v11 import ActiveFocusCandidateReadinessProducerV11
+
+    if type(owner) is not ActiveFocusCandidateReadinessProducerV11:
+        raise TypeError("the concrete readiness 1.1 producer is required")
+    with _OCCURRENCE_STATES_LOCK:
+        state = _OCCURRENCE_STATES_V11[repository]
+        if state.owner is not None or owner in _BOUND_OCCURRENCE_PRODUCERS_V11:
+            raise ValueError("readiness 1.1 occurrence repository already has a producer")
+        state.owner = owner
+        _BOUND_OCCURRENCE_PRODUCERS_V11[owner] = repository
+        capability = object()
+
+    def record(artifact: ActiveFocusCandidateReadinessAuthorityArtifactV11) -> None:
+        with _OCCURRENCE_STATES_LOCK:
+            current = _OCCURRENCE_STATES_V11.get(repository)
+            if current is None or current.owner is not owner or capability is None:
+                raise ValueError("readiness 1.1 producer authority is unavailable")
+            if artifact.artifact_id in current.records:
+                raise ValueError("readiness 1.1 occurrence identity already exists")
             current.records[artifact.artifact_id] = (artifact, object())
             repository._artifacts.append(artifact)
 
