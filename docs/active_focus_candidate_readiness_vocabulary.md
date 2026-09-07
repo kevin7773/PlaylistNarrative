@@ -261,7 +261,7 @@ implementation conformance.
 Canonical SHA-256:
 `02b62bc079c9ef912ba6e94ce343e2346e0486a9ba8f34e15a86c52f6c581e7d`.
 
-#### 3.5.2 Applicable successor definition 1.1
+#### 3.5.2 Historical predecessor definition 1.1
 
 Definition `1.1` changes only the definition schema/version, adds exact
 predecessor lineage, and corrects the two artifact-schema bindings to the
@@ -275,10 +275,60 @@ boundary is unchanged.
 Canonical SHA-256:
 `a90b57643243966aa5ccbeb0ebb045794967b0ae322c74ad57a543ba32e5e6f1`.
 
+Definition `1.1` remains valid only for its frozen
+`PennyLocalITunesXMLAcquisitionAuthorityArtifact/1.0` chain. It does not
+authorize readiness capture from acquisition artifact `1.1`.
+
+#### 3.5.3 Applicable coordinated successor definition 1.2
+
+Definition `1.2` changes only the definition schema/version and predecessor
+lineage, plus the coordinated version bindings required to consume governed
+acquisition artifact `1.1`. It binds the successor wrapper, producer, and
+verifier identities described below. Every readiness semantic and other
+authority boundary from definition `1.1` is unchanged.
+
+```json
+{"schema_version":"1.2","definition_kind":"active_focus_candidate_readiness_authority","authority_definition_id":"pne.candidate-readiness-authority.active-focus","authority_definition_version":"1.2","predecessor_authority_definition_id":"pne.candidate-readiness-authority.active-focus","predecessor_authority_definition_version":"1.1","predecessor_authority_definition_sha256":"a90b57643243966aa5ccbeb0ebb045794967b0ae322c74ad57a543ba32e5e6f1","vocabulary_id":"pne.active-focus.candidate-readiness","vocabulary_version":"1.0","vocabulary_sha256":"63bdcf94908d16f8538e1c59e5aed84229627cd68ae6bcb89ebce09b9685be4d","principal_scope":"PENNY_LOCAL_INSTALLATION_CURRENT_TIP_AT_CAPTURE","accepted_objective_schema":"AcceptedObjectiveArtifact/2.0","source_acquisition_authority_schema":"PennyLocalITunesXMLAcquisitionAuthorityArtifact/1.1","acquisition_schema":"SourceNeutralAcquisitionResult/1.0_UNCHANGED","track_validation_schema":"TrackEvidenceValidationArtifact/1.0_UNCHANGED","journey_plan_schema":"JourneyPlanArtifact/2.0","journey_context":"Active Focus","declaration_schema":"ActiveFocusCandidateReadinessDeclaration/1.0","wrapper_schema":"ActiveFocusCandidateReadinessAuthorityArtifact/1.1","producer":"pne.producer.active-focus-candidate-readiness/1.1","verifier":"pne.verifier.active-focus-candidate-readiness/1.1","occurrence_digest":"NUL_DOMAIN_SEPARATED_SHA256/1.0","cf1_outputs":["FamiliarityEvidenceArtifact/1.0","TrackFeatureEvidenceArtifact/1.0","ObjectiveContextEvidenceArtifact/1.0"],"categorical_observation_authority":true,"direct_numeric_capture_authorized":false,"context_fit_reusable":false,"missing_evidence_default_authorized":false,"persistent_restart_safe_authority_established":false,"canonicalization_profile":"pne.canonical-json.utf8-schema-order/1.0"}
+```
+
+Canonical byte length: `1778`.
+
+Canonical SHA-256:
+`6d18b572ebbcd984b431440ce039bcf58a1736ccfd39cf66f7a7c3b9b897f5ba`.
+
+The coordinated component succession is exact:
+
+- `ActiveFocusCandidateReadinessAuthorityArtifact/1.1` succeeds
+  `ActiveFocusCandidateReadinessAuthorityArtifact/1.0`. It binds definition
+  `1.2` and governed acquisition artifact `1.1`; every other wrapper field,
+  validation rule, projection binding, provenance rule, and occurrence-digest
+  profile remains unchanged.
+- `pne.producer.active-focus-candidate-readiness/1.1` succeeds producer `1.0`.
+  Its sole changed input/output chain is acquisition artifact `1.1`, definition
+  `1.2`, and wrapper `1.1`. Category-only capture, current-tip atomicity,
+  source-payload replay, withholding, and conflict behavior remain unchanged.
+- `pne.verifier.active-focus-candidate-readiness/1.1` succeeds verifier `1.0`.
+  It independently verifies acquisition artifact `1.1`, definition `1.2`, and
+  wrapper `1.1`, while replaying every unchanged binding and projection.
+- `ActiveFocusCandidateReadinessDeclaration/1.0` remains unchanged because the
+  acquisition succession changes no manual declaration field or meaning.
+
+Repository convention binds wrapper, producer, and verifier identities inside
+the complete canonical authority definition; it does not assign them separate
+canonical component-definition digests. No new component-digest scheme is
+invented here.
+
+Wrapper `1.0`, producer `1.0`, and verifier `1.0` do not gain acquisition-`1.1`
+support. Their historical occurrences remain meaningful only under their exact
+frozen definition-`1.1` and acquisition-`1.0` chain. Historical verification
+does not authorize new capture outside that chain.
+
 Matching an authority-definition identity without its exact applicable version,
 complete canonical content, digest, and predecessor lineage is not
 readiness-occurrence authority. Definition `1.0` remains historical only;
-future implementation must bind definition `1.1` exactly.
+definition `1.1` remains historical predecessor authority for its acquisition
+artifact `1.0` chain; acquisition-`1.1` implementation must bind definition
+`1.2` and its coordinated successor components exactly.
 
 ## 4. Manual capture contract
 
@@ -404,7 +454,7 @@ Tracks expected to form also require supported exact artist ratings and all six
 observations. Familiarity must permit an opening anchor and the exact discovery
 allocation. This is a minimization rule, not a fixed track count.
 
-### 7.2 Current proof-input blocker
+### 7.2 Current proof-input status
 
 The 79,886-byte, 59-track Sisters of Mercy fixture remains valid acquisition
 conformance evidence. All tracks share one exact artist. The constructor permits
@@ -412,8 +462,12 @@ two tracks per artist; the two longest total 1,272 seconds. The three longest
 total 1,796 seconds, below the 1,800-second proof minimum.
 
 It therefore cannot support the real proof. Policy must not be weakened. A
-separately reviewed genuine conforming multi-artist iTunes export is required,
-and no such fixture is authorized or added by this tranche.
+separately reviewed genuine multi-artist iTunes export now provides motivating
+evidence for the acquisition-`1.1` successor chain in definition `1.2`. That
+source is not frozen into this general authority and establishes no readiness
+or construction result. Runtime implementation conformance, exact taste
+coverage, bounded manual readiness capture, and the governed construction proof
+remain required.
 
 ## 8. Explicit non-claims and non-goals
 
