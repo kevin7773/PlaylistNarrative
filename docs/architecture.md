@@ -74,6 +74,9 @@ repository interfaces rather than UI or AI-provider behavior.
   sequential construction. Each result binds the exact journey artifact,
   authenticated formed-parent digest, canonical construction policy, and
   pre-call resumable-state authority used during that construction call.
+  The [coordinated construction-policy successor](playlist_construction_policy_successor.md)
+  freezes prospective hard journey targets, bounded feasibility and explicit
+  compromise reporting; historical count-mode behavior remains unchanged.
 - `evaluation` (Phase 5): immutable observation of journey-level construction
   outcomes without sequence modification. Evaluation schema `2.0` binds the
   exact construction-result, journey-artifact, and construction-policy digests
