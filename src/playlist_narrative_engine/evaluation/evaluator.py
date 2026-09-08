@@ -74,6 +74,11 @@ class PlaylistJourneyEvaluator:
         journey_plan: JourneyPlanArtifact,
         construction_policy: ConstructionPolicy,
     ) -> EvaluationReport:
+        if (
+            type(construction_result) is not ConstructionResult
+            or type(construction_policy) is not ConstructionPolicy
+        ):
+            raise TypeError("historical evaluation requires Result/1.0 and Policy/1.0")
         if not construction_result_matches_evaluation_inputs(
             construction_result,
             journey_plan=journey_plan,

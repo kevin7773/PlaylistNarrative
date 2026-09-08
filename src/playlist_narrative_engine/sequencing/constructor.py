@@ -156,6 +156,8 @@ class SequentialPlaylistConstructor:
         selector: CandidateSelector | None = None,
         policy: ConstructionPolicy | None = None,
     ) -> None:
+        if policy is not None and type(policy) is not ConstructionPolicy:
+            raise TypeError("historical constructor requires ConstructionPolicy/1.0")
         self.selector = selector or CandidateSelector()
         self.policy = policy or ConstructionPolicy()
 
