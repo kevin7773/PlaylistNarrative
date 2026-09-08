@@ -93,6 +93,30 @@ engine is now the platform on which Penny's experience vocabulary can grow. See
 Future contexts begin only after the Coding / Cloud Operations vertical slice is
 usable end to end.
 
+## Real governed playlist milestone
+
+The [first successful real governed Penny playlist proof](first_real_governed_playlist_proof.md)
+is complete under runtime commit `11e42716b2555391c24cc9b4938804cf694cb991`:
+JOURNEY construction reached 1,808 seconds, satisfied applicable hard targets,
+reported the 50%-versus-25% discovery compromise, and replayed deterministically
+within its live authority session. The separate historical TRACK_COUNT proof
+remains valid count-mode completion that failed the external duration criterion.
+The closeout records this later milestone without rewriting earlier phase notes.
+
+Next strategic branches, without a new implementation priority, are:
+
+- **Catalog / identity expansion:** MusicBrainz-backed provider-neutral catalog,
+  Penny recording identity/correspondence, and provider rendition resolution.
+- **Readiness automation:** lawful energy, groove, instrumentalness, lyrical,
+  and familiarity/listening-history evidence to reduce manual annotation.
+- **Infrastructure gap:** restart-safe principal/acquisition/readiness authority
+  remains deferred unless real usage demonstrates that process-local authority
+  materially blocks product workflow. This milestone does not establish durable
+  recovery or declare that gate satisfied.
+
+These are future-work dispositions, not new source authority, runtime semantics,
+or implementation authorization. Existing acquisition backlog gates remain intact.
+
 ## Deferred acquisition architecture backlog
 
 The governed iTunes-on-Windows XML acquisition seam is accepted as implemented.
